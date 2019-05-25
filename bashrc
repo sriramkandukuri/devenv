@@ -2,12 +2,13 @@
 # User specific aliases and functions
 if [ "$USER" == "root" ];
 then
-PS1='\n\[\e[1;31m\][\u@\h $PWD]\$\[\e[0m\] \n\$ '
+PS1='\n\[\e[1;31m\]\u@\h \e[1;35m\][$PWD]\$\[\e[0m\] \n\$ '
 else
-PS1='\n\[\e[1;35m\][\u@\h $PWD]\$\[\e[0m\] \n\$ '
+PS1='\n\[\e[1;35m\]\u@\h \e[1;31m\][$PWD]\$\[\e[0m\] \n\$ '
 fi
 #PS1='\n\[\e[1;35m\][\u@\h \w]\$\[\e[0m\] \n\$ '
 alias vbash="vim ~/.bashrc"
+alias vdbash="vim ~/devenv/bashrc"
 alias sbash="unalias -a;source ~/.bashrc"
 alias l="ls --color -lhtr"
 alias ls="ls --color"
