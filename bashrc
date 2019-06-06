@@ -2,14 +2,16 @@
 # User specific aliases and functions
 if [ "$USER" == "root" ];
 then
-PS1='\n\[\e[1;31m\][\u@\h $PWD]\$\[\e[0m\] \n\$ '
+PS1='\n\[\e[1;31m\][\D{%F %T}] [\u@\h $PWD]\$\[\e[0m\] \n\$ '
 else
-PS1='\n\[\e[1;35m\][\u@\h $PWD]\$\[\e[0m\] \n\$ '
+PS1='\n\[\e[1;34m\][\D{%F %T}] [\u@\h $PWD]\$\[\e[0m\] \n\$ '
 fi
 #PS1='\n\[\e[1;35m\][\u@\h \w]\$\[\e[0m\] \n\$ '
 alias vbash="vim ~/.bashrc"
+alias vdbash="vim ~/devenv/bashrc"
 alias sbash="unalias -a;source ~/.bashrc"
 alias l="ls --color -lhtr"
+alias lp="ls --color -lhtr $PWD/*"
 alias ls="ls --color"
 alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --exclude "*.o.cmd" --exclude "*.d" --exclude "cscope*" --exclude "*tags" --exclude "*.htm" --exclude "*.map" --exclude "*.xsl"'
 alias cscoped='CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kd'
@@ -21,7 +23,8 @@ alias d2u="dos2unix"
 alias gettimestamp="date +%Y%m%d_%H%M%S"
 alias getsource="tar --exclude="./.git" -czvf codebase_$(date +%Y%m%d_%H%M%S).tar.gz ./"
 alias fsw="find . -name *.swp"
-alias gitdif="git diff > /tmp/.tmp_git_diff;vim /tmp/.tmp_git_diff"
+alias ?="type -a"
+alias vdenv="vim ~/devenv/bashrc"
 
 alias getenv='tar -czf env.tar.gz ./.bashrc ./.vim*'
 
@@ -35,10 +38,26 @@ fi
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=-100000                   # big big history
 export HISTFILESIZE=-100000               # big big history
-shopt -s histappend                      # append to history, don't overwrite it
+#shopt -s histappend                      # append to history, don't overwrite it
 
 # Save and reload the history after each command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+#export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+gitdifs ()
+{
+    git diff -w --staged HEAD $@ > /tmp/.tmp_git_diff;
+    vim /tmp/.tmp_git_diff;
+}
+gitdifw ()
+{
+    git diff -w HEAD $@ > /tmp/.tmp_git_diff;
+    vim /tmp/.tmp_git_diff;
+}
+gitdif ()
+{
+    git diff HEAD $@ > /tmp/.tmp_git_diff;
+    vim /tmp/.tmp_git_diff;
+}
 
 f ()
 {
