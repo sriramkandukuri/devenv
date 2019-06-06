@@ -2,9 +2,9 @@
 # User specific aliases and functions
 if [ "$USER" == "root" ];
 then
-PS1='\n\[\e[1;31m\][\D{%F %T}] [\u@\h $PWD]\$\[\e[0m\] \n\$ '
+PS1='\n\[\e[1;31m\][\D{%F %T}] \u@\h \e[1;35m\][$PWD]\$\[\e[0m\] \n\$ '
 else
-PS1='\n\[\e[1;34m\][\D{%F %T}] [\u@\h $PWD]\$\[\e[0m\] \n\$ '
+PS1='\n\[\e[1;35m\][\D{%F %T}] \u@\h \e[1;31m\][$PWD]\$\[\e[0m\] \n\$ '
 fi
 #PS1='\n\[\e[1;35m\][\u@\h \w]\$\[\e[0m\] \n\$ '
 alias vbash="vim ~/.bashrc"
@@ -17,7 +17,7 @@ alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --e
 alias cscoped='CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kd'
 alias cscope='ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
 alias cscopef='rm -rf tags;rm -rf ./cscope.out;ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
-export PATH="/opt/python-2.7.3/bin/:$PATH:/usr/local/bin:~/ciscosbrsdk/confd/CiscoConfdInstalled/bin/:~/eclipse/eclipse"
+export PATH="/opt/python-2.7.3/bin/:$PATH:/usr/local/bin:~/eclipse/eclipse"
 export WITH_GDB="y"
 alias d2u="dos2unix"
 alias gettimestamp="date +%Y%m%d_%H%M%S"
