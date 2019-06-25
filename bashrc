@@ -2,9 +2,9 @@
 # User specific aliases and functions
 if [ "$USER" == "root" ];
 then
-PS1='\n\[\e[1;31m\][\D{%F %T}] \u@\h \e[1;35m\][$PWD]\$\[\e[0m\] \n\$ '
+PS1='\n\e[1;41m\e[1;37m[\D{%F %T}] \u@\h\e[1;49m \e[1;35m[$PWD]\$\[\e[0m\] \n\$ '
 else
-PS1='\n\[\e[1;35m\][\D{%F %T}] \u@\h \e[1;31m\][$PWD]\$\[\e[0m\] \n\$ '
+PS1='\n\e[1;35m[\D{%F %T}] \u@\h \e[1;31m[$PWD]\$\[\e[0m\] \n\$ '
 fi
 #PS1='\n\[\e[1;35m\][\u@\h \w]\$\[\e[0m\] \n\$ '
 alias vbash="vim ~/.bashrc"
@@ -94,14 +94,34 @@ backup ()
 {
     cp -rf $1 $1_$(gettimestamp)
 }
+myecho()
+{
+	echo make in bash
+	pathpat="(/[^/]*)+:[0-9]+"
+	ccred=$(echo -e "\033[0;31m")
+	ccyellow=$(echo -e "\033[0;33m")
+	cccyan=$(echo -e "\033[0;36m")
+	cccyan=$(echo -e "\033[0;36m")
+	cclcyanbold=$(echo -e "\033[1;106m")
+	ccmagenta=$(echo -e "\033[0;35m")
+	ccmagenta=$(echo -e "\033[0;34m")
+	ccend=$(echo -e "\033[0m")
+	echo "$@" 2>&1 | sed -E  -e "s%[Ee][Rr][Rr]|[Ee][Rr][Rr][Oo][Rr]|[Ee][Rr][Rr]%$ccred&$ccend%g" -e "s%[Ww][aA][rR][nN]|[Ww][aA][rR][nN][iI][nN][gG]%$ccyellow&$ccend%g" -e "s%[Ww][rR][nN]%$ccyellow&$ccend%g" -e "s%Entering%$cclcyanbold>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$cclcyanbold<<<<<<<<<<<<<<<<&$ccend%g"
+	return ${PIPESTATUS[0]}
+}
 mymake()
 {
 	echo make in bash
 	pathpat="(/[^/]*)+:[0-9]+"
 	ccred=$(echo -e "\033[0;31m")
 	ccyellow=$(echo -e "\033[0;33m")
+	cccyan=$(echo -e "\033[0;36m")
+	cccyan=$(echo -e "\033[0;36m")
+	cclcyanbold=$(echo -e "\033[1;106m")
+	ccmagenta=$(echo -e "\033[0;35m")
+	ccmagenta=$(echo -e "\033[0;34m")
 	ccend=$(echo -e "\033[0m")
-	/usr/bin/make "$@" 2>&1 | sed -E -e "s%[Ee][Rr][Rr][Oo][Rr]%$ccred&$ccend%g" -e "s%[Ww][aA][rR][nN][iI][nN][gG]%$ccyellow&$ccend%g"
+	/usr/bin/make "$@" 2>&1 | sed -E  -e "s%[Ee][Rr][Rr]|[Ee][Rr][Rr][Oo][Rr]%$ccred&$ccend%g" -e "s%[Ww][aA][rR][nN]|[Ww][aA][rR][nN][iI][nN][gG]%$ccyellow&$ccend%g" -e "s%[Ww][rR][nN]%$ccyellow&$ccend%g" -e "s%Entering%$cclcyanbold>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$cclcyanbold<<<<<<<<<<<<<<<<&$ccend%g"
 	return ${PIPESTATUS[0]}
 }
 
