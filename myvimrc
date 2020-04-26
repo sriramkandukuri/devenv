@@ -1,5 +1,17 @@
 source ~/.ovrc
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'https://github.com/vim-airline/vim-airline.git'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'https://github.com/sriramkandukuri/vim.git', {'as':'dracula'}
+
+call plug#end()
+
 colorscheme dracula
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme='sol'
 
 set number
 set colorcolumn=128
