@@ -1,0 +1,44 @@
+source ~/.ovrc
+colorscheme dracula
+
+set number
+set colorcolumn=128
+set cursorline
+
+set relativenumber
+
+vmap <leader>y :w! /tmp/vitmp<CR>
+nmap <leader>p :r! cat /tmp/vitmp<CR>
+function ShowSpaces(...)
+  let @/='\v(\s+$)|( +\ze\t)'
+  let oldhlsearch=&hlsearch
+  if !a:0
+    let &hlsearch=!&hlsearch
+  else
+    let &hlsearch=a:1
+  end
+  return oldhlsearch
+endfunction
+
+function TrimSpaces() range
+  let oldhlsearch=ShowSpaces(1)
+  execute a:firstline.",".a:lastline."substitute ///gec"
+  let &hlsearch=oldhlsearch
+endfunction
+
+command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
+command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+nnoremap <F12>     :ShowSpaces 1<CR>
+nnoremap <S-F12>   m`:TrimSpaces<CR>``
+vnoremap <S-F12>   :TrimSpace<CR>
+
+set clipboard=unnamed
+"set clipboard=exclude:.*
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+" let g:dracula_bold = 1
+" let g:dracula_italic = 1
+" let g:dracula_underline = 1
+" let g:dracula_undercurl = 1
+" let g:dracula_inverse = 1
+" let g:dracula_colorterm = 1

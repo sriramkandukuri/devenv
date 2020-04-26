@@ -1,0 +1,56 @@
+[global_config]
+  borderless = True
+  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  geometry_hinting = False
+  handle_size = 1
+  inactive_color_offset = 0.53
+  tab_position = bottom
+  title_hide_sizetext = True
+  title_transmit_bg_color = "#888181"
+  window_state = maximise
+[keybindings]
+  line_down = <Shift>Down
+  line_up = <Shift>Up
+  move_tab_left = <Primary><Shift>Left
+  move_tab_right = <Primary><Shift>Right
+  next_tab = <Shift>Right
+  page_down = <Shift>Page_Down
+  page_down_half = <Primary><Shift>Page_Down
+  page_up = <Shift>Page_Up
+  page_up_half = <Primary><Shift>Page_Up
+  prev_tab = <Shift>Left
+  resize_down = <Primary><Shift><Alt>Down
+  resize_left = <Primary><Shift><Alt>Left
+  resize_right = <Primary><Shift><Alt>Right
+  resize_up = <Primary><Shift><Alt>Up
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = dracula
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#200020"
+    background_image = None
+    font = Ubuntu Mono 10
+    foreground_color = "#f8f8f2"
+    palette = "#44475a:#ff5555:#50fa7b:#f1fa8c:#8be9fd:#bd93f9:#ff79c6:#94a3a5:#000000:#ff5555:#50fa7b:#f1fa8c:#8be9fd:#bd93f9:#ff79c6:#ffffff"
+    scroll_on_output = False
+    scrollback_infinite = True
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
+  [[dracula]]
+    background_color = "#1e1f29"
+    background_image = None
+    font = Monospace 8
+    foreground_color = "#f8f8f2"
+    palette = "#44475a:#ff5555:#50fa7b:#f1fa8c:#8be9fd:#bd93f9:#ff79c6:#94a3a5:#000000:#ff5555:#50fa7b:#f1fa8c:#8be9fd:#bd93f9:#ff79c6:#ffffff"
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
