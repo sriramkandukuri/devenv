@@ -115,8 +115,16 @@ backup ()
 {
     cp -rf $1 $1_$(gettimestamp)
 }
+tclrbg ()
+{
+    x="0x$1"
+    shift
+    str="$@"
+    #echo $x $y
+    printf "\x1b[1;48;2;%d;%d;%dm$str\x1b[0m" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+}
 
-truecolorb ()
+tclrb ()
 {
     x="0x$1"
     y="0x$2"
@@ -126,7 +134,7 @@ truecolorb ()
     #echo $x $y
     printf "\x1b[48;2;%d;%d;%d;1;38;2;%d;%d;%dm$str\x1b[0m" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
 }
-truecolor ()
+tclr ()
 {
     x="0x$1"
     y="0x$2"
@@ -271,20 +279,20 @@ parse_git_dirty() {
         x=$(git status --porcelain 2> /dev/null| cut -c1,2 |sort|uniq | awk '{print}' ORS=' ')
         if [[ "$x" == "" ]]
         then
-            truecolor 006c00 ffffff " clean "
+            tclr 006c00 ffffff " clean "
         else
-            truecolor 6c0000 ffffff " $x "
+            tclr 6c0000 ffffff " $x "
         fi
     fi
 }
 parse_git_branch() {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ \1 /"
+    git status -bs 2> /dev/null|head -1
 }
 
 if [ "$USER" == "root" ];
 then
 PS1='\n\e[1;41m\e[1;37m[\D{%F %T}] \u@\h\e[1;49m \e[1;35m[$PWD]\$\[\e[0m\] \n\$ '
 else
-    PS1='\n\e[`truecolorb 005f5f ffffff " [\D{%F %T}] \u@\h "``truecolorb fbff82 912e00 "$(parse_git_branch)"``parse_git_dirty``truecolorb 73d7de 000000 " [$PWD]\$ "`\n\$ '
+    PS1='\n\e[`tclrb 005f5f ffffff " [\D{%F %T}] \u@\h "``tclrb fbff82 912e00 "$(parse_git_branch)"``parse_git_dirty``tclrb 73d7de 000000 " [$PWD]\$ "`\n\$ '
 fi
 #export TERM="xterm-256color"
