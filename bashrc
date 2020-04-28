@@ -23,8 +23,7 @@ alias tmux="EDITOR=vim TERM=tmux-256color tmux -2 -u"
 alias tmn="tmux new -t"
 alias tma="tmux attach -d -t"
 alias tml="tmux ls"
-alias vtm="vim ~/.tmux.conf"
-alias vtml="vim ~/.tmux.conf.local"
+alias vtm="vim ~/.mytmux.conf"
 alias mw="cd ~/data/sriram"
 
 bashrc_sourced=$(stat -c %Y ~/.bashrc)
@@ -105,7 +104,7 @@ getsymbolo ()
     do
         nm $i |grep -w --color $1;
         if [ "$?" = 0 ];
-        then 
+        then
             echo $i;
             echo;
         fi;
@@ -266,16 +265,17 @@ if ! shopt -oq posix; then
 fi
 
 parse_git_dirty() {
-    x=$(git status 2> /dev/null | tail -n1)
-  if [[ "$x" == "nothing to commit, working directory clean" ]]
-      then
-          truecolor 006c00 ffffff " clean "
-      elif [ "$x" != "" ]
-      then
-          truecolor 6c0000 ffffff " changed "
-      else
-          truecolor 6c0000 ffffff ""
-      fi
+    x=$(git status --porcelain 2> /dev/null)
+    if [ "$?" == "0" ]
+    then
+        x=$(git status --porcelain 2> /dev/null| cut -c1,2 |sort|uniq | awk '{print}' ORS=' ')
+        if [[ "$x" == "" ]]
+        then
+            truecolor 006c00 ffffff " clean "
+        else
+            truecolor 6c0000 ffffff " $x "
+        fi
+    fi
 }
 parse_git_branch() {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ \1 /"
