@@ -286,7 +286,7 @@ parse_git_dirty() {
     fi
 }
 parse_git_branch() {
-    git status -bs 2> /dev/null|head -1
+    git status -bs 2> /dev/null|head -1|sed -e "s/##//g" -e "s/\.\.\./ -> /g"
 }
 
 if [ "$USER" == "root" ];
