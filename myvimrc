@@ -1,21 +1,34 @@
 source ~/.cocvrc
 
-syntax on
-
 set hidden
 set noerrorbells
+
+syntax on
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
-set nu
+
 set nowrap
 set smartcase
 set noswapfile
 set nobackup
+
 set undodir=~/.vim/undodir
 set undofile
+
 set incsearch
+set hlsearch
+
+set colorcolumn=128
+set cursorline
+
+set number
+set relativenumber
+
+"menu and tab rotate for commandline mode
+set wildmenu
+
 "
 " Give more space for displaying messages.
 set cmdheight=2
@@ -31,30 +44,87 @@ set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
-
-Plug 'https://github.com/clangd/coc-clangd.git'
+"Code completers
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ycm-core/YouCompleteMe'
 
+"Customized dracula themes
 Plug 'https://github.com/sriramkandukuri/vim.git', {'as':'dracula'}
+"Vim status line themes
 Plug 'vim-airline/vim-airline-themes'
 Plug 'https://github.com/vim-airline/vim-airline.git'
 
+"Fast file grep from vim command :Rg
 Plug 'jremmen/vim-ripgrep'
+"Git helpers :Git
 Plug 'tpope/vim-fugitive'
+
+"Copied
 Plug 'leafgarland/typescript-vim'
+"Beautiful manpages for vim. K or :Man
 Plug 'vim-utils/vim-man'
 Plug 'lyuts/vim-rtags'
+
+"Undo tree with good history.
 Plug 'mbbill/undotree'
+
+"Status line with prompts
+Plug 'ctrlpvim/ctrlp.vim'
+
+"commentary plugin
+Plug 'preservim/nerdcommenter'
 
 call plug#end()
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"global options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme dracula
+let mapleader = " "
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"NERD commentary options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Airline plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts = 1
 let g:airline_theme='sol'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"You complete me plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ycm_show_diagnostics_ui = 1
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_config.py'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"coc plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc config
 let g:coc_global_extensions = [
   \ 'coc-snippets',
@@ -62,37 +132,50 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-prettier',
   \ 'coc-json',
-  \ 'coc-clangd',
   \ 'coc-cmake',
   \ ]
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vimman plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Default K mapping to man remapped to vim-man
 map K <Plug>(Man)
 
-set number
-set colorcolumn=128
-set cursorline
-
-set relativenumber
-set hlsearch
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ripgrep plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if executable('rg')
     let g:rg_derive_root='true'
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ctrlp file search plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-let mapleader = " "
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+let g:ctrlp_use_caching = 0
+let g:ctrlp_working_path_mode = 'ra'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"netrw source tree browser plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 let g:netrw_liststyle = 4
-
-let g:ctrlp_use_caching = 0
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Generic mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"split window movement mappings
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
+"show undo tree in spliview
 nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <Leader>ps :Rg<SPACE>
@@ -100,14 +183,17 @@ nnoremap <silent> <Leader>+ :vertical resize +5<CR>
 nnoremap <silent> <Leader>- :vertical resize -5<CR>
 nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
 nnoremap <buffer> <silent> <leader>gr :YcmCompleter GoToReferences<CR>
+"File base clipboard
+vmap <leader>y :w! /tmp/vitmp<CR>
+nmap <leader>p :r! cat /tmp/vitmp<CR>
+
+"Some helper functions
 fun! TrimWhitespace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
     call winrestview(l:save)
 endfun
 
-vmap <leader>y :w! /tmp/vitmp<CR>
-nmap <leader>p :r! cat /tmp/vitmp<CR>
 function ShowSpaces(...)
   let @/='\v(\s+$)|( +\ze\t)'
   let oldhlsearch=&hlsearch
@@ -123,6 +209,12 @@ function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+fun! GoYCM()
+    nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
+    nnoremap <buffer> <silent> <leader>gr :YcmCompleter GoToReferences<CR>
+    nnoremap <buffer> <silent> <leader>rr :YcmCompleter RefactorRename<space>
+endfun
 
 fun! GoCoc()
     inoremap <buffer> <silent><expr> <TAB>
@@ -163,4 +255,12 @@ let &t_ZR="\e[23m"
 " let g:dracula_undercurl = 1
 " let g:dracula_inverse = 1
 " let g:dracula_colorterm = 1
-autocmd BufWritePre * :call TrimWhitespace()
+
+"Trim white spaces before saving
+"autocmd BufWritePre * :call TrimWhitespace()
+"Enable YCM for type script
+autocmd FileType typescript :call GoYCM()
+"Enable YCM for c c++
+autocmd FileType cpp,cxx,h,hpp,c :call GoYCM()
+"Remember line position
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif

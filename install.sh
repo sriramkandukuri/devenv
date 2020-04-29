@@ -48,7 +48,7 @@ install_tmux ()
     fi
     mkdir $builddir/tmux
     cd $builddir/tmux
-    wget https://github.com/tmux/tmux/releases/download/3.1/tmux-3.1.tar.gz
+    curl -LO https://github.com/tmux/tmux/releases/download/3.1/tmux-3.1.tar.gz
     tar -xf tmux-3.1.tar.gz
     cd tmux-3.1
     ./configure && make >> install.log 2>&1
@@ -78,16 +78,16 @@ install_bashrc ()
     echo "Add '. ~/devenv/bashrc'  to ~/.bashrc"
 }
 
-install_clangd ()
+install_clangd_notusing ()
 {
     # 10
     mkdir $builddir/clangd
     cd $builddir/clangd
-    wget https://github.com/clangd/clangd/releases/download/10rc3/clangd-linux-10rc3.zip
+    curl -LO https://github.com/clangd/clangd/releases/download/10rc3/clangd-linux-10rc3.zip
     unzip -q clangd-linux-10rc3.zip
     sudo cp clangd_10rc3/bin/* /usr/local/bin/
     sudo cp clangd_10rc3/lib/* /usr/local/lib/
-    sudo apt-get -yq install clang
+    curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-9.0.1/clang+llvm-9.0.1-powerpc64le-linux-ubuntu-16.04.tar.xz
 }
 
 install_nvim ()
@@ -119,6 +119,8 @@ install_vimrc ()
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     vim +PlugInstall +qall
+    cd ~/.vim/plugged/YouCompleteMe/
+    ./install.sh --clangd-completer --clang-completer > /dev/null 2>&1
     ln -s -f $devdir/coc.vimrc ~/.cocvrc
     ln -s -f $devdir/coc-settings.json ~/.vim/
     mkdir ~/.vim/undodir
@@ -134,7 +136,7 @@ install_node ()
 case $1 in
     all)
         install_tools
-        install_clangd
+#        install_clangd
         install_node
         install_bashrc
         install_tmux

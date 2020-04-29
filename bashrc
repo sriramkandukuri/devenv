@@ -86,15 +86,15 @@ f ()
 }
 
 man() {
-        env \
-                LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-                LESS_TERMCAP_md=$(printf "\e[1;31m") \
-                LESS_TERMCAP_me=$(printf "\e[0m") \
-                LESS_TERMCAP_se=$(printf "\e[0m") \
-                LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-                LESS_TERMCAP_ue=$(printf "\e[0m") \
-                LESS_TERMCAP_us=$(printf "\e[1;32m") \
-                        man "$@"
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+        man "$@"
 }
 
 getsymbolo ()
@@ -121,7 +121,7 @@ tclrbg ()
     shift
     str="$@"
     #echo $x $y
-    printf "\x1b[1;48;2;%d;%d;%dm$str\x1b[0m" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+    printf "\x1b[48;2;%d;%d;%dm$str" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
 }
 
 tclrb ()
@@ -250,11 +250,25 @@ batch_rename()
 
 print_u8charset ()
 {
-    for i in {0..255}
-    do
-        x=`printf "\uE0%2x" $i`
-        echo -e "$x"
-    done
+    count=0
+    # for i in {0..255}
+    # do
+        for j in {0..255}
+        do
+            for k in {0..255}
+            do
+                # x=$(printf "\\\x%02X\\\x%02X\\\x%02X" $i $j $k)
+                x=$(printf "\\\xE2\\\x%02X\\\x%02X" $i $j $k)
+                printf "%s( $x )" $x
+                count=`expr $count + 1`
+                if [ $count == 100 ]
+                then
+                    count=0
+                    echo
+                fi
+            done
+        done
+    # done
 }
 
 verifydockerconfig()
@@ -286,13 +300,27 @@ parse_git_dirty() {
     fi
 }
 parse_git_branch() {
-    git status -bs 2> /dev/null|head -1|sed -e "s/##//g" -e "s/\.\.\./ -> /g"
+    #git  -c color.ui=always status -bs 2> /dev/null|head -1|sed -e "s/##//g" -e "s/\.\.\./ \xe2\xad\xbe  /g" -e "s/ahead /\u\xE2\x96\xB2/g" -e "s/behind /\u\xE2\x96\xBC/g"
+    bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" -e "s/ahead /\u\xE2\x96\xB2/g" -e "s/behind /\u\xE2\x96\xBC/g" | cut -d " " -f1)
+    st=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" -e "s/ahead /\u\xE2\x96\xB2/g" -e "s/behind /\u\xE2\x96\xBC/g" | cut -s -d " " -f2-)
+
+    if [ "$bi" != "" ]
+    then
+        bil=$(echo $bi|cut -d"." -f1)
+        bir=$(echo $bi|cut -d"." -f4)
+        tclrb ccedd8 0c6600 " ${bil} \xe2\xad\xbe "
+        tclrb ccedd8 ab1f00 " ${bir} "
+    fi
+    if [ "$st" != "" ]
+    then
+        tclrb 6c0000 ffffff " $st "
+    fi
 }
 
 if [ "$USER" == "root" ];
 then
 PS1='\n\e[1;41m\e[1;37m[\D{%F %T}] \u@\h\e[1;49m \e[1;35m[$PWD]\$\[\e[0m\] \n\$ '
 else
-    PS1='\n\e[`tclrb 005f5f ffffff " [\D{%F %T}] \u@\h "``tclrb fbff82 912e00 "$(parse_git_branch)"``parse_git_dirty``tclrb 73d7de 000000 " [$PWD]\$ "`\n\$ '
+    PS1='\n`parse_git_branch``parse_git_dirty`\n\e[`tclrb 005f5f ffffff " [\D{%F %T}] \u@\h "``tclrb 73d7de 000000 " [$PWD]\$ "`\n\$ '
 fi
 #export TERM="xterm-256color"
