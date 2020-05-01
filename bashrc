@@ -64,21 +64,36 @@ export HISTFILESIZE=-100000               # big big history
 # Save and reload the history after each command finishes
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
+# GIT ALIASES
+# git diff with staged changes
 gitdifs ()
 {
     git diff -w --staged HEAD $@ > /tmp/.tmp_git_diff;
     vim /tmp/.tmp_git_diff;
 }
+
+# git diff ignoring white space
 gitdifw ()
 {
     git diff -w HEAD $@ > /tmp/.tmp_git_diff;
     vim /tmp/.tmp_git_diff;
 }
+
+# git diff
 gitdif ()
 {
     git diff HEAD $@ > /tmp/.tmp_git_diff;
     vim /tmp/.tmp_git_diff;
 }
+
+alias gits="git status"
+alias gch="git checkout"
+alias gnb="git checkout -b"
+alias gb="git branch"
+alias gba="git branch -a"
+alias gl="git log"
+alias glo="git log --oneline"
+alias gcomit="git commit -s"
 
 f ()
 {
