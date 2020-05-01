@@ -23,6 +23,8 @@ install_tools ()
     sudo apt-get -yq install python3
     sudo apt-get -yq install python-pip
     sudo apt-get -yq install snapd
+    sudo apt-get install fonts-powerline
+    sudo apt install bash-completion
 }
 
 install_ripgrep ()

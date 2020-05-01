@@ -29,9 +29,9 @@ alias mw="cd ~/data/sriram"
 bashrc_sourced=$(stat -c %Y ~/.bashrc)
 bashdevrc_sourced=$(stat -c %Y ~/devenv/bashrc)
 
-PROMPT_COMMAND='
-    test $(stat -c %Y ~/.bashrc) -ne $bashrc_sourced && source ~/.bashrc;
-    test $(stat -c %Y ~/devenv/bashrc) -ne $bashdevrc_sourced && source ~/.bashrc
+prompt_command='
+   test $(stat -c %y ~/.bashrc) -ne $bashrc_sourced && source ~/.bashrc;
+   test $(stat -c %y ~/devenv/bashrc) -ne $bashdevrc_sourced && source ~/.bashrc
 '
 
 alias getenv='tar -czf env.tar.gz ./.bashrc ./.vim*'
@@ -115,34 +115,32 @@ backup ()
 {
     cp -rf $1 $1_$(gettimestamp)
 }
+tclrt ()
+{
+    x="0x$1"
+    printf "\x1b[38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+}
 tclrbg ()
 {
     x="0x$1"
-    shift
-    str="$@"
-    #echo $x $y
-    printf "\x1b[48;2;%d;%d;%dm$str" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+    printf "\x1b[48;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
 }
 
 tclrb ()
 {
     x="0x$1"
     y="0x$2"
-    shift
-    shift
-    str="$@"
-    #echo $x $y
-    printf "\x1b[48;2;%d;%d;%d;1;38;2;%d;%d;%dm$str\x1b[0m" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
+    printf "\x1b[48;2;%d;%d;%d;1;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
 }
 tclr ()
 {
     x="0x$1"
     y="0x$2"
-    shift
-    shift
-    str="$@"
-    #echo $x $y
-    printf "\x1b[48;2;%d;%d;%d;38;2;%d;%d;%dm$str\x1b[0m" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
+    printf "\x1b[48;2;%d;%d;%d;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
+}
+tclre()
+{
+    printf "\x1b[0m"
 }
 myecho()
 {
@@ -286,41 +284,129 @@ if ! shopt -oq posix; then
   fi
 fi
 
-parse_git_dirty() {
-    x=$(git status --porcelain 2> /dev/null)
+# Get git local status
+get_git_ls()
+{
+    git status --porcelain 1> /dev/null 2>&1
     if [ "$?" == "0" ]
     then
         x=$(git status --porcelain 2> /dev/null| cut -c1,2 |sort|uniq | awk '{print}' ORS=' ')
         if [[ "$x" == "" ]]
         then
-            tclr 006c00 ffffff " clean "
+            echo -ne "clean" 
         else
-            tclr 6c0000 ffffff " $x "
+            echo -ne "$x" 
         fi
     fi
 }
-parse_git_branch() {
-    #git  -c color.ui=always status -bs 2> /dev/null|head -1|sed -e "s/##//g" -e "s/\.\.\./ \xe2\xad\xbe  /g" -e "s/ahead /\u\xE2\x96\xB2/g" -e "s/behind /\u\xE2\x96\xBC/g"
-    bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" -e "s/ahead /\u\xE2\x96\xB2/g" -e "s/behind /\u\xE2\x96\xBC/g" | cut -d " " -f1)
-    st=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" -e "s/ahead /\u\xE2\x96\xB2/g" -e "s/behind /\u\xE2\x96\xBC/g" | cut -s -d " " -f2-)
+
+# Get git index status 
+# information about ahead or behind
+get_git_is() {
+    local st=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" -e "s/ahead /+/g" -e "s/behind /-/g" -e "s/\[//g" -e "s/\]//g" | cut -s -d " " -f2-)
+    if [ "$st" != "" ]
+    then
+        echo -ne "$st" 
+    fi
+}
+get_git_lb() {
+    local bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" | cut -d " " -f1)
 
     if [ "$bi" != "" ]
     then
-        bil=$(echo $bi|cut -d"." -f1)
-        bir=$(echo $bi|cut -d"." -f4)
-        tclrb ccedd8 0c6600 " ${bil} \xe2\xad\xbe "
-        tclrb ccedd8 ab1f00 " ${bir} "
+        local bil=$(echo $bi|cut -d"." -f1)
+        echo -ne "${bil}" 
     fi
-    if [ "$st" != "" ]
+}
+get_git_rb() {
+    local bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g"| cut -d " " -f1)
+
+    if [ "$bi" != "" ]
     then
-        tclrb 6c0000 ffffff " $st "
+        local bir=$(echo $bi|cut -d"." -f4)
+        echo -ne "${bir}" 
     fi
 }
 
+print_myprompt() {
+
+    local lcs=$?
+    local d=`dirs`
+    local glb=`get_git_lb`
+    local grb=`get_git_rb`
+    local gls=`get_git_ls`
+    local gis=`get_git_is`
+
+
+    local user=$USER
+    local hst=$(hostname|cut -d"." -f1)
+    local ts=$(date +"%d/%m/%Y %H:%M:%S")
+
+    # Right prompt. Very light color, as it is very less important info.
+    tclrt 555555
+    if [ "$grb" != "" ]
+    then
+        printf "\n%${COLUMNS}s" "$gis $grb | $user@$hst | [$ts]"
+    else
+        printf "\n%${COLUMNS}s" "$user@$hst | [$ts]"
+    fi
+    tclre
+    
+    # Left prompt.
+
+    # Git local status color setting green if clean red if changed with porcelain markings
+    if [ "$gls" != "" ]
+    then
+        if [ "$gls" == "clean" ]
+        then
+            tclrb 006c00 ffffff
+        else
+            tclrb e61b00 ffffff
+        fi
+        # actual status string
+        printf " %s " "$gls"
+        tclre
+    fi
+
+    if [ "$glb" != "" ]
+    then
+        # git local branch
+        tclrb 0057a3 ffffff
+        printf " %s " "$glb"
+        tclre
+
+        # separator with current background as foreground and next background as background.
+        # powerline bulk arrow separator.
+        tclrb 73d7de 0057a3 
+        printf "\uE0B0"
+        tclre
+    fi
+
+    tclrb 73d7de 000000
+    printf " %s " "$d"
+    tclre
+    tclrt 73d7de
+    printf "\uE0B0"
+    tclre
+
+    # last command status. green if 0 red if error.
+    if [[ "$lcs" == "130" ]]
+    then
+        tclrt deb810
+    elif [ "$lcs" != 0 ]
+    then
+        tclrt fc2e00
+    else
+        tclrt 00ff00
+    fi
+    printf " %s " "$lcs"
+    tclre
+    printf "\n"
+}
 if [ "$USER" == "root" ];
 then
 PS1='\n\e[1;41m\e[1;37m[\D{%F %T}] \u@\h\e[1;49m \e[1;35m[$PWD]\$\[\e[0m\] \n\$ '
 else
-    PS1='\n`parse_git_branch``parse_git_dirty`\n\e[`tclrb 005f5f ffffff " [\D{%F %T}] \u@\h "``tclrb 73d7de 000000 " [$PWD]\$ "`\n\$ '
+    PS1='`print_myprompt`\n$ '
 fi
 #export TERM="xterm-256color"
