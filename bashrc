@@ -1,6 +1,3 @@
-#### WARNING KEEP ALL ALIASES AT bottom
-# User specific aliases and functions
-#PS1='\n\[\e[1;35m\][\u@\h \w]\$\[\e[0m\] \n\$ '
 alias vbash="vim ~/.bashrc"
 alias vdbash="vim ~/devenv/bashrc"
 alias sbash="unalias -a;source ~/.bashrc"
@@ -10,21 +7,26 @@ alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --e
 alias cscoped='CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kd'
 alias cscope='ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
 alias cscopef='rm -rf tags;rm -rf ./cscope.out;ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
-export PATH="/opt/python-2.7.3/bin/:$PATH:/usr/local/bin:~/eclipse/eclipse"
-export WITH_GDB="y"
 alias d2u="dos2unix"
 alias gettimestamp="date +%Y%m%d_%H%M%S"
+# Get any git repo as a tar ball witout git information.
 alias getsource="tar --exclude="./.git" -czvf codebase_$(date +%Y%m%d_%H%M%S).tar.gz ./"
 alias fsw="find . -name *.swp"
+
+# Get alias details "? fsw"
 alias ?="type -a"
-alias vdenv="vim ~/devenv/bashrc"
+
+# Refresh command, if some programs delte and recreate some directory you can 
+# just press r to refresh it.
+# works mostly ;)
 alias r="ls -lhtr;cd $PWD"
+
+# Tmux aliases
 alias tmux="EDITOR=vim TERM=tmux-256color tmux -2 -u"
 alias tmn="tmux new -t"
 alias tma="tmux attach -d -t"
 alias tml="tmux ls"
 alias vtm="vim ~/.mytmux.conf"
-alias mw="cd ~/data/sriram"
 
 bashrc_sourced=$(stat -c %Y ~/.bashrc)
 bashdevrc_sourced=$(stat -c %Y ~/devenv/bashrc)
@@ -34,22 +36,12 @@ prompt_command='
    test $(stat -c %y ~/devenv/bashrc) -ne $bashdevrc_sourced && source ~/.bashrc
 '
 
-alias getenv='tar -czf env.tar.gz ./.bashrc ./.vim*'
-
 # Source global definitions
 if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 
-printcolors()
-{
-    for i in {0..255} ; do
-        printf "\x1b[38;5;${i}mcolour${i}\n"
-    done
-        "]"
-}
-
-
+# List file with fullpath usefull while remote copying.
 lf ()
 {
     ls --color -lhtr $PWD/$1
@@ -64,7 +56,7 @@ export HISTFILESIZE=-100000               # big big history
 # Save and reload the history after each command finishes
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-# GIT ALIASES
+#### GIT ALIASES
 # git diff with staged changes
 gitdifs ()
 {
@@ -95,11 +87,13 @@ alias gl="git log"
 alias glo="git log --oneline"
 alias gcomit="git commit -s"
 
+# Simple find
 f ()
 {
     find . -name "*$1*"
 }
 
+# Colorful man pages.
 man() {
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
@@ -112,6 +106,7 @@ man() {
         man "$@"
 }
 
+# Debugging helper find any symbol from compile .o files in any subdirectory.
 getsymbolo ()
 {
     echo;
@@ -126,82 +121,29 @@ getsymbolo ()
     done
 }
 
+# Just create a backup of file/directory with timestamp appending it to it.
 backup ()
 {
     cp -rf $1 $1_$(gettimestamp)
 }
-tclrt ()
+
+# Just create a backup of file/directory with timestamp as tarball.
+tarbackup ()
 {
-    x="0x$1"
-    printf "\x1b[38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
-}
-tclrbg ()
-{
-    x="0x$1"
-    printf "\x1b[48;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+    tar -czvf $1_$(gettimestamp).tar.gz $1
 }
 
-tclrb ()
+##### 24bit/16M RGB color helpers
+
+# Test terminal supports 256 colors or not. Also outputs color numbers.
+printcolors()
 {
-    x="0x$1"
-    y="0x$2"
-    printf "\x1b[48;2;%d;%d;%d;1;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
-}
-tclr ()
-{
-    x="0x$1"
-    y="0x$2"
-    printf "\x1b[48;2;%d;%d;%d;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
-}
-tclre()
-{
-    printf "\x1b[0m"
-}
-myecho()
-{
-	echo make in bash
-	pathpat="(/[^/]*)+:[0-9]+"
-	ccred=$(echo -e "\033[0;31m")
-	ccyellow=$(echo -e "\033[0;33m")
-	ccbgyellow=$(echo -e "\033[48;2;255;255;51;38;2;0;0;0m")
-	cccyan=$(echo -e "\033[0;36m")
-	cccyan=$(echo -e "\033[0;36m")
-	cclcyanbold=$(echo -e "\033[1;106m")
-	ccmagenta=$(echo -e "\033[0;35m")
-	ccbgmagenta=$(echo -e "\033[48;2;255;79;243;38;2;0;0;0m")
-	ccmagenta=$(echo -e "\033[0;34m")
-	ccend=$(echo -e "\033[0m")
-	echo "$@" 2>&1 | sed -E  -e "s%[Ee][Rr][Rr]|[Ee][Rr][Rr][Oo][Rr]|[Ee][Rr][Rr]%$ccred&$ccend%g" -e "s%[Ww][aA][rR][nN]|[Ww][aA][rR][nN][iI][nN][gG]%$ccyellow&$ccend%g" -e "s%[Ww][rR][nN]%$ccyellow&$ccend%g" -e "s%Entering%$ccbgyellow>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$ccbgmagenta<<<<<<<<<<<<<<<<&$ccend%g"
-	return ${PIPESTATUS[0]}
-}
-mmk()
-{
-	echo make in bash
-	pathpat="(/[^/]*)+:[0-9]+"
-	ccred=$(echo -e "\033[0;31m")
-	ccyellow=$(echo -e "\033[0;33m")
-	ccbgyellow=$(echo -e "\033[48;2;255;255;51;38;2;0;0;0m")
-	cccyan=$(echo -e "\033[0;36m")
-	cccyan=$(echo -e "\033[0;36m")
-	cclcyanbold=$(echo -e "\033[1;106m")
-	ccmagenta=$(echo -e "\033[0;35m")
-	ccbgmagenta=$(echo -e "\033[48;2;255;79;243;38;2;0;0;0m")
-	ccmagenta=$(echo -e "\033[0;34m")
-	ccend=$(echo -e "\033[0m")
-	/usr/bin/make "$@" 2>&1 | tee /tmp/buildlog | sed -E  -e "s%[Ee][Rr][Rr]|[Ee][Rr][Rr][Oo][Rr]%$ccred&$ccend%g" -e "s%[Ww][aA][rR][nN]|[Ww][aA][rR][nN][iI][nN][gG]%$ccyellow&$ccend%g" -e "s%[Ww][rR][nN]%$ccyellow&$ccend%g" -e "s%Entering%$ccbgyellow>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$ccbgmagenta<<<<<<<<<<<<<<<<&$ccend%g"
-	return ${PIPESTATUS[0]}
+    for i in {0..255} ; do
+        printf "\x1b[38;5;${i}mcolour${i}\n"
+    done
 }
 
-# rgbcolors()
-# {
-#     for r in {0..255}
-#     do
-#         for g in {0..255}
-#         do
-#         done
-#     done
-# }
-
+# Test your terminal supports rgb colors or not.
 rgbtest()
 {
 	awk 'BEGIN{
@@ -219,14 +161,90 @@ rgbtest()
 	}'
 }
 
+
+# Function naming as (t)(clr)(t)(b) --> (true)(color)(text)(bold)
+# tclrtb, tclrt. tclrbg are single argument functions which take one color code
+# tclr and tclrb takes two arguments first one background and second one foreground
+# tclre ends color coding.
+
+# Color only foreground and set letter to bold
+tclrtb ()
+{
+    x="0x$1"
+    printf "\x1b[1;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+}
+
+# Color only foreground
+tclrt ()
+{
+    x="0x$1"
+    printf "\x1b[38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+}
+
+# Color only background
+tclrbg ()
+{
+    x="0x$1"
+    printf "\x1b[48;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+}
+
+# Color background and foreground with bold ltters.
+tclrb ()
+{
+    x="0x$1"
+    y="0x$2"
+    printf "\x1b[48;2;%d;%d;%d;1;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
+}
+
+# Color background and foreground.
+tclr ()
+{
+    x="0x$1"
+    y="0x$2"
+    printf "\x1b[48;2;%d;%d;%d;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
+}
+
+# Ends color coding.
+tclre()
+{
+    printf "\x1b[0m"
+}
+
+# Make command wrapper with colored errors,warnings and highlighted directory entries and exits.
+mmk()
+{
+	echo make in bash
+	pathpat="(/[^/]*)+:[0-9]+"
+	ccred=$(echo -e "\033[0;31m")
+	ccyellow=$(echo -e "\033[0;33m")
+	ccbgyellow=$(echo -e "\033[48;2;255;255;51;38;2;0;0;0m")
+	cccyan=$(echo -e "\033[0;36m")
+	cccyan=$(echo -e "\033[0;36m")
+	cclcyanbold=$(echo -e "\033[1;106m")
+	ccmagenta=$(echo -e "\033[0;35m")
+	ccbgmagenta=$(echo -e "\033[48;2;255;79;243;38;2;0;0;0m")
+	ccmagenta=$(echo -e "\033[0;34m")
+	ccend=$(echo -e "\033[0m")
+	/usr/bin/make "$@" 2>&1 | tee /tmp/buildlog | sed -E  -e "s% [Ee][Rr][Rr]|[Ee][Rr][Rr][Oo][Rr] %$ccred&$ccend%g" -e "s% [Ww][aA][rR][nN]|[Ww][aA][rR][nN][iI][nN][gG] %$ccyellow&$ccend%g" -e "s% [Ww][rR][nN] %$ccyellow&$ccend%g" -e "s%Entering%$ccbgyellow>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$ccbgmagenta<<<<<<<<<<<<<<<<&$ccend%g"
+	return ${PIPESTATUS[0]}
+}
+
+# create ssh keys for automatic ssh logins.
 create_pkeys()
 {
     cd ~;
     ssh-keygen -t rsa
     cd -
 }
+
+# Auto ssh login helper which set sshkeys to remote server
+# setup_ssh user@host
 setup_ssh()
 {
+    if [ ! -f .ssh/id_rsa.pub ]
+    then
+        create_pkeys
+    fi
     cd ~;
     ssh $@ mkdir -p .ssh
     cat .ssh/id_rsa.pub | ssh $@ 'cat >> .ssh/authorized_keys'
@@ -234,6 +252,7 @@ setup_ssh()
     cd -
 }
 
+# Renames files and replaces given string from files
 batch_rename()
 {
     if [ "$1" = "" ]
@@ -261,17 +280,18 @@ batch_rename()
     done
 }
 
+# Print whole UTF-8 char set. Not working correctly as there are several unwanted
+# characters
 print_u8charset ()
 {
     count=0
-    # for i in {0..255}
-    # do
+    for i in {0..255}
+    do
         for j in {0..255}
         do
             for k in {0..255}
             do
-                # x=$(printf "\\\x%02X\\\x%02X\\\x%02X" $i $j $k)
-                x=$(printf "\\\xE2\\\x%02X\\\x%02X" $i $j $k)
+                x=$(printf "\\\x%02X\\\x%02X\\\x%02X" $i $j $k)
                 printf "%s( $x )" $x
                 count=`expr $count + 1`
                 if [ $count == 100 ]
@@ -281,7 +301,7 @@ print_u8charset ()
                 fi
             done
         done
-    # done
+    done
 }
 
 verifydockerconfig()
@@ -324,6 +344,8 @@ get_git_is() {
         echo -ne "$st" 
     fi
 }
+
+# Get git local branch
 get_git_lb() {
     local bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" | cut -d " " -f1)
 
@@ -333,6 +355,8 @@ get_git_lb() {
         echo -ne "${bil}" 
     fi
 }
+
+# Get git origin branch.
 get_git_rb() {
     local bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g"| cut -d " " -f1)
 
@@ -343,6 +367,7 @@ get_git_rb() {
     fi
 }
 
+# fancy prompt with git details time stamp directory, git dirty status etc..
 print_myprompt() {
 
     local lcs=$?
@@ -424,4 +449,6 @@ PS1='\n\e[1;41m\e[1;37m[\D{%F %T}] \u@\h\e[1;49m \e[1;35m[$PWD]\$\[\e[0m\] \n\$ 
 else
     PS1='`print_myprompt`\n$ '
 fi
+# After reading several suggestions decided to not set this in bashrc.
+# terminal should set this
 #export TERM="xterm-256color"
