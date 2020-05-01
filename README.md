@@ -15,7 +15,7 @@ Script based Development environment for remote servers.
 For vim I use customized Dracula color scheme.
 
 - [Customized Dracula](https://github.com/sriramkandukuri/vim) theme
-  -- If you know the same changes can be done by scheme settings please let me know.
+  - If you know the same changes can be done by scheme settings please let me know.
 - [Original Dracula](https://github.com/dracula/vim) theme
 
 ### Tmux
@@ -56,10 +56,9 @@ Main goal is to use single script to get all the development environment on any 
 ### Other files
 
 - Dracula color scheme for any terminal
-  -- Dracula.colorscheme
+  - `Dracula.colorscheme`
 - Helper script for printing color pallette
-  -- colors.sh
--
+  - `colors.sh`
 
 ### TODO
 
