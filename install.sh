@@ -24,7 +24,9 @@ install_tools ()
     sudo apt-get -yq install python-pip
     sudo apt-get -yq install snapd
     sudo apt-get install fonts-powerline
-    sudo apt install bash-completion
+    sudo apt-get install bash-completion
+    sudo apt-get install lfm
+    sudo apt-get install vifm
 }
 
 install_ripgrep ()

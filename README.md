@@ -10,6 +10,11 @@ Script based Development environment for remote servers.
 
 [Terminus](https://eugeny.github.io/terminus/) on windows with Dracula color theme.
 
+- Fonts that work fine with my setup.
+  - [Source Code Pro Medium Regular](https://github.com/adobe-fonts/source-code-pro/releases/tag/2.030R-ro/1.050R-it) font woks fine.
+  - Ubuntu Mono Regular
+  - [Hack Regular](https://github.com/powerline/fonts/tree/master/Hack)
+
 ### Vim
 
 For vim I use customized Dracula color scheme.

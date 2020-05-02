@@ -27,6 +27,7 @@ alias tmn="tmux new -t"
 alias tma="tmux attach -d -t"
 alias tml="tmux ls"
 alias vtm="vim ~/.mytmux.conf"
+alias tmk="tmux kill-server"
 
 bashrc_sourced=$(stat -c %Y ~/.bashrc)
 bashdevrc_sourced=$(stat -c %Y ~/devenv/bashrc)
@@ -139,7 +140,7 @@ tarbackup ()
 printcolors()
 {
     for i in {0..255} ; do
-        printf "\x1b[38;5;${i}mcolour${i}\n"
+        printf "\e[38;5;${i}mcolour${i}\n"
     done
 }
 
@@ -171,21 +172,21 @@ rgbtest()
 tclrtb ()
 {
     x="0x$1"
-    printf "\x1b[1;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+    printf "\e[1;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
 }
 
 # Color only foreground
 tclrt ()
 {
     x="0x$1"
-    printf "\x1b[38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+    printf "\e[38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
 }
 
 # Color only background
 tclrbg ()
 {
     x="0x$1"
-    printf "\x1b[48;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
+    printf "\e[48;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
 }
 
 # Color background and foreground with bold ltters.
@@ -193,7 +194,7 @@ tclrb ()
 {
     x="0x$1"
     y="0x$2"
-    printf "\x1b[48;2;%d;%d;%d;1;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
+    printf "\e[48;2;%d;%d;%d;1;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
 }
 
 # Color background and foreground.
@@ -201,13 +202,13 @@ tclr ()
 {
     x="0x$1"
     y="0x$2"
-    printf "\x1b[48;2;%d;%d;%d;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
+    printf "\e[48;2;%d;%d;%d;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
 }
 
 # Ends color coding.
 tclre()
 {
-    printf "\x1b[0m"
+    printf "\e[0m"
 }
 
 # Make command wrapper with colored errors,warnings and highlighted directory entries and exits.
@@ -362,7 +363,7 @@ get_git_rb() {
 
     if [ "$bi" != "" ]
     then
-        local bir=$(echo $bi|cut -d"." -f4)
+        local bir=$(echo $bi|cut -s -d"." -f4)
         echo -ne "${bir}" 
     fi
 }
@@ -441,7 +442,6 @@ print_myprompt() {
     fi
     printf " %s " "$lcs"
     tclre
-    printf "\n"
 }
 if [ "$USER" == "root" ];
 then
