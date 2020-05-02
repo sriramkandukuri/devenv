@@ -16,23 +16,17 @@ install_tools ()
 {
     sudo apt-get -yq update
     sudo apt-get -yq upgrade
-    sudo apt-get -yq install cscope
-    sudo apt-get -yq install ctags
-    sudo apt-get -yq install python
-    sudo apt-get -yq install python-pip
-    sudo apt-get -yq install python3
-    sudo apt-get -yq install python-pip
-    sudo apt-get -yq install snapd
-    sudo apt-get install fonts-powerline
-    sudo apt-get install bash-completion
-    sudo apt-get install lfm
-    sudo apt-get install vifm
+    sudo apt-get -yqm install cscope ctags python python3 python3-pip \
+        snapd fonts-powerline bash-completion lfm vifm libevent-dev libevent-dev \
+        libncurses5-dev libncursesw5-dev
+    echo "================= Trying to install python pip for python2"
+    sudo apt-get -yqm install python-pip
 }
 
 install_ripgrep ()
 {
     rg -V| grep '^ripgrep 11'
-    if [ "$?" == "0"]
+    if [ "$?" == "0" ]
     then
         return;
     fi
@@ -46,7 +40,7 @@ install_ripgrep ()
 install_tmux ()
 {
     tmux -V| grep '^tmux 3.1'
-    if [ "$?" == "0"]
+    if [ "$?" == "0" ]
     then
         return;
     fi
@@ -55,7 +49,7 @@ install_tmux ()
     curl -LO https://github.com/tmux/tmux/releases/download/3.1/tmux-3.1.tar.gz
     tar -xf tmux-3.1.tar.gz
     cd tmux-3.1
-    ./configure && make >> install.log 2>&1
+    ./configure >> install.log 2>&1 && make >> install.log 2>&1
     sudo make install >> install.log 2>&1
     cd $builddir
 }
@@ -96,14 +90,14 @@ install_clangd_notusing ()
 
 install_nvim ()
 {
-    sudo add-apt-repository ppa:neovim-ppa/unstable
+    sudo add-apt-repository -y ppa:neovim-ppa/unstable
     sudo apt-get -yq update
     sudo apt-get -yq install neovim
 }
 
 install_vim ()
 {
-    sudo add-apt-repository -yq ppa:jonathonf/vim
+    sudo add-apt-repository -y ppa:jonathonf/vim
     sudo apt update
     sudo apt install vim
 }
@@ -139,18 +133,29 @@ install_node ()
 
 case $1 in
     all)
+        echo "================================ installing tools"
         install_tools
+        echo "================================ not installing clangd"
 #        install_clangd
+        echo "================================ installing node"
         install_node
+        echo "================================ installing bashrc"
         install_bashrc
+        echo "================================ installing tmux"
         install_tmux
+        echo "================================ installing tmux_conf"
         install_tmux_conf
+        echo "================================ not installing nvim"
 #        install_nvim
+        echo "================================ installing vim"
         install_vim
+        echo "================================ installing vimrc"
         install_vimrc
+        echo "================================ installing ripgrep"
         install_ripgrep
         ;;
     *)
+        echo "================================ installing $1"
         install_$1
         ;;
 esac
