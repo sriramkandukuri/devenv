@@ -392,6 +392,7 @@ print_myprompt() {
         printf "\n%${COLUMNS}s" "$user@$hst | [$ts]"
     fi
     tclre
+    printf "\n"
     
     # Left prompt.
 
