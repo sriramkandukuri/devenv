@@ -15,6 +15,9 @@ Script based Development environment for remote servers.
   - [Source Code Pro Medium Regular](https://github.com/adobe-fonts/source-code-pro/releases/tag/2.030R-ro/1.050R-it) font woks fine.
   - Ubuntu Mono Regular
   - [Hack Regular](https://github.com/powerline/fonts/tree/master/Hack)
+  - [Nerd fonts collection](https://github.com/ryanoasis/nerd-fonts)
+
+For best experience with arrow keys or powerline symbols its suggested to install patched fonts.
 
 Recently switched to Chrome application mentioned above. Due to bugs with key mapping in terminus.
 
