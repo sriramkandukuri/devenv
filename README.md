@@ -9,11 +9,17 @@ Script based Development environment for remote servers.
 ### Terminal
 
 [Terminus](https://eugeny.github.io/terminus/) on windows with Dracula color theme.
+[Secure Shell App](https://chrome.google.com/webstore/detail/secure-shell-app/pnhechapfaindjhompbnflcldabbghjo?hl=en) a Chrome application which works very smooth.
 
 - Fonts that work fine with my setup.
   - [Source Code Pro Medium Regular](https://github.com/adobe-fonts/source-code-pro/releases/tag/2.030R-ro/1.050R-it) font woks fine.
   - Ubuntu Mono Regular
   - [Hack Regular](https://github.com/powerline/fonts/tree/master/Hack)
+
+Recently switched to Chrome application mentioned above. Due to bugs with key mapping in terminus.
+
+- [Key mapping](https://github.com/Eugeny/terminus/issues/2328)
+- [Is there a way to disable Shift+PageUp](https://github.com/Eugeny/terminus/issues/2396)
 
 ### Vim
 
