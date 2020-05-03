@@ -1,4 +1,7 @@
 devdir=$PWD
+LOGFILE=$PWD/install.log
+rm -rf $LOGFILE > /dev/null 2>&1
+touch $LOGFILE
 
 if [ "$devdir" != "$HOME/devenv" ]
 then
@@ -14,13 +17,13 @@ builddir=$devdir/build
 
 install_tools ()
 {
-    sudo apt-get -yq update
-    sudo apt-get -yq upgrade
+    sudo apt-get -yq update >> $LOGFILE 2>&1 
+    sudo apt-get -yq upgrade >> $LOGFILE 2>&1
     sudo apt-get -yqm install cscope ctags python python3 python3-pip \
         snapd fonts-powerline bash-completion lfm vifm libevent-dev libevent-dev \
-        libncurses5-dev libncursesw5-dev
+        libncurses5-dev libncursesw5-dev cmake >> $LOGFILE 2>&1
     echo "================= Trying to install python pip for python2"
-    sudo apt-get -yqm install python-pip
+    sudo apt-get -yqm install python-pip >> $LOGFILE 2>&1
 }
 
 install_ripgrep ()
@@ -32,8 +35,8 @@ install_ripgrep ()
     fi
     mkdir $builddir/rg
     cd $builddir/rg
-    curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
-    sudo dpkg -i ripgrep_11.0.2_amd64.deb
+    curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb >> $LOGFILE 2>&1
+    sudo dpkg -i ripgrep_11.0.2_amd64.deb >> $LOGFILE 2>&1
 }
 
 # install tmux
@@ -46,11 +49,11 @@ install_tmux ()
     fi
     mkdir $builddir/tmux
     cd $builddir/tmux
-    curl -LO https://github.com/tmux/tmux/releases/download/3.1/tmux-3.1.tar.gz
-    tar -xf tmux-3.1.tar.gz
+    curl -LO https://github.com/tmux/tmux/releases/download/3.1/tmux-3.1.tar.gz >> $LOGFILE 2>&1
+    tar -xf tmux-3.1.tar.gz >> $LOGFILE 2>&1
     cd tmux-3.1
-    ./configure >> install.log 2>&1 && make >> install.log 2>&1
-    sudo make install >> install.log 2>&1
+    ./configure >> $LOGFILE 2>&1 && make >> $LOGFILE 2>&1
+    sudo make install >> $LOGFILE 2>&1
     cd $builddir
 }
 
@@ -59,10 +62,10 @@ install_tmux_conf ()
 {
     mkdir $builddir/tmuxconf
     cd $builddir/tmuxconf
-    git clone https://github.com/gpakosz/.tmux.git
-    unlink ~/.tmux.conf.local
-    unlink ~/.tmux.conf
-    unlink ~/.mytmux.conf
+    git clone https://github.com/gpakosz/.tmux.git >> $LOGFILE 2>&1
+    unlink ~/.tmux.conf.local > /dev/null 2>&1
+    unlink ~/.tmux.conf > /dev/null 2>&1
+    unlink ~/.mytmux.conf > /dev/null 2>&1
     ln -s -f $PWD/.tmux/.tmux.conf ~/
     ln -s -f $PWD/.tmux/.tmux.conf.local ~/
     ln -s -f $devdir/mytmux.conf ~/.mytmux.conf
@@ -90,16 +93,16 @@ install_clangd_notusing ()
 
 install_nvim ()
 {
-    sudo add-apt-repository -y ppa:neovim-ppa/unstable
-    sudo apt-get -yq update
-    sudo apt-get -yq install neovim
+    sudo add-apt-repository -y ppa:neovim-ppa/unstable >> $LOGFILE 2>&1 
+    sudo apt-get -yq update  >> $LOGFILE 2>&1 
+    sudo apt-get -yq install neovim >> $LOGFILE 2>&1 
 }
 
 install_vim ()
 {
-    sudo add-apt-repository -y ppa:jonathonf/vim
-    sudo apt update
-    sudo apt install vim
+    sudo add-apt-repository -y ppa:jonathonf/vim >> $LOGFILE 2>&1 
+    sudo apt update >> $LOGFILE 2>&1 
+    sudo apt install vim >> $LOGFILE 2>&1 
 }
 
 # get vimrc and install plugins
@@ -107,18 +110,18 @@ install_vimrc ()
 {
     mkdir $builddir/vimrc
     cd $builddir/vimrc
-    unlink ~/.vimrc
-    ln -s $devdir/myvimrc ~/.vimrc
+    unlink ~/.vimrc > /dev/null 2>&1
+    ln -s $devdir/myvimrc ~/.vimrc > /dev/null 2>&1
 
     # Install vim plug plugin manager
     ## remove already installed .vim directory
-    unlink ~/.vim
-    rm -rf ~/.vim
+    unlink ~/.vim > /dev/null 2>&1
+    rm -rf ~/.vim > /dev/null 2>&1
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    vim +PlugInstall +qall
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOGFILE 2>&1 
+    vim +PlugInstall +qall! >> $LOGFILE 2>&1
     cd ~/.vim/plugged/YouCompleteMe/
-    ./install.sh --clangd-completer --clang-completer > /dev/null 2>&1
+    ./install.py --clangd-completer --clang-completer >> $LOGFILE  2>&1
     ln -s -f $devdir/coc.vimrc ~/.cocvrc
     ln -s -f $devdir/coc-settings.json ~/.vim/
     mkdir ~/.vim/undodir
@@ -126,9 +129,9 @@ install_vimrc ()
 
 install_node ()
 {
-    sudo apt-get -yq update
-    sudo apt-get -yq install nodejs
-    sudo apt-get -yq install npm
+    sudo apt-get -yq update >> $LOGFILE 2>&1 
+    sudo apt-get -yq install nodejs >> $LOGFILE 2>&1 
+    sudo apt-get -yq install npm >> $LOGFILE 2>&1 
 }
 
 case $1 in
@@ -149,10 +152,10 @@ case $1 in
 #        install_nvim
         echo "================================ installing vim"
         install_vim
-        echo "================================ installing vimrc"
-        install_vimrc
         echo "================================ installing ripgrep"
         install_ripgrep
+        echo "================================ installing vimrc"
+        install_vimrc
         ;;
     *)
         echo "================================ installing $1"
