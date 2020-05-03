@@ -387,9 +387,9 @@ print_myprompt() {
     tclrt 555555
     if [ "$grb" != "" ]
     then
-        printf "\n%${COLUMNS}s" "$gis $grb | $user@$hst | [$ts]"
+        printf "%${COLUMNS}s" "$gis $grb | $user@$hst | [$ts]"
     else
-        printf "\n%${COLUMNS}s" "$user@$hst | [$ts]"
+        printf "%${COLUMNS}s" "$user@$hst | [$ts]"
     fi
     tclre
     printf "\n"
