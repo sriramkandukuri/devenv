@@ -21,7 +21,7 @@ install_tools ()
     sudo apt-get -yq upgrade >> $LOGFILE 2>&1
     sudo apt-get -yqm install cscope ctags python python3 python3-pip \
         snapd fonts-powerline bash-completion lfm vifm libevent-dev libevent-dev \
-        libncurses5-dev libncursesw5-dev cmake >> $LOGFILE 2>&1
+        libncurses5-dev libncursesw5-dev p7zip-full cmake >> $LOGFILE 2>&1
     echo "================= Trying to install python pip for python2"
     sudo apt-get -yqm install python-pip >> $LOGFILE 2>&1
 }
