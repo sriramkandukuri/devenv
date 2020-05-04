@@ -16,6 +16,9 @@ alias fsw="find . -name *.swp"
 # Get alias details "? fsw"
 alias ?="type -a"
 
+# enable vi mode in shell too.
+set -o vi
+
 # Refresh command, if some programs delte and recreate some directory you can 
 # just press r to refresh it.
 # works mostly ;)
@@ -212,21 +215,29 @@ tclre()
 }
 
 # Make command wrapper with colored errors,warnings and highlighted directory entries and exits.
+myecho()
+{
+	pathpat="(/[^/]*)+:[0-9]+"
+	ccbgyellow=$(echo -e "\033[48;2;255;255;51;38;2;0;0;0m")
+	ccbggreen=$(echo -e "\033[48;2;0;255;0;38;2;0;0;0m")
+	ccbgred=$(echo -e "\033[48;2;255;0;0;38;2;0;0;0m")
+	ccbgmagenta=$(echo -e "\033[48;2;255;79;243;38;2;0;0;0m")
+
+	ccend=$(echo -e "\033[0m")
+	echo "$@" 2>&1 | sed -E  -e "s%\b[Ee][Rr][Rr][Oo][Rr]\b|\b[Ee][Rr][Rr]\b%$ccbgred&$ccend%g" -e "s%\b[Ww][aA][rR][nN][iI][nN][gG]\b|\b[Ww][aA][rR][nN]\b%$ccbgyellow&$ccend%g" -e "s%\b[Ww][rR][nN]\b%$ccbgyellow&$ccend%g" -e "s%Entering%$ccbggreen>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$ccbgmagenta<<<<<<<<<<<<<<<<&$ccend%g"
+	return ${PIPESTATUS[0]}
+}
+# Make command wrapper with colored errors,warnings and highlighted directory entries and exits.
 mmk()
 {
-	echo make in bash
 	pathpat="(/[^/]*)+:[0-9]+"
-	ccred=$(echo -e "\033[0;31m")
-	ccyellow=$(echo -e "\033[0;33m")
 	ccbgyellow=$(echo -e "\033[48;2;255;255;51;38;2;0;0;0m")
-	cccyan=$(echo -e "\033[0;36m")
-	cccyan=$(echo -e "\033[0;36m")
-	cclcyanbold=$(echo -e "\033[1;106m")
-	ccmagenta=$(echo -e "\033[0;35m")
+	ccbggreen=$(echo -e "\033[48;2;0;255;0;38;2;0;0;0m")
+	ccbgred=$(echo -e "\033[48;2;255;0;0;38;2;0;0;0m")
 	ccbgmagenta=$(echo -e "\033[48;2;255;79;243;38;2;0;0;0m")
-	ccmagenta=$(echo -e "\033[0;34m")
+
 	ccend=$(echo -e "\033[0m")
-	/usr/bin/make "$@" 2>&1 | tee /tmp/buildlog | sed -E  -e "s% [Ee][Rr][Rr]|[Ee][Rr][Rr][Oo][Rr] %$ccred&$ccend%g" -e "s% [Ww][aA][rR][nN]|[Ww][aA][rR][nN][iI][nN][gG] %$ccyellow&$ccend%g" -e "s% [Ww][rR][nN] %$ccyellow&$ccend%g" -e "s%Entering%$ccbgyellow>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$ccbgmagenta<<<<<<<<<<<<<<<<&$ccend%g"
+	/usr/bin/make "$@" 2>&1 | tee /tmp/buildlog | sed -E  -e "s%\b[Ee][Rr][Rr][Oo][Rr]\b|\b[Ee][Rr][Rr]\b%$ccbgred&$ccend%g" -e "s%\b[Ww][aA][rR][nN][iI][nN][gG]\b|\b[Ww][aA][rR][nN]\b%$ccbgyellow&$ccend%g" -e "s%\b[Ww][rR][nN]\b%$ccbgyellow&$ccend%g" -e "s%Entering%$ccbggreen>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$ccbgmagenta<<<<<<<<<<<<<<<<&$ccend%g"
 	return ${PIPESTATUS[0]}
 }
 
@@ -283,7 +294,7 @@ batch_rename()
 
 # Thanks to https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
 
-ve extractor
+# archive extractor
 # # usage: ex <file>
 ex ()
 {
@@ -470,9 +481,10 @@ print_myprompt() {
     printf " %s " "$lcs"
     tclre
 }
+
 if [ "$USER" == "root" ];
 then
-PS1='\n\e[1;41m\e[1;37m[\D{%F %T}] \u@\h\e[1;49m \e[1;35m[$PWD]\$\[\e[0m\] \n\$ '
+    PS1='\n\e[1;41m\e[1;37m[\D{%F %T}] \u@\h\e[1;49m \e[1;35m[$PWD]\$\[\e[0m\] \n\$ '
 else
     PS1='`print_myprompt`\n$ '
 fi
