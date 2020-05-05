@@ -51,6 +51,30 @@ lf ()
     ls --color -lhtr $PWD/$1
 }
 
+## Countdown and stopwatch functions. become handy to track time sometimes.
+
+# countdown 60
+# countdown $((2*60*60))
+# countdown $((24*60*60))
+countdown(){
+	date1=$((`date +%s` + $1));
+	while [ "$date1" -ge `date +%s` ]; do 
+		## Is this more than 24h away?
+		days=$(($(($(( $date1 - $(date +%s))) * 1 ))/86400))
+		echo -ne "$days day(s) and $(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S:%N)\r"; 
+		sleep 0.1
+	done
+}
+# stopwatch
+stopwatch(){
+	date1=`date +%s`; 
+	while true; do 
+		days=$(( $(($(date +%s) - date1)) / 86400 ))
+		echo -ne "$days day(s) and $(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S:%N)\r";
+		sleep 0.1
+	done
+}
+
 #HISTORY helpers
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=-100000                   # big big history

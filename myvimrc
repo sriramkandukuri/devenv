@@ -40,7 +40,6 @@ set updatetime=50
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
 "Code completers
@@ -48,7 +47,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ycm-core/YouCompleteMe'
 
 "Customized dracula themes
-Plug 'https://github.com/sriramkandukuri/vim.git', {'as':'dracula'}
+" Plug 'https://github.com/sriramkandukuri/vim.git', {'as':'dracula'}
+Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
 "Vim status line themes
 Plug 'vim-airline/vim-airline-themes'
 Plug 'https://github.com/vim-airline/vim-airline.git'
@@ -113,7 +113,7 @@ let g:NERDToggleCheckAllLines = 1
 "Airline plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts = 1
-let g:airline_theme='sol'
+let g:airline_theme='dracula'
 let g:airline#extensions#tabline#enabled = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -249,12 +249,22 @@ set clipboard=unnamed
 "set clipboard=exclude:.*
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
-" let g:dracula_bold = 1
-" let g:dracula_italic = 1
-" let g:dracula_underline = 1
-" let g:dracula_undercurl = 1
-" let g:dracula_inverse = 1
-" let g:dracula_colorterm = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" Dracula customizations.
+
+let g:dracula_bold = 1
+let g:dracula_italic = 1
+let g:dracula_underline = 1
+let g:dracula_undercurl = 1
+let g:dracula_inverse = 1
+let g:dracula_colorterm = 1
+set termguicolors
+
+hi DraculaComment ctermfg=75  guifg=#9a9a9a
+hi LineNr ctermfg=237  guifg=#4f4f4f
+hi DraculaSubtle ctermbg=235  guibg=#2f2f2f
+hi Normal ctermbg=233  guibg=#222222
 
 "Trim white spaces before saving
 "autocmd BufWritePre * :call TrimWhitespace()
