@@ -261,8 +261,9 @@ let g:dracula_inverse = 1
 let g:dracula_colorterm = 1
 set termguicolors
 
-hi DraculaComment ctermfg=75  guifg=#9a9a9a
-hi LineNr ctermfg=237  guifg=#4f4f4f
+hi ColorColumn ctermbg=234 guibg=#2f2f2f
+hi DraculaComment ctermfg=75  guifg=#7a7f40
+hi LineNr ctermfg=237  guifg=#5f5f9f
 hi DraculaSubtle ctermbg=235  guibg=#2f2f2f
 hi Normal ctermbg=233  guibg=#222222
 
