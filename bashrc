@@ -445,7 +445,7 @@ print_myprompt() {
     local ts=$(date +"%d/%m/%Y %H:%M:%S")
 
     # Right prompt. Very light color, as it is very less important info.
-    tclrt 555555
+    tclrt 6272a4
     if [ "$grb" != "" ]
     then
         printf "%${COLUMNS}s" "$gis $grb | $user@$hst | [$ts]"
@@ -462,9 +462,9 @@ print_myprompt() {
     then
         if [ "$gls" == "clean" ]
         then
-            tclrb 006c00 ffffff
+            tclrb 50fa7b 44475a
         else
-            tclrb e61b00 ffffff
+            tclrb ff5555 ffffff
         fi
         # actual status string
         printf " %s " "$gls"
@@ -474,21 +474,21 @@ print_myprompt() {
     if [ "$glb" != "" ]
     then
         # git local branch
-        tclrb 0057a3 ffffff
+        tclrb 6272a4 ffffff
         printf " %s " "$glb"
         tclre
 
         # separator with current background as foreground and next background as background.
         # powerline bulk arrow separator.
-        tclrb 73d7de 0057a3 
+        tclrb bd93f9 6272a4 
         printf "\uE0B0"
         tclre
     fi
 
-    tclrb 73d7de 000000
+    tclrb bd93f9 000000
     printf " %s " "$d"
     tclre
-    tclrt 73d7de
+    tclrt bd93f9
     printf "\uE0B0"
     tclre
 
