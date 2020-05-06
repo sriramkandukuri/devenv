@@ -250,6 +250,12 @@ set clipboard=unnamed
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 
+" Better split line
+
+set encoding=utf8
+set fillchars=vert:│
+highlight VertSplit cterm=NONE ctermfg=237 guifg=#5f5f9f ctermbg=NONE
+
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Dracula customizations.
 
@@ -263,7 +269,7 @@ set termguicolors
 
 hi ColorColumn ctermbg=234 guibg=#2f2f2f
 hi DraculaComment ctermfg=75  guifg=#7a7f40
-hi LineNr ctermfg=237  guifg=#5f5f9f
+hi LineNr ctermfg=237  guifg=#5f5f9f ctermbg=235 guibg=#2f2f2f
 hi DraculaSubtle ctermbg=235  guibg=#2f2f2f
 hi Normal ctermbg=233  guibg=#222222
 
