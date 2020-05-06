@@ -445,6 +445,7 @@ print_myprompt() {
     local ts=$(date +"%d/%m/%Y %H:%M:%S")
 
     # Right prompt. Very light color, as it is very less important info.
+    printf "\n"
     tclrt 6272a4
     if [ "$grb" != "" ]
     then
