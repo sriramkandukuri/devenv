@@ -289,6 +289,27 @@ setup_ssh()
 }
 
 # Renames files and replaces given string from files
+batch_mv()
+{
+    if [ "$1" = "" ]
+    then
+        echo "no arguments given"
+        return
+    elif [ "$2" = "" ]
+    then
+        echo "invalid replace string"
+        return
+    fi
+
+    srcstr=$1;
+    replace=$2;
+
+    for i in $(find . -name "*$srcstr*")
+    do
+        res=${i/$srcstr/$replace}
+        mv $i $res
+    done
+}
 batch_rename()
 {
     if [ "$1" = "" ]
