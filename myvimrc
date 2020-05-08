@@ -22,6 +22,7 @@ set hlsearch
 
 set colorcolumn=128
 set cursorline
+set cursorcolumn
 
 set number
 set relativenumber
@@ -52,7 +53,8 @@ Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
 "Vim status line themes
 Plug 'vim-airline/vim-airline-themes'
 Plug 'https://github.com/vim-airline/vim-airline.git'
-
+" Directory diff plugin aalternative for meld
+Plug 'will133/vim-dirdiff'
 "Fast file grep from vim command :Rg
 Plug 'jremmen/vim-ripgrep'
 "Git helpers :Git
@@ -75,6 +77,10 @@ Plug 'preservim/nerdcommenter'
 
 call plug#end()
 
+" Dir diff options
+    let g:DirDiffEnableMappings = 1
+    let g:DirDiffExcludes = "cscope.out,tags,*.o,*.so,*.a,CVS,*.class,*.exe,.*.swp"
+    let g:DirDiffIgnore = "Id:,Revision:,Date:"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "global options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -268,6 +274,8 @@ let g:dracula_colorterm = 1
 set termguicolors
 
 hi ColorColumn ctermbg=234 guibg=#2f2f2f
+hi CursorLine ctermbg=234 guibg=#2f2f2f
+hi CursorColumn ctermbg=234 guibg=#2f2f2f
 hi DraculaComment ctermfg=75  guifg=#7a7f40
 hi LineNr ctermfg=237  guifg=#5f5f9f ctermbg=235 guibg=#2f2f2f
 hi DraculaSubtle ctermbg=235  guibg=#2f2f2f
