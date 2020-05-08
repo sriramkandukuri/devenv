@@ -279,7 +279,8 @@ hi CursorColumn ctermbg=234 guibg=#2f2f2f
 hi DraculaComment ctermfg=75  guifg=#7a7f40
 hi LineNr ctermfg=237  guifg=#5f5f9f ctermbg=235 guibg=#2f2f2f
 hi DraculaSubtle ctermbg=235  guibg=#2f2f2f
-hi Normal ctermbg=233  guibg=#222222
+"hi Normal ctermbg=233  guibg=#222222
+hi Normal ctermbg=NONE  guibg=NONE
 
 "Trim white spaces before saving
 "autocmd BufWritePre * :call TrimWhitespace()
