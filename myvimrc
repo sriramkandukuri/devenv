@@ -74,6 +74,10 @@ Plug 'ctrlpvim/ctrlp.vim'
 
 "commentary plugin
 Plug 'preservim/nerdcommenter'
+" Beautiful tables in vim
+Plug 'dhruvasagar/vim-table-mode'
+" RFC helper for vim
+Plug 'mhinz/vim-rfc'
 
 call plug#end()
 
@@ -261,6 +265,24 @@ let &t_ZR="\e[23m"
 set encoding=utf8
 set fillchars=vert:│
 highlight VertSplit cterm=NONE ctermfg=237 guifg=#5f5f9f ctermbg=NONE
+
+" Table plugin customizations
+
+function! s:isAtStartOfLine(mapping)
+  let text_before_cursor = getline('.')[0 : col('.')-1]
+  let mapping_pattern = '\V' . escape(a:mapping, '\')
+  let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+  return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+endfunction
+
+inoreabbrev <expr> <bar><bar>
+          \ <SID>isAtStartOfLine('\|\|') ?
+          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+inoreabbrev <expr> __
+          \ <SID>isAtStartOfLine('__') ?
+          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+
+let g:table_mode_corner='|'
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Dracula customizations.

@@ -39,6 +39,11 @@ prompt_command='
    test $(stat -c %y ~/.bashrc) -ne $bashrc_sourced && source ~/.bashrc;
    test $(stat -c %y ~/devenv/bashrc) -ne $bashdevrc_sourced && source ~/.bashrc
 '
+# Manage temporary files
+
+alias vitmp="vim `mktemp`"
+alias clean_tmp="rm -rf /tmp/tmp.*"
+
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then

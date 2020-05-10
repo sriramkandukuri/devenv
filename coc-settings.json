@@ -13,6 +13,7 @@
   "diagnostic.format": "%message [%source]",
   "diagnostic.virtualText": true,
   "diagnostic.checkCurrentLine": true,
+  "diagnostic.warningSign": "W",
   "diagnostic.separateRelatedInformationAsDiagnostics": true,
   "suggest.timeout": 5000,
   "suggest.asciiCharactersOnly": true,
@@ -29,12 +30,10 @@
   "eslint.enable": false,
   "eslint.autoFixOnSave": true,
   "eslint.filetypes": ["javascript", "typescript", "javascriptreact"],
-  "calc.replaceOriginalExpression": false,
   "markdownlint.config": {
     "default": true,
     "line-length": false
   },
-  "clangd.semanticHighlighting": true,
   "languageserver": {
     "gopls": {
       "command": "gopls",
