@@ -8,12 +8,22 @@ then
     echo "Please install from ~/devenv"
     exit -1
 fi
-
-rm -rf build
-mkdir build
-cd build
-
 builddir=$devdir/build
+
+#crate and enter specific directory
+ce_dir ()
+{
+    rm -rf $builddir/$1 > /dev/null;
+    mkdir $builddir/$1
+    cd $builddir/$1
+}
+
+clean_dir ()
+{
+    rm -rf build
+    mkdir build
+    cd build
+}
 
 install_tools ()
 {
@@ -27,15 +37,18 @@ install_tools ()
     sudo gem install nokogiri
 }
 
+install_fzf ()
+{
+    fzf --version && return;
+    ce_dir fzf
+    git clone --depth 1 https://github.com/junegunn/fzf.git fzf
+    ./fzf/install --all >> $LOGFILE 2>&1
+}
+
 install_ripgrep ()
 {
-    rg -V| grep '^ripgrep 11'
-    if [ "$?" == "0" ]
-    then
-        return;
-    fi
-    mkdir $builddir/rg
-    cd $builddir/rg
+    rg -V| grep '^ripgrep 11' && return;
+    ce_dir rg
     curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb >> $LOGFILE 2>&1
     sudo dpkg -i ripgrep_11.0.2_amd64.deb >> $LOGFILE 2>&1
 }
@@ -43,26 +56,20 @@ install_ripgrep ()
 # install tmux
 install_tmux ()
 {
-    tmux -V| grep '^tmux 3.1'
-    if [ "$?" == "0" ]
-    then
-        return;
-    fi
-    mkdir $builddir/tmux
-    cd $builddir/tmux
-    curl -LO https://github.com/tmux/tmux/releases/download/3.1/tmux-3.1.tar.gz >> $LOGFILE 2>&1
-    tar -xf tmux-3.1.tar.gz >> $LOGFILE 2>&1
-    cd tmux-3.1
+    local VER="3.1b"
+    tmux -V| grep "^tmux $VER" && return ;
+    ce_dir tmux
+    curl -LO https://github.com/tmux/tmux/releases/download/$VER/tmux-$VER.tar.gz >> $LOGFILE 2>&1
+    tar -xf tmux-$VER.tar.gz >> $LOGFILE 2>&1
+    cd tmux-$VER
     ./configure >> $LOGFILE 2>&1 && make >> $LOGFILE 2>&1
     sudo make install >> $LOGFILE 2>&1
-    cd $builddir
 }
 
 # install tmux conf
 install_tmux_conf ()
 {
-    mkdir $builddir/tmuxconf
-    cd $builddir/tmuxconf
+    ce_dir tmuxconf
     git clone https://github.com/gpakosz/.tmux.git >> $LOGFILE 2>&1
     unlink ~/.tmux.conf.local > /dev/null 2>&1
     unlink ~/.tmux.conf > /dev/null 2>&1
@@ -71,7 +78,6 @@ install_tmux_conf ()
     ln -s -f $PWD/.tmux/.tmux.conf.local ~/
     ln -s -f $devdir/mytmux.conf ~/.mytmux.conf
     echo "source-file ~/.mytmux.conf" >> ~/.tmux.conf.local
-    cd $builddir
 }
 
 # install bashrc
@@ -83,8 +89,7 @@ install_bashrc ()
 install_clangd_notusing ()
 {
     # 10
-    mkdir $builddir/clangd
-    cd $builddir/clangd
+    ce_dir clangd
     curl -LO https://github.com/clangd/clangd/releases/download/10rc3/clangd-linux-10rc3.zip
     unzip -q clangd-linux-10rc3.zip
     sudo cp clangd_10rc3/bin/* /usr/local/bin/
@@ -109,8 +114,7 @@ install_vim ()
 # get vimrc and install plugins
 install_vimrc ()
 {
-    mkdir $builddir/vimrc
-    cd $builddir/vimrc
+    ce_dir vimrc
     unlink ~/.vimrc > /dev/null 2>&1
     ln -s $devdir/myvimrc ~/.vimrc > /dev/null 2>&1
 
@@ -135,10 +139,15 @@ install_node ()
     sudo apt-get -yq install npm >> $LOGFILE 2>&1 
 }
 
+[[ "$2" == "-v" ]] && tail -f $LOGFILE &
+sudo apt-get clean
 case $1 in
     all)
+        clean_dir;
         echo "================================ installing tools"
         install_tools
+        echo "================================ installing fzf"
+        install_fzf
         echo "================================ not installing clangd"
 #        install_clangd
         echo "================================ installing node"
@@ -163,4 +172,4 @@ case $1 in
         install_$1
         ;;
 esac
-
+sudo apt-get autoremove
