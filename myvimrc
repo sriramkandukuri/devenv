@@ -29,6 +29,7 @@ set relativenumber
 
 "menu and tab rotate for commandline mode
 set wildmenu
+set wildignorecase
 
 "
 " Give more space for displaying messages.
@@ -86,7 +87,7 @@ Plug 'mbbill/undotree'
 "   https://github.com/terryma/vim-multiple-cursors
 Plug 'terryma/vim-multiple-cursors'
 
-" fzf with ripgrep 
+" fzf with ripgrep
 "   https://github.com/junegunn/fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 "   https://github.com/junegunn/fzf.vim
@@ -102,8 +103,11 @@ Plug 'tpope/vim-vinegar'
 
 " helper for key mappings
 "   https://github.com/liuchengxu/vim-which-key
-Plug 'liuchengxu/vim-which-key'
+" Plug 'liuchengxu/vim-which-key'
 
+" helper for quickly go to a word in a line
+"   https://github.com/unblevable/quick-scope
+Plug 'unblevable/quick-scope'
 call plug#end()
 "
 "}}}
@@ -118,13 +122,28 @@ call plug#end()
 silent! colorscheme dracula
 let mapleader = " "
 
+" ============================================================================
+" QUICK SCOPE {{{
+" ============================================================================
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+augroup qs_colors
+  autocmd!
+  autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+augroup END
+nmap <leader>q <plug>(QuickScopeToggle)
+xmap <leader>q <plug>(QuickScopeToggle)
+let g:qs_enable=1
+" }}}
 
 " ============================================================================
 " WHICH KEY {{{
 " ============================================================================
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 " By default timeoutlen is 1000 ms
-set timeoutlen=500
+" set timeoutlen=500
 " }}}
 
 " ============================================================================
@@ -163,8 +182,6 @@ autocmd  FileType fzf set noshowmode noruler nonu
 
 " if exists('$TMUX')
 "   let g:fzf_layout = { 'tmux': '-p90%,60%' }
-" else
-"   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 " endif
 
 " nnoremap <silent> <Leader><Leader> :Files<CR>
@@ -224,9 +241,15 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Airline plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 let g:airline_powerline_fonts = 1
 let g:airline_theme='dracula'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.dirty=' !'
+let g:airline_symbols.whitespace = ''
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "You complete me plugin settings
