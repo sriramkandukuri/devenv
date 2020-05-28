@@ -9,6 +9,7 @@ alias cscope='ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
 alias cscopef='rm -rf tags;rm -rf ./cscope.out;ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
 alias d2u="dos2unix"
 alias gettimestamp="date +%Y%m%d_%H%M%S"
+alias gettimestampbb="date +%Y.%m.%d-%H:%M:%S"
 # Get any git repo as a tar ball witout git information.
 alias getsource="tar --exclude="./.git" -czvf codebase_$(date +%Y%m%d_%H%M%S).tar.gz ./"
 alias fsw="find . -name *.swp"
