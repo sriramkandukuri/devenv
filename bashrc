@@ -18,7 +18,7 @@ alias fsw="find . -name *.swp"
 alias ?="type -a"
 
 # enable vi mode in shell too.
-set -o vi
+# set -o vi
 
 # Refresh command, if some programs delte and recreate some directory you can 
 # just press r to refresh it.
