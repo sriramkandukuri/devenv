@@ -70,7 +70,7 @@ install_tmux ()
 install_tmux_conf ()
 {
     ce_dir tmuxconf
-    git clone https://github.com/gpakosz/.tmux.git >> $LOGFILE 2>&1
+    git clone -b optimizations https://github.com/gpakosz/.tmux.git >> $LOGFILE 2>&1
     unlink ~/.tmux.conf.local > /dev/null 2>&1
     unlink ~/.tmux.conf > /dev/null 2>&1
     unlink ~/.mytmux.conf > /dev/null 2>&1

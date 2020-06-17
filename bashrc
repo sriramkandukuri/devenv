@@ -542,4 +542,4 @@ else
 fi
 # After reading several suggestions decided to not set this in bashrc.
 # terminal should set this
-#export TERM="xterm-256color"
+export TERM="xterm-256color"
