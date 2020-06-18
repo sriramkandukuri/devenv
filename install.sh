@@ -100,7 +100,8 @@ install_clangd_notusing ()
 install_nvim ()
 {
     ce_dir nvim
-    curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+#    curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+    curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
     chmod u+x nvim.appimage
     sudo ln -sf $PWD/nvim.appimage /usr/local/bin/nvim
 
