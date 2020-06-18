@@ -1,11 +1,15 @@
+# Vim aliases
+alias v="vim"
+alias nv="nvim"
+
 alias vbash="vim ~/.bashrc"
 alias vdbash="vim ~/devenv/bashrc"
 alias sbash="unalias -a;source ~/.bashrc"
 alias l="ls --color -lhtr"
 alias ls="ls --color"
 alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --exclude "*.o.cmd" --exclude "*.d" --exclude "cscope*" --exclude "*tags" --exclude "*.htm" --exclude "*.map" --exclude "*.xsl"'
-alias cscoped='CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kd'
-alias cscope='ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
+alias cscoped='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
+alias cscope='ctags -R .;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR'
 alias cscopef='rm -rf tags;rm -rf ./cscope.out;ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
 alias d2u="dos2unix"
 alias gettimestamp="date +%Y%m%d_%H%M%S"

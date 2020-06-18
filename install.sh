@@ -99,9 +99,14 @@ install_clangd_notusing ()
 
 install_nvim ()
 {
-    sudo add-apt-repository -y ppa:neovim-ppa/unstable >> $LOGFILE 2>&1 
-    sudo apt-get -yq update  >> $LOGFILE 2>&1 
-    sudo apt-get -yq install neovim >> $LOGFILE 2>&1 
+    ce_dir nvim
+    curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+    chmod u+x nvim.appimage
+    sudo ln -sf $PWD/nvim.appimage /usr/local/bin/nvim
+
+    echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > ~/.config/nvim/init.vim
+    echo "let &packpath = &runtimepath" >> ~/.config/nvim/init.vim
+    echo "source ~/.vimrc" >> ~/.config/nvim/init.vim
 }
 
 install_vim ()
@@ -158,8 +163,8 @@ case $1 in
         install_tmux
         echo "================================ installing tmux_conf"
         install_tmux_conf
-        echo "================================ not installing nvim"
-#        install_nvim
+        echo "================================ installing nvim"
+        install_nvim
         echo "================================ installing vim"
         install_vim
         echo "================================ installing ripgrep"
