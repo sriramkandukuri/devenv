@@ -112,6 +112,10 @@ Plug 'unblevable/quick-scope'
 " Automatic pairing of branckets and quotes
 "   https://github.com/jiangmiao/auto-pairs
 Plug 'jiangmiao/auto-pairs'
+
+" UML syntax and refresh plugins
+Plug 'aklt/plantuml-syntax'
+Plug 'weirongxu/plantuml-previewer.vim'
 call plug#end()
 "
 "}}}

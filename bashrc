@@ -1,6 +1,8 @@
 # Vim aliases
-alias v="vim"
+alias v="nvim"
 alias nv="nvim"
+alias vim="nvim"
+alias ovim="vim"
 
 alias vbash="vim ~/.bashrc"
 alias vdbash="vim ~/devenv/bashrc"
@@ -30,8 +32,11 @@ alias ?="type -a"
 alias r="ls -lhtr;cd $PWD"
 
 # Tmux aliases
-alias tmux="EDITOR=vim TERM=tmux-256color tmux -2 -u"
-alias tmn="tmux new -t"
+alias tmux="EDITOR=nvim TERM=tmux-256color tmux -2 -u"
+tmn () 
+{
+    tmux new -t $1 \; split-window -h -c "#{pane_current_path}" \; split-window -h -c "#{pane_current_path}" \; select-layout even-horizontal
+}
 alias tma="tmux attach -d -t"
 alias tml="tmux ls"
 alias vtm="vim ~/.mytmux.conf"
