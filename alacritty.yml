@@ -137,39 +137,105 @@ colors:
   #   text: '0x2e2e2d'
   #   # text: '0x000000'
   #   cursor: '0xffffff'
+# Colors (Dracula)
+  # Default colors
+  primary:
+    background: '0x282a36'
+    foreground: '0xf8f8f2'
+
+    # Bright and dim foreground colors
+    #
+    # The dimmed foreground color is calculated automatically if it is not present.
+    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
+    # is `false`, the normal foreground color will be used.
+    #dim_foreground: '0x9a9a9a'
+    #bright_foreground: '0xffffff'
+
+  # Cursor colors
+  #
+  # Colors which should be used to draw the terminal cursor. If these are unset,
+  # the cursor color will be the inverse of the cell color.
+  cursor:
+    text: '0x44475a'
+    cursor: '0xf8f8f2'
 
   # Normal colors
   normal:
     black:   '0x000000'
-    red:     '0xc62828'
-    green:   '0x558b2f'
-    yellow:  '0xf9a825'
-    blue:    '0x1565c0'
-    magenta: '0x6a1e9a'
-    cyan:    '0x00838f'
-    white:   '0xf2f2f2'
+    red:     '0xff5555'
+    green:   '0x50fa7b'
+    yellow:  '0xf1fa8c'
+    blue:    '0xbd93f9'
+    magenta: '0xff79c6'
+    cyan:    '0x8be9fd'
+    white:   '0xbfbfbf'
 
   # Bright colors
   bright:
-    black:   '0x545454'
-    red:     '0xef5350'
-    green:   '0x8bc34a'
-    yellow:  '0xffeb3b'
-    blue:    '0x64b5f6'
-    magenta: '0xba68c8'
-    cyan:    '0x26c6da'
-    white:   '0xe0e0e0'
+    black:   '0x4d4d4d'
+    red:     '0xff6e67'
+    green:   '0x5af78e'
+    yellow:  '0xf4f99d'
+    blue:    '0xcaa9fa'
+    magenta: '0xff92d0'
+    cyan:    '0x9aedfe'
+    white:   '0xe6e6e6'
 
-  # Dim colors (Optional)
+  # Dim colors
+  #
+  # If the dim colors are not set, they will be calculated automatically based
+  # on the `normal` colors.
   dim:
-    black:   '0x333333'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
-    cyan:    '0x66cccc'
-    white:   '0xdddddd'
+    black:   '0x14151b'
+    red:     '0xff2222'
+    green:   '0x1ef956'
+    yellow:  '0xebf85b'
+    blue:    '0x4d5b86'
+    magenta: '0xff46b0'
+    cyan:    '0x59dffc'
+    white:   '0xe6e6d1'
+
+  # Indexed Colors
+  #
+  # The indexed colors include all colors from 16 to 256.
+  # When these are not set, they're filled with sensible defaults.
+  #
+  # Example:
+  #   `- { index: 16, color: '0xff00ff' }`
+  #
+  # indexed_colors: []
+  # # Normal colors
+  # normal:
+  #   black:   '0x000000'
+  #   red:     '0xc62828'
+  #   green:   '0x558b2f'
+  #   yellow:  '0xf9a825'
+  #   blue:    '0x1565c0'
+  #   magenta: '0x6a1e9a'
+  #   cyan:    '0x00838f'
+  #   white:   '0xf2f2f2'
+
+  # # Bright colors
+  # bright:
+  #   black:   '0x545454'
+  #   red:     '0xef5350'
+  #   green:   '0x8bc34a'
+  #   yellow:  '0xffeb3b'
+  #   blue:    '0x64b5f6'
+  #   magenta: '0xba68c8'
+  #   cyan:    '0x26c6da'
+  #   white:   '0xe0e0e0'
+
+  # # Dim colors (Optional)
+  # dim:
+  #   black:   '0x333333'
+  #   red:     '0xf2777a'
+  #   green:   '0x99cc99'
+  #   yellow:  '0xffcc66'
+  #   blue:    '0x6699cc'
+  #   magenta: '0xcc99cc'
+  #   cyan:    '0x66cccc'
+  #   white:   '0xdddddd'
 
   # Tomorrow Night Bright
   # primary:

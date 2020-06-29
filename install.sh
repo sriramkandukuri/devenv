@@ -105,12 +105,14 @@ install_nvim ()
     curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
     chmod u+x nvim.appimage
     sudo ln -sf $PWD/nvim.appimage /usr/local/bin/nvim
-
     mkdir -p ~/.config/nvim
     touch ~/.config/nvim/init.vim
     echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > ~/.config/nvim/init.vim
     echo "let &packpath = &runtimepath" >> ~/.config/nvim/init.vim
     echo "source ~/.vimrc" >> ~/.config/nvim/init.vim
+    sudo pip3 install neovim >> $LOGFILE 2>&1 
+    sudo gem install neovim >> $LOGFILE 2>&1 
+    sudo npm install -g neovim >> $LOGFILE 2>&1 
 }
 
 install_vim ()
@@ -181,4 +183,4 @@ case $1 in
         install_$1
         ;;
 esac
-sudo apt-get autoremove
+sudo apt-get -y autoremove >> $LOGFILE 2>&1 

@@ -2,7 +2,7 @@
 alias v="nvim"
 alias nv="nvim"
 alias vim="nvim"
-alias ovim="vim"
+alias ovim="/usr/bin/vim"
 
 alias vbash="vim ~/.bashrc"
 alias vdbash="vim ~/devenv/bashrc"
