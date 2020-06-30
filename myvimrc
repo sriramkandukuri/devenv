@@ -52,8 +52,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ycm-core/YouCompleteMe'
 
-"Customized dracula themes
-" Plug 'https://github.com/sriramkandukuri/vim.git', {'as':'dracula'}
+"dracula themes
+"   https://github.com/dracula/vim.git
 Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
 "Vim status line themes
 Plug 'vim-airline/vim-airline-themes'
