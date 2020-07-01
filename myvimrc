@@ -20,6 +20,7 @@ set undofile
 set incsearch
 set hlsearch
 
+set textwidth=100
 set colorcolumn=100
 set cursorline
 set cursorcolumn
