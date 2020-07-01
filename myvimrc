@@ -20,7 +20,7 @@ set undofile
 set incsearch
 set hlsearch
 
-set colorcolumn=128
+set colorcolumn=100
 set cursorline
 set cursorcolumn
 
