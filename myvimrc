@@ -408,10 +408,15 @@ let g:ctrlp_working_path_mode = 'ra'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "netrw source tree browser plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:netrw_browse_split = 2
+let g:netrw_browse_split = 4
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 let g:netrw_liststyle = 3
+nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+map <leader><Tab> :bn<cr>
+noremap <C-s> :w<cr>
+inoremap <C-s> <C-o>:w<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Generic mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
