@@ -299,8 +299,8 @@ nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\
 nnoremap <silent> <Leader>C        :Colors<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
 nnoremap <silent> <Leader>L        :Lines<CR>
-nnoremap <silent> <Leader>rg       :Rg <C-R><C-W><CR>
-nnoremap <silent> <Leader>RG       :Rg <C-R><C-A><CR>
+nnoremap <silent> <Leader>rg       :RG <C-R><C-W><CR>
+nnoremap <silent> <Leader>RG       :RG <C-R><C-A><CR>
 xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
 nnoremap <silent> <Leader>`        :Marks<CR>
 " nnoremap <silent> q: :History:<CR>
@@ -335,7 +335,7 @@ command! PlugHelp call fzf#run(fzf#wrap({
   \ 'sink':   function('s:plug_help_sink')}))
 
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -g "!tags" -g "!cscope.out" %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
   let options = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
@@ -415,7 +415,6 @@ let g:ctrlp_working_path_mode = 'ra'
 "netrw source tree browser plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_browse_split = 4
-let g:netrw_banner = 0
 let g:netrw_winsize = 25
 let g:netrw_liststyle = 3
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
