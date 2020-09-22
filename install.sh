@@ -140,6 +140,7 @@ install_vimrc ()
     ./install.py --clangd-completer --clang-completer >> $LOGFILE  2>&1
     ln -s -f $devdir/coc.vimrc ~/.cocvrc
     ln -s -f $devdir/coc-settings.json ~/.vim/
+    ln -s -f $devdir/coc-settings.json ~/.config/nvim/
     mkdir ~/.vim/undodir
 }
 

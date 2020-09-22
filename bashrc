@@ -8,11 +8,9 @@ alias vbash="vim ~/.bashrc"
 alias vdbash="vim ~/devenv/bashrc"
 alias sbash="unalias -a;source ~/.bashrc"
 alias l="ls --color -lhtr"
+alias lv="ls --color -lhvr"
 alias ls="ls --color"
 alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --exclude "*.o.cmd" --exclude "*.d" --exclude "cscope*" --exclude "*tags" --exclude "*.htm" --exclude "*.map" --exclude "*.xsl"'
-alias cscoped='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
-alias cscope='ctags -R .;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR'
-alias cscopef='rm -rf tags;rm -rf ./cscope.out;ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
 alias d2u="dos2unix"
 alias gettimestamp="date +%Y%m%d_%H%M%S"
 alias gettimestampbb="date +%Y.%m.%d-%H:%M:%S"
@@ -31,6 +29,30 @@ alias ?="type -a"
 # works mostly ;)
 alias r="ls -lhtr;cd $PWD"
 
+alias csd='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
+#alias cscope='find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R .;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files'
+#alias cscopef='rm -rf tags;rm -rf ./cscope.out;ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
+cs ()
+{
+    if [ $# == 0 ];then
+        find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R .;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files
+    else
+        find $@ \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R $@;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files
+    fi
+}
+csf ()
+{
+    if [ -f tags ]; then
+        rm -rf tags
+    fi
+    if [ -f cscope.out ]; then
+        rm -rf cscope.out
+    fi
+    if [ -f cscope.files ]; then
+        rm -rf cscope.files
+    fi
+    cs $@
+}
 # Tmux aliases
 alias tmux="EDITOR=nvim TERM=tmux-256color tmux -2 -u"
 tmn () 
