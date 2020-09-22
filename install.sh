@@ -66,12 +66,18 @@ install_tmux ()
     ./configure >> $LOGFILE 2>&1 && make >> $LOGFILE 2>&1
     sudo make install >> $LOGFILE 2>&1
 }
-
+install_pyenv ()
+{
+    pyenv -V| grep "^pyenv " && return ;
+    ce_dir pyenv
+    curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer |bash
+    pyenv install python3.8
+}
 # install tmux conf
 install_tmux_conf ()
 {
     ce_dir tmuxconf
-    git clone -b optimizations https://github.com/gpakosz/.tmux.git >> $LOGFILE 2>&1
+    git clone https://github.com/gpakosz/.tmux.git >> $LOGFILE 2>&1
     unlink ~/.tmux.conf.local > /dev/null 2>&1
     unlink ~/.tmux.conf > /dev/null 2>&1
     unlink ~/.mytmux.conf > /dev/null 2>&1
@@ -178,6 +184,8 @@ case $1 in
         install_ripgrep
         echo "================================ installing vimrc"
         install_vimrc
+        echo "================================ installing pyenv"
+        install_pyenv
         ;;
     *)
         echo "================================ installing $1"
