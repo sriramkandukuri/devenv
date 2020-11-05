@@ -125,6 +125,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 "   https://github.com/cespare/vim-toml
 Plug 'cespare/vim-toml'
 
+Plug 'vim-scripts/DoxygenToolkit.vim'
+
 call plug#end()
 "
 "}}}
@@ -219,8 +221,6 @@ let g:mkdp_page_title = '「${name}」'
 
 "
 " }}}
-
-
 
 " Dir diff options
     let g:DirDiffEnableMappings = 1
@@ -420,6 +420,8 @@ let g:netrw_liststyle = 3
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 map <leader><Tab> :bn<cr>
 map <leader><S-Tab> :bp<cr>
+nnoremap <leader>// :Commentary<cr>
+nnoremap <leader>8 :Dox<cr>
 noremap <C-s> :w<cr>
 inoremap <C-s> <C-o>:w<cr>
 
@@ -506,7 +508,7 @@ nnoremap <F12>     :ShowSpaces 1<CR>
 nnoremap <S-F12>   m`:TrimSpaces<CR>``
 vnoremap <S-F12>   :TrimSpace<CR>
 
-set clipboard=unnamed
+set clipboard=unnamedplus
 "set clipboard=exclude:.*
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
@@ -563,3 +565,7 @@ autocmd FileType typescript :call GoYCM()
 autocmd FileType cpp,cxx,h,hpp,c :call GoYCM()
 "Remember line position
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Doxygen customizations
+let g:DoxygenToolkit_authorName="Sriram.K"
