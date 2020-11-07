@@ -31,7 +31,7 @@ install_tools ()
     sudo apt-get -yq upgrade >> $LOGFILE 2>&1
     sudo apt-get -yqm install cscope ctags python python3 python3-pip \
         snapd fonts-powerline bash-completion lfm vifm libevent-dev libevent-dev \
-        plantuml doxygen \
+        plantuml doxygen ccls\
         libncurses5-dev libncursesw5-dev p7zip-full cmake lynx ruby ruby-dev >> $LOGFILE 2>&1
     echo "================= Trying to install python pip for python2"
     sudo apt-get -yqm install python-pip >> $LOGFILE 2>&1
@@ -147,6 +147,9 @@ install_vimrc ()
     ln -s -f $devdir/coc.vimrc ~/.cocvrc
     ln -s -f $devdir/coc-settings.json ~/.vim/
     ln -s -f $devdir/coc-settings.json ~/.config/nvim/
+    cd ~/.config/coc/extensions/node_modules/coc-ccls
+    ln -s node_modules/ws/lib lib
+    cd -
     mkdir ~/.vim/undodir
 }
 
