@@ -123,34 +123,41 @@ export HISTFILESIZE=-100000               # big big history
 
 #### GIT ALIASES
 # git diff with staged changes
-gitdifs ()
+gids ()
 {
     git diff -w --staged HEAD $@ > /tmp/.tmp_git_diff;
     vim /tmp/.tmp_git_diff;
 }
 
 # git diff ignoring white space
-gitdifw ()
+gidw ()
 {
     git diff -w HEAD $@ > /tmp/.tmp_git_diff;
     vim /tmp/.tmp_git_diff;
 }
 
 # git diff
-gitdif ()
+gid ()
 {
     git diff HEAD $@ > /tmp/.tmp_git_diff;
     vim /tmp/.tmp_git_diff;
 }
 
-alias gits="git status"
-alias gch="git checkout"
-alias gnb="git checkout -b"
-alias gb="git branch"
-alias gba="git branch -a"
-alias gl="git log"
-alias glo="git log --oneline"
-alias gcomit="git commit -s"
+alias gipa="git pull --all"
+alias gip="git pull"
+alias gir="git rebase"
+alias girc="git rebase --continue"
+alias girs="git rebase --skip"
+alias gira="git rebase --abort"
+alias gia="git add"
+alias gis="git status"
+alias gich="git checkout"
+alias gicb="git checkout -b"
+alias gib="git branch"
+alias giba="git branch -a"
+alias gil="git log"
+alias gilo="git log --oneline"
+alias gico="git commit -s"
 
 # Simple find
 f ()

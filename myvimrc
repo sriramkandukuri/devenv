@@ -31,6 +31,21 @@ set relativenumber
 set wildmenu
 set wildignorecase
 
+set spelllang=en
+if has("spell")
+  " turn spelling on by default
+  " set spell
+
+  " toggle spelling with F4 key
+  map <F4> :set spell!<CR><Bar>:echo "Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
+
+  " they were using white on white
+  highlight PmenuSel ctermfg=black ctermbg=lightgray
+
+  " limit it to just the top 10 items
+  set sps=best,10
+endif
+
 "
 " Give more space for displaying messages.
 set cmdheight=2
@@ -74,6 +89,9 @@ Plug 'tpope/vim-commentary'
 
 " taglist side bar for C/C++
 Plug 'yegappan/taglist'
+
+Plug 'preservim/tagbar'
+
 " Copied
 Plug 'leafgarland/typescript-vim'
 "Beautiful manpages for vim. K or :Man
@@ -117,7 +135,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'aklt/plantuml-syntax'
 Plug 'weirongxu/plantuml-previewer.vim'
 
-" Markdown preview plugin 
+" Markdown preview plugin
 "   https://github.com/iamcco/markdown-preview.nvim
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
@@ -130,6 +148,13 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 call plug#end()
 "
 "}}}
+
+" {{{ Tag bar configuration
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_show_linenumbers = 2
+let g:tagbar_show_data_type = 1
+let g:tagbar_sort = 0
+" }}}
 
 
 " Markdown preview plugin options {{{
@@ -418,11 +443,16 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:netrw_browse_split = 4
 let g:netrw_winsize = 25
 let g:netrw_liststyle = 3
+nnoremap - :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 map <leader><Tab> :bn<cr>
 map <leader><S-Tab> :bp<cr>
 nnoremap <leader>// :Commentary<cr>
+vnoremap <leader>// :Commentary<cr>
 nnoremap <leader>8 :Dox<cr>
+" Use only for c style doxygen comments for structure or parameter variables.
+nnoremap <leader>\ :set paste <ESC>:norm A/**<  */<ESC>:set nopaste<ESC><Left><Left><ESC>i
+nnoremap <C-w> :bd<cr>
 noremap <C-s> :w<cr>
 inoremap <C-s> <C-o>:w<cr>
 
