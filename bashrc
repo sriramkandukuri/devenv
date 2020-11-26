@@ -57,7 +57,17 @@ csf ()
 alias tmux="EDITOR=nvim TERM=tmux-256color tmux -2 -u"
 tmn () 
 {
-    tmux new -t $1 \; split-window -h -c "#{pane_current_path}" \; split-window -h -c "#{pane_current_path}" \; select-layout even-horizontal
+    tmux new -t $1 \; split-window -h -c "#{pane_current_path}" \; split-window -h -c "#{pane_current_path}" \; select-pane -L \; select-layout even-horizontal
+}
+# Rename a pane
+rnp()
+{
+    if [ "$1" == "" ]
+    then
+        printf '\033]2;%s\033\\' 'NO PANE TITLE'
+    else
+        printf '\033]2;%s\033\\' $1
+    fi
 }
 alias tma="tmux attach -d -t"
 alias tml="tmux ls"

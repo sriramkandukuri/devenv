@@ -154,6 +154,9 @@ nmap <F8> :TagbarToggle<CR>
 let g:tagbar_show_linenumbers = 2
 let g:tagbar_show_data_type = 1
 let g:tagbar_sort = 0
+augroup TAGBar
+    autocmd FileType c,cpp,h,hpp :TagbarOpen
+augroup END
 " }}}
 
 
@@ -441,20 +444,30 @@ let g:ctrlp_working_path_mode = 'ra'
 "netrw source tree browser plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_browse_split = 4
-let g:netrw_winsize = 25
+let g:netrw_winsize = -30
 let g:netrw_liststyle = 3
+"let g:netrw_browse_split = 4
+"let g:netrw_altv = 1
 nnoremap - :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+augroup ProjectDrawer
+  autocmd!
+  autocmd VimEnter * :Vex
+augroup END
+
+
+" {{{ Buffer management
 map <leader><Tab> :bn<cr>
 map <leader><S-Tab> :bp<cr>
+nnoremap <C-w> :bd<cr>
+noremap <C-s> :w<cr>
+inoremap <C-s> <C-o>:w<cr>
+" }}}
 nnoremap <leader>// :Commentary<cr>
 vnoremap <leader>// :Commentary<cr>
 nnoremap <leader>8 :Dox<cr>
 " Use only for c style doxygen comments for structure or parameter variables.
 nnoremap <leader>\ :set paste <ESC>:norm A/**<  */<ESC>:set nopaste<ESC><Left><Left><ESC>i
-nnoremap <C-w> :bd<cr>
-noremap <C-s> :w<cr>
-inoremap <C-s> <C-o>:w<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Generic mappings
