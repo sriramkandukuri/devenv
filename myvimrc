@@ -118,7 +118,7 @@ Plug 'mhinz/vim-rfc'
 " Some additional help to netrw
 "   https://github.com/tpope/vim-vinegar
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-sensible'
+" Plug 'tpope/vim-sensible'
 
 " helper for key mappings
 "   https://github.com/liuchengxu/vim-which-key
