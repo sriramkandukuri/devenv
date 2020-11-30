@@ -29,6 +29,13 @@ alias ?="type -a"
 # works mostly ;)
 alias r="ls -lhtr;cd $PWD"
 
+# Changing this needs to restart tmux if using
+export USE_PWR_FONTS=1
+if [ $USE_PWR_FONTS == 1 ]
+then
+    PROMPT_SEP="\uE0B0"
+fi
+
 alias csd='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
 #alias cscope='find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R .;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files'
 #alias cscopef='rm -rf tags;rm -rf ./cscope.out;ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
@@ -72,7 +79,7 @@ rnp()
 alias tma="tmux attach -d -t"
 alias tml="tmux ls"
 alias vtm="vim ~/.mytmux.conf"
-alias tmk="tmux kill-server"
+alias tmk="tmux kill-server; kill -9 $(ps -eaf|grep tmu[x] | cut -d" " -f2)"
 
 bashrc_sourced=$(stat -c %Y ~/.bashrc)
 bashdevrc_sourced=$(stat -c %Y ~/devenv/bashrc)
@@ -554,19 +561,25 @@ print_myprompt() {
         printf " %s " "$glb"
         tclre
 
-        # separator with current background as foreground and next background as background.
-        # powerline bulk arrow separator.
-        tclrb bd93f9 6272a4 
-        printf "\uE0B0"
-        tclre
+        if [ $USE_PWR_FONTS == 1 ]
+        then
+            # separator with current background as foreground and next background as background.
+            # powerline bulk arrow separator.
+            tclrb bd93f9 6272a4 
+            printf $PROMPT_SEP
+            tclre
+        fi
     fi
 
     tclrb bd93f9 000000
     printf " %s " "$d"
     tclre
-    tclrt bd93f9
-    printf "\uE0B0"
-    tclre
+    if [ $USE_PWR_FONTS == 1 ]
+    then
+        tclrt bd93f9
+        printf $PROMPT_SEP
+        tclre
+    fi
 
     # last command status. green if 0 red if error.
     if [[ "$lcs" == "130" ]]

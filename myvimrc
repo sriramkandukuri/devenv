@@ -118,6 +118,7 @@ Plug 'mhinz/vim-rfc'
 " Some additional help to netrw
 "   https://github.com/tpope/vim-vinegar
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-sensible'
 
 " helper for key mappings
 "   https://github.com/liuchengxu/vim-which-key
@@ -389,7 +390,9 @@ command! -bang -nargs=* Ag
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-let g:airline_powerline_fonts = 1
+if $USE_PWR_FONTS == 1
+    let g:airline_powerline_fonts = 1
+endif
 let g:airline_theme='dracula'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_symbols.linenr = '¶'
@@ -450,9 +453,13 @@ let g:netrw_liststyle = 3
 "let g:netrw_altv = 1
 nnoremap - :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+function PDrawAUCMD()
+    :Vex
+    :wincmd l
+endfunction
 augroup ProjectDrawer
   autocmd!
-  autocmd VimEnter * :Vex
+  autocmd VimEnter * call PDrawAUCMD()
 augroup END
 
 
