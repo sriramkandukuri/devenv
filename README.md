@@ -8,7 +8,6 @@ Script based Development environment for remote servers.
 
 ### Terminal
 
-[Terminus](https://eugeny.github.io/terminus/) on windows with Dracula color theme.
 [Secure Shell App](https://chrome.google.com/webstore/detail/secure-shell-app/pnhechapfaindjhompbnflcldabbghjo?hl=en) a Chrome application which works very smooth.
 
 - Fonts that work fine with my setup.
@@ -20,27 +19,26 @@ Script based Development environment for remote servers.
 For best experience with arrow keys or powerline symbols its suggested to install patched fonts.
 
 Recently switched to Chrome application mentioned above. Due to bugs with key mapping in terminus.
+[Terminus](https://eugeny.github.io/terminus/) on windows with Dracula color theme. This has some minor issues.
 
 - [Key mapping](https://github.com/Eugeny/terminus/issues/2328)
 - [Is there a way to disable Shift+PageUp](https://github.com/Eugeny/terminus/issues/2396)
 
 ### Vim
 
-For vim I use customized Dracula color scheme.
-
-- [Customized Dracula](https://github.com/sriramkandukuri/vim) theme
-  - If you know the same changes can be done by scheme settings please let me know.
-- [Original Dracula](https://github.com/dracula/vim) theme
+Please refer to vimhelp.md for available custom shortcuts in addition to original vim/nvim keyboard shortcuts
 
 ### Tmux
 
 - Using Tmux config from [gpakosz](https://github.com/gpakosz/.tmux.git)
 - Customized config from (mytmux.conf)
 
+Refer to tmuxhelp.md for available custom shortcuts.
+
 ### Bashrc
 
 Fully customised bashrc with beautiful prompt line and several helper functions.
-Get it
+Refer to bashhelp.md for all shortcuts available.
 
 ### Default programs
 
@@ -55,10 +53,11 @@ Below programs get installed by default
 - tmux
 - vim 8+
 - node js for coc plugin
+- etc...
 
 #### Note
 
-> Tested only with terminus on windows with ubuntu 16.04 remote server.
+> Tested only with terminus and chrome secure shell on windows with ubuntu 16.04 remote server.
 > Please report issue if you face issue with same setup.
 
 ### Contribution
