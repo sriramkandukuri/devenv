@@ -1,32 +1,47 @@
 # Vim aliases
+##BH |v|Opens nvim|
 alias v="nvim"
+##BH |nv|Opens nvim|
 alias nv="nvim"
+##BH |vim|Opens nvim|
 alias vim="nvim"
+##BH |ovim|Opens old/original vim instead of nvim|
 alias ovim="/usr/bin/vim"
 
+##BH |vbash|To edit `.bashrc` inside user home directory|
 alias vbash="vim ~/.bashrc"
+##BH |vdbash|To edit `bashrc` provided by this repository, **This works only if this repo cloned to home directory.**|
 alias vdbash="vim ~/devenv/bashrc"
+##BH |sbash|Source bash environment again after unaliasing all shortcuts|
 alias sbash="unalias -a;source ~/.bashrc"
+##BH |l|List files with colors, show sizes in readable format and sort to print latest file at last |
 alias l="ls --color -lhtr"
+##BH |lv|List files with colors, show sizes in readable format and sort by name |
 alias lv="ls --color -lhvr"
+##BH |ls|List files with colors |
 alias ls="ls --color"
+##BH |mygrep|Grep recursive, prints numbers, excludes binaries, files with extensions .o, .o.cmd, .d, .htm, .map, .xsl files with names cscope*, *tags |
 alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --exclude "*.o.cmd" --exclude "*.d" --exclude "cscope*" --exclude "*tags" --exclude "*.htm" --exclude "*.map" --exclude "*.xsl"'
+##BH |d2u|Dos to unix command |
 alias d2u="dos2unix"
+##BH |gettimestamp|Prints time in `YYYYMMDD_hhmmss` format. Usefull for generating any filenames based on timestamp|
 alias gettimestamp="date +%Y%m%d_%H%M%S"
+##BH |gettimestampbb|Prints time in `YYYY.MM.DD-hh:mm:ss` format. Usefull for generating any filenames based on timestamp|
 alias gettimestampbb="date +%Y.%m.%d-%H:%M:%S"
-# Get any git repo as a tar ball witout git information.
+##BH |getsource|Get any git repo as a tar ball witout git information.|
 alias getsource="tar --exclude="./.git" -czvf codebase_$(date +%Y%m%d_%H%M%S).tar.gz ./"
+##BH |fsw|Find any swap files in current directory|
 alias fsw="find . -name *.swp"
 
-# Get alias details "? fsw"
+##BH |hugelist|Find top 5 space consuming files or directories|
+alias hugelist="du -hs * | sort -rh | head -5"
+##BH |?|Get details of an alias/command example "? fsw"|
 alias ?="type -a"
 
 # enable vi mode in shell too.
 # set -o vi
 
-# Refresh command, if some programs delte and recreate some directory you can 
-# just press r to refresh it.
-# works mostly ;)
+##BH |r|Refresh command, if some programs delte and recreate some directory you can just press r to refresh it. works mostly ;)|
 alias r="ls -lhtr;cd $PWD"
 
 # Changing this needs to restart tmux if using
@@ -36,9 +51,11 @@ then
     PROMPT_SEP="\uE0B0"
 fi
 
+##BH |csd|Open cscope with available cscope files in current directory|
 alias csd='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
 #alias cscope='find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R .;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files'
 #alias cscopef='rm -rf tags;rm -rf ./cscope.out;ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
+##BH |cs|Create cscope db and open cscope. This also takes directories as arguments to which cscopedb need to be created.|
 cs ()
 {
     if [ $# == 0 ];then
@@ -47,6 +64,7 @@ cs ()
         find $@ \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R $@;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files
     fi
 }
+##BH |csf|Similar to above `cs` but removes all the cscope db files before creating new set of files. This can used to refresh the db if source is changed.|
 csf ()
 {
     if [ -f tags ]; then
@@ -61,12 +79,14 @@ csf ()
     cs $@
 }
 # Tmux aliases
+##BH |tmux|Run `tmux` command with predefined env settings aliased to `EDITOR=nvim TERM=tmux-256color tmux -2 -u`|
 alias tmux="EDITOR=nvim TERM=tmux-256color tmux -2 -u"
+##BH |tmn|Open new tmux session with given name, by default it opens first window with 3 vertical panes, **Not giving argument causes unwanted behavior**|
 tmn () 
 {
     tmux new -t $1 \; split-window -h -c "#{pane_current_path}" \; split-window -h -c "#{pane_current_path}" \; select-pane -L \; select-layout even-horizontal
 }
-# Rename a pane
+##BH |rnp|Sets a titile which inturn renames a pane in tmux|
 rnp()
 {
     if [ "$1" == "" ]
@@ -76,10 +96,14 @@ rnp()
         printf '\033]2;%s\033\\' $1
     fi
 }
+##BH |tma|Attach to running tmux session|
 alias tma="tmux attach -d -t"
+##BH |tml|list currently running tmux sessions|
 alias tml="tmux ls"
+##BH |vtm|Open tmux custom config provided by this repository for editing in vim|
 alias vtm="vim ~/.mytmux.conf"
-alias tmk="tmux kill-server; kill -9 $(ps -eaf|grep tmu[x] | cut -d" " -f2)"
+##BH |tmk|Kill tmux server and kill all processes having `tmux` in their command|
+alias tmk="tmux kill-server; kill -9 \$(ps -eaf|grep tmu[x] | cut -d\" \" -f2)"
 
 bashrc_sourced=$(stat -c %Y ~/.bashrc)
 bashdevrc_sourced=$(stat -c %Y ~/devenv/bashrc)
@@ -89,8 +113,9 @@ prompt_command='
    test $(stat -c %y ~/devenv/bashrc) -ne $bashdevrc_sourced && source ~/.bashrc
 '
 # Manage temporary files
-
+##BH |vitmp|Create and open temporary file in vim|
 alias vitmp="vim `mktemp`"
+##BH |clean_tmp|Remove all temporary files created by `mktemp` command|
 alias clean_tmp="rm -rf /tmp/tmp.*"
 
 
@@ -99,17 +124,13 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 
-# List file with fullpath usefull while remote copying.
+##BH |lf|List file with fullpath usefull while remote copying.|
 lf ()
 {
     ls --color -lhtr $PWD/$1
 }
 
-## Countdown and stopwatch functions. become handy to track time sometimes.
-
-# countdown 60
-# countdown $((2*60*60))
-# countdown $((24*60*60))
+##BH |countdown|Countdown timer become handy to track time sometimes.ex. `countdown 60` `countdown $((2*60*60))` `countdown $((24*60*60))`|
 countdown(){
 	date1=$((`date +%s` + $1));
 	while [ "$date1" -ge `date +%s` ]; do 
@@ -119,7 +140,7 @@ countdown(){
 		sleep 0.1
 	done
 }
-# stopwatch
+##BH |stopwatch|Stopwatch kind of display on terminal|
 stopwatch(){
 	date1=`date +%s`; 
 	while true; do 
@@ -139,50 +160,64 @@ export HISTFILESIZE=-100000               # big big history
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 #### GIT ALIASES
-# git diff with staged changes
+##BH |gids|git diff with staged changes|
 gids ()
 {
     git diff -w --staged HEAD $@ > /tmp/.tmp_git_diff;
     vim /tmp/.tmp_git_diff;
 }
 
-# git diff ignoring white space
+##BH |gidw|git diff ignoring white space|
 gidw ()
 {
     git diff -w HEAD $@ > /tmp/.tmp_git_diff;
     vim /tmp/.tmp_git_diff;
 }
 
-# git diff
+##BH |gid|git diff|
 gid ()
 {
     git diff HEAD $@ > /tmp/.tmp_git_diff;
     vim /tmp/.tmp_git_diff;
 }
-
+##BH |gipa|git pull all|
 alias gipa="git pull --all"
+##BH |gip|git pull|
 alias gip="git pull"
+##BH |gir|git rebase|
 alias gir="git rebase"
+##BH |girc|git rebase continue|
 alias girc="git rebase --continue"
+##BH |girs|gir rebase skip|
 alias girs="git rebase --skip"
+##BH |gira|gir rebase abort|
 alias gira="git rebase --abort"
+##BH |gia|git add|
 alias gia="git add"
+##BH |gis|git status|
 alias gis="git status"
+##BH |gich|git checkout|
 alias gich="git checkout"
+##BH |gicb|git checkour new branch with given name|
 alias gicb="git checkout -b"
+##BH |gib|git branch|
 alias gib="git branch"
+##BH |giba|git show all branches including remotes|
 alias giba="git branch -a"
+##BH |gil|git log|
 alias gil="git log"
+##BH |gilo|git log in oneline format|
 alias gilo="git log --oneline"
+##BH |gico|git commit with adding signature|
 alias gico="git commit -s"
 
-# Simple find
+##BH |f|Simple find command to find given patterned files in current directory|
 f ()
 {
     find . -name "*$1*"
 }
 
-# Colorful man pages.
+##BH |man|Similar to man but presented colorful|
 man() {
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
@@ -195,7 +230,7 @@ man() {
         man "$@"
 }
 
-# Debugging helper find any symbol from compile .o files in any subdirectory.
+##BH |getsymbolo|Debugging helper find any symbol from compile .o files in any subdirectory.|
 getsymbolo ()
 {
     echo;
@@ -210,21 +245,21 @@ getsymbolo ()
     done
 }
 
-# Just create a backup of file/directory with timestamp appending it to it.
-backup ()
+##BH |bkp|Just create a backup of file/directory with appending timestamp to its name.|
+bkp ()
 {
     cp -rf $1 $1_$(gettimestamp)
 }
 
-# Just create a backup of file/directory with timestamp as tarball.
-tarbackup ()
+##BH |tarbkp|Just create a backup of file/directory with timestamp as tarball.|
+tarbkp ()
 {
     tar -czvf $1_$(gettimestamp).tar.gz $1
 }
 
 ##### 24bit/16M RGB color helpers
 
-# Test terminal supports 256 colors or not. Also outputs color numbers.
+##BH |printcolors|Test terminal supports 256 colors or not. Also outputs color numbers.|
 printcolors()
 {
     for i in {0..255} ; do
@@ -232,7 +267,7 @@ printcolors()
     done
 }
 
-# Test your terminal supports rgb colors or not.
+##BH |rgbtest|Test your terminal supports rgb colors or not and print them|
 rgbtest()
 {
 	awk 'BEGIN{
@@ -251,33 +286,33 @@ rgbtest()
 }
 
 
-# Function naming as (t)(clr)(t)(b) --> (true)(color)(text)(bold)
-# tclrtb, tclrt. tclrbg are single argument functions which take one color code
-# tclr and tclrb takes two arguments first one background and second one foreground
-# tclre ends color coding.
+##BH ||Function naming as (t)(clr)(t)(b) --> (true)(color)(text)(bold)|
+##BH ||tclrtb, tclrt. tclrbg are single argument functions which take one color code|
+##BH ||tclr and tclrb takes two arguments first one background and second one foreground|
+##BH ||tclre ends color coding. **All color codes to be given in hex format**|
 
-# Color only foreground and set letter to bold
+##BH |tclrtb|Color only foreground and set text to bold|
 tclrtb ()
 {
     x="0x$1"
     printf "\e[1;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
 }
 
-# Color only foreground
+##BH |tclrt|Color only foreground|
 tclrt ()
 {
     x="0x$1"
     printf "\e[38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
 }
 
-# Color only background
+##BH |tclrbg|Color only background|
 tclrbg ()
 {
     x="0x$1"
     printf "\e[48;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff))
 }
 
-# Color background and foreground with bold ltters.
+##BH |tclrb|Color background and foreground and make text to bold|
 tclrb ()
 {
     x="0x$1"
@@ -285,7 +320,7 @@ tclrb ()
     printf "\e[48;2;%d;%d;%d;1;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
 }
 
-# Color background and foreground.
+##BH |tclrb|Color background and foreground.|
 tclr ()
 {
     x="0x$1"
@@ -293,13 +328,13 @@ tclr ()
     printf "\e[48;2;%d;%d;%d;38;2;%d;%d;%dm" $(( $((x & 0xff0000)) >> 16 )) $(( $((x & 0x00ff00)) >> 8 )) $((x & 0x0000ff)) $(( $((y & 0xff0000)) >> 16  )) $(( $((y & 0x00ff00)) >> 8  )) $((y & 0x0000ff))
 }
 
-# Ends color coding.
+##BH |tclre|Ends color coding.|
 tclre()
 {
     printf "\e[0m"
 }
 
-# Make command wrapper with colored errors,warnings and highlighted directory entries and exits.
+##BH |myecho|echo command wrapper with colored errors,warnings and highlighted directory entries and exits.|
 myecho()
 {
 	pathpat="(/[^/]*)+:[0-9]+"
@@ -312,7 +347,7 @@ myecho()
 	echo "$@" 2>&1 | sed -E  -e "s%\b[Ee][Rr][Rr][Oo][Rr]\b|\b[Ee][Rr][Rr]\b%$ccbgred&$ccend%g" -e "s%\b[Ww][aA][rR][nN][iI][nN][gG]\b|\b[Ww][aA][rR][nN]\b%$ccbgyellow&$ccend%g" -e "s%\b[Ww][rR][nN]\b%$ccbgyellow&$ccend%g" -e "s%Entering%$ccbggreen>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$ccbgmagenta<<<<<<<<<<<<<<<<&$ccend%g"
 	return ${PIPESTATUS[0]}
 }
-# Make command wrapper with colored errors,warnings and highlighted directory entries and exits.
+##BH |mmk|Make command wrapper with colored errors,warnings and highlighted directory entries and exits.|
 mmk()
 {
 	pathpat="(/[^/]*)+:[0-9]+"
@@ -326,7 +361,7 @@ mmk()
 	return ${PIPESTATUS[0]}
 }
 
-# create ssh keys for automatic ssh logins.
+##BH |create_pkeys|create ssh keys for automatic ssh logins.|
 create_pkeys()
 {
     cd ~;
@@ -334,8 +369,7 @@ create_pkeys()
     cd -
 }
 
-# Auto ssh login helper which set sshkeys to remote server
-# setup_ssh user@host
+##BH |setup_ssh|Auto ssh login helper which set sshkeys to remote server, ex. `setup_ssh user@host`|
 setup_ssh()
 {
     if [ ! -f .ssh/id_rsa.pub ]
@@ -349,7 +383,7 @@ setup_ssh()
     cd -
 }
 
-# Renames files and replaces given string from files
+##BH |batch_mv|`batch_mv x y` Renames files containing `x` in their names and replaces `x` with `y`|
 batch_mv()
 {
     if [ "$1" = "" ]
@@ -371,6 +405,7 @@ batch_mv()
         mv $i $res
     done
 }
+##BH |batch_rename|`batch_rename x y` Renames files containing `x` in their names and replaces `x` with `y`. This also replaces file contents having `x` to `y`|
 batch_rename()
 {
     if [ "$1" = "" ]
@@ -400,8 +435,7 @@ batch_rename()
 
 # Thanks to https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
 
-# archive extractor
-# # usage: ex <file>
+##BH |ex|archive extractor usage: ex <file>|
 ex ()
 {
   if [ -f $1 ] ; then
@@ -424,8 +458,7 @@ ex ()
   fi
 }
 
-# Print whole UTF-8 char set. Not working correctly as there are several unwanted
-# characters
+##BH |print_u8charset|Print whole UTF-8 char set. Not working correctly as there are several unwanted characters|
 print_u8charset ()
 {
     count=0
@@ -463,7 +496,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Get git local status
+##BH |get_git_ls|Get git local status|
 get_git_ls()
 {
     git status --porcelain 1> /dev/null 2>&1
@@ -479,8 +512,7 @@ get_git_ls()
     fi
 }
 
-# Get git index status 
-# information about ahead or behind
+##BH |get_git_is|Get git index status information about ahead or behind|
 get_git_is() {
     local st=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" -e "s/ahead /+/g" -e "s/behind /-/g" -e "s/\[//g" -e "s/\]//g" | cut -s -d " " -f2-)
     if [ "$st" != "" ]
@@ -489,7 +521,7 @@ get_git_is() {
     fi
 }
 
-# Get git local branch
+##BH |get_git_lb|Get git local branch|
 get_git_lb() {
     local bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" | cut -d " " -f1)
 
@@ -500,7 +532,7 @@ get_git_lb() {
     fi
 }
 
-# Get git origin branch.
+##BH |get_git_rb|Get git origin branch.|
 get_git_rb() {
     local bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g"| cut -d " " -f1)
 
