@@ -26,19 +26,19 @@ Recently switched to Chrome application mentioned above. Due to bugs with key ma
 
 ### Vim
 
-Please refer to vimhelp.md for available custom shortcuts in addition to original vim/nvim keyboard shortcuts
+Please refer to [vimhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/vimhelp.md) for available custom shortcuts in addition to original vim/nvim keyboard shortcuts
 
 ### Tmux
 
 - Using Tmux config from [gpakosz](https://github.com/gpakosz/.tmux.git)
 - Customized config from (mytmux.conf)
 
-Refer to tmuxhelp.md for available custom shortcuts.
+Refer to [tmuxhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/tmuxhelp.md) for available custom shortcuts.
 
 ### Bashrc
 
 Fully customised bashrc with beautiful prompt line and several helper functions.
-Refer to bashhelp.md for all shortcuts available.
+Refer to [bashhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/bashhelp.md) for all shortcuts available.
 
 ### Default programs
 
