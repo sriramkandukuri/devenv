@@ -34,7 +34,9 @@ alias getsource="tar --exclude="./.git" -czvf codebase_$(date +%Y%m%d_%H%M%S).ta
 alias fsw="find . -name *.swp"
 
 ##BH |hugelist|Find top 5 space consuming files or directories|
-alias hugelist="du -hs * | sort -rh | head -5"
+alias hugelist="du -sh .[!.]* * | sort -rh | head -5"
+##BH |cdsize|Current directory size|
+alias cdsize="du -sh"
 ##BH |?|Get details of an alias/command example "? fsw"|
 alias ?="type -a"
 

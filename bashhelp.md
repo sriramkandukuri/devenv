@@ -35,6 +35,7 @@ Please find below shortcuts provided by bashrc.
 |getsource|Get any git repo as a tar ball witout git information.|
 |fsw|Find any swap files in current directory|
 |hugelist|Find top 5 space consuming files or directories|
+|cdsize|Current directory size|
 |?|Get details of an alias/command example "? fsw"|
 |r|Refresh command, if some programs delte and recreate some directory you can just press r to refresh it. works mostly ;)|
 |csd|Open cscope with available cscope files in current directory|
