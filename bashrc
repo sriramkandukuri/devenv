@@ -568,8 +568,8 @@ print_myprompt() {
     if [ "$USER" == "" ]
     then
         user="DOCKER on `whoami`"
-        right_color=6ba150
-        dirbg=bbff99
+        right_color=2d6187
+        dirbg=28abb9
     fi
 
     local hst=$(hostname|cut -d"." -f1)
