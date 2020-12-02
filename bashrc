@@ -555,6 +555,13 @@ print_myprompt() {
     local gls=`get_git_ls`
     local gis=`get_git_is`
 
+    local right_color=6272a4
+    local dirbg=bd93f9
+    if [ "$USER" == "root" ]
+    then
+        local right_color=cf658c
+        local dirbg=e31045
+    fi
 
     local user=$USER
     local hst=$(hostname|cut -d"." -f1)
@@ -562,7 +569,7 @@ print_myprompt() {
 
     # Right prompt. Very light color, as it is very less important info.
     printf "\n"
-    tclrt 6272a4
+    tclrt $right_color
     if [ "$grb" != "" ]
     then
         printf "%${COLUMNS}s" "$gis $grb | $user@$hst | [$ts]"
@@ -591,7 +598,7 @@ print_myprompt() {
     if [ "$glb" != "" ]
     then
         # git local branch
-        tclrb 6272a4 ffffff
+        tclrb $right_color ffffff
         printf " %s " "$glb"
         tclre
 
@@ -599,18 +606,18 @@ print_myprompt() {
         then
             # separator with current background as foreground and next background as background.
             # powerline bulk arrow separator.
-            tclrb bd93f9 6272a4 
+            tclrb $dirbg $right_color
             printf $PROMPT_SEP
             tclre
         fi
     fi
 
-    tclrb bd93f9 000000
+    tclrb $dirbg 000000
     printf " %s " "$d"
     tclre
     if [ $USE_PWR_FONTS == 1 ]
     then
-        tclrt bd93f9
+        tclrt $dirbg
         printf $PROMPT_SEP
         tclre
     fi
@@ -629,12 +636,7 @@ print_myprompt() {
     tclre
 }
 
-if [ "$USER" == "root" ];
-then
-    PS1='\n\e[1;41m\e[1;37m[\D{%F %T}] \u@\h\e[1;49m \e[1;35m[$PWD]\$\[\e[0m\] \n\$ '
-else
-    PS1='`print_myprompt`\n$ '
-fi
+PS1='`print_myprompt`\n$ '
 # After reading several suggestions decided to not set this in bashrc.
 # terminal should set this
 export TERM="xterm-256color"
