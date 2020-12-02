@@ -555,15 +555,23 @@ print_myprompt() {
     local gls=`get_git_ls`
     local gis=`get_git_is`
 
+    local user=$USER
+
     local right_color=6272a4
     local dirbg=bd93f9
     if [ "$USER" == "root" ]
     then
-        local right_color=cf658c
-        local dirbg=e31045
+        right_color=cf658c
+        dirbg=e31045
+    fi
+    # Mostly inside docker
+    if [ "$USER" == "" ]
+    then
+        user="DOCKER"
+        right_color=88888a
+        dirbg=dadae8
     fi
 
-    local user=$USER
     local hst=$(hostname|cut -d"." -f1)
     local ts=$(date +"%d/%m/%Y %H:%M:%S")
 
