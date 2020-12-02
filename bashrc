@@ -567,7 +567,7 @@ print_myprompt() {
     # Mostly inside docker
     if [ "$USER" == "" ]
     then
-        user="DOCKER"
+        user="DOCKER on `whoami`"
         right_color=88888a
         dirbg=dadae8
     fi
