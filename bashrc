@@ -216,7 +216,7 @@ alias gico="git commit -s"
 ##BH |f|Simple find command to find given patterned files in current directory|
 f ()
 {
-    find . -name "*$1*"
+    find . -name $@
 }
 
 ##BH |man|Similar to man but presented colorful|
@@ -453,6 +453,7 @@ ex ()
       *.zip)       unzip $1     ;;
       *.Z)         uncompress $1;;
       *.7z)        7z x $1      ;;
+      *.tar.xz)    tar xf $1  ;;
       *)           echo "'$1' cannot be extracted via ex()" ;;
     esac
   else
