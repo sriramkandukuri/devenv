@@ -636,7 +636,8 @@ hi ColorColumn ctermbg=234 guibg=#2f2f2f
 hi CursorLine ctermbg=234 guibg=#2f2f2f
 hi CursorColumn ctermbg=234 guibg=#2f2f2f
 hi DraculaComment ctermfg=75  guifg=#7a7f40
-hi LineNr ctermfg=237  guifg=#8f8f8f ctermbg=235 guibg=#2f2f2f
+hi LineNr ctermfg=237 guifg=#8f8f8f ctermbg=235 guibg=#2f2f2f
+hi CursorLineNr guibg=#ff2f00 guifg=#ffffff
 hi DraculaSubtle ctermbg=235  guibg=#2f2f2f
 "hi Normal ctermbg=233  guibg=#222222
 hi Normal ctermbg=NONE  guibg=NONE

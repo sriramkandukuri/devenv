@@ -41,7 +41,8 @@ install_tools ()
 
 install_fzf ()
 {
-    fzf --version && return;
+    fzf --version && echo "fzf already installed" return;
+    echo "fzf not found so installing..."
     ce_dir fzf
     git clone --depth 1 https://github.com/junegunn/fzf.git fzf
     ./fzf/install --all >> $LOGFILE 2>&1
@@ -49,7 +50,8 @@ install_fzf ()
 
 install_ripgrep ()
 {
-    rg -V| grep '^ripgrep 11' && return;
+    rg -V| grep '^ripgrep 11' && echo "ripgrep already installed" return;
+    echo "ripgrep not found so installing..."
     ce_dir rg
     curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb >> $LOGFILE 2>&1
     sudo dpkg -i ripgrep_11.0.2_amd64.deb >> $LOGFILE 2>&1
@@ -58,10 +60,12 @@ install_ripgrep ()
 # install tmux
 install_tmux ()
 {
-    local VER="3.1b"
-    tmux -V| grep "^tmux $VER" && return ;
+    local VER="3.2-rc3"
+    tmux -V| grep "^tmux $VER" && echo "tmux already installed" && return ;
+    echo "tmux not found so installing..."
     ce_dir tmux
-    curl -LO https://github.com/tmux/tmux/releases/download/$VER/tmux-$VER.tar.gz >> $LOGFILE 2>&1
+    curl -LO https://github.com/tmux/tmux/releases/download/3.2-rc/tmux-3.2-rc3.tar.gz >> $LOGFILE 2>&1
+#    curl -LO https://github.com/tmux/tmux/releases/download/$VER/tmux-$VER.tar.gz >> $LOGFILE 2>&1
     tar -xf tmux-$VER.tar.gz >> $LOGFILE 2>&1
     cd tmux-$VER
     ./configure >> $LOGFILE 2>&1 && make >> $LOGFILE 2>&1
@@ -69,7 +73,8 @@ install_tmux ()
 }
 install_pyenv ()
 {
-    pyenv -V| grep "^pyenv " && return ;
+    pyenv -V| grep "^pyenv " && echo "pyenv already installed" && return ;
+    echo "pyenv not found so installing..."
     ce_dir pyenv
     curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer |bash
     pyenv install python3.8
@@ -166,33 +171,33 @@ sudo apt-get clean
 case $1 in
     all)
         clean_dir;
-        echo "================================ installing tools"
+        echo "================================ CHECK AND INSTALL TOOLS ================================"
         install_tools
-        echo "================================ installing fzf"
+        echo "================================ CHECK AND INSTALL FZF ================================"
         install_fzf
-        echo "================================ not installing clangd"
+        echo "================================ NOT INSTALLING CLANGD ================================"
 #        install_clangd
-        echo "================================ installing node"
+        echo "================================ CHECK AND INSTALL NODE ================================"
         install_node
-        echo "================================ installing bashrc"
+        echo "================================ CHECK AND INSTALL BASHRC ================================"
         install_bashrc
-        echo "================================ installing tmux"
+        echo "================================ CHECK AND INSTALL TMUX ================================"
         install_tmux
-        echo "================================ installing tmux_conf"
+        echo "================================ CHECK AND INSTALL TMUX_CONF ================================"
         install_tmux_conf
-        echo "================================ installing nvim"
+        echo "================================ CHECK AND INSTALL NVIM ================================"
         install_nvim
-        echo "================================ installing vim"
+        echo "================================ CHECK AND INSTALL VIM ================================"
         install_vim
-        echo "================================ installing ripgrep"
+        echo "================================ CHECK AND INSTALL RIPGREP ================================"
         install_ripgrep
-        echo "================================ installing vimrc"
+        echo "================================ CHECK AND INSTALL VIMRC ================================"
         install_vimrc
-        echo "================================ installing pyenv"
+        echo "================================ CHECK AND INSTALL PYENV ================================"
         install_pyenv
         ;;
     *)
-        echo "================================ installing $1"
+        echo "================================ CHECK AND INSTALL $1 ================================"
         install_$1
         ;;
 esac
