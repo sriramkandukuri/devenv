@@ -374,7 +374,7 @@ create_pkeys()
 ##BH |setup_ssh|Auto ssh login helper which set sshkeys to remote server, ex. `setup_ssh user@host`|
 setup_ssh()
 {
-    if [ ! -f .ssh/id_rsa.pub ]
+    if [ ! -f ~/.ssh/id_rsa.pub ]
     then
         create_pkeys
     fi
