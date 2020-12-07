@@ -48,6 +48,7 @@ Please find below shortcuts provided by bashrc.
 |tml|list currently running tmux sessions|
 |vtm|Open tmux custom config provided by this repository for editing in vim|
 |tmk|Kill tmux server and kill all processes having `tmux` in their command|
+|tmks|Kill session with given name|
 |vitmp|Create and open temporary file in vim|
 |clean_tmp|Remove all temporary files created by `mktemp` command|
 |lf|List file with fullpath usefull while remote copying.|

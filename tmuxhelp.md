@@ -4,8 +4,6 @@ Please find below shortcuts provided for tmux.
 
 |Shortcut|Description|
 |---|---|
-|Ctrl+b,s|Sprint pane vertically|
-|Ctrl+b,v|Split pane horizontally|
 |Ctrl+\<LEFT-ARROW\>|Goto left pane|
 |Ctrl+\<RIGHT-ARROW\>|Goto right pane|
 |Ctrl+\<UP-ARROW\>|Goto above pane|
@@ -13,10 +11,15 @@ Please find below shortcuts provided for tmux.
 |Shift+\<LEFT-ARROW\>|Select previous window|
 |Shift+\<RIGHT-ARROW\>|Select next window|
 |Alt+:|Enter command prompt of tmux|
+|Alt+S|Distribute panes horizontally even|
+|Alt+V|Distribute panes vertically even|
+|Alt+T|Distribute panes vertically even|
+|Ctrl+Alt+R|Reset to previous layout|
 |Alt+Shift+3|Open new window with 3 vertical panes|
 |Alt+Shift+4|Open new window with 4 panes spread at 4 corners|
 |Alt+Shift+2|Open new window with 2 panes divided vertically|
 |Alt+Ctrl+w|Open new window in work environment, 1 main pane for code browsing, another bottom pane for compilation, a size pane for some other executions|
+|Ctrl+b, Ctrl+w|Distribute panes as per developer layout|
 |Alt+n|Open new window|
 |Alt+1 ... Alt+9|Goto window specified by given number, this is similar to tab switching in gnome terminal|
 |Alt+\<|Swap current window with previous one|
@@ -24,7 +27,8 @@ Please find below shortcuts provided for tmux.
 |Alt+x|Kill pane with a confirmation|
 |Alt+v|Split curent window/pane vertically|
 |Alt+s|Split current pane/window horizontally|
-|Alt+r|Renable current window|
+|Alt+a|Rename current pane|
+|Alt+r|Rename current window|
 |Alt+f|Bring current pane to focus/zoom to occupy whole window size. Send back to original form if already focussed.|
 |Alt+h|Goto left pane|
 |Alt+l|Goto right pane|

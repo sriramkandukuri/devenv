@@ -105,7 +105,9 @@ alias tml="tmux ls"
 ##BH |vtm|Open tmux custom config provided by this repository for editing in vim|
 alias vtm="vim ~/.mytmux.conf"
 ##BH |tmk|Kill tmux server and kill all processes having `tmux` in their command|
-alias tmk="tmux kill-server; kill -9 \$(ps -eaf|grep tmu[x] | cut -d\" \" -f2)"
+alias tmk="tmux kill-server; kill -9 \$(ps -eaf|grep tmu[x] | sed 's/  */ /g' | cut -d\" \" -f2)"
+##BH |tmks|Kill session with given name|
+alias tmks="tmux kill-session -t"
 
 bashrc_sourced=$(stat -c %Y ~/.bashrc)
 bashdevrc_sourced=$(stat -c %Y ~/devenv/bashrc)
