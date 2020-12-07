@@ -256,8 +256,9 @@ let g:mkdp_page_title = '「${name}」'
 
 " Dir diff options
     let g:DirDiffEnableMappings = 1
-    let g:DirDiffExcludes = "cscope.out,tags,*.o,*.so,*.a,CVS,*.class,*.exe,.*.swp"
+    let g:DirDiffExcludes = "cscope.out,tags,*.o,*.so,*.a,CVS,*.class,*.exe,.*.swp,*.git*"
     let g:DirDiffIgnore = "Id:,Revision:,Date:"
+    let g:DirDiffTheme = "github"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "global options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
