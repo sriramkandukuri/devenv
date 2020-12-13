@@ -373,6 +373,15 @@ create_pkeys()
     cd -
 }
 
+##BH |dirdiff|Terminal based interactive directory diff tool using vim|
+dirdiff()
+{
+    # Shell-escape each path:
+    DIR1=$(printf '%q' "$1"); shift
+    DIR2=$(printf '%q' "$1"); shift
+    vim $@ -c "DirDiff $DIR1 $DIR2"
+}
+
 ##BH |setup_ssh|Auto ssh login helper which set sshkeys to remote server, ex. `setup_ssh user@host`|
 setup_ssh()
 {

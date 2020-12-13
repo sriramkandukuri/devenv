@@ -92,6 +92,7 @@ Please find below shortcuts provided by bashrc.
 |myecho|echo command wrapper with colored errors,warnings and highlighted directory entries and exits.|
 |mmk|Make command wrapper with colored errors,warnings and highlighted directory entries and exits.|
 |create_pkeys|create ssh keys for automatic ssh logins.|
+|dirdiff|Terminal based interactive directory diff tool using vim|
 |setup_ssh|Auto ssh login helper which set sshkeys to remote server, ex. `setup_ssh user@host`|
 |batch_mv|`batch_mv x y` Renames files containing `x` in their names and replaces `x` with `y`|
 |batch_rename|`batch_rename x y` Renames files containing `x` in their names and replaces `x` with `y`. This also replaces file contents having `x` to `y`|

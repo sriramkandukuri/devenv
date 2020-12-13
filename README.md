@@ -28,6 +28,10 @@ Recently switched to Chrome application mentioned above. Due to bugs with key ma
 
 Please refer to [vimhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/vimhelp.md) for available custom shortcuts in addition to original vim/nvim keyboard shortcuts
 
+#### Usefull cheat sheets
+
+- [Vimdiff cheat sheet and shortcuts](https://gist.github.com/mattratleph/4026987)
+
 ### Tmux
 
 - Using Tmux config from [gpakosz](https://github.com/gpakosz/.tmux.git)

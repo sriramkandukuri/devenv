@@ -72,6 +72,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "dracula themes
 "   https://github.com/dracula/vim.git
 Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
+
+" https://github.com/rafi/awesome-vim-colorschemes
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'rainglow/vim', {'as':'rg-colors'}
+Plug 'morhetz/gruvbox'
 "Vim status line themes
 Plug 'vim-airline/vim-airline-themes'
 Plug 'https://github.com/vim-airline/vim-airline.git'
@@ -82,13 +87,19 @@ Plug 'jremmen/vim-ripgrep'
 "Git helpers :Git
 "   https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-fugitive'
-"   https://github.com/junegunn/gv.vim
-Plug 'junegunn/gv.vim'
-"Surrround braces and quotes easily
+" Some good toggle and paris configutions. help :
+Plug 'tpope/vim-unimpaired'
+" Better automated and command based autofilling of braces and surround pairs
 Plug 'tpope/vim-surround'
-" Easy commentary
+" Easy commenting
 Plug 'tpope/vim-commentary'
-
+" `.` repeats all plugin actions instead of native commands only
+Plug 'tpope/vim-repeat'
+" Some additional help to netrw
+"   https://github.com/tpope/vim-vinegar
+Plug 'tpope/vim-vinegar'
+" Some good defaults but overwriting some custome settings. Currently disabled.
+" Plug 'tpope/vim-sensible'
 " taglist side bar for C/C++
 Plug 'yegappan/taglist'
 
@@ -107,6 +118,8 @@ Plug 'mbbill/undotree'
 "   https://github.com/terryma/vim-multiple-cursors
 Plug 'terryma/vim-multiple-cursors'
 
+"   https://github.com/junegunn/gv.vim
+Plug 'junegunn/gv.vim'
 " fzf with ripgrep
 "   https://github.com/junegunn/fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -117,10 +130,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'dhruvasagar/vim-table-mode'
 " RFC helper for vim
 Plug 'mhinz/vim-rfc'
-" Some additional help to netrw
-"   https://github.com/tpope/vim-vinegar
-Plug 'tpope/vim-vinegar'
-" Plug 'tpope/vim-sensible'
 
 " helper for key mappings
 "   https://github.com/liuchengxu/vim-which-key
@@ -255,10 +264,27 @@ let g:mkdp_page_title = '「${name}」'
 " }}}
 
 " Dir diff options
-    let g:DirDiffEnableMappings = 1
-    let g:DirDiffExcludes = "cscope.out,tags,*.o,*.so,*.a,CVS,*.class,*.exe,.*.swp,*.git*"
-    let g:DirDiffIgnore = "Id:,Revision:,Date:"
-    let g:DirDiffTheme = "github"
+let g:DirDiffEnableMappings = 1
+let g:DirDiffExcludes = "cscope.files,cscope.out,tags,*.o,*.so,*.a,CVS,*.class,*.exe,.*.swp,*.git*"
+let g:DirDiffIgnore = "Id:,Revision:,Date:"
+let g:DirDiffAddArgs = "-w -B"
+set diffopt+=iwhite
+set diffexpr=MyDiff()
+function MyDiff()
+    let opt = ""
+    if &diffopt =~ "icase"
+        let opt = opt . "-i "
+    endif
+    if &diffopt =~ "iwhite"
+        let opt = opt . "-w -B " " vim uses -b by default
+    endif
+    silent execute "!diff -a --binary " . opt .
+                \ v:fname_in . " " . v:fname_new .  " > " . v:fname_out
+endfunction
+""VH |w,s,d|Ignore white space in diff windows, remember 'w'hite 's'pace 'd'isable|
+map wsd :set diffopt+=iwhite<CR>
+""VH |w,s,e|Shows white space in diff windows, remember 'w'hite 's'pace 'e'nable|
+map wse :set diffopt-=iwhite<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "global options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -622,6 +648,13 @@ inoreabbrev <expr> __
 
 let g:table_mode_corner='|'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Common color scheme settings
+"
+" use the dark theme
+set background=dark
+set termguicolors
+
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Dracula customizations.
 
@@ -631,7 +664,6 @@ let g:dracula_underline = 1
 let g:dracula_undercurl = 1
 let g:dracula_inverse = 1
 let g:dracula_colorterm = 1
-set termguicolors
 
 hi ColorColumn ctermbg=234 guibg=#2f2f2f
 hi CursorLine ctermbg=234 guibg=#2f2f2f
@@ -640,8 +672,29 @@ hi DraculaComment ctermfg=75  guifg=#7a7f40
 hi LineNr ctermfg=237 guifg=#8f8f8f ctermbg=235 guibg=#2f2f2f
 hi CursorLineNr guibg=#ffae9e guifg=#000000
 hi DraculaSubtle ctermbg=235  guibg=#2f2f2f
+" function SetDiffColors()
+"     if &diff
+        hi DiffAdd guibg=#0f3f0f
+        hi DiffChange guibg=#3f2f0f
+        hi DiffDelete guibg=#3f0f0f guifg=#ff9ff0
+    " else
+    "     hi DiffAdd guibg=#8fff33 guifg=#0f0f0f
+    "     hi DiffChange guibg=#fff009 guifg=#0f0f0f
+    "     hi DiffDelete guibg=#fe0808 guifg=#f0f0f0
+    " endif
+" endfunction
+" call SetDiffColors()
+
 "hi Normal ctermbg=233  guibg=#222222
 hi Normal ctermbg=NONE  guibg=NONE
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Gruvbox customizations
+
+let g:gruvbox_italic = 1
+let g:gruvbox_improved_warnings = 1
+let g:gruvbox_improved_strings = 1
+
 
 "Trim white spaces before saving
 "autocmd BufWritePre * :call TrimWhitespace()

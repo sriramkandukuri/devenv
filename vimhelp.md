@@ -7,6 +7,8 @@ Please find below shortcuts provided for vim.
 |FnKey F4|Toggle spell check and show errors|
 |[s, ]s, [S, ]S|Goto Next or previous spellcheck errors|
 |FnKey F8|Toggle right side tagbar for all *.c,*.cpp,*.h,*.hpp files|
+|w,s,d|Ignore white space in diff windows, remember 'w'hite 's'pace 'd'isable|
+|w,s,e|Shows white space in diff windows, remember 'w'hite 's'pace 'e'nable|
 |Space+q|Toggle quick scope plugin which enables visual marking while using `t` shortcut to go to any position of line|
 |Space+Space|Search through files, enter to open selected file|
 |Space+C|Search through available color schemes and activate upon enter|
