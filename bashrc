@@ -40,6 +40,12 @@ alias cdsize="du -sh"
 ##BH |?|Get details of an alias/command example "? fsw"|
 alias ?="type -a"
 
+##BH |mcd|Make directory and cd to it|
+mcd()
+{
+    mkdir -p $@ && cd $1
+}
+
 # enable vi mode in shell too.
 # set -o vi
 
@@ -60,10 +66,19 @@ alias csd='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
 ##BH |cs|Create cscope db and open cscope. This also takes directories as arguments to which cscopedb need to be created.|
 cs ()
 {
+    printf "clang\n%s -std=c11\n%s -std=c++2a\n%s %s" "%c" "%cpp" "%h" "%hpp" > .ccls
     if [ $# == 0 ];then
-        find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R .;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files
+        find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files && \
+        find . -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | sort -u | sed -e 's/^/-I/g' >> .ccls && \
+        ctags --exclude=*/.pc/* --exclude=*.patch -R . && \
+        ln -sf .ccls compile_flags.txt && \
+        CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files;
     else
-        find $@ \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R $@;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files
+        find $@ \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files && \
+        find $@ -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | sort -u | sed -e 's/^/-I/g' >> .ccls && \
+        ctags --exclude=*/.pc/* --exclude=*.patch -R $@ && \
+        ln -sf .ccls compile_flags.txt && \
+        CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files;
     fi
 }
 ##BH |csf|Similar to above `cs` but removes all the cscope db files before creating new set of files. This can used to refresh the db if source is changed.|
@@ -77,6 +92,15 @@ csf ()
     fi
     if [ -f cscope.files ]; then
         rm -rf cscope.files
+    fi
+    if [ -L compile_flags.txt ]; then
+        unlink compile_flags.txt
+    fi
+    if [ -f .ccls ]; then
+        rm -rf .ccls
+    fi
+    if [ -d ccls-cache ]; then
+        rm -rf ccls-cache
     fi
     cs $@
 }
@@ -659,4 +683,4 @@ print_myprompt() {
 PS1='`print_myprompt`\n$ '
 # After reading several suggestions decided to not set this in bashrc.
 # terminal should set this
-export TERM="xterm-256color"
+# export TERM="xterm-256color"

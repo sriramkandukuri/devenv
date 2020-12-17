@@ -1,6 +1,7 @@
 {
-  /* "coc.preferences.hoverTarget": "echo", */
-  /* "coc.preferences.enableFloatHighlight": false, */
+  "coc.preferences.hoverTarget": "float",
+  /*  "coc.preferences.enableFloatHighlight": false, */
+  "coc.preferences.rootPatterns": [".ccls", "compile_commands.json", ".git", ".hg", ".projections.json"],
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSaveFiletypes": ["go", "markdown", "javascript", "typescript", "json", "jsonc"],
   "coc.source.file.ignoreHidden": false,
@@ -9,15 +10,18 @@
   "prettier.eslintIntegration": true,
   "codeLens.enable": true,
   "git.addGBlameToVirtualText": true,
-  "signature.target": "echo",
   "diagnostic.format": "%message [%source]",
   "diagnostic.virtualText": true,
   "diagnostic.checkCurrentLine": true,
   "diagnostic.warningSign": "W",
   "diagnostic.separateRelatedInformationAsDiagnostics": true,
+  "suggest.echodocSupport": true,
+  "suggest.enablePreview": true,
   "suggest.timeout": 5000,
-  "suggest.asciiCharactersOnly": true,
+  "suggest.asciiCharactersOnly": false,
+  "suggest.floatEnable": true,
   "snippets.extends": {
+    "cpp": ["c"],
     "javascriptreact": ["javascript"],
     "typescript": ["javascript"]
   },
@@ -54,7 +58,11 @@
       "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
       "initializationOptions": {
         "cache": {
-          "directory": "/tmp/ccls"
+          "directory": "/usr/local/ccls-cache"
+        },
+        "highlight": { "lsRanges": true },
+        "client": {
+          "snippetSupport": true
         }
       }
     },

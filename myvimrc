@@ -2,6 +2,7 @@ source ~/.cocvrc
 
 set hidden
 set noerrorbells
+set autoread
 
 syntax on
 set tabstop=4 softtabstop=4
@@ -59,6 +60,9 @@ set updatetime=50
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
+""VH |Space+v+r|Reload vimrc|G
+nnoremap <leader>vr :source $MYVIMRC<CR>
+
 "{{{
 " PLUGINS
 "
@@ -66,9 +70,19 @@ set shortmess+=c
 "   https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 "Code completers
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+
 "Plug 'ycm-core/YouCompleteMe'
 
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/diagnostic-nvim'
+" Plug 'tjdevries/nlua.nvim'
+" Plug 'tjdevries/lsp_extensions.nvim'
+
+" Neovim Tree shitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 "dracula themes
 "   https://github.com/dracula/vim.git
 Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
@@ -157,7 +171,51 @@ Plug 'cespare/vim-toml'
 
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
+" Fade inactive buffers
+"   https://github.com/TaDaa/vimade
+Plug 'TaDaa/vimade'
+
+" Tmux focus events to vim properly
+"   https://github.com/tmux-plugins/vim-tmux-focus-events
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
+" Some usefull snippets
+"   https://github.com/honza/vim-snippets
+Plug 'honza/vim-snippets'
+
+" Split single block statements or join multiline statements to single line.
+"   https://github.com/AndrewRadev/splitjoin.vim
+Plug 'AndrewRadev/splitjoin.vim'
+
 call plug#end()
+"
+"}}}
+
+""{{{
+"" ccls nvim inbuild lsp configuration
+"" Register ccls C++ lanuage server.
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+" lua << EOF
+"   require('lspconfig').ccls.setup({
+"     settings = {
+"         root_dir = root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".ccls")
+"     },
+"     on_attach = require'completion'.on_attach
+"   })
+" EOF
+" lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
+" lua require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
+" lua require'lspconfig'.ccls.setup{ on_attach=require'completion'.on_attach }
+" lua require'lspconfig'.pyls.setup{ on_attach=require'completion'.on_attach }
+" lua require'lspconfig'.gopls.setup{ on_attach=require'completion'.on_attach }
+" lua require'lspconfig'.rust_analyzer.setup{ on_attach=require'completion'.on_attach }
+""}}}
+
+"{{{ Vimade fading level
+"
+let g:vimade = {}
+let g:vimade.fadelevel = 0.6
+let g:vimade.enablesigns = 1
 "
 "}}}
 
@@ -363,8 +421,8 @@ nnoremap <silent> <Leader>C        :Colors<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
 ""VH |Space+L|Search through lines having some pattern you enter|
 nnoremap <silent> <Leader>L        :Lines<CR>
-""VH |Space+rg|Invoke ripgrep|
-nnoremap <silent> <Leader>rg       :RG <C-R><C-W><CR>
+""VH |Space+g|Invoke ripgrep|
+nnoremap <silent> <Leader>g       :RG <C-R><C-W><CR>
 ""VH |Space+RG|Invoke ripgrep|
 nnoremap <silent> <Leader>RG       :RG <C-R><C-A><CR>
 ""VH |Space+ag|Invoke advance grep|
@@ -457,6 +515,8 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-cmake',
   \ 'coc-ccls',
+  \ 'coc-clangd',
+  \ 'coc-prettier',
   \ ]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -494,7 +554,24 @@ let g:netrw_liststyle = 3
 "let g:netrw_browse_split = 4
 "let g:netrw_altv = 1
 ""VH |-, Space+pv|Open directory browser as split window on left side|
-nnoremap - :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+function! ToggleVimExplorer()
+    let i = bufnr("$")
+    let wasOpen = 0
+    while (i >= 1)
+        if (getbufvar(i, "&filetype") == "netrw")
+            silent exe "bwipeout " . i
+            let wasOpen = 1
+        endif
+        let i-=1
+    endwhile
+    if !wasOpen
+        silent Lexplore
+        wincmd l
+    endif
+endfunction
+
+nnoremap - :call ToggleVimExplorer()<cr>
+"nnoremap - :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 function PDrawAUCMD()
     :Vex
@@ -502,7 +579,7 @@ function PDrawAUCMD()
 endfunction
 augroup ProjectDrawer
   autocmd!
-  autocmd VimEnter * call PDrawAUCMD()
+  autocmd VimEnter * call ToggleVimExplorer()
 augroup END
 
 " {{{ Buffer management
@@ -664,29 +741,34 @@ let g:dracula_underline = 1
 let g:dracula_undercurl = 1
 let g:dracula_inverse = 1
 let g:dracula_colorterm = 1
-
 hi ColorColumn ctermbg=234 guibg=#2f2f2f
 hi CursorLine ctermbg=234 guibg=#2f2f2f
 hi CursorColumn ctermbg=234 guibg=#2f2f2f
 hi DraculaComment ctermfg=75  guifg=#7a7f40
 hi LineNr ctermfg=237 guifg=#8f8f8f ctermbg=235 guibg=#2f2f2f
-hi CursorLineNr guibg=#ffae9e guifg=#000000
+hi CursorLineNr guibg=#ffe5b9 guifg=#000000
 hi DraculaSubtle ctermbg=235  guibg=#2f2f2f
-" function SetDiffColors()
-"     if &diff
-        hi DiffAdd guibg=#0f3f0f
-        hi DiffChange guibg=#3f2f0f
-        hi DiffDelete guibg=#3f0f0f guifg=#ff9ff0
-    " else
-    "     hi DiffAdd guibg=#8fff33 guifg=#0f0f0f
-    "     hi DiffChange guibg=#fff009 guifg=#0f0f0f
-    "     hi DiffDelete guibg=#fe0808 guifg=#f0f0f0
-    " endif
-" endfunction
-" call SetDiffColors()
-
-"hi Normal ctermbg=233  guibg=#222222
+hi DiffAdd guibg=#8fff33 guifg=#0f0f0f
+hi DiffChange guibg=#ffb700 guifg=#0f0f0f
+hi DiffDelete guibg=#fe0808 guifg=#f0f0f0
 hi Normal ctermbg=NONE  guibg=NONE
+function SetDiffColors()
+    colorscheme=dracula
+    set background=dark
+    set termguicolors
+    hi ColorColumn ctermbg=234 guibg=#2f2f2f
+    hi CursorLine ctermbg=234 guibg=#2f2f2f
+    hi CursorColumn ctermbg=234 guibg=#2f2f2f
+    hi DraculaComment ctermfg=75  guifg=#7a7f40
+    hi LineNr ctermfg=237 guifg=#8f8f8f ctermbg=235 guibg=#2f2f2f
+    hi CursorLineNr guibg=#ffe5b9 guifg=#000000
+    hi DraculaSubtle ctermbg=235  guibg=#2f2f2f
+    hi DiffAdd guibg=#0f380f
+    hi DiffChange guibg=#3f2f0f
+    hi DiffDelete guibg=#3f0f0f guifg=#30000f
+    hi Normal ctermbg=NONE  guibg=NONE
+endfunction
+autocmd FileType dirdiff :call SetDiffColors()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Gruvbox customizations

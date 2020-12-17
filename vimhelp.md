@@ -6,6 +6,7 @@ Please find below shortcuts provided for vim.
 |---|---|
 |FnKey F4|Toggle spell check and show errors|
 |[s, ]s, [S, ]S|Goto Next or previous spellcheck errors|
+|Space+v+r|Reload vimrc|
 |FnKey F8|Toggle right side tagbar for all *.c,*.cpp,*.h,*.hpp files|
 |w,s,d|Ignore white space in diff windows, remember 'w'hite 's'pace 'd'isable|
 |w,s,e|Shows white space in diff windows, remember 'w'hite 's'pace 'e'nable|
@@ -14,7 +15,7 @@ Please find below shortcuts provided for vim.
 |Space+C|Search through available color schemes and activate upon enter|
 |Space+<ENTER>|Search through available buffers and enter to open selected one|
 |Space+L|Search through lines having some pattern you enter|
-|Space+rg|Invoke ripgrep|
+|Space+g|Invoke ripgrep|
 |Space+RG|Invoke ripgrep|
 |Space+ag|Invoke advance grep|
 |Space+\`|Search through available marks and enter into selected one|

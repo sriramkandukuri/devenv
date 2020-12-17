@@ -37,6 +37,7 @@ Please find below shortcuts provided by bashrc.
 |hugelist|Find top 5 space consuming files or directories|
 |cdsize|Current directory size|
 |?|Get details of an alias/command example "? fsw"|
+|mcd|Make directory and cd to it|
 |r|Refresh command, if some programs delte and recreate some directory you can just press r to refresh it. works mostly ;)|
 |csd|Open cscope with available cscope files in current directory|
 |cs|Create cscope db and open cscope. This also takes directories as arguments to which cscopedb need to be created.|
