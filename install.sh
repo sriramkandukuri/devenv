@@ -173,6 +173,7 @@ install_vimrc ()
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOGFILE 2>&1 
     vim +PlugInstall +qall! >> $LOGFILE 2>&1
+    vim +TSInstall c cpp bash python 
     fix_coc_ccls;
     cd ~/.vim/plugged/YouCompleteMe/
     ./install.py --clangd-completer --clang-completer >> $LOGFILE  2>&1
