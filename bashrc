@@ -47,6 +47,11 @@ mcd()
     mkdir -p $@ && cd $1
 }
 
+##BH |cho|Make current user as owner for all given files
+alias cho="sudo chown -R $USER:$USER"
+##BH |chx|Give executable permission to given files
+alias chx="chmod +x"
+
 # enable vi mode in shell too.
 # set -o vi
 
