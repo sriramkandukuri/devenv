@@ -4,9 +4,22 @@ Please find below shortcuts provided for vim.
 
 |Shortcut|Description|
 |---|---|
-|FnKey F4|Toggle spell check and show errors|
+|FnKey F11|Toggle mouse
+|Shift+FnKey F11|Toggle mouse and number sign columns this is usefull for copying using mouse selection
+|Ctrl + FnKey F11|Toggle number and sign columns without changing mouse state
+|FnKey F7|Toggle spell check and show errors|
 |[s, ]s, [S, ]S|Goto Next or previous spellcheck errors|
 |Space+v+r|Reload vimrc|
+|Space+=|Format file or visual selection wrt clang definitions
+|Space+c+a|Connect to cscope db using already existing cscope.out file
+|Space+c+s|Find this C symbol
+|Space+c+g|Find this definition
+|Space+c+d|Find functions called by this function
+|Space+c+c|Find functions calling this function
+|Space+c+t|Find this text string
+|Space+c+e|Find this egrep pattern
+|Space+c+f|Find this file
+|Space+c+i|Find files #including this file
 |FnKey F8|Toggle right side tagbar for all *.c,*.cpp,*.h,*.hpp files|
 |w,s,d|Ignore white space in diff windows, remember 'w'hite 's'pace 'd'isable|
 |w,s,e|Shows white space in diff windows, remember 'w'hite 's'pace 'e'nable|
@@ -15,7 +28,7 @@ Please find below shortcuts provided for vim.
 |Space+C|Search through available color schemes and activate upon enter|
 |Space+<ENTER>|Search through available buffers and enter to open selected one|
 |Space+L|Search through lines having some pattern you enter|
-|Space+g|Invoke ripgrep|
+|Space+f|Invoke ripgrep|
 |Space+RG|Invoke ripgrep|
 |Space+ag|Invoke advance grep|
 |Space+\`|Search through available marks and enter into selected one|
@@ -29,7 +42,7 @@ Please find below shortcuts provided for vim.
 |Space+//|Comment out current line or visual selection|
 |Space+8|Add doxygen style comments before current line|
 |Space+\\|Append line end comments Use only for c style doxygen comments for structure or parameter variables.|
-|FnKey F3|Enter timestamp at cursor position|
+|Space+T|Enter timestamp at cursor position|
 |Space+h|Goto left window|
 |Space+j|Goto below window|
 |Space+k|Goto above window|
@@ -49,3 +62,5 @@ Please find below shortcuts provided for vim.
 |Space+cr|Restart CoC|
 |FnKey F12|Show trailing spaces in a file|
 |Shift+FnKey F12|Remove trailing spaces on a selected text|
+|Space+h+m|List all currently used maps to temporary buffer"
+|Space+h+m|List all currently used highlights to temporary buffer"

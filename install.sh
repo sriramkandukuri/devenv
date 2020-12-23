@@ -31,12 +31,22 @@ install_tools ()
     sudo apt-get -yq upgrade >> $LOGFILE 2>&1
     sudo apt-get -yqm install cscope ctags python python3 python3-pip \
         snapd fonts-powerline bash-completion lfm vifm libevent-dev libevent-dev \
-        plantuml doxygen ccls libgemplugin-ruby rubygems\
+        plantuml doxygen ccls libgemplugin-ruby rubygems clang-format\
         libncurses5-dev libncursesw5-dev p7zip-full cmake lynx ruby ruby-dev >> $LOGFILE 2>&1
     echo "================= Trying to install python pip for python2"
     sudo apt-get -yqm install python-pip >> $LOGFILE 2>&1
     sudo gem install nokogiri
     sudo apt-get -yqm install fuse >> $LOGFILE 2>&1
+    npm i -g bash-language-server >> $LOGFILE 2>&1
+    sudo ln -sf /usr/bin/clangd-11 /usr/bin/clangd
+}
+
+install_bat()
+{
+    ce_dir bat
+    wget https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb >> $LOGFILE 2>&1
+    sudo dpkg -i bat_0.17.1_amd64.deb >> $LOGFILE 2>&1 
+ 
 }
 
 install_fzf ()
@@ -107,15 +117,11 @@ install_bashrc ()
     echo "Add '. ~/devenv/bashrc'  to ~/.bashrc"
 }
 
-install_clangd_notusing ()
+install_clangd ()
 {
     # 10
     ce_dir clangd
-    curl -LO https://github.com/clangd/clangd/releases/download/10rc3/clangd-linux-10rc3.zip
-    unzip -q clangd-linux-10rc3.zip
-    sudo cp clangd_10rc3/bin/* /usr/local/bin/
-    sudo cp clangd_10rc3/lib/* /usr/local/lib/
-    curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-9.0.1/clang+llvm-9.0.1-powerpc64le-linux-ubuntu-16.04.tar.xz
+    sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" >> $LOGFILE 2>&1
 }
 
 install_nvim ()
@@ -173,7 +179,8 @@ install_vimrc ()
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOGFILE 2>&1 
     vim +PlugInstall +qall! >> $LOGFILE 2>&1
-    vim +TSInstall c cpp bash python 
+    vim -c "CocInstall coc-clangd coc-ccls" -c "qall" >> $LOGFILE 2>&1
+    vim -c "TSInstall c cpp bash python" -c "qall" >> $LOGFILE 2>&1
     fix_coc_ccls;
     cd ~/.vim/plugged/YouCompleteMe/
     ./install.py --clangd-completer --clang-completer >> $LOGFILE  2>&1
@@ -198,32 +205,34 @@ sudo apt-get clean
 case $1 in
     all)
         clean_dir;
-        echo "================================ CHECK AND INSTALL TOOLS ================================"
+        echo "================================ CHECK AND INSTALL tools ================================"
         install_tools
-        echo "================================ CHECK AND INSTALL FZF ================================"
+        echo "================================ CHECK AND INSTALL fzf ================================"
         install_fzf
-        echo "================================ NOT INSTALLING CLANGD ================================"
-#        install_clangd
-        echo "================================ CHECK AND INSTALL YARN ================================"
+        echo "================================ CHECK AND INSTALL clangd ================================"
+        install_clangd
+        echo "================================ CHECK AND INSTALL yarn ================================"
         install_yarn
-        echo "================================ CHECK AND INSTALL NODE ================================"
+        echo "================================ CHECK AND INSTALL node ================================"
         install_node
-        echo "================================ CHECK AND INSTALL BASHRC ================================"
+        echo "================================ CHECK AND INSTALL bashrc ================================"
         install_bashrc
-        echo "================================ CHECK AND INSTALL TMUX ================================"
+        echo "================================ CHECK AND INSTALL tmux ================================"
         install_tmux
-        echo "================================ CHECK AND INSTALL TMUX_CONF ================================"
+        echo "================================ CHECK AND INSTALL tmux_conf ================================"
         install_tmux_conf
-        echo "================================ CHECK AND INSTALL NVIM ================================"
+        echo "================================ CHECK AND INSTALL nvim ================================"
         install_nvim
-        echo "================================ CHECK AND INSTALL VIM ================================"
+        echo "================================ CHECK AND INSTALL vim ================================"
         install_vim
-        echo "================================ CHECK AND INSTALL RIPGREP ================================"
+        echo "================================ CHECK AND INSTALL ripgrep ================================"
         install_ripgrep
-        echo "================================ CHECK AND INSTALL VIMRC ================================"
+        echo "================================ CHECK AND INSTALL vimrc ================================"
         install_vimrc
-        echo "================================ CHECK AND INSTALL PYENV ================================"
+        echo "================================ CHECK AND INSTALL pyenv ================================"
         install_pyenv
+        echo "================================ CHECK AND INSTALL bat ================================"
+        install_bat
         ;;
     fix)
         fix_coc_ccls;

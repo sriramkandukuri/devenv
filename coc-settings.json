@@ -11,7 +11,7 @@
   "codeLens.enable": true,
   "git.addGBlameToVirtualText": true,
   "diagnostic.format": "%message [%source]",
-  "diagnostic.virtualText": true,
+  "diagnostic.virtualText": false,
   "diagnostic.checkCurrentLine": true,
   "diagnostic.warningSign": "W",
   "diagnostic.separateRelatedInformationAsDiagnostics": true,
@@ -20,6 +20,8 @@
   "suggest.timeout": 5000,
   "suggest.asciiCharactersOnly": false,
   "suggest.floatEnable": true,
+  "suggest.detailField": "abbr",
+  "suggest.acceptSuggestionOnCommitCharacter": true,
   "snippets.extends": {
     "cpp": ["c"],
     "javascriptreact": ["javascript"],
@@ -52,19 +54,27 @@
         "caseSensitiveCompletion": true
       }
     },
+    /*
     "ccls": {
       "command": "ccls",
       "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "rootPatterns": [".ccls", "compile_commands.json"],
       "initializationOptions": {
         "cache": {
-          "directory": "/usr/local/ccls-cache"
+          "directory": "/tmp/ccls-cache"
         },
         "highlight": { "lsRanges": true },
         "client": {
           "snippetSupport": true
         }
       }
+    },
+    */
+    "clangd": {
+      "command": "clangd",
+      "args": ["--completion-style=detailed"],
+      "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+      "filetypes": ["c", "cpp", "objc", "objcpp"]
     },
     "bash": {
       "command": "bash-language-server",

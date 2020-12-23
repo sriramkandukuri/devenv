@@ -39,6 +39,7 @@ alias hugelist="du -sh .[!.]* * | sort -rh | head -5"
 alias cdsize="du -sh"
 ##BH |?|Get details of an alias/command example "? fsw"|
 alias ?="type -a"
+alias clangd="clangd-11"
 
 ##BH |mcd|Make directory and cd to it|
 mcd()
@@ -66,18 +67,20 @@ alias csd='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
 ##BH |cs|Create cscope db and open cscope. This also takes directories as arguments to which cscopedb need to be created.|
 cs ()
 {
-    printf "clang\n%s -std=c11\n%s -std=c++2a\n%s %s" "%c" "%cpp" "%h" "%hpp" > .ccls
+    printf "%s\n" "-ferror-limit=0" > compile_flags.txt
+    $(gcc -print-prog-name=cc1) -v /dev/null -o /dev/null 2>&1 | grep include | grep -v "^#" | grep -v "ignoring" | sed -e 's/^ /-I\n/g' >> compile_flags.txt
+    printf "%s\n%s\n%s\n%s\n%s\n" "%h" "-I" "./" "-I" "../" >> compile_flags.txt
     if [ $# == 0 ];then
         find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files && \
-        find . -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | sort -u | sed -e 's/^/-I/g' >> .ccls && \
+        find -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | xargs dirname | awk '!x[$0]++' | sed -e 's/^/-I\n/g' >> compile_flags.txt && \
+        find -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | awk '!x[$0]++' | sed -e 's/^/-I\n/g' >> compile_flags.txt && \
         ctags --exclude=*/.pc/* --exclude=*.patch -R . && \
-        ln -sf .ccls compile_flags.txt && \
         CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files;
     else
         find $@ \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files && \
-        find $@ -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | sort -u | sed -e 's/^/-I/g' >> .ccls && \
+        find $@ -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | xargs dirname | sort -u | sed -e 's/^/-I/g' >> compile_flags.txt && \
+        find $@ -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | sort -u | sed -e 's/^/-I/g' >> compile_flags.txt && \
         ctags --exclude=*/.pc/* --exclude=*.patch -R $@ && \
-        ln -sf .ccls compile_flags.txt && \
         CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files;
     fi
 }
@@ -93,8 +96,8 @@ csf ()
     if [ -f cscope.files ]; then
         rm -rf cscope.files
     fi
-    if [ -L compile_flags.txt ]; then
-        unlink compile_flags.txt
+    if [ -f compile_flags.txt ]; then
+        rm -rf compile_flags.txt
     fi
     if [ -f .ccls ]; then
         rm -rf .ccls
@@ -142,7 +145,10 @@ prompt_command='
 '
 # Manage temporary files
 ##BH |vitmp|Create and open temporary file in vim|
-alias vitmp="vim `mktemp`"
+vitmp() 
+{
+    vim $(mktemp)
+}
 ##BH |clean_tmp|Remove all temporary files created by `mktemp` command|
 alias clean_tmp="rm -rf /tmp/tmp.*"
 
