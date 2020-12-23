@@ -65,9 +65,11 @@ Please find below shortcuts provided for tmux.
 |Ctrl+b,Ctrl+l|Goto next window|
 |Ctrl+b,\<TAB\>|Goto last window|
 |Ctrl+b,m|Toggle mouse enable or disable|
+|Alt+M|Toggle mouse enable or disable|
 |Ctrl+b,U|Enable or disable URL view in current pane|
 |Ctrl+b,F|Focus back pane|
 |Ctrl+b,\<ENTER\>|Enter copy mode of tmux|
 |Ctrl+b,b|List available buffers|
 |Ctrl+b,p|Paste buffer|
+|Ctrl+Alt+v|Paste buffer|
 |Ctrl+b,P|Choose buffer to paste|
