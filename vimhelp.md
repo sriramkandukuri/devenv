@@ -41,7 +41,7 @@ Please find below shortcuts provided for vim.
 |Ctrl+s|Save file|
 |Space+//|Comment out current line or visual selection|
 |Space+8|Add doxygen style comments before current line|
-|Space+\\|Append line end comments Use only for c style doxygen comments for structure or parameter variables.|
+|Space+`\`|Append line end comments Use only for c style doxygen comments for structure or parameter variables.|
 |Space+T|Enter timestamp at cursor position|
 |Space+h|Goto left window|
 |Space+j|Goto below window|
