@@ -61,9 +61,9 @@ function ToggleMouseCopying()
     set nu!
     call ToggleSignColumn()
 endfunction
-map <S-F11> :call ToggleMouseCopying()<CR> 
+map <S-F11> :call ToggleMouseCopying()<CR>
 ""VH |Ctrl + FnKey F11|Toggle number and sign columns without changing mouse state
-map <C-F11> :call ToggleNUSCL()<CR> 
+map <C-F11> :call ToggleNUSCL()<CR>
 
 
 set spelllang=en
@@ -704,7 +704,7 @@ nnoremap <leader>\ :set paste <ESC>:norm A/**<  */<ESC>:set nopaste<ESC><Left><L
 "Generic mappings
 ""VH |Space+T|Enter timestamp at cursor position|
 nmap <Leader>T i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
-  
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "split window movement mappings
 ""VH |Space+h|Goto left window|
