@@ -1,5 +1,11 @@
 source ~/.cocvrc
+if !has('nvim')
+    set runtimepath^=~/.vim runtimepath+=~/.vim/after
+    let &packpath = &runtimepath
+endif
 
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
 let mapleader = " "
 set hidden
 set noerrorbells
@@ -106,16 +112,18 @@ call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 "Plug 'ycm-core/YouCompleteMe'
+if has('nvim')
 
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/completion-nvim'
-" Plug 'nvim-lua/diagnostic-nvim'
-" Plug 'tjdevries/nlua.nvim'
-" Plug 'tjdevries/lsp_extensions.nvim'
+    " Plug 'neovim/nvim-lspconfig'
+    " Plug 'nvim-lua/completion-nvim'
+    " Plug 'nvim-lua/diagnostic-nvim'
+    " Plug 'tjdevries/nlua.nvim'
+    " Plug 'tjdevries/lsp_extensions.nvim'
 
-" Neovim Tree shitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
+    " Neovim Tree shitter
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/playground'
+endif
 "dracula themes
 "   https://github.com/dracula/vim.git
 Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
@@ -298,6 +306,7 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 " {{{
 "
+if has('nvim')
 :lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -307,6 +316,7 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+endif
 
 "
 " }}}
@@ -815,6 +825,8 @@ function! s:isAtStartOfLine(mapping)
   return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
 endfunction
 
+""VH |`\|\|`|In insert mode type two pipe symbols and ESC to activate table writitng|
+""VH |`__`|In insert mode type two underscore symbols and ESC to disable table writitng|
 inoreabbrev <expr> <bar><bar>
           \ <SID>isAtStartOfLine('\|\|') ?
           \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
@@ -924,4 +936,3 @@ command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>
 nnoremap <Leader>hm :Redir verbose map<CR>
 ""VH |Space+h+m|List all currently used highlights to temporary buffer"
 nnoremap <Leader>hhi :Redir hi<CR>
-

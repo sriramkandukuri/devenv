@@ -8,44 +8,134 @@ then
     echo "Please install from ~/devenv"
     exit -1
 fi
+. ./bashrc
 builddir=$devdir/build
 
 #crate and enter specific directory
 ce_dir ()
 {
     rm -rf $builddir/$1 > /dev/null;
-    mkdir $builddir/$1
-    cd $builddir/$1
+    mcd $builddir/$1
 }
 
 clean_dir ()
 {
     rm -rf build
-    mkdir build
-    cd build
+    mcd build
+}
+
+install_bash_completions()
+{
+    if [ ! -d $builddir/bash_completions ]
+    then
+        mkdir $builddir/bash_completions
+    fi
 }
 
 install_tools ()
 {
+    local apt_pkgs="
+        apt-file
+        curl
+        cscope
+        lua5.3
+        ctags
+        python 
+        python3 
+        python3-pip
+        exuberant-ctags 
+        universal-ctags 
+        snapd 
+        fonts-powerline 
+        bash-completion 
+        lfm 
+        vifm 
+        libevent-dev 
+        libevent-dev
+        plantuml
+        doxygen 
+        ccls 
+        libgemplugin-ruby 
+        rubygems 
+        clang-format
+        libncurses5-dev 
+        libncursesw5-dev 
+        p7zip-full 
+        cmake 
+        lynx 
+        ruby 
+        ruby-dev
+        python-pip
+        fuse
+        cargo
+        cmake
+        libfreetype6-dev
+        libfontconfig1-dev
+        xclip
+        libxcb-composite0-dev
+    "
+
+    local npm_pkgs="
+        bash-language-server
+    "
+
+    local gem_pkgs="
+        nokogiri
+    "
     sudo apt-get -yq update >> $LOGFILE 2>&1 
     sudo apt-get -yq upgrade >> $LOGFILE 2>&1
-    sudo apt-get -yqm install cscope ctags python python3 python3-pip \
-        snapd fonts-powerline bash-completion lfm vifm libevent-dev libevent-dev \
-        plantuml doxygen ccls libgemplugin-ruby rubygems clang-format\
-        libncurses5-dev libncursesw5-dev p7zip-full cmake lynx ruby ruby-dev >> $LOGFILE 2>&1
-    echo "================= Trying to install python pip for python2"
-    sudo apt-get -yqm install python-pip >> $LOGFILE 2>&1
-    sudo gem install nokogiri
-    sudo apt-get -yqm install fuse >> $LOGFILE 2>&1
-    npm i -g bash-language-server >> $LOGFILE 2>&1
-    sudo ln -sf /usr/bin/clangd-11 /usr/bin/clangd
+    for i in $apt_pkgs
+    do
+        sudo apt-get -yqm install $i >> $LOGFILE 2>&1
+    done
+
+    for i in $gem_pkgs
+    do
+        sudo gem install $i >> $LOGFILE 2>&1
+    done
+
+    for i in $npm_pkgs
+    do
+        sudo npm i -g $i >> $LOGFILE 2>&1
+    done
+
+    for i in $cargo_pkgs
+    do
+        sudo cargo install $i >> $LOGFILE 2>&1
+    done
+}
+
+install_albert()
+{
+    ce_dir albert
+    curl https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -
+    echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list
+    sudo wget -nv https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_20.04/Release.key -O "/etc/apt/trusted.gpg.d/home:manuelschneid3r.asc"
+    sudo apt update
+    sudo apt install albert
+}
+
+
+install_alacritty()
+{
+    ce_dir alacritty
+    # sudo curl https://sh.rustup.rs -sSf | sh
+    git clone https://github.com/jwilm/alacritty.git
+    cd alacritty
+    cargo build --release
+    chmod +x target/release/alacritty
+    sudo ln -sf $PWD/target/release/alacritty /usr/alacritty
+    gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+    cp extra/completions/alacritty.bash $builddir/bash_completions/ 
+    ln -sf $builddir/dotfiles/alacritty.yml ~/.alacritty.yml
 }
 
 install_bat()
 {
+    bat --version|grep 'bat 0.17.1' && echo "bat already installed" && return;
     ce_dir bat
-    wget https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb >> $LOGFILE 2>&1
-    sudo dpkg -i bat_0.17.1_amd64.deb >> $LOGFILE 2>&1 
+    wget $(gh_rel sharkdp/bat "bat_.*amd.*deb") >> $LOGFILE 2>&1
+    sudo dpkg -i $(ls -htr bat_*.deb|tail -1) >> $LOGFILE 2>&1 
  
 }
 
@@ -114,7 +204,11 @@ install_tmux_conf ()
 # install bashrc
 install_bashrc ()
 {
-    echo "Add '. ~/devenv/bashrc'  to ~/.bashrc"
+    if [ "$DEVENV_LOADED" == "" ]
+    then
+        echo ". ~/devenv/bashrc" >> ~/.bashrc
+        source ~/.bashrc
+    fi
 }
 
 install_clangd ()
@@ -122,6 +216,8 @@ install_clangd ()
     # 10
     ce_dir clangd
     sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" >> $LOGFILE 2>&1
+
+    sudo ln -sf /usr/bin/clangd-11 /usr/bin/clangd
 }
 
 install_nvim ()
@@ -200,8 +296,10 @@ install_node ()
     sudo apt-get -yq install npm >> $LOGFILE 2>&1 
 }
 
+#set -x
 [[ "$2" == "-v" ]] && tail -f $LOGFILE &
 sudo apt-get clean
+install_bash_completions
 case $1 in
     all)
         clean_dir;

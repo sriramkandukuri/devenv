@@ -62,5 +62,7 @@ Please find below shortcuts provided for vim.
 |Space+cr|Restart CoC|
 |FnKey F12|Show trailing spaces in a file|
 |Shift+FnKey F12|Remove trailing spaces on a selected text|
+|`\|\|`|In insert mode type two pipe symbols and ESC to activate table writitng|
+|`__`|In insert mode type two underscore symbols and ESC to disable table writitng|
 |Space+h+m|List all currently used maps to temporary buffer"
 |Space+h+m|List all currently used highlights to temporary buffer"

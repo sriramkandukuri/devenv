@@ -60,6 +60,7 @@ alias r="ls -lhtr;cd $PWD"
 
 # Changing this needs to restart tmux if using
 export USE_PWR_FONTS=1
+export DEVENV_LOADED=1
 if [ $USE_PWR_FONTS == 1 ]
 then
     PROMPT_SEP="\uE0B0"
@@ -623,13 +624,15 @@ print_myprompt() {
     local ts=$(date +"%d/%m/%Y %H:%M:%S")
 
     # Right prompt. Very light color, as it is very less important info.
+    #pcolumns=`expr $COLUMNS - 5`
+    pcolumns=$COLUMNS
     printf "\n"
     tclrt $right_color
     if [ "$grb" != "" ]
     then
-        printf "%${COLUMNS}s" "$gis $grb | $user@$hst | [$ts]"
+        printf "%${pcolumns}s" "$gis $grb | $user@$hst | [$ts]"
     else
-        printf "%${COLUMNS}s" "$user@$hst | [$ts]"
+        printf "%${pcolumns}s" "$user@$hst | [$ts]"
     fi
     tclre
     printf "\n"
@@ -691,7 +694,75 @@ print_myprompt() {
     tclre
 }
 
+##BH |gh_rel|Get latest github release file from a repo `Usage gh_rel <repo name> <file regex pattern>`|
+gh_rel()
+{
+    [ "$1" == "" -o "$2" == "" ] && echo "Usage gh_rel <repo name> <file regex pattern>" && return
+    repo=$1
+    file_pattern=$2
+    curl -s https://api.github.com/repos/$repo/releases/latest | grep browser_download_url|cut -d: -f2-|grep -E "$file_pattern"|sed -e 's/\"//g' -e 's/^ //g'
+}
+
+##BH |install_nerd_font|Install any nerd font from |
+install_nerd_font()
+{
+    [ "$1" == "" ] && echo "Give valid font name" && return
+    pushd /tmp
+    wget $(gh_rel ryanoasis/nerd-fonts $1)
+    [ ! -f $1.zip ] && echo "Unable to download font $1" && popd && return
+    [ -d $1 ] && rm -rf $1
+    mkdir $1
+    pushd $1
+    unzip ../$1.zip
+    [ ! -d ~/.fonts ] && mkdir ~/.fonts
+    cp ./* ~/.fonts/
+    popd
+    rm -rf $1 $1.zip
+    popd
+    return
+    fc-cache -f -v
+}
+
+##BH |ggcfg|Global git config|
+ggcfg()
+{
+    echo "This will overwrite existing global git configuration"
+    local username
+    local email
+    read -p  "Enter user name > " username
+    read -p "Enter email id > " email
+    [ "$username" == "" ] && echo "Invalid username" && return
+    [ "$email" == "" ] && echo "Invalid email" && return
+    git config --global user.name "$username"
+    git config --global user.email $email
+    echo $username $email
+}
+
+##BH |lgcfg|Local git config for repository level|
+lgcfg()
+{
+    [ ! -d .git ] && echo "Execute this command from root directory of any git repository..." && return
+    echo "This will overwrite existing local git configuration"
+    local username
+    local email
+    read -p  "Enter user name > " username
+    read -p "Enter email id > " email
+    [ "$username" == "" ] && echo "Invalid username" && return
+    [ "$email" == "" ] && echo "Invalid email" && return
+    git config user.name "$username"
+    git config user.email $email
+    echo $username $email
+
+    echo ""
+}
+
 PS1='`print_myprompt`\n$ '
 # After reading several suggestions decided to not set this in bashrc.
 # terminal should set this
 # export TERM="xterm-256color"
+
+# Loading all completions from devenv
+for i in $(ls ~/devenv/build/bash_completions/*)
+do
+    source $i
+done

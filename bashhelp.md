@@ -105,3 +105,7 @@ Please find below shortcuts provided by bashrc.
 |get_git_is|Get git index status information about ahead or behind|
 |get_git_lb|Get git local branch|
 |get_git_rb|Get git origin branch.|
+|gh_rel|Get latest github release file from a repo `Usage gh_rel <repo name> <file regex pattern>`|
+|install_nerd_font|Install any nerd font from |
+|ggcfg|Global git config|
+|lgcfg|Local git config for repository level|
