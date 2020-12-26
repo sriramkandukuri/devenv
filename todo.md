@@ -8,3 +8,4 @@
 | **TODO** | install bashrc before installing anything                  | install.sh |
 | **TODO** | Avoid usage of function keys in vimrc                      | myvimrc    |
 | **TODO** | bad colors in vim                                          | myyvimrc   |
+|**TODO**|integrate cht.sh to vim and shell|myvimrc,bashrc|
