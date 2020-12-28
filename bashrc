@@ -762,7 +762,7 @@ PS1='`print_myprompt`\n$ '
 # export TERM="xterm-256color"
 
 # Loading all completions from devenv
-for i in $(ls ~/devenv/build/bash_completions/*)
+for i in $(ls -A ~/devenv/build/bash_completions/)
 do
-    source $i
+    source ~/devenv/build/bash_completions/$i
 done

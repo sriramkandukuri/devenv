@@ -8,8 +8,17 @@ then
     echo "Please install from ~/devenv"
     exit -1
 fi
-. ./bashrc
 builddir=$devdir/build
+
+install_bash_completions()
+{
+    if [ ! -d $builddir/bash_completions ]
+    then
+        mkdir $builddir/bash_completions
+    fi
+}
+
+. ./bashrc >> $LOGFILE 2>&1
 
 #crate and enter specific directory
 ce_dir ()
@@ -22,15 +31,9 @@ clean_dir ()
 {
     rm -rf build
     mcd build
+    install_bash_completions;
 }
 
-install_bash_completions()
-{
-    if [ ! -d $builddir/bash_completions ]
-    then
-        mkdir $builddir/bash_completions
-    fi
-}
 
 install_tools ()
 {
@@ -232,14 +235,14 @@ install_nvim ()
     echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > ~/.config/nvim/init.vim
     echo "let &packpath = &runtimepath" >> ~/.config/nvim/init.vim
     echo "source ~/.vimrc" >> ~/.config/nvim/init.vim
-    python -m pip uninstall neovim pynvim
-    python -m pip install --user --upgrade pynvim
+    python -m pip -y uninstall neovim pynvim
+    python -m pip -y install --user --upgrade pynvim
 
-    python3 -m pip install --user --upgrade pynvim
+    python3 -m pip -y install --user --upgrade pynvim
     python2 -m pip install --user --upgrade pynvim
 
-    sudo pip3 install pynvim >> $LOGFILE 2>&1 
-    sudo pip3 install neovim >> $LOGFILE 2>&1 
+    sudo pip3 -y install pynvim >> $LOGFILE 2>&1 
+    sudo pip3 -y install neovim >> $LOGFILE 2>&1 
     # pip3 install --user neovim >> $LOGFILE 2>&1
     sudo gem install neovim >> $LOGFILE 2>&1 
     sudo npm install -g neovim >> $LOGFILE 2>&1 
@@ -274,9 +277,7 @@ install_vimrc ()
     rm -rf ~/.vim > /dev/null 2>&1
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOGFILE 2>&1 
-    vim +PlugInstall +qall! >> $LOGFILE 2>&1
-    vim -c "CocInstall coc-clangd coc-ccls" -c "qall" >> $LOGFILE 2>&1
-    vim -c "TSInstall c cpp bash python" -c "qall" >> $LOGFILE 2>&1
+    nvim --headless -c 'PlugInstall' -c "CocInstall coc-clangd coc-ccls" -c 'qall!' >> $LOGFILE 2>&1
     fix_coc_ccls;
     cd ~/.vim/plugged/YouCompleteMe/
     ./install.py --clangd-completer --clang-completer >> $LOGFILE  2>&1
@@ -299,7 +300,7 @@ install_node ()
 #set -x
 [[ "$2" == "-v" ]] && tail -f $LOGFILE &
 sudo apt-get clean
-install_bash_completions
+install_bash_completions;
 case $1 in
     all)
         clean_dir;
