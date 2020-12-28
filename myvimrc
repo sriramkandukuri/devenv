@@ -39,9 +39,9 @@ set relativenumber
 set wildmenu
 set wildignorecase
 set mouse=a
-""VH |FnKey F11|Toggle mouse
-map <F11> <ESC>:exec &mouse!="" ? "set mouse=" : "set mouse=a"<CR>
-""VH |Shift+FnKey F11|Toggle mouse and number sign columns this is usefull for copying using mouse selection
+""VH |FnKey F9|Toggle mouse
+map <F9> <ESC>:exec &mouse!="" ? "set mouse=" : "set mouse=a"<CR>
+""VH |Shift+FnKey F9|Toggle mouse and number sign columns this is usefull for copying using mouse selection
 function! ToggleSignColumn()
     if !exists("b:signcolumn_on") || b:signcolumn_on
         set signcolumn=no
@@ -67,9 +67,9 @@ function ToggleMouseCopying()
     set nu!
     call ToggleSignColumn()
 endfunction
-map <S-F11> :call ToggleMouseCopying()<CR>
-""VH |Ctrl + FnKey F11|Toggle number and sign columns without changing mouse state
-map <C-F11> :call ToggleNUSCL()<CR>
+map <S-F9> :call ToggleMouseCopying()<CR>
+""VH |Ctrl + FnKey F9|Toggle number and sign columns without changing mouse state
+map <C-F9> :call ToggleNUSCL()<CR>
 
 
 set spelllang=en

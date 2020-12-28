@@ -4,9 +4,9 @@ Please find below shortcuts provided for vim.
 
 |Shortcut|Description|
 |---|---|
-|FnKey F11|Toggle mouse
-|Shift+FnKey F11|Toggle mouse and number sign columns this is usefull for copying using mouse selection
-|Ctrl + FnKey F11|Toggle number and sign columns without changing mouse state
+|FnKey F9|Toggle mouse
+|Shift+FnKey F9|Toggle mouse and number sign columns this is usefull for copying using mouse selection
+|Ctrl + FnKey F9|Toggle number and sign columns without changing mouse state
 |FnKey F7|Toggle spell check and show errors|
 |[s, ]s, [S, ]S|Goto Next or previous spellcheck errors|
 |Space+v+r|Reload vimrc|
