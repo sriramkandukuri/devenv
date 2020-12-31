@@ -9,3 +9,4 @@
 | **TODO** | Avoid usage of function keys in vimrc                      | myvimrc    |
 | **TODO** | bad colors in vim                                          | myyvimrc   |
 |**TODO**|integrate cht.sh to vim and shell|myvimrc,bashrc|
+|**TODO**|Bash completion for tmux and custom aliases|bashrc,install.sh|
