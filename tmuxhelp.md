@@ -11,9 +11,9 @@ Please find below shortcuts provided for tmux.
 |Shift+\<LEFT-ARROW\>|Select previous window|
 |Shift+\<RIGHT-ARROW\>|Select next window|
 |Alt+:|Enter command prompt of tmux|
-|Alt+S|Distribute panes horizontally even|
-|Alt+V|Distribute panes vertically even|
-|Alt+T|Distribute panes vertically even|
+|Alt+S|Distribute panes horizontally layout|
+|Alt+V|Distribute panes vertically layout|
+|Alt+T|Distribute panes in tiled layout|
 |Ctrl+Alt+R|Reset to previous layout|
 |Alt+Shift+3|Open new window with 3 vertical panes|
 |Alt+Shift+4|Open new window with 4 panes spread at 4 corners|

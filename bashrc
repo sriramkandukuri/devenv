@@ -66,6 +66,28 @@ then
     PROMPT_SEP="\uE0B0"
 fi
 
+dumphelp ()
+{
+    [ "$2" != "" ] && cat $1 | grep -E "^\|" | column -t -s'|' |grep $2 && return
+    cat $1 | grep -E "^\|" | column -t -s'|'
+
+}
+##BH |tmhelp|Show tmux shortcuts help|
+tmhelp ()
+{
+    dumphelp ~/devenv/tmuxhelp.md $1
+}
+##BH |bhelp|Show bashrc shortcuts help|
+bhelp ()
+{
+    dumphelp ~/devenv/bashhelp.md $1
+}
+##BH |vhelp|Show custom vim shortcuts help|
+vhelp ()
+{
+    dumphelp ~/devenv/vimhelp.md $1
+}
+
 ##BH |csd|Open cscope with available cscope files in current directory|
 alias csd='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
 #alias cscope='find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R .;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files'
@@ -326,10 +348,10 @@ rgbtest()
 }
 
 
-##BH ||Function naming as (t)(clr)(t)(b) --> (true)(color)(text)(bold)|
-##BH ||tclrtb, tclrt. tclrbg are single argument functions which take one color code|
-##BH ||tclr and tclrb takes two arguments first one background and second one foreground|
-##BH ||tclre ends color coding. **All color codes to be given in hex format**|
+##BH |-|Function naming as (t)(clr)(t)(b) --> (true)(color)(text)(bold)|
+##BH |-|tclrtb, tclrt. tclrbg are single argument functions which take one color code|
+##BH |-|tclr and tclrb takes two arguments first one background and second one foreground|
+##BH |-|tclre ends color coding. **All color codes to be given in hex format**|
 
 ##BH |tclrtb|Color only foreground and set text to bold|
 tclrtb ()

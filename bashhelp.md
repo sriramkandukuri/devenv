@@ -41,6 +41,9 @@ Please find below shortcuts provided by bashrc.
 |cho|Make current user as owner for all given files
 |chx|Give executable permission to given files
 |r|Refresh command, if some programs delte and recreate some directory you can just press r to refresh it. works mostly ;)|
+|tmhelp|Show tmux shortcuts help|
+|bhelp|Show bashrc shortcuts help|
+|vhelp|Show custom vim shortcuts help|
 |csd|Open cscope with available cscope files in current directory|
 |cs|Create cscope db and open cscope. This also takes directories as arguments to which cscopedb need to be created.|
 |csf|Similar to above `cs` but removes all the cscope db files before creating new set of files. This can used to refresh the db if source is changed.|
@@ -82,10 +85,10 @@ Please find below shortcuts provided by bashrc.
 |tarbkp|Just create a backup of file/directory with timestamp as tarball.|
 |printcolors|Test terminal supports 256 colors or not. Also outputs color numbers.|
 |rgbtest|Test your terminal supports rgb colors or not and print them|
-||Function naming as (t)(clr)(t)(b) --> (true)(color)(text)(bold)|
-||tclrtb, tclrt. tclrbg are single argument functions which take one color code|
-||tclr and tclrb takes two arguments first one background and second one foreground|
-||tclre ends color coding. **All color codes to be given in hex format**|
+|-|Function naming as (t)(clr)(t)(b) --> (true)(color)(text)(bold)|
+|-|tclrtb, tclrt. tclrbg are single argument functions which take one color code|
+|-|tclr and tclrb takes two arguments first one background and second one foreground|
+|-|tclre ends color coding. **All color codes to be given in hex format**|
 |tclrtb|Color only foreground and set text to bold|
 |tclrt|Color only foreground|
 |tclrbg|Color only background|
