@@ -41,6 +41,12 @@ alias cdsize="du -sh"
 alias ?="type -a"
 alias clangd="clangd-11"
 
+##BH |cheat|Show help from cheat.sh|
+cheat ()
+{
+    curl cht.sh/$@
+}
+
 ##BH |mcd|Make directory and cd to it|
 mcd()
 {

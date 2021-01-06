@@ -10,6 +10,9 @@ Please find below shortcuts provided for vim.
 |FnKey F7|Toggle spell check and show errors|
 |[s, ]s, [S, ]S|Goto Next or previous spellcheck errors|
 |Space+v+r|Reload vimrc|
+|Space+K+p|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output below line| 
+|Space+K+P|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output above line| 
+|Space+K+B|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output new buffer | 
 |Space+=|Format file or visual selection wrt clang definitions
 |Space+c+a|Connect to cscope db using already existing cscope.out file
 |Space+c+s|Find this C symbol

@@ -37,6 +37,7 @@ Please find below shortcuts provided by bashrc.
 |hugelist|Find top 5 space consuming files or directories|
 |cdsize|Current directory size|
 |?|Get details of an alias/command example "? fsw"|
+|cheat|Show help from cheat.sh|
 |mcd|Make directory and cd to it|
 |cho|Make current user as owner for all given files
 |chx|Give executable permission to given files
