@@ -19,13 +19,16 @@ printf "## Bash Shortcuts\n\nPlease find below shortcuts provided by bashrc.\n\n
 echo "|Shortcut|Description|" >> bashhelp.md
 echo "|---|---|" >> bashhelp.md
 grep "^##BH" bashrc | cut -d" " -f2- >> bashhelp.md
+vim bashhelp.md +'/^|' +TableModeRealign +wqall
 
 printf "## Tmux Shortcuts\n\nPlease find below shortcuts provided for tmux.\n\n" >> tmuxhelp.md
 echo "|Shortcut|Description|" >> tmuxhelp.md
 echo "|---|---|" >> tmuxhelp.md
 grep "^##TH" mytmux.conf | cut -d" " -f2- >> tmuxhelp.md
+vim tmuxhelp.md +'/^|' +TableModeRealign +wqall
 
 printf "## VIM/nvim Shortcuts\n\nPlease find below shortcuts provided for vim.\n\n" >> vimhelp.md
 echo "|Shortcut|Description|" >> vimhelp.md
 echo "|---|---|" >> vimhelp.md
 grep "^\"\"VH" myvimrc | cut -d" " -f2- >> vimhelp.md
+vim vimhelp.md +'/^|' +TableModeRealign +wqall

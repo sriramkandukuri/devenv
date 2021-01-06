@@ -899,6 +899,8 @@ inoreabbrev <expr> __
           \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 
 let g:table_mode_corner='|'
+""VH |Space+T+T|Realign tables in current file"
+nnoremap <leader>TT :TableModeRealign<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Common color scheme settings

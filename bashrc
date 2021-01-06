@@ -53,9 +53,9 @@ mcd()
     mkdir -p $@ && cd $1
 }
 
-##BH |cho|Make current user as owner for all given files
+##BH |cho|Make current user as owner for all given files|
 alias cho="sudo chown -R $USER:$USER"
-##BH |chx|Give executable permission to given files
+##BH |chx|Give executable permission to given files|
 alias chx="chmod +x"
 
 # enable vi mode in shell too.
@@ -76,6 +76,8 @@ dumphelp ()
 {
     [ "$2" != "" ] && cat $1 | grep -E "^\|" | column -t -s'|' |grep $2 && return
     cat $1 | grep -E "^\|" | column -t -s'|'
+    # [ "$2" != "" ] && cat $1 |grep $2 && return
+    # cat $1 | column -t -s'|'
 
 }
 ##BH |tmhelp|Show tmux shortcuts help|
