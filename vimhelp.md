@@ -13,6 +13,14 @@ Please find below shortcuts provided for vim.
 | Space+K+p           | Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output below line                            |
 | Space+K+P           | Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output above line                            |
 | Space+K+B           | Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output new buffer                            |
+| \\+h                | Previous Answer works only inside cheat buffer                                                                |
+| \\+j                | Next Question works only inside cheat buffer                                                                  |
+| \\+k                | Previous Question works only inside cheat buffer                                                              |
+| \\+l                | Next Answer works only inside cheat buffer                                                                    |
+| \\+H                | Previous history works only inside cheat buffer                                                               |
+| \\+J                | Next "See also" works only inside cheat buffer                                                                |
+| \\+K                | Previous "See also" works only inside cheat buffer                                                            |
+| \\+L                | Next history works only inside cheat buffer                                                                   |
 | Space+=             | Format file or visual selection wrt clang definitions
 | Space+c+a           | Connect to cscope db using already existing cscope.out file
 | Space+c+s           | Find this C symbol
