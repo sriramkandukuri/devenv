@@ -235,6 +235,15 @@ install_nvim ()
     echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > ~/.config/nvim/init.vim
     echo "let &packpath = &runtimepath" >> ~/.config/nvim/init.vim
     echo "source ~/.vimrc" >> ~/.config/nvim/init.vim
+    python -m pip uninstall neovim pynvim
+    python -m pip install --user --upgrade pynvim
+
+    python3 -m pip install --user --upgrade pynvim
+    python2 -m pip install --user --upgrade pynvim
+
+    sudo pip3 install pynvim >> $LOGFILE 2>&1 
+    sudo pip3 install neovim >> $LOGFILE 2>&1 
+    
     python -m pip -y uninstall neovim pynvim
     python -m pip -y install --user --upgrade pynvim
 
