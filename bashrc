@@ -796,3 +796,5 @@ for i in $(ls -A ~/devenv/build/bash_completions/)
 do
     source ~/devenv/build/bash_completions/$i
 done
+
+alias g='BROWSER=w3m googler -n 7 -c en -l en'

@@ -34,11 +34,23 @@ clean_dir ()
     install_bash_completions;
 }
 
-
+install_googler_supports ()
+{
+    ce_dir googler
+    sudo curl -o /usr/bin/googler https://raw.githubusercontent.com/jarun/googler/v4.3.1/googler && sudo chmod +x /usr/bin/googler
+    sudo apt-get -yqm install googler >> $LOGFILE 2>&1
+    wget https://raw.githubusercontent.com/jarun/googler/master/auto-completion/bash/googler-completion.bash
+    cp googler-completion.bash $builddir/bash_completions/
+    wget https://raw.githubusercontent.com/jarun/googler/master/auto-completion/googler_at/googler_at
+    cp googler_at $builddir/bash_completions
+}
 install_tools ()
 {
     local apt_pkgs="
         apt-file
+        rsync
+        w3m
+        w3m-img
         curl
         cscope
         lua5.3
@@ -127,7 +139,7 @@ install_alacritty()
     cd alacritty
     cargo build --release
     chmod +x target/release/alacritty
-    sudo ln -sf $PWD/target/release/alacritty /usr/alacritty
+    sudo ln -sf $PWD/target/release/alacritty /usr/bin/alacritty
     gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
     cp extra/completions/alacritty.bash $builddir/bash_completions/ 
     ln -sf $builddir/dotfiles/alacritty.yml ~/.alacritty.yml
@@ -341,6 +353,8 @@ case $1 in
         install_pyenv
         echo "================================ CHECK AND INSTALL bat ================================"
         install_bat
+        echo "================================ CHECK AND INSTALL googler addons ================================"
+        install_googler_supports
         ;;
     fix)
         fix_coc_ccls;

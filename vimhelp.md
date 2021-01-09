@@ -22,15 +22,16 @@ Please find below shortcuts provided for vim.
 | \+K                 | Previous "See also" works only inside cheat buffer                                                            |
 | \+L                 | Next history works only inside cheat buffer                                                                   |
 | Space+=             | Format file or visual selection wrt clang definitions
-| Space+c+a           | Connect to cscope db using already existing cscope.out file
-| Space+c+s           | Find this C symbol
-| Space+c+g           | Find this definition
-| Space+c+d           | Find functions called by this function
-| Space+c+c           | Find functions calling this function
-| Space+c+t           | Find this text string
-| Space+c+e           | Find this egrep pattern
-| Space+c+f           | Find this file
-| Space+c+i           | Find files #including this file
+| Space+c+o           | Connect to cscope db using already existing cscope.out file
+| Space+c+s           | **c**scope Find this C **s**ymbol
+| Space+c+d           | **c**scope Find global **d**efinition
+| Space+c+c+b         | **c**scope Find functions **c**alled **b**y this function
+| Space+c+c           | **c**scope Find functions **c**alling this function
+| Space+c+t           | **c**scope Find this **t**ext string
+| Space+c+e           | **c**scope Find this **e**grep pattern
+| Space+c+f           | **c**scope Find this **f**ile
+| Space+c+i           | **c**scope Find files #**i**ncluding this file
+| Space+c+a           | **c**scope Find **a**ssignments of a variable this file
 | FnKey F8            | Toggle right side tagbar for all *.c,*.cpp,*.h,*.hpp files                                                    |
 | w,s,d               | Ignore white space in diff windows, remember 'w'hite 's'pace 'd'isable                                        |
 | w,s,e               | Shows white space in diff windows, remember 'w'hite 's'pace 'e'nable                                          |
