@@ -431,6 +431,8 @@ endif
 let g:vimade = {}
 let g:vimade.fadelevel = 0.6
 let g:vimade.enablesigns = 1
+au! FocusLost * VimadeFadeActive
+au! FocusGained * VimadeUnfadeActive
 "
 "}}}
 
@@ -731,6 +733,7 @@ let g:coc_global_extensions = [
   \ 'coc-ccls',
   \ 'coc-clangd',
   \ 'coc-prettier',
+  \ 'coc-highlight',
   \ ]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
