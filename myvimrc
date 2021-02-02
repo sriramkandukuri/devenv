@@ -22,6 +22,7 @@ set smartcase
 set noswapfile
 set nobackup
 
+set scrolloff=15
 set undodir=~/.vim/undodir
 set undofile
 
@@ -112,18 +113,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 "Plug 'ycm-core/YouCompleteMe'
-if has('nvim')
-
-    " Plug 'neovim/nvim-lspconfig'
-    " Plug 'nvim-lua/completion-nvim'
-    " Plug 'nvim-lua/diagnostic-nvim'
-    " Plug 'tjdevries/nlua.nvim'
-    " Plug 'tjdevries/lsp_extensions.nvim'
-
-    " Neovim Tree shitter
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-treesitter/playground'
-endif
 "dracula themes
 "   https://github.com/dracula/vim.git
 Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
@@ -393,38 +382,7 @@ vmap <Leader>ca <plug>(quickr_cscope_assignments)
 "" ccls nvim inbuild lsp configuration
 "" Register ccls C++ lanuage server.
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-" lua << EOF
-"   require('lspconfig').ccls.setup({
-"     settings = {
-"         root_dir = root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".ccls")
-"     },
-"     on_attach = require'completion'.on_attach
-"   })
-" EOF
-" lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
-" lua require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
-" lua require'lspconfig'.ccls.setup{ on_attach=require'completion'.on_attach }
-" lua require'lspconfig'.pyls.setup{ on_attach=require'completion'.on_attach }
-" lua require'lspconfig'.gopls.setup{ on_attach=require'completion'.on_attach }
-" lua require'lspconfig'.rust_analyzer.setup{ on_attach=require'completion'.on_attach }
 ""}}}
-
-" {{{
-"
-if has('nvim')
-:lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = {"rust" },  -- list of language that will be disabled
-  },
-}
-EOF
-endif
-
-"
-" }}}
 
 "{{{ Vimade fading level
 "
@@ -809,6 +767,9 @@ nnoremap <C-w> :bd!<cr>
 ""VH |Ctrl+s|Save file|
 noremap <C-s> :w<cr>
 inoremap <C-s> <C-o>:w<cr>
+""VH |Ctrl+S|Save all files opened|
+noremap <C-S> :wa<cr>
+inoremap <C-S> <C-o>:wa<cr>
 " }}}
 ""VH |Space+//|Comment out current line or visual selection|
 nnoremap <leader>// :Commentary<cr>

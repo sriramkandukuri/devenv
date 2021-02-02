@@ -51,6 +51,7 @@ Please find below shortcuts provided for vim.
 | Space+Shift+\<TAB\> | Goto previous buffer opened                                                                                   |
 | Ctrl+w              | Close opened current buffer                                                                                   |
 | Ctrl+s              | Save file                                                                                                     |
+| Ctrl+S              | Save all files opened                                                                                         |
 | Space+//            | Comment out current line or visual selection                                                                  |
 | Space+8             | Add doxygen style comments before current line                                                                |
 | Space+`\`           | Append line end comments Use only for c style doxygen comments for structure or parameter variables.          |

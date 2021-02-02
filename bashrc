@@ -141,6 +141,7 @@ csf ()
     if [ -d ccls-cache ]; then
         rm -rf ccls-cache
     fi
+    rm -rf $(find . -name "cscope.out" -o -name "tags" -o -name "compile_flags.txt" -o -name "cscope.files")
     cs $@
 }
 # Tmux aliases
@@ -284,7 +285,7 @@ alias gico="git commit -s"
 ##BH |f|Simple find command to find given patterned files in current directory|
 f ()
 {
-    find . -name $@
+    find . -name "$@"
 }
 
 ##BH |man|Similar to man but presented colorful|
@@ -425,11 +426,13 @@ mmk()
 	ccbggreen=$(echo -e "\033[48;2;0;255;0;38;2;0;0;0m")
 	ccbgred=$(echo -e "\033[48;2;255;0;0;38;2;0;0;0m")
 	ccbgmagenta=$(echo -e "\033[48;2;255;79;243;38;2;0;0;0m")
+	ccbglblue=$(echo -e "\033[48;2;89;255;249;38;2;0;0;0m")
 
 	ccend=$(echo -e "\033[0m")
-	/usr/bin/make "$@" 2>&1 | tee /tmp/buildlog | sed -E  -e "s%\b[Ee][Rr][Rr][Oo][Rr]\b|\b[Ee][Rr][Rr]\b%$ccbgred&$ccend%g" -e "s%\b[Ww][aA][rR][nN][iI][nN][gG]\b|\b[Ww][aA][rR][nN]\b%$ccbgyellow&$ccend%g" -e "s%\b[Ww][rR][nN]\b%$ccbgyellow&$ccend%g" -e "s%Entering%$ccbggreen>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$ccbgmagenta<<<<<<<<<<<<<<<<&$ccend%g"
+	/usr/bin/make "$@" 2>&1 | tee /tmp/buildlog | sed -E  -e "s%\b[Nn][Oo][Tt][Ee]\b%$ccbglblue&$ccend%g" -e "s%\b[Ee][Rr][Rr][Oo][Rr]\b|\b[Ee][Rr][Rr]\b%$ccbgred&$ccend%g" -e "s%\b[Ww][aA][rR][nN][iI][nN][gG]\b|\b[Ww][aA][rR][nN]\b%$ccbgyellow&$ccend%g" -e "s%\b[Ww][rR][nN]\b%$ccbgyellow&$ccend%g" -e "s%Entering%$ccbggreen>>>>>>>>>>>>>>>>&$ccend%g" -e "s%Leaving%$ccbgmagenta<<<<<<<<<<<<<<<<&$ccend%g"
 	return ${PIPESTATUS[0]}
 }
+alias make=mmk
 
 ##BH |create_pkeys|create ssh keys for automatic ssh logins.|
 create_pkeys()
