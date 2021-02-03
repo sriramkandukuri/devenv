@@ -108,8 +108,8 @@ cs ()
     printf "%s\n%s\n%s\n%s\n%s\n" "%h" "-I" "./" "-I" "../" >> compile_flags.txt
     if [ $# == 0 ];then
         find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files && \
-        find -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | xargs dirname | awk '!x[$0]++' | sed -e 's/^/-I\n/g' >> compile_flags.txt && \
-        find -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | awk '!x[$0]++' | sed -e 's/^/-I\n/g' >> compile_flags.txt && \
+        find . -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | xargs dirname | awk '!x[$0]++' | sed -e 's/^/-I\n/g' >> compile_flags.txt && \
+        find . -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | awk '!x[$0]++' | sed -e 's/^/-I\n/g' >> compile_flags.txt && \
         ctags --exclude=*/.pc/* --exclude=*.patch -R . && \
         CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files;
     else
@@ -123,24 +123,6 @@ cs ()
 ##BH |csf|Similar to above `cs` but removes all the cscope db files before creating new set of files. This can used to refresh the db if source is changed.|
 csf ()
 {
-    if [ -f tags ]; then
-        rm -rf tags
-    fi
-    if [ -f cscope.out ]; then
-        rm -rf cscope.out
-    fi
-    if [ -f cscope.files ]; then
-        rm -rf cscope.files
-    fi
-    if [ -f compile_flags.txt ]; then
-        rm -rf compile_flags.txt
-    fi
-    if [ -f .ccls ]; then
-        rm -rf .ccls
-    fi
-    if [ -d ccls-cache ]; then
-        rm -rf ccls-cache
-    fi
     rm -rf $(find . -name "cscope.out" -o -name "tags" -o -name "compile_flags.txt" -o -name "cscope.files")
     cs $@
 }

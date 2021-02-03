@@ -113,6 +113,18 @@ call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 "Plug 'ycm-core/YouCompleteMe'
+if has('nvim')
+
+"     " Plug 'neovim/nvim-lspconfig'
+"     " Plug 'nvim-lua/completion-nvim'
+"     " Plug 'nvim-lua/diagnostic-nvim'
+"     " Plug 'tjdevries/nlua.nvim'
+"     " Plug 'tjdevries/lsp_extensions.nvim'
+
+"     " Neovim Tree shitter
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/playground'
+endif
 "dracula themes
 "   https://github.com/dracula/vim.git
 Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
@@ -230,6 +242,10 @@ Plug 'szw/vim-g'
 
 " Cscope helper
 Plug 'ronakg/quickr-cscope.vim'
+
+" Format changers and some grammer fixers
+" https://github.com/tpope/vim-abolish
+Plug 'tpope/vim-abolish'
 
 call plug#end()
 "
@@ -383,6 +399,26 @@ vmap <Leader>ca <plug>(quickr_cscope_assignments)
 "" Register ccls C++ lanuage server.
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 ""}}}
+
+""" {{{ Treesitter configs
+
+if has('nvim')
+:lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = {"rust" },  -- list of language that will be disabled
+  },
+  indent = {
+      enable = false,
+  },
+}
+EOF
+endif
+
+
+""" }}}
 
 "{{{ Vimade fading level
 "
@@ -685,11 +721,8 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_config.py'
 let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-eslint',
-  \ 'coc-prettier',
   \ 'coc-json',
   \ 'coc-cmake',
-  \ 'coc-ccls',
-  \ 'coc-clangd',
   \ 'coc-prettier',
   \ 'coc-highlight',
   \ ]

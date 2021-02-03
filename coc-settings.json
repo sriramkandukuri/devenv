@@ -2,7 +2,7 @@
   "coc.preferences.hoverTarget": "float",
   /*  "coc.preferences.enableFloatHighlight": false, */
   "coc.preferences.rootPatterns": [".ccls", "compile_commands.json", ".git", ".hg", ".projections.json"],
-  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnType": false,
   "coc.preferences.formatOnSaveFiletypes": ["go", "markdown", "javascript", "typescript", "json", "jsonc"],
   "coc.source.file.ignoreHidden": false,
   "prettier.printWidth": 160,
@@ -54,22 +54,6 @@
         "caseSensitiveCompletion": true
       }
     },
-    /*
-    "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "compile_commands.json"],
-      "initializationOptions": {
-        "cache": {
-          "directory": "/tmp/ccls-cache"
-        },
-        "highlight": { "lsRanges": true },
-        "client": {
-          "snippetSupport": true
-        }
-      }
-    },
-    */
     "clangd": {
       "command": "clangd",
       "args": ["--completion-style=detailed"],
