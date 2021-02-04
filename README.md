@@ -6,6 +6,45 @@ Script based Development environment for remote servers.
 2. tmux
 3. vimrc
 
+### Installation
+
+Clone this repo to your home directory on any linux host.
+
+#### Prerequisite for Ubuntu 18-04
+
+Install nodejs version 10 as mentioned in https://joshtronic.com/2018/05/08/how-to-install-nodejs-10-on-ubuntu-1804-lts/
+
+#### Installation
+
+Verbose to dump all logs to console
+
+```
+./install.sh all -v
+```
+
+Non verbose mode
+
+```
+./install.sh all
+```
+
+Add below line to your bashrc
+
+```
+source ~/devenv/bashrc
+```
+
+If powerline fonts are not supported add below lines to bashrc instead of above step.
+
+```
+source ~/devenv/bashrc
+export USE_PWR_FONTS=0
+```
+
+Reload your shell or start working on new shell.
+
+Main help commands `bhelp <keyword>` `vhelp <keyword>` `tmhelp <keyword>`
+
 ### Terminal
 
 [Secure Shell App](https://chrome.google.com/webstore/detail/secure-shell-app/pnhechapfaindjhompbnflcldabbghjo?hl=en) a Chrome application which works very smooth.
