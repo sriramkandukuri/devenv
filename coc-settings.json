@@ -22,6 +22,7 @@
   "suggest.floatEnable": true,
   "suggest.detailField": "abbr",
   "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.noselect": true,
   "snippets.extends": {
     "cpp": ["c"],
     "javascriptreact": ["javascript"],
