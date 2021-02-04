@@ -69,8 +69,10 @@ function ToggleMouseCopying()
     call ToggleSignColumn()
 endfunction
 noremap <S-F9> :call ToggleMouseCopying()<CR>
+noremap <F21> :call ToggleMouseCopying()<CR>
 ""VH |Ctrl + FnKey F9|Toggle number and sign columns without changing mouse state
 noremap <C-F9> :call ToggleNUSCL()<CR>
+noremap <F33> :call ToggleNUSCL()<CR>
 " noremap <F33> :call ToggleNUSCL()<CR>
 function! g:ToggleNuMode()
     if(&relativenumber == 1)
@@ -919,6 +921,8 @@ nnoremap <F12>     :ShowSpaces 1<CR>
 ""VH |Shift+FnKey F12|Remove trailing spaces on a selected text|
 nnoremap <S-F12>   m`:TrimSpaces<CR>``
 vnoremap <S-F12>   :TrimSpace<CR>
+nnoremap <F24>   m`:TrimSpaces<CR>``
+vnoremap <F24>   :TrimSpace<CR>
 
 set clipboard=unnamedplus
 "set clipboard=exclude:.*
