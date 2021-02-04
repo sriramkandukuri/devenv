@@ -1,0 +1,7 @@
+compile_flags.txt
+cscope.out
+cscope.files
+compile_commands.json
+tags
+.ccls
+ccls-cache

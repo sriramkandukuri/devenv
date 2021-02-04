@@ -48,7 +48,7 @@ function! ToggleSignColumn()
         set signcolumn=no
         let b:signcolumn_on=0
     else
-        set signcolumn=auto
+        set signcolumn=yes
         let b:signcolumn_on=1
     endif
 endfunction
@@ -68,10 +68,22 @@ function ToggleMouseCopying()
     set nu!
     call ToggleSignColumn()
 endfunction
-map <S-F9> :call ToggleMouseCopying()<CR>
+noremap <S-F9> :call ToggleMouseCopying()<CR>
 ""VH |Ctrl + FnKey F9|Toggle number and sign columns without changing mouse state
-map <C-F9> :call ToggleNUSCL()<CR>
+noremap <C-F9> :call ToggleNUSCL()<CR>
+" noremap <F33> :call ToggleNUSCL()<CR>
+function! g:ToggleNuMode()
+    if(&relativenumber == 1)
+        set number
+        set norelativenumber
+    else
+        set number
+        set relativenumber
+    endif
+endfunc
 
+""VH |Ctrl + l|Toggle line number format from relative to absolute and vice versa
+noremap <C-l> :call g:ToggleNuMode()<CR>
 
 set spelllang=en
 if has("spell")
@@ -236,7 +248,7 @@ Plug 'rhysd/vim-clang-format'
 " https://github.com/dbeniamine/cheat.sh-vim
 Plug 'dbeniamine/cheat.sh-vim'
 
-" Google Plugin for vim 
+" Google Plugin for vim
 "   https://github.com/szw/vim-g
 Plug 'szw/vim-g'
 
@@ -315,11 +327,11 @@ let g:CheatSheetIdPath=expand('~/.cht.sh/id')
 " Make plugin silent by  setting bellow variable to 1
 let g:CheatSheetSilent=0
 let g:CheatDoNotReplaceKeywordPrg=1
-autocmd BufRead,BufNewFile _cheat :maplocalleader="\\" 
+autocmd BufRead,BufNewFile _cheat :maplocalleader="\\"
 
-""VH |Space+K+p|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output below line| 
-""VH |Space+K+P|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output above line| 
-""VH |Space+K+B|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output new buffer | 
+""VH |Space+K+p|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output below line|
+""VH |Space+K+P|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output above line|
+""VH |Space+K+B|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output new buffer |
 ""VH |\+h| Previous Answer works only inside cheat buffer|
 ""VH |\+j| Next Question works only inside cheat buffer|
 ""VH |\+k| Previous Question works only inside cheat buffer|
@@ -362,31 +374,31 @@ let g:quickr_cscope_use_qf_g = 1
 ""VH |Space+c+o|Connect to cscope db using already existing cscope.out file
 nnoremap <Leader>co :cs a cscope.out<CR>
 
-""VH |Space+c+s|**c**scope Find this C **s**ymbol 
+""VH |Space+c+s|**c**scope Find this C **s**ymbol
 nmap <Leader>cs <plug>(quickr_cscope_symbols)
 vmap <Leader>cs <plug>(quickr_cscope_symbols)
-""VH |Space+c+d|**c**scope Find global **d**efinition 
+""VH |Space+c+d|**c**scope Find global **d**efinition
 nmap <Leader>cd <plug>(quickr_cscope_global)
 vmap <Leader>cd <plug>(quickr_cscope_global)
-""VH |Space+c+c+b|**c**scope Find functions **c**alled **b**y this function 
+""VH |Space+c+c+b|**c**scope Find functions **c**alled **b**y this function
 nmap <Leader>ccb <plug>(quickr_cscope_functions)
 vmap <Leader>ccb <plug>(quickr_cscope_functions)
-""VH |Space+c+c|**c**scope Find functions **c**alling this function 
+""VH |Space+c+c|**c**scope Find functions **c**alling this function
 nmap <Leader>cc <plug>(quickr_cscope_callers)
 vmap <Leader>cc <plug>(quickr_cscope_callers)
-""VH |Space+c+t|**c**scope Find this **t**ext string 
+""VH |Space+c+t|**c**scope Find this **t**ext string
 nmap <Leader>ct <plug>(quickr_cscope_text)
 vmap <Leader>ct <plug>(quickr_cscope_text)
-""VH |Space+c+e|**c**scope Find this **e**grep pattern 
+""VH |Space+c+e|**c**scope Find this **e**grep pattern
 nmap <Leader>ce <plug>(quickr_cscope_egrep)
 vmap <Leader>ce <plug>(quickr_cscope_egrep)
-""VH |Space+c+f|**c**scope Find this **f**ile 
+""VH |Space+c+f|**c**scope Find this **f**ile
 nmap <Leader>cf <plug>(quickr_cscope_files)
 vmap <Leader>cf <plug>(quickr_cscope_files)
-""VH |Space+c+i|**c**scope Find files #**i**ncluding this file 
+""VH |Space+c+i|**c**scope Find files #**i**ncluding this file
 nmap <Leader>ci <plug>(quickr_cscope_includes)
 vmap <Leader>ci <plug>(quickr_cscope_includes)
-""VH |Space+c+a|**c**scope Find **a**ssignments of a variable this file 
+""VH |Space+c+a|**c**scope Find **a**ssignments of a variable this file
 nmap <Leader>ca <plug>(quickr_cscope_assignments)
 vmap <Leader>ca <plug>(quickr_cscope_assignments)
 
@@ -723,6 +735,7 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-json',
   \ 'coc-cmake',
+  \ 'coc-git',
   \ 'coc-prettier',
   \ 'coc-highlight',
   \ ]

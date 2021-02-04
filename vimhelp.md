@@ -7,6 +7,7 @@ Please find below shortcuts provided for vim.
 | FnKey F9            | Toggle mouse
 | Shift+FnKey F9      | Toggle mouse and number sign columns this is usefull for copying using mouse selection
 | Ctrl + FnKey F9     | Toggle number and sign columns without changing mouse state
+| Ctrl + l            | Toggle line number format from relative to absolute and vice versa
 | FnKey F7            | Toggle spell check and show errors                                                                            |
 | [s, ]s, [S, ]S      | Goto Next or previous spellcheck errors                                                                       |
 | Space+v+r           | Reload vimrc                                                                                                  |

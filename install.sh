@@ -318,6 +318,11 @@ install_node ()
     sudo apt-get -yq install npm >> $LOGFILE 2>&1 
 }
 
+install_dotfiles()
+{
+    cp -rf dotfiles/.* ~/
+}
+
 #set -x
 [[ "$2" == "-v" ]] && tail -f $LOGFILE &
 sudo apt-get clean
@@ -355,6 +360,8 @@ case $1 in
         install_bat
         echo "================================ CHECK AND INSTALL googler addons ================================"
         install_googler_supports
+        echo "================================ CHECK AND INSTALL dotfiles ================================"
+        install_dotfiles
         ;;
     fix)
         fix_coc_ccls;
