@@ -365,7 +365,6 @@ nmap <Leader>C :ClangFormatAutoToggle<CR>
 "
 "}}}
 
-
 "{{{ cscope shortcuts
 "
 let g:quickr_cscope_keymaps = 0
@@ -406,8 +405,6 @@ vmap <Leader>ca <plug>(quickr_cscope_assignments)
 
 "}}}
 
-
-
 ""{{{
 "" ccls nvim inbuild lsp configuration
 "" Register ccls C++ lanuage server.
@@ -431,7 +428,6 @@ require'nvim-treesitter.configs'.setup {
 EOF
 endif
 
-
 """ }}}
 
 "{{{ Vimade fading level
@@ -454,7 +450,6 @@ let g:tagbar_sort = 0
 "     autocmd FileType c,cpp,h,hpp :TagbarOpen
 " augroup END
 " }}}
-
 
 " Markdown preview plugin options {{{
 "
@@ -605,7 +600,6 @@ let g:qs_enable=1
 if has('nvim') || has('gui_running')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
 endif
-
 
 " All files
 command! -nargs=? -complete=dir AF
@@ -912,17 +906,20 @@ function TrimSpaces() range
   let oldhlsearch=ShowSpaces(1)
   execute a:firstline.",".a:lastline."substitute ///gec"
   let &hlsearch=oldhlsearch
+  let l:save = winsaveview()
+  :v/\S/,/\S/-j
+  call winrestview(l:save)
 endfunction
 
 command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
-""VH |FnKey F12|Show trailing spaces in a file|
-nnoremap <F12>     :ShowSpaces 1<CR>
-""VH |Shift+FnKey F12|Remove trailing spaces on a selected text|
-nnoremap <S-F12>   m`:TrimSpaces<CR>``
-vnoremap <S-F12>   :TrimSpace<CR>
-nnoremap <F24>   m`:TrimSpaces<CR>``
-vnoremap <F24>   :TrimSpace<CR>
+""VH |FnKey F10|Show trailing spaces in a file|
+nnoremap <F10>     :ShowSpaces 1<CR>
+""VH |Shift+FnKey F10|Remove trailing spaces on a selected text|
+nnoremap <S-F10>   m`:TrimSpaces<CR>``
+vnoremap <S-F10>   :TrimSpace<CR>
+nnoremap <F22>   m`:TrimSpaces<CR>``
+vnoremap <F22>   :TrimSpace<CR>
 
 set clipboard=unnamedplus
 "set clipboard=exclude:.*
@@ -1007,7 +1004,6 @@ autocmd FileType dirdiff :call SetDiffColors()
 let g:gruvbox_italic = 1
 let g:gruvbox_improved_warnings = 1
 let g:gruvbox_improved_strings = 1
-
 
 "Trim white spaces before saving
 "autocmd BufWritePre * :call TrimWhitespace()

@@ -263,6 +263,30 @@ alias gil="git log"
 alias gilo="git log --oneline"
 ##BH |gico|git commit with adding signature|
 alias gico="git commit -s"
+# see `git help log` for detailed help.
+#   %h: abbreviated commit hash
+#   %d: ref names, like the --decorate option of git-log(1)
+#   %cn: commiter name
+#   %ce: committer email
+#   %cr: committer date, relative
+#   %ci: committer date, ISO 8601-like format
+#   %an: author name
+#   %ae: author email
+#   %ar: author date, relative
+#   %ai: author date, ISO 8601-like format
+#   %s: subject
+##BH |gilol | awesome git log replacement|
+alias gilol='git log --graph --pretty=format:"%C(auto)%h%d%Creset %C(cyan)(%cr)%Creset %C(green)%cn <%ce>%Creset%n     %s%n"'
+##BH |gilod |git log same as above, but ISO date|
+alias gilod='git log --graph --pretty=format:"%C(auto)%h%d%Creset %C(cyan)(%ci)%Creset %C(green)%cn <%ce>%Creset%n     %s%n"'
+##BH |gilobi | git log using **b**uild-**i**n standards|
+alias gilobi="git log --oneline --graph --decorate"
+##BH |gilobc | git log to show **b**ranches and their last **c**ommits|
+alias gilobc="git log --all --graph --decorate --oneline --simplify-by-decoration --date=short"
+##BH |gigl| **gi**t **g**raph by **l**og|
+alias gigl='git log --all --graph --decorate --oneline --pretty=format:"%C(auto)%h%d%Creset %C(italic #8f8f8f)(%ci)%Creset %C(italic #8f8f00)%cn <%ce>%Creset%n     %s%n"'
+##BH |gigb| **gi**t **g**raph by **b**ranches|
+alias gigb='git log --all --graph --decorate --oneline --simplify-by-decoration --pretty=format:"%C(auto)%h%d%Creset %C(italic #8f8f8f)(%ci)%Creset %C(italic #8f8f00)%cn <%ce>%Creset%n     %s%n"'
 
 ##BH |f|Simple find command to find given patterned files in current directory|
 f ()

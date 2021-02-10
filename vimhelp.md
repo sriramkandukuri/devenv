@@ -74,8 +74,8 @@ Please find below shortcuts provided for vim.
 | Space+gi            | Goto implementation of a function                                                                             |
 | Space+gr            | Show references                                                                                               |
 | Space+cr            | Restart CoC                                                                                                   |
-| FnKey F12           | Show trailing spaces in a file                                                                                |
-| Shift+FnKey F12     | Remove trailing spaces on a selected text                                                                     |
+| FnKey F10           | Show trailing spaces in a file                                                                                |
+| Shift+FnKey F10     | Remove trailing spaces on a selected text                                                                     |
 | `\|\|`              | In insert mode type two pipe symbols and ESC to activate table writitng                                       |
 | `__`                | In insert mode type two underscore symbols and ESC to disable table writitng                                  |
 | Space+T+T           | Realign tables in current file"

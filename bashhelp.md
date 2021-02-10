@@ -79,6 +79,12 @@ Please find below shortcuts provided by bashrc.
 | gil               | git log                                                                                                                                           |
 | gilo              | git log in oneline format                                                                                                                         |
 | gico              | git commit with adding signature                                                                                                                  |
+| gilol             | awesome git log replacement                                                                                                                       |
+| gilod             | git log same as above, but ISO date                                                                                                               |
+| gilobi            | git log using **b**uild-**i**n standards                                                                                                          |
+| gilobc            | git log to show **b**ranches and their last **c**ommits                                                                                           |
+| gigl              | **gi**t **g**raph by **l**og                                                                                                                      |
+| gigb              | **gi**t **g**raph by **b**ranches                                                                                                                 |
 | f                 | Simple find command to find given patterned files in current directory                                                                            |
 | man               | Similar to man but presented colorful                                                                                                             |
 | getsymbolo        | Debugging helper find any symbol from compile .o files in any subdirectory.                                                                       |
