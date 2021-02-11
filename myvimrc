@@ -40,6 +40,10 @@ set relativenumber
 set wildmenu
 set wildignorecase
 set mouse=a
+
+""VH |<Space> G C |Show git conflicts and navigate through conflicts by pressing n
+nmap <Leader>GC :%s/^<<<<\|^====\|^>>>><CR>
+
 ""VH |FnKey F9|Toggle mouse
 map <F9> <ESC>:exec &mouse!="" ? "set mouse=" : "set mouse=a"<CR>
 ""VH |Shift+FnKey F9|Toggle mouse and number sign columns this is usefull for copying using mouse selection
@@ -735,6 +739,9 @@ let g:coc_global_extensions = [
   \ 'coc-prettier',
   \ 'coc-highlight',
   \ ]
+
+""VH |<Space>Fkey F12|Toggle diagnostics and error strings"
+nmap <silent> <Leader><F12> :call CocAction('diagnosticToggle')<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vimman plugin settings

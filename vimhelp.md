@@ -4,6 +4,7 @@ Please find below shortcuts provided for vim.
 
 | Shortcut            | Description                                                                                                   |
 |---------------------|---------------------------------------------------------------------------------------------------------------|
+| <Space> G C         | Show git conflicts and navigate through conflicts by pressing n
 | FnKey F9            | Toggle mouse
 | Shift+FnKey F9      | Toggle mouse and number sign columns this is usefull for copying using mouse selection
 | Ctrl + FnKey F9     | Toggle number and sign columns without changing mouse state
@@ -46,6 +47,7 @@ Please find below shortcuts provided for vim.
 | Space+ag            | Invoke advance grep                                                                                           |
 | Space+\`            | Search through available marks and enter into selected one                                                    |
 | Space+m             | Search though maps/available shortcuts and use selected one                                                   |
+| <Space>Fkey F12     | Toggle diagnostics and error strings"
 | K                   | In escame mode pressing `K` on any word opens respective man/help page if available                           |
 | -, Space+pv         | Open directory browser as split window on left side                                                           |
 | Space+\<TAB\>       | Goto next buffer opened                                                                                       |
