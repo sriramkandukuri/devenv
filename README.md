@@ -2,9 +2,9 @@
 
 Script based Development environment for remote servers.
 
-1. bashrc
-2. tmux
-3. vimrc
+1. bashrc [bashhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/bashhelp.md)
+2. tmux [tmuxhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/tmuxhelp.md)
+3. vimrc [vimhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/vimhelp.md)
 
 ### Installation
 
