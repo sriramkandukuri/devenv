@@ -101,19 +101,20 @@ alias csd='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
 #alias cscope='find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R .;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files'
 #alias cscopef='rm -rf tags;rm -rf ./cscope.out;ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
 ##BH |cs|Create cscope db and open cscope. This also takes directories as arguments to which cscopedb need to be created.|
+
 cs ()
 {
     printf "%s\n" "-ferror-limit=0" > compile_flags.txt
     $(gcc -print-prog-name=cc1) -v /dev/null -o /dev/null 2>&1 | grep include | grep -v "^#" | grep -v "ignoring" | sed -e 's/^ /-I\n/g' >> compile_flags.txt
     printf "%s\n%s\n%s\n%s\n%s\n" "%h" "-I" "./" "-I" "../" >> compile_flags.txt
     if [ $# == 0 ];then
-        find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files && \
+        find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.py" \) > cscope.files && \
         find . -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | xargs dirname | awk '!x[$0]++' | sed -e 's/^/-I\n/g' >> compile_flags.txt && \
         find . -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | awk '!x[$0]++' | sed -e 's/^/-I\n/g' >> compile_flags.txt && \
         ctags --exclude=*/.pc/* --exclude=*.patch -R . && \
         CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files;
     else
-        find $@ \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files && \
+        find $@ \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.py" \) > cscope.files && \
         find $@ -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | xargs dirname | sort -u | sed -e 's/^/-I/g' >> compile_flags.txt && \
         find $@ -name "*.h" -o -name "*.hpp" -o -name "*.H"  | xargs dirname | sort -u | sed -e 's/^/-I/g' >> compile_flags.txt && \
         ctags --exclude=*/.pc/* --exclude=*.patch -R $@ && \
@@ -123,7 +124,7 @@ cs ()
 ##BH |csf|Similar to above `cs` but removes all the cscope db files before creating new set of files. This can used to refresh the db if source is changed.|
 csf ()
 {
-    rm -rf $(find . -name "cscope.out" -o -name "tags" -o -name "compile_flags.txt" -o -name "cscope.files")
+    rm -rf $(find . -name "cscope.out" -o -name "tags" -o -name "compile_flags.txt" -o -name "cscope.files" -o -name "ccls-cache")
     cs $@
 }
 # Tmux aliases
@@ -519,6 +520,38 @@ batch_rename()
         res=${i/$srcstr/$replace}
         mv $i $res
     done
+}
+
+##BH |uncrust| 'uncrust [file names or wild char]' format given files as per the found config.|
+uncrust ()
+{
+    local local_proj_cfg="$(git rev-parse --show-toplevel)/.uncrustify.cfg"
+    local cfg=""
+    if [ -f  $local_proj_cfg ]
+    then
+        echo "found $local_proj_cfg, use it?[y/n]"
+        read confirm
+        if [ "$confirm" == "y" ]
+        then
+            cfg=$local_proj_cfg
+        fi
+    fi
+
+    if [ -f ~/.uncrustify.cfg ]
+    then
+        echo "found config in home dir, use it?[y/n]"
+        read confirm
+        if [ "$confirm" == "y" ]
+        then
+            cfg="~/uncrustify.cfg"
+        fi
+    fi
+    if [ "$cfg" != "" ]
+    then
+        echo "uncrustify --no-backup -c $cfg $@"
+    else
+        echo "No valid uncrustify config found."
+    fi
 }
 
 # Thanks to https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc

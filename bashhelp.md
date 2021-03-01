@@ -109,6 +109,7 @@ Please find below shortcuts provided by bashrc.
 | setup_ssh         | Auto ssh login helper which set sshkeys to remote server, ex. `setup_ssh user@host`                                                               |
 | batch_mv          | `batch_mv x y` Renames files containing `x` in their names and replaces `x` with `y`                                                              |
 | batch_rename      | `batch_rename x y` Renames files containing `x` in their names and replaces `x` with `y`. This also replaces file contents having `x` to `y`      |
+| uncrust           | 'uncrust [file names or wild char]' format given files as per the found config.                                                                   |
 | ex                | archive extractor usage: ex <file>                                                                                                                |
 | print_u8charset   | Print whole UTF-8 char set. Not working correctly as there are several unwanted characters                                                        |
 | get_git_ls        | Get git local status                                                                                                                              |

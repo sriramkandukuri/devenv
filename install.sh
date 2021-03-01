@@ -323,6 +323,20 @@ install_dotfiles()
     cp -rf dotfiles/.* ~/
 }
 
+install_uncrustify ()
+{
+    ce_dir uncrustify
+    git clone --depth=1 https://github.com/uncrustify/uncrustify.git
+    cd uncrustify
+    mkdir build
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+    make
+    sudo ln -s -f $PWD/uncrustify /usr/local/bin
+    cd $devdir
+
+}
+
 #set -x
 [[ "$2" == "-v" ]] && tail -f $LOGFILE &
 sudo apt-get clean

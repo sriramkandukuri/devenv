@@ -10,6 +10,7 @@
   "prettier.eslintIntegration": true,
   "codeLens.enable": true,
   "git.addGBlameToVirtualText": false,
+  "diagnostic.enable": false,
   "diagnostic.format": "%message [%source]",
   "diagnostic.virtualText": false,
   "diagnostic.checkCurrentLine": true,

@@ -42,7 +42,7 @@ set wildignorecase
 set mouse=a
 
 ""VH |<Space> G C |Show git conflicts and navigate through conflicts by pressing n
-nmap <Leader>GC :%s/^<<<<\|^====\|^>>>><CR>
+nmap <Leader>GC /^<<<<\\|^====\\|^>>>><CR>
 
 ""VH |FnKey F9|Toggle mouse
 map <F9> <ESC>:exec &mouse!="" ? "set mouse=" : "set mouse=a"<CR>
@@ -265,10 +265,20 @@ Plug 'ronakg/quickr-cscope.vim'
 " https://github.com/tpope/vim-abolish
 Plug 'tpope/vim-abolish'
 
+" uncrustify plugin
+"   https://github.com/embear/vim-uncrustify
+Plug 'embear/vim-uncrustify'
+
 call plug#end()
 "
 "}}}
 "
+"{{{
+" Uncrustify settings
+"
+"TODO
+let g:uncrustify_config_file = ' "./**/.uncrustify.cfg", "./.uncrustify.cfg", "~/.uncrustify.cfg" ]'
+"}}}
 
 "{{{
 "Google vim-g
