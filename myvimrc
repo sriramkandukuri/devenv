@@ -742,6 +742,8 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_config.py'
 " coc config
 let g:coc_global_extensions = [
   \ 'coc-snippets',
+  \ 'coc-pyright',
+  \ 'coc-jedi',
   \ 'coc-eslint',
   \ 'coc-json',
   \ 'coc-cmake',

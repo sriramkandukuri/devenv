@@ -41,6 +41,8 @@ alias cdsize="du -sh"
 alias ?="type -a"
 alias clangd="clangd-11"
 
+alias jedi-language-server="~/.local/bin/jedi-language-server"
+
 ##BH |cheat|Show help from cheat.sh|
 cheat ()
 {
@@ -649,7 +651,7 @@ get_git_lb() {
 
     if [ "$bi" != "" ]
     then
-        local bil=$(echo $bi|cut -d"." -f1)
+        local bil=$(echo $bi|awk -F'\\.\\.\\.' '{print $1}')
         echo -ne "${bil}" 
     fi
 }
@@ -660,7 +662,7 @@ get_git_rb() {
 
     if [ "$bi" != "" ]
     then
-        local bir=$(echo $bi|cut -s -d"." -f4)
+        local bir=$(echo $bi|awk -F'\\.\\.\\.' '{print $2}')
         echo -ne "${bir}" 
     fi
 }

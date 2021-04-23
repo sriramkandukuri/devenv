@@ -88,6 +88,8 @@ install_tools ()
         libfontconfig1-dev
         xclip
         libxcb-composite0-dev
+        bison
+        flex
     "
 
     local npm_pkgs="
@@ -96,6 +98,11 @@ install_tools ()
 
     local gem_pkgs="
         nokogiri
+    "
+
+    local pip_pkgs="
+        jedi
+        jedi-language-server
     "
     sudo apt-get -yq update >> $LOGFILE 2>&1 
     sudo apt-get -yq upgrade >> $LOGFILE 2>&1
@@ -117,6 +124,12 @@ install_tools ()
     for i in $cargo_pkgs
     do
         sudo cargo install $i >> $LOGFILE 2>&1
+    done
+
+    for i in $pip_pkgs
+    do
+        sudo pip3 install $i >> $LOGFILE 2>&1
+        sudo pip install $i >> $LOGFILE 2>&1
     done
 }
 
@@ -313,6 +326,9 @@ install_vimrc ()
 
 install_node ()
 {
+    ce_dir nodejs
+    curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+    sudo bash nodesource_setup.sh
     sudo apt-get -yq update >> $LOGFILE 2>&1 
     sudo apt-get -yq install nodejs >> $LOGFILE 2>&1 
     sudo apt-get -yq install npm >> $LOGFILE 2>&1 
