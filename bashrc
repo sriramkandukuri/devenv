@@ -41,6 +41,13 @@ alias cdsize="du -sh"
 alias ?="type -a"
 alias clangd="clangd-11"
 
+##BH |ai| shortcut to apt-get install|
+alias ai="apt-get -yqm install"
+##BH |sau| shortcut to sudo apt-get update and upgrade|
+alias sau="sudo apt-get -yqm update;sudo apt-get -yqm upgrade"
+##BH |sai| shortcut to sudo apt-get install|
+alias sai="sudo apt-get -yqm install"
+
 alias jedi-language-server="~/.local/bin/jedi-language-server"
 
 ##BH |cheat|Show help from cheat.sh|
@@ -49,8 +56,8 @@ cheat ()
     curl cht.sh/$@
 }
 
-##BH |mcd|Make directory and cd to it|
-mcd()
+##BH |mkcd|Make directory and cd to it|
+mkcd()
 {
     mkdir -p $@ && cd $1
 }
@@ -91,6 +98,16 @@ tmhelp ()
 bhelp ()
 {
     dumphelp ~/devenv/bashhelp.md $1
+}
+##BH |vhg|Show help of any command from vim help|
+vh ()
+{
+    vim -c "help $1"
+}
+##BH |vhg|Show help of any query from vim help|
+vhg ()
+{
+    vim -c "helpgrep $1"
 }
 ##BH |vhelp|Show custom vim shortcuts help|
 vhelp ()
@@ -216,26 +233,68 @@ export HISTFILESIZE=-100000               # big big history
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 #### GIT ALIASES
+
+##BH |gid|git diff|
+gid ()
+{
+    if [ "$vopts" == "V" ] 
+    then
+        git diff $opts $@ | diff-so-fancy > /tmp/.tmp_git_diff;
+        vim -c ":term cat /tmp/.tmp_git_diff";
+        # vim /tmp/.tmp_git_diff;
+    else
+        git diff $opts $@
+    fi
+    opts=""
+    vopts=""
+}
+
 ##BH |gids|git diff with staged changes|
 gids ()
 {
-    git diff -w --staged HEAD $@ > /tmp/.tmp_git_diff;
-    vim /tmp/.tmp_git_diff;
+    opts="-w --staged HEAD"
+    gid $@
 }
 
 ##BH |gidw|git diff ignoring white space|
 gidw ()
 {
-    git diff -w HEAD $@ > /tmp/.tmp_git_diff;
-    vim /tmp/.tmp_git_diff;
+    opts="-w HEAD"
+    gid $@
 }
 
-##BH |gid|git diff|
-gid ()
+##BH |vgid|git diff open in vim|
+vgid ()
 {
-    git diff HEAD $@ > /tmp/.tmp_git_diff;
-    vim /tmp/.tmp_git_diff;
+    vopts="V"
+    gid $@
 }
+
+##BH |vgids|git diff with staged changes opens in vim|
+vgids ()
+{
+    vopts="V"
+    gids $@
+}
+
+##BH |vgidw|git diff ignoring white space opens in vim|
+vgidw ()
+{
+    vopts="V"
+    gidw $@
+}
+
+
+##BH |gicl|git clone|
+gicl ()
+{
+    git clone $@
+}
+
+##BH |gigt|git get theirs|
+alias gigt="git checkout --theirs"
+##BH |gigo|git get ours|
+alias gigo="git checkout --ours"
 ##BH |gipa|git pull all|
 alias gipa="git pull --all"
 ##BH |gip|git pull|
@@ -279,9 +338,9 @@ alias gico="git commit -s"
 #   %ai: author date, ISO 8601-like format
 #   %s: subject
 ##BH |gilol | awesome git log replacement|
-alias gilol='git log --graph --pretty=format:"%C(auto)%h%d%Creset %C(cyan)(%cr)%Creset %C(green)%cn <%ce>%Creset%n     %s%n"'
+alias gilol='git log --graph --pretty=format:"%C(auto)%h%d%Creset %C(cyan)(%cr)%Creset %C(green)%cn <%ce>%Creset%n     %s"'
 ##BH |gilod |git log same as above, but ISO date|
-alias gilod='git log --graph --pretty=format:"%C(auto)%h%d%Creset %C(cyan)(%ci)%Creset %C(green)%cn <%ce>%Creset%n     %s%n"'
+alias gilod='git log --graph --pretty=format:"%C(auto)%h%d%Creset %C(cyan)(%ci)%Creset %C(green)%cn <%ce>%Creset%n     %s"'
 ##BH |gilobi | git log using **b**uild-**i**n standards|
 alias gilobi="git log --oneline --graph --decorate"
 ##BH |gilobc | git log to show **b**ranches and their last **c**ommits|
@@ -831,6 +890,26 @@ lgcfg()
 }
 
 PS1='`print_myprompt`\n$ '
+
+drawline ()
+{
+    # printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' \U2015
+    cols=$(tput cols)
+    printf "\U2015"'%.s' $(eval "echo {1.."$(($cols))"}")
+}
+
+##BH |glow|Fill a pane(tmux) or split terminal with all white color,  might be useful if you dont have other light source|
+glow()
+{
+    tclrbg ffffff
+    lines=$(tput lines)
+    for (( i = 0; i < $lines; i++ ))
+    do
+        printf "\n"
+    done
+
+}
+
 # After reading several suggestions decided to not set this in bashrc.
 # terminal should set this
 # export TERM="xterm-256color"
@@ -841,4 +920,163 @@ do
     source ~/devenv/build/bash_completions/$i
 done
 
+export TASKRC=~/devenv/taskrc
+
 alias g='BROWSER=w3m googler -n 7 -c en -l en'
+source ~/devenv/bashcolors.sh
+
+TICK="✓"
+CROSS="✗"
+
+DONE="🖖"
+URGENT="🔥"
+OVERDUE="👎"
+DUETODAY="🔔"
+DUETOMORROW="⏰"
+
+# TaskWarrior integration
+# Inspired by Paul Fenwick (https://gist.github.com/pjf)
+function task_indicator {
+    if [ `task +READY +OVERDUE count` -gt "0" ]; then
+        echo "$OVERDUE"
+    elif [ `task +READY +TODAY count` -gt "0" ]; then
+        echo "$DUETODAY"
+    elif [ `task +READY +TOMORROW count` -gt "0" ]; then
+        echo "$DUETOMORROW"
+    elif [ `task +READY urgency \> 10 count` -gt "0" ]; then
+        echo "$URGENT"
+    else
+        echo "$DONE"
+    fi
+}
+
+## TaskWarrior
+## <https://taskwarrior.org/docs/>
+
+# Declares an array of projects in bash
+# The position in the array counts for the id and starts counting at 1
+declare -a projects=('Home' 'Personal' 'Work');
+
+# http://stackoverflow.com/a/16553351
+# get length of an array
+nrOfProjects=${#projects[@]}
+urgencyPrio=4
+
+# echo "Setting up TaskWarrior and TimeWarrior with ${nrOfProjects} projects..."
+# echo "DONE = $DONE / URGENT = $URGENT / OVERDUE = $OVERDUE / DUETODAY = $DUETODAY  / DUETOMORROW = $DUETOMORROW"
+
+# Loop will set up task next, task add, task log and timew start for all projects listed above
+for (( i = 0; i < $nrOfProjects; i++ ));
+do
+    # echo "Project $i = ${projects[i]}"
+    alias tn$i="task next project:${projects[i]} +READY"
+    alias tnu$i="tn${i} urgency \> ${urgencyPrio}"
+    alias ta$i="task add project:${projects[i]}"
+    alias tl$i="task log project:${projects[i]}"
+    alias twst$i="timew start ${projects[i]}"
+done;
+
+# General TaskWarrior commands
+##BH |t| Show tasks|
+alias t='task'
+##BH |tn| Show next task|
+alias tn='task next +READY'
+##BH |tnu| Show next task urgency|
+alias tnu="task next urgency \> ${urgencyPrio}"
+##BH |ta| add task |
+alias ta='task add'
+##BH |trm| task delete|
+alias trm='task delete'
+##BH |td| task done|
+alias td='task done'
+##BH |tan| Annotate a Task|
+alias tan='task annotate'
+##BH |tl| Show task log|
+alias tl='task log'
+##BH |tac| Show active tasks|
+alias tac='task active'
+##BH |tap| Task add to personal project|
+alias tap='task add project:Personal'
+##BH |taw| Add task to work project|
+alias taw='task add project:Work'
+
+# TaskWarrior reports
+# Tip: use `task timesheet` for a full report
+##BH |tt| Show tasks completed today|
+alias tt='task modified:today completed'
+##BH |ty| Show tasks completed yesterday|
+alias ty='task modified:yesterday completed'
+##BH |tey| Show tasks completed after yesterday|
+alias tey='task end.after:yesterday completed'
+##BH |twork| Set context to work tasks|
+alias twork='task context work'
+##BH |tpers| Set context to personal tasks|
+alias tpers='task context personal'
+##BH |tclw| Show task I completed in the last week|
+alias tclw='task end.after:today-1wk completed'
+
+## TimeWarrior
+##BH |twst| Start tracking time |
+alias twst='timew start'
+##BH |twc| Continue tracking time |
+alias twc='timew continue'
+##BH |twstop| Stop tracking time |
+alias twstop='timew stop'
+##BH |tws| This Week time summary |
+alias tws='timew summary :week'
+##BH |twlw| Last week time summary |
+alias twlw='timew summary :lastweek'
+##BH |twd| Day time summary |
+alias twd='timew summary :day'
+
+tsl ()
+{
+    color=""
+    [[ "$@" == "" ]] && color=ff5d12 || color=00ff00
+    tclrt $color
+    drawline
+    tclre
+    for i in $(task _projects)
+    do
+        tclrt $color
+        echo "Tasks $@ in project $i"
+        tclre
+        task project:$i $@
+        tclrt $color
+        drawline
+        tclre
+    done
+}
+
+wtsl ()
+{
+    while (true)
+    do
+        clear
+        tsl "$@"
+        sleep 5
+    done
+}
+
+export FZF_DEFAULT_COMMAND="fd --type file --color=always"
+export FZF_DEFAULT_OPTS="--ansi"
+
+hfzf ()
+{
+    export FZF_DEFAULT_COMMAND="fd --type file --color=always --follow --hidden --ignore"
+    export FZF_DEFAULT_OPTS="--ansi"
+}
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+if [ -d ~/.pyenv ] 
+then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+fi
+
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
+export PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
+

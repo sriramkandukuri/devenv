@@ -1,0 +1,116 @@
+# [Created by task 2.5.1 2/19/2017 04:19:13]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=~/.task
+
+# These are just User Defined Attributes (UDAs) used by BugWarrior and Kusarigama.
+# include ~/.taskrc.d/bugwarrior-uda.rc
+# include ~/.taskrc.d/twk-renew.rc
+
+# Basic config
+weekstart=monday
+default.command=ready limit:page
+tasksh.autoclear=true
+search.case.sensitive=no
+
+# List all projects with `task projects`, including those completed.
+list.all.projects=yes
+
+# Color theme (uncomment one to use)
+#include /usr/share/taskwarrior/light-16.theme
+#include /usr/share/taskwarrior/light-256.theme
+#include /usr/share/taskwarrior/dark-16.theme
+#include /usr/share/taskwarrior/dark-256.theme
+#include /usr/share/taskwarrior/dark-red-256.theme
+#include /usr/share/taskwarrior/dark-green-256.theme
+#include /usr/share/taskwarrior/dark-blue-256.theme
+#include /usr/share/taskwarrior/dark-violets-256.theme
+#include /usr/share/taskwarrior/dark-yellow-green.theme
+#include /usr/share/taskwarrior/dark-gray-256.theme
+include /usr/share/taskwarrior/dark-gray-blue-256.theme
+#include /usr/share/taskwarrior/solarized-dark-256.theme
+#include /usr/share/taskwarrior/solarized-light-256.theme
+#include /usr/share/taskwarrior/no-color.theme
+
+# Let's make our own scheduled report.
+
+report.scheduled.description=Scheduled tasks
+report.scheduled.columns=id,start.age,entry.age,priority,project,tags,recur.indicator,scheduled.relative,due.relative,until.remaining,description.count,urgency
+report.scheduled.labels=ID,Active,Age,P,Project,Tags,R,S,Due,Until,Description,Urg
+report.scheduled.sort=scheduled
+report.scheduled.filter=+SCHEDULED -COMPLETED -DELETED
+
+# I never really got into the review system in `tasksh`, but here's the config from when I tried.
+uda.reviewed.type=date
+uda.reviewed.label=Reviewed
+report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
+report._reviewed.columns=uuid
+report._reviewed.sort=reviewed+,modified+
+report._reviewed.filter=( reviewed.none: or reviewed.before:now-1week ) and ( +PENDING or +WAITING )
+
+# next report: don't show annotations
+report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency
+
+# Ready report: don't show annotations. Don't show depends.indicator
+report.ready.columns=id,start.age,entry.age,priority,project,tags,recur.indicator,scheduled.countdown,due.relative,until.remaining,description.count,urgency
+report.ready.labels=ID,Active,Age,P,Project,Tags,R,S,Due,Until,Description,Urg
+
+# OMG completed report, don't show me annotations.
+report.completed.columns=id,uuid.short,entry,end,entry.age,depends,priority,project,tags,recur.indicator,due,description.count
+report.completed.labels=ID,UUID,Created,Completed,Age,Deps,P,Project,Tags,R,Due,Description
+
+# No. Nothing should show annotations. No. Also relative dates please.
+report.waiting.labels=ID,A,Age,D,P,Project,Tags,R,Waiting,Sched,Due,Until,Description
+report.waiting.columns=id,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait.remaining,scheduled,due.relative,until,description.count
+report.waiting.sort=wait+,due+,entry+
+
+# Child tasks inherit their parent's urgency if that's higher.
+# It's like this option was made for me.
+urgency.inherit=on
+
+# How urgent something is depends upon what's waiting on it.
+urgency.blocking.coefficient=0
+urgency.blocked.coefficient=0
+
+# More sensible priorities, plz.
+uda.priority.values = H,M,L
+urgency.uda.priority.L.coefficient=0
+urgency.uda.priority..coefficient=1.8
+
+# Costly tasks are most important.
+urgency.user.tag.costly.coefficient=3.0
+
+# Kate is more important than non-Kate tasks.
+urgency.user.project.kate.coefficient=1.0
+
+# Fun things are less important
+urgency.user.project.fun.coefficient=-1.0
+urgency.user.tag.fun.coefficient=-1.0
+
+# Contexts! I use these for everything!
+context.sfw=-nsfw
+context.nofun=project.not:fun -nsfw -fun
+context.fun=project:fun or +fun or +nsfw
+context.srs=project.not:fun project.not:social -nsfw -fun
+context.conference=-nsfw -kate -INBOX project.not:kate
+
+# Enable hooks for Kusarigama
+# https://github.com/yanick/Taskwarrior-Kusarigama#name
+hooks=on
+debug.hooks=0
+kusarigama.plugins=GitCommit,Renew
+
+# Our verbosity does not include the 2.6.x 'override' value, so I don't get warned of
+# custom overrides in my shell aliases and functions.
+verbose=blank,footnote,label,new-id,affected,edit,special,project,sync,unwait,recur
+context=srs

@@ -269,6 +269,12 @@ Plug 'tpope/vim-abolish'
 "   https://github.com/embear/vim-uncrustify
 Plug 'embear/vim-uncrustify'
 
+" Plug 'tpope/vim-sleuth'
+
+" Handle ansi color escases
+Plug 'powerman/vim-plugin-AnsiEsc'
+
+
 call plug#end()
 "
 "}}}
@@ -828,9 +834,14 @@ nnoremap <C-w> :bd!<cr>
 ""VH |Ctrl+s|Save file|
 noremap <C-s> :w<cr>
 inoremap <C-s> <C-o>:w<cr>
-""VH |Ctrl+S|Save all files opened|
-noremap <C-S> :wa<cr>
-inoremap <C-S> <C-o>:wa<cr>
+""VH |Ctrl+Alt+s|Save all files opened|
+noremap <C-M-s> :wa<cr>
+inoremap <C-M-s> <C-o>:wa<cr>
+
+""VH |Ctrl+q|quit all files opened|
+noremap <C-q> :qa!<cr>
+inoremap <C-q> <C-o>:qa!<cr>
+
 " }}}
 ""VH |Space+//|Comment out current line or visual selection|
 nnoremap <leader>// :Commentary<cr>
@@ -1007,7 +1018,7 @@ let g:dracula_inverse = 1
 let g:dracula_colorterm = 1
 call SetColors()
 function SetDiffColors()
-    colorscheme=dracula
+    colorscheme dracula
     set background=dark
     set termguicolors
     call SetColors()

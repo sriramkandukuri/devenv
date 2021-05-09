@@ -23,7 +23,7 @@ Please find below shortcuts provided for tmux.
 | Alt+n                      | Open new window                                                                                                                                |
 | Alt+1 ... Alt+9            | Goto window specified by given number, this is similar to tab switching in gnome terminal                                                      |
 | Alt+\<                     | Swap current window with previous one                                                                                                          |
-| Alt+\<                     | Swap current window with next one                                                                                                              |
+| Alt+\>                     | Swap current window with next one                                                                                                              |
 | Alt+x                      | Kill pane with a confirmation                                                                                                                  |
 | Alt+v                      | Split curent window/pane vertically                                                                                                            |
 | Alt+s                      | Split current pane/window horizontally                                                                                                         |

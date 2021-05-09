@@ -37,13 +37,18 @@ Please find below shortcuts provided by bashrc.
 | hugelist          | Find top 5 space consuming files or directories                                                                                                   |
 | cdsize            | Current directory size                                                                                                                            |
 | ?                 | Get details of an alias/command example "? fsw"                                                                                                   |
+| ai                | shortcut to apt-get install                                                                                                                       |
+| sau               | shortcut to sudo apt-get update and upgrade                                                                                                       |
+| sai               | shortcut to sudo apt-get install                                                                                                                  |
 | cheat             | Show help from cheat.sh                                                                                                                           |
-| mcd               | Make directory and cd to it                                                                                                                       |
+| mkcd              | Make directory and cd to it                                                                                                                       |
 | cho               | Make current user as owner for all given files                                                                                                    |
 | chx               | Give executable permission to given files                                                                                                         |
 | r                 | Refresh command, if some programs delte and recreate some directory you can just press r to refresh it. works mostly ;)                           |
 | tmhelp            | Show tmux shortcuts help                                                                                                                          |
 | bhelp             | Show bashrc shortcuts help                                                                                                                        |
+| vhg               | Show help of any command from vim help                                                                                                            |
+| vhg               | Show help of any query from vim help                                                                                                              |
 | vhelp             | Show custom vim shortcuts help                                                                                                                    |
 | csd               | Open cscope with available cscope files in current directory                                                                                      |
 | cs                | Create cscope db and open cscope. This also takes directories as arguments to which cscopedb need to be created.                                  |
@@ -61,9 +66,15 @@ Please find below shortcuts provided by bashrc.
 | lf                | List file with fullpath usefull while remote copying.                                                                                             |
 | countdown         | Countdown timer become handy to track time sometimes.ex. `countdown 60` `countdown $((2*60*60))` `countdown $((24*60*60))`                        |
 | stopwatch         | Stopwatch kind of display on terminal                                                                                                             |
+| gid               | git diff                                                                                                                                          |
 | gids              | git diff with staged changes                                                                                                                      |
 | gidw              | git diff ignoring white space                                                                                                                     |
-| gid               | git diff                                                                                                                                          |
+| vgid              | git diff open in vim                                                                                                                              |
+| vgids             | git diff with staged changes opens in vim                                                                                                         |
+| vgidw             | git diff ignoring white space opens in vim                                                                                                        |
+| gicl              | git clone                                                                                                                                         |
+| gigt              | git get theirs                                                                                                                                    |
+| gigo              | git get ours                                                                                                                                      |
 | gipa              | git pull all                                                                                                                                      |
 | gip               | git pull                                                                                                                                          |
 | gir               | git rebase                                                                                                                                        |
@@ -120,3 +131,27 @@ Please find below shortcuts provided by bashrc.
 | install_nerd_font | Install any nerd font from                                                                                                                        |
 | ggcfg             | Global git config                                                                                                                                 |
 | lgcfg             | Local git config for repository level                                                                                                             |
+| glow              | Fill a pane(tmux) or split terminal with all white color,  might be useful if you dont have other light source                                    |
+| t                 | Show tasks                                                                                                                                        |
+| tn                | Show next task                                                                                                                                    |
+| tnu               | Show next task urgency                                                                                                                            |
+| ta                | add task                                                                                                                                          |
+| trm               | task delete                                                                                                                                       |
+| td                | task done                                                                                                                                         |
+| tan               | Annotate a Task                                                                                                                                   |
+| tl                | Show task log                                                                                                                                     |
+| tac               | Show active tasks                                                                                                                                 |
+| tap               | Task add to personal project                                                                                                                      |
+| taw               | Add task to work project                                                                                                                          |
+| tt                | Show tasks completed today                                                                                                                        |
+| ty                | Show tasks completed yesterday                                                                                                                    |
+| tey               | Show tasks completed after yesterday                                                                                                              |
+| twork             | Set context to work tasks                                                                                                                         |
+| tpers             | Set context to personal tasks                                                                                                                     |
+| tclw              | Show task I completed in the last week                                                                                                            |
+| twst              | Start tracking time                                                                                                                               |
+| twc               | Continue tracking time                                                                                                                            |
+| twstop            | Stop tracking time                                                                                                                                |
+| tws               | This Week time summary                                                                                                                            |
+| twlw              | Last week time summary                                                                                                                            |
+| twd               | Day time summary                                                                                                                                  |
