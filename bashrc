@@ -877,8 +877,8 @@ install_nerd_font()
     fc-cache -f -v
 }
 
-##BH |ggcfg|Global git config|
-ggcfg()
+##BH |gucfg|Global git user config|
+gucfg()
 {
     echo "This will overwrite existing global git configuration"
     local username
@@ -892,7 +892,7 @@ ggcfg()
     echo $username $email
 }
 
-##BH |lgcfg|Local git config for repository level|
+##BH |lgucfg|Local git user config for repository level|
 lgcfg()
 {
     [ ! -d .git ] && echo "Execute this command from root directory of any git repository..." && return
@@ -1010,6 +1010,8 @@ alias ta='task add'
 alias trm='task delete'
 ##BH |td| task done|
 alias td='task done'
+##BH |ts| task start|
+alias ts='task start'
 ##BH |tan| Annotate a Task|
 alias tan='task annotate'
 ##BH |tl| Show task log|
@@ -1100,6 +1102,8 @@ fi
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
+
+export PATH=$PATH:~/devenv/build/fancydiff/diff-so-fancy/
 
 export PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 

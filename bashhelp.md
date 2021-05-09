@@ -129,8 +129,8 @@ Please find below shortcuts provided by bashrc.
 | get_git_rb        | Get git origin branch.                                                                                                                            |
 | gh_rel            | Get latest github release file from a repo `Usage gh_rel <repo name> <file regex pattern>`                                                        |
 | install_nerd_font | Install any nerd font from                                                                                                                        |
-| ggcfg             | Global git config                                                                                                                                 |
-| lgcfg             | Local git config for repository level                                                                                                             |
+| gucfg             | Global git user config                                                                                                                            |
+| lgucfg            | Local git user config for repository level                                                                                                        |
 | glow              | Fill a pane(tmux) or split terminal with all white color,  might be useful if you dont have other light source                                    |
 | t                 | Show tasks                                                                                                                                        |
 | tn                | Show next task                                                                                                                                    |
@@ -138,6 +138,7 @@ Please find below shortcuts provided by bashrc.
 | ta                | add task                                                                                                                                          |
 | trm               | task delete                                                                                                                                       |
 | td                | task done                                                                                                                                         |
+| ts                | task start                                                                                                                                        |
 | tan               | Annotate a Task                                                                                                                                   |
 | tl                | Show task log                                                                                                                                     |
 | tac               | Show active tasks                                                                                                                                 |

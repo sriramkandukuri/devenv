@@ -34,12 +34,12 @@ list.all.projects=yes
 #include /usr/share/taskwarrior/dark-red-256.theme
 #include /usr/share/taskwarrior/dark-green-256.theme
 #include /usr/share/taskwarrior/dark-blue-256.theme
-#include /usr/share/taskwarrior/dark-violets-256.theme
-#include /usr/share/taskwarrior/dark-yellow-green.theme
+# include /usr/share/taskwarrior/dark-violets-256.theme
+include /usr/share/taskwarrior/dark-yellow-green.theme
 #include /usr/share/taskwarrior/dark-gray-256.theme
-include /usr/share/taskwarrior/dark-gray-blue-256.theme
-#include /usr/share/taskwarrior/solarized-dark-256.theme
-#include /usr/share/taskwarrior/solarized-light-256.theme
+# include /usr/share/taskwarrior/dark-gray-blue-256.theme
+# include /usr/share/taskwarrior/solarized-dark-256.theme
+# include /usr/share/taskwarrior/solarized-light-256.theme
 #include /usr/share/taskwarrior/no-color.theme
 
 # Let's make our own scheduled report.
