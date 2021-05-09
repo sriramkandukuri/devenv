@@ -234,6 +234,27 @@ export HISTFILESIZE=-100000               # big big history
 
 #### GIT ALIASES
 
+gconfig ()
+{
+    git config --global core.pager "~/devenv/build/fancydiff/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX"
+    git config --global interactive.diffFilter "~/devenv/build/fancydiff/diff-so-fancy/diff-so-fancy --patch"
+
+    git config --global color.ui true
+
+    git config --global color.diff-highlight.oldNormal    "red bold"
+    git config --global color.diff-highlight.oldHighlight "red bold 52"
+    git config --global color.diff-highlight.newNormal    "green bold"
+    git config --global color.diff-highlight.newHighlight "green bold 22"
+
+    git config --global color.diff.meta       "11"
+    git config --global color.diff.frag       "magenta bold"
+    git config --global color.diff.func       "146 bold"
+    git config --global color.diff.commit     "yellow bold"
+    git config --global color.diff.old        "red bold"
+    git config --global color.diff.new        "green bold"
+    git config --global color.diff.whitespace "red reverse"
+}
+
 ##BH |gid|git diff|
 gid ()
 {
@@ -1067,6 +1088,8 @@ hfzf ()
     export FZF_DEFAULT_OPTS="--ansi"
 }
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+source ~/devenv/fzfgit.sh
 
 if [ -d ~/.pyenv ] 
 then
