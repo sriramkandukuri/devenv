@@ -123,6 +123,9 @@ Please find below shortcuts provided by bashrc.
 | uncrust           | 'uncrust [file names or wild char]' format given files as per the found config.                                                                   |
 | ex                | archive extractor usage: ex <file>                                                                                                                |
 | print_u8charset   | Print whole UTF-8 char set. Not working correctly as there are several unwanted characters                                                        |
+| rtxt              | print given arguments right aligned                                                                                                               |
+| ctxt              | print given arguments center aligned                                                                                                              |
+| ctxtf             | print given arguments center aligned with trailing spaces(f)                                                                                      |
 | get_git_ls        | Get git local status                                                                                                                              |
 | get_git_is        | Get git index status information about ahead or behind                                                                                            |
 | get_git_lb        | Get git local branch                                                                                                                              |
@@ -131,6 +134,7 @@ Please find below shortcuts provided by bashrc.
 | install_nerd_font | Install any nerd font from                                                                                                                        |
 | gucfg             | Global git user config                                                                                                                            |
 | lgucfg            | Local git user config for repository level                                                                                                        |
+| drawline          | print horizontal line useful for screen seperation in some scripts                                                                                |
 | glow              | Fill a pane(tmux) or split terminal with all white color,  might be useful if you dont have other light source                                    |
 | t                 | Show tasks                                                                                                                                        |
 | tn                | Show next task                                                                                                                                    |
@@ -144,15 +148,24 @@ Please find below shortcuts provided by bashrc.
 | tac               | Show active tasks                                                                                                                                 |
 | tap               | Task add to personal project                                                                                                                      |
 | taw               | Add task to work project                                                                                                                          |
+| twork             | Set context to work tasks                                                                                                                         |
+| tpers             | Set context to personal tasks                                                                                                                     |
+| tts               | Show task time sheet                                                                                                                              |
 | tt                | Show tasks completed today                                                                                                                        |
 | ty                | Show tasks completed yesterday                                                                                                                    |
 | tey               | Show tasks completed after yesterday                                                                                                              |
-| twork             | Set context to work tasks                                                                                                                         |
-| tpers             | Set context to personal tasks                                                                                                                     |
-| tclw              | Show task I completed in the last week                                                                                                            |
+| tlw               | Show task I completed in the last week                                                                                                            |
+| tbdd              | task burndown daily                                                                                                                               |
+| tbdw              | task burndown weekly                                                                                                                              |
+| tbdy              | task burndown yearly                                                                                                                              |
 | twst              | Start tracking time                                                                                                                               |
 | twc               | Continue tracking time                                                                                                                            |
 | twstop            | Stop tracking time                                                                                                                                |
 | tws               | This Week time summary                                                                                                                            |
 | twlw              | Last week time summary                                                                                                                            |
 | twd               | Day time summary                                                                                                                                  |
+| wtt               | watch tasks                                                                                                                                       |
+| wtt               | watch tasks completed today                                                                                                                       |
+| wty               | Watch tasks completed yesterday                                                                                                                   |
+| wtey              | Watch tasks completed after yesterday                                                                                                             |
+| wtlw              | Watch task I completed in the last week                                                                                                           |

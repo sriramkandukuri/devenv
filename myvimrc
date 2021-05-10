@@ -937,7 +937,8 @@ function TrimSpaces() range
   execute a:firstline.",".a:lastline."substitute ///gec"
   let &hlsearch=oldhlsearch
   let l:save = winsaveview()
-  :v/\S/,/\S/-j
+  :%s/\n\{3,}/\r\r/e
+  " :v/\S/,/\S/-j
   call winrestview(l:save)
 endfunction
 
@@ -947,9 +948,9 @@ command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 nnoremap <F10>     :ShowSpaces 1<CR>
 ""VH |Shift+FnKey F10|Remove trailing spaces on a selected text|
 nnoremap <S-F10>   m`:TrimSpaces<CR>``
-vnoremap <S-F10>   :TrimSpace<CR>
+vnoremap <S-F10>   :TrimSpaces<CR>
 nnoremap <F22>   m`:TrimSpaces<CR>``
-vnoremap <F22>   :TrimSpace<CR>
+vnoremap <F22>   :TrimSpaces<CR>
 
 set clipboard=unnamedplus
 "set clipboard=exclude:.*

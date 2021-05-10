@@ -150,7 +150,7 @@ csf ()
 ##BH |tmux|Run `tmux` command with predefined env settings aliased to `EDITOR=nvim TERM=tmux-256color tmux -2 -u`|
 alias tmux="EDITOR=nvim TERM=tmux-256color tmux -2 -u"
 ##BH |tmn|Open new tmux session with given name, by default it opens first window with 3 vertical panes, **Not giving argument causes unwanted behavior**|
-tmn () 
+tmn ()
 {
     tmux new -t $1 \; split-window -h -c "#{pane_current_path}" \; split-window -h -c "#{pane_current_path}" \; select-pane -L \; select-layout even-horizontal
 }
@@ -184,13 +184,12 @@ prompt_command='
 '
 # Manage temporary files
 ##BH |vitmp|Create and open temporary file in vim|
-vitmp() 
+vitmp()
 {
     vim $(mktemp)
 }
 ##BH |clean_tmp|Remove all temporary files created by `mktemp` command|
 alias clean_tmp="rm -rf /tmp/tmp.*"
-
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -206,17 +205,17 @@ lf ()
 ##BH |countdown|Countdown timer become handy to track time sometimes.ex. `countdown 60` `countdown $((2*60*60))` `countdown $((24*60*60))`|
 countdown(){
 	date1=$((`date +%s` + $1));
-	while [ "$date1" -ge `date +%s` ]; do 
+	while [ "$date1" -ge `date +%s` ]; do
 		## Is this more than 24h away?
 		days=$(($(($(( $date1 - $(date +%s))) * 1 ))/86400))
-		echo -ne "$days day(s) and $(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S:%N)\r"; 
+		echo -ne "$days day(s) and $(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S:%N)\r";
 		sleep 0.1
 	done
 }
 ##BH |stopwatch|Stopwatch kind of display on terminal|
 stopwatch(){
-	date1=`date +%s`; 
-	while true; do 
+	date1=`date +%s`;
+	while true; do
 		days=$(( $(($(date +%s) - date1)) / 86400 ))
 		echo -ne "$days day(s) and $(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S:%N)\r";
 		sleep 0.1
@@ -258,7 +257,7 @@ gconfig ()
 ##BH |gid|git diff|
 gid ()
 {
-    if [ "$vopts" == "V" ] 
+    if [ "$vopts" == "V" ]
     then
         git diff $opts $@ | diff-so-fancy > /tmp/.tmp_git_diff;
         vim -c ":term cat /tmp/.tmp_git_diff";
@@ -304,7 +303,6 @@ vgidw ()
     vopts="V"
     gidw $@
 }
-
 
 ##BH |gicl|git clone|
 gicl ()
@@ -444,7 +442,6 @@ rgbtest()
 		printf "\n";
 	}'
 }
-
 
 ##BH |-|Function naming as (t)(clr)(t)(b) --> (true)(color)(text)(bold)|
 ##BH |-|tclrtb, tclrt. tclrbg are single argument functions which take one color code|
@@ -700,6 +697,26 @@ if ! shopt -oq posix; then
   fi
 fi
 
+##BH |rtxt|print given arguments right aligned|
+rtxt ()
+{
+    local str="$@"
+    printf "%*s" $((($COLUMNS))) "$str"
+}
+
+##BH |ctxt|print given arguments center aligned|
+ctxt ()
+{
+    local str="$@"
+    printf "%*s%*s" $(((${#str}+$COLUMNS)/2)) "$str"
+}
+##BH |ctxtf|print given arguments center aligned with trailing spaces(f)|
+ctxtf ()
+{
+    local str="$@"
+    printf "%*s%*s" $(((${#str}+$COLUMNS)/2)) "$str" $((($COLUMNS-${#str}+1)/2)) " "
+}
+
 ##BH |get_git_ls|Get git local status|
 get_git_ls()
 {
@@ -709,9 +726,9 @@ get_git_ls()
         x=$(git status --porcelain 2> /dev/null| cut -c1,2 |sort|uniq | awk '{print}' ORS=' ')
         if [[ "$x" == "" ]]
         then
-            echo -ne "clean" 
+            echo -ne "clean"
         else
-            echo -ne "$x" 
+            echo -ne "$x"
         fi
     fi
 }
@@ -721,7 +738,7 @@ get_git_is() {
     local st=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" -e "s/ahead /+/g" -e "s/behind /-/g" -e "s/\[//g" -e "s/\]//g" | cut -s -d " " -f2-)
     if [ "$st" != "" ]
     then
-        echo -ne "$st" 
+        echo -ne "$st"
     fi
 }
 
@@ -732,7 +749,7 @@ get_git_lb() {
     if [ "$bi" != "" ]
     then
         local bil=$(echo $bi|awk -F'\\.\\.\\.' '{print $1}')
-        echo -ne "${bil}" 
+        echo -ne "${bil}"
     fi
 }
 
@@ -743,7 +760,7 @@ get_git_rb() {
     if [ "$bi" != "" ]
     then
         local bir=$(echo $bi|awk -F'\\.\\.\\.' '{print $2}')
-        echo -ne "${bir}" 
+        echo -ne "${bir}"
     fi
 }
 
@@ -778,19 +795,17 @@ print_myprompt() {
     local ts=$(date +"%d/%m/%Y %H:%M:%S")
 
     # Right prompt. Very light color, as it is very less important info.
-    #pcolumns=`expr $COLUMNS - 5`
-    pcolumns=$COLUMNS
     printf "\n"
     tclrt $right_color
     if [ "$grb" != "" ]
     then
-        printf "%${pcolumns}s" "$gis $grb | $user@$hst | [$ts]"
+        rtxt "$gis $grb | $user@$hst | [$ts]"
     else
-        printf "%${pcolumns}s" "$user@$hst | [$ts]"
+        rtxt "$user@$hst | [$ts]"
     fi
     tclre
     printf "\n"
-    
+
     # Left prompt.
 
     # Git local status color setting green if clean red if changed with porcelain markings
@@ -912,6 +927,7 @@ lgcfg()
 
 PS1='`print_myprompt`\n$ '
 
+##BH |drawline|print horizontal line useful for screen seperation in some scripts|
 drawline ()
 {
     # printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' \U2015
@@ -1022,21 +1038,29 @@ alias tac='task active'
 alias tap='task add project:Personal'
 ##BH |taw| Add task to work project|
 alias taw='task add project:Work'
+##BH |twork| Set context to work tasks|
+alias twork='task context work'
+##BH |tpers| Set context to personal tasks|
+alias tpers='task context personal'
 
 # TaskWarrior reports
 # Tip: use `task timesheet` for a full report
+##BH |tts| Show task time sheet|
+alias tts='task timesheet'
 ##BH |tt| Show tasks completed today|
 alias tt='task modified:today completed'
 ##BH |ty| Show tasks completed yesterday|
 alias ty='task modified:yesterday completed'
 ##BH |tey| Show tasks completed after yesterday|
 alias tey='task end.after:yesterday completed'
-##BH |twork| Set context to work tasks|
-alias twork='task context work'
-##BH |tpers| Set context to personal tasks|
-alias tpers='task context personal'
-##BH |tclw| Show task I completed in the last week|
-alias tclw='task end.after:today-1wk completed'
+##BH |tlw| Show task I completed in the last week|
+alias tlw='task end.after:today-1wk completed'
+##BH |tbdd|task burndown daily|
+alias tbdd="task burndown.daily"
+##BH |tbdw|task burndown weekly|
+alias tbdw="task burndown.weekly"
+##BH |tbdy|task burndown yearly|
+alias tbdy="task burndown.yearly"
 
 ## TimeWarrior
 ##BH |twst| Start tracking time |
@@ -1054,20 +1078,49 @@ alias twd='timew summary :day'
 
 tsl ()
 {
-    color=""
-    [[ "$@" == "" ]] && color=ff5d12 || color=00ff00
-    tclrt $color
-    drawline
+    local color=""
+    local header=""
+    local dclr=9fe6a0;
+    local sclr=f55c47;
+    local fg=000000
+    local hbg=3242a4
+    local hfg=fcf403
+    case "$@" in
+        *complete*)
+            color=$dclr
+            ;;
+        *)
+            color=$sclr
+            ;;
+    esac
+
+    case "$@" in
+        *modi*today*comp*)
+            header="Tasks Completed TODAY"
+            ;;
+        *modi*yest*comp*)
+            header="Tasks Completed Yesterday"
+            ;;
+        *end*yester*comp*)
+            header="Tasks Completed after Yesterday"
+            ;;
+        *end*aft*1wk*comp*)
+            header="Tasks Completed in last week"
+            ;;
+        *)
+            header="Tasks $@"
+            ;;
+    esac
+    tclrb $hbg $hfg
+    ctxtf "$header"
     tclre
+    echo;echo
     for i in $(task _projects)
     do
-        tclrt $color
-        echo "Tasks $@ in project $i"
+        tclrb $color $bg
+        ctxtf "$i"
         tclre
         task project:$i $@
-        tclrt $color
-        drawline
-        tclre
     done
 }
 
@@ -1081,6 +1134,17 @@ wtsl ()
     done
 }
 
+##BH |wtt| watch tasks|
+alias wt='wtsl'
+##BH |wtt| watch tasks completed today|
+alias wtt='wtsl modified:today completed'
+##BH |wty| Watch tasks completed yesterday|
+alias wty='wtsl modified:yesterday completed'
+##BH |wtey| Watch tasks completed after yesterday|
+alias wtey='wtsl end.after:yesterday completed'
+##BH |wtlw| Watch task I completed in the last week|
+alias wtlw='wtsl end.after:today-1wk completed'
+
 export FZF_DEFAULT_COMMAND="fd --type file --color=always"
 export FZF_DEFAULT_OPTS="--ansi"
 
@@ -1093,7 +1157,7 @@ hfzf ()
 
 source ~/devenv/fzfgit.sh
 
-if [ -d ~/.pyenv ] 
+if [ -d ~/.pyenv ]
 then
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
