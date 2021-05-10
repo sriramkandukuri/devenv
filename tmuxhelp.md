@@ -22,6 +22,7 @@ Please find below shortcuts provided for tmux.
 | Ctrl+b, Ctrl+w             | Distribute panes as per developer layout                                                                                                       |
 | Alt+n                      | Open new window                                                                                                                                |
 | Alt+1 ... Alt+9            | Goto window specified by given number, this is similar to tab switching in gnome terminal                                                      |
+| Alt+0                      | Select window interactively                                                                                                                    |
 | Alt+\<                     | Swap current window with previous one                                                                                                          |
 | Alt+\>                     | Swap current window with next one                                                                                                              |
 | Alt+x                      | Kill pane with a confirmation                                                                                                                  |

@@ -1100,10 +1100,10 @@ then
 fi
 
 if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
+    eval "$(pyenv init -)" > /dev/null 2>&1
 fi
 
-export PATH=$PATH:~/devenv/build/fancydiff/diff-so-fancy/
+export PATH=$PATH:~/devenv/bin/:~/devenv/build/fancydiff/diff-so-fancy/
 
 export PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 
