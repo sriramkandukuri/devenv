@@ -164,6 +164,9 @@ Please find below shortcuts provided by bashrc.
 | tws               | This Week time summary                                                                                                                            |
 | twlw              | Last week time summary                                                                                                                            |
 | twd               | Day time summary                                                                                                                                  |
+| tsl               | show tasks per project                                                                                                                            |
+| wtsl              | watch tasks per project                                                                                                                           |
+| wtb               | watch task burndown daily, weekly and monthly                                                                                                     |
 | wtt               | watch tasks                                                                                                                                       |
 | wtt               | watch tasks completed today                                                                                                                       |
 | wty               | Watch tasks completed yesterday                                                                                                                   |

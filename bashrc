@@ -1076,6 +1076,7 @@ alias twlw='timew summary :lastweek'
 ##BH |twd| Day time summary |
 alias twd='timew summary :day'
 
+##BH |tsl| show tasks per project |
 tsl ()
 {
     local color=""
@@ -1124,6 +1125,7 @@ tsl ()
     done
 }
 
+##BH |wtsl| watch tasks per project |
 wtsl ()
 {
     while (true)
@@ -1131,6 +1133,21 @@ wtsl ()
         clear
         tsl "$@"
         sleep 5
+    done
+}
+
+##BH |wtb|watch task burndown daily, weekly and monthly|
+wtb ()
+{
+    while (true)
+    do
+        clear
+        task burndown.daily
+        sleep 20
+        task burndown.weekly
+        sleep 20
+        task burndown.monthly
+        sleep 20
     done
 }
 
