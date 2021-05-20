@@ -116,7 +116,7 @@ vhelp ()
 }
 
 ##BH |csd|Open cscope with available cscope files in current directory|
-alias csd='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
+alias csd='export VIM_CSF_DIRS=$VIM_CSF_DIRS_BAK;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd;export VIM_CSF_DIRS=""'
 #alias cscope='find . \( ! -path "*/.pc/*" -a ! -path "*.patch" \) -a \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) > cscope.files; ctags --exclude=*/.pc/* --exclude=*.patch -R .;CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files'
 #alias cscopef='rm -rf tags;rm -rf ./cscope.out;ctags -R .;CSCOPE_EDITOR=vim VIEWER=vim cscope -p4 -kR'
 ##BH |cs|Create cscope db and open cscope. This also takes directories as arguments to which cscopedb need to be created.|
@@ -124,6 +124,7 @@ alias csd='CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kd'
 cs ()
 {
     printf "%s\n" "-ferror-limit=0" > compile_flags.txt
+    export VIM_CSF_DIRS="$@"
     $(gcc -print-prog-name=cc1) -v /dev/null -o /dev/null 2>&1 | grep include | grep -v "^#" | grep -v "ignoring" | sed -e 's/^ /-I\n/g' >> compile_flags.txt
     printf "%s\n%s\n%s\n%s\n%s\n" "%h" "-I" "./" "-I" "../" >> compile_flags.txt
     if [ $# == 0 ];then
@@ -139,6 +140,8 @@ cs ()
         ctags --exclude=*/.pc/* --exclude=*.patch -R $@ && \
         CSCOPE_EDITOR=nvim VIEWER=nvim cscope -p4 -kR -i cscope.files;
     fi
+    export VIM_CSF_DIRS_BAK=$VIM_CSF_DIRS
+    export VIM_CSF_DIRS=""
 }
 ##BH |csf|Similar to above `cs` but removes all the cscope db files before creating new set of files. This can used to refresh the db if source is changed.|
 csf ()
@@ -338,6 +341,16 @@ alias gicb="git checkout -b"
 alias gib="git branch"
 ##BH |giba|git show all branches including remotes|
 alias giba="git branch -a"
+##BH |gibd|git branch delete|
+alias gibd="git branch -d"
+##BH |gibD|git branch force delete |
+alias gibD="git branch -D"
+##BH |gibda|git all branches delete except current one|
+alias gibda='git branch -d $(git branch |grep -v "^*")'
+##BH |gibDa|git all branches force delete except current one|
+alias gibDa='git branch -D $(git branch |grep -v "^*")'
+
+
 ##BH |gil|git log|
 alias gil="git log"
 ##BH |gilo|git log in oneline format|

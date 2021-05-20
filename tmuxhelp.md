@@ -31,6 +31,9 @@ Please find below shortcuts provided for tmux.
 | Alt+s                      | Split current pane/window horizontally                                                                                                         |
 | Alt+a                      | Rename current pane                                                                                                                            |
 | Alt+r                      | Rename current window                                                                                                                          |
+| Alt+z                      | Resize current pane                                                                                                                            |
+| Ctrl+x                     | Hide current pane                                                                                                                              |
+| Alt+Ctrl+x                 | Show hidden pane                                                                                                                               |
 | Alt+f                      | Bring current pane to focus/zoom to occupy whole window size. Send back to original form if already focussed.                                  |
 | Alt+h                      | Goto left pane                                                                                                                                 |
 | Alt+l                      | Goto right pane                                                                                                                                |

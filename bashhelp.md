@@ -87,6 +87,10 @@ Please find below shortcuts provided by bashrc.
 | gicb              | git checkour new branch with given name                                                                                                           |
 | gib               | git branch                                                                                                                                        |
 | giba              | git show all branches including remotes                                                                                                           |
+| gibd              | git branch delete                                                                                                                                 |
+| gibD              | git branch force delete                                                                                                                           |
+| gibda             | git all branches delete except current one                                                                                                        |
+| gibDa             | git all branches force delete except current one                                                                                                  |
 | gil               | git log                                                                                                                                           |
 | gilo              | git log in oneline format                                                                                                                         |
 | gico              | git commit with adding signature                                                                                                                  |

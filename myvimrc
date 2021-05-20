@@ -624,7 +624,12 @@ endif
 " All files
 command! -nargs=? -complete=dir AF
   \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
-  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore .'.expand(<q-args>)
+  \ })))
+
+command! -nargs=? -complete=dir Files
+  \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+  \   'source': 'fd --type f --hidden --follow --color=always   --exclude .git --no-ignore .'.expand(<q-args>).' $VIM_CSF_DIRS'
   \ })))
 
 let g:fzf_colors =
@@ -701,7 +706,7 @@ command! PlugHelp call fzf#run(fzf#wrap({
   \ 'sink':   function('s:plug_help_sink')}))
 
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -g "!tags" -g "!cscope.out" %s || true'
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -g "!tags" -g "!cscope.out" %s $VIM_CSF_DIRS || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
   let options = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
@@ -713,7 +718,7 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   "rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
+  \   "rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>)/"$VIM_CSF_DIRS", 1,
   \   fzf#vim#with_preview('right', 'ctrl-/'), <bang>0)
 
 command! -bang -nargs=* Ag
@@ -1084,3 +1089,5 @@ command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>
 nnoremap <Leader>hm :Redir verbose map<CR>
 ""VH |Space+h+m|List all currently used highlights to temporary buffer"
 nnoremap <Leader>hhi :Redir hi<CR>
+
+nnoremap <C-]> g<C-]>
