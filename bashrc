@@ -757,13 +757,61 @@ get_git_is() {
 
 ##BH |get_git_lb|Get git local branch|
 get_git_lb() {
-    local bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" | cut -d " " -f1)
+    # local bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" | cut -d " " -f1)
 
-    if [ "$bi" != "" ]
-    then
-        local bil=$(echo $bi|awk -F'\\.\\.\\.' '{print $1}')
-        echo -ne "${bil}"
-    fi
+    # if [ "$bi" != "" ]
+    # then
+    #     local bil=$(echo $bi|awk -F'\\.\\.\\.' '{print $1}')
+    #     echo -ne "${bil}"
+    # fi
+	local g="$(git rev-parse --git-dir 2>/dev/null)"
+	if [ -n "$g" ]; then
+		local r
+		local b
+		if [ -d "$g/rebase-apply" ]
+		then
+			if test -f "$g/rebase-apply/rebasing"
+			then
+				r="|REBASE"
+			elif test -f "$g/rebase-apply/applying"
+			then
+				r="|AM"
+			else
+				r="|AM/REBASE"
+			fi
+			b="$(git symbolic-ref HEAD 2>/dev/null)"
+		elif [ -f "$g/rebase-merge/interactive" ]
+		then
+			r="|REBASE-i"
+			b="$(cat "$g/rebase-merge/head-name")"
+		elif [ -d "$g/rebase-merge" ]
+		then
+			r="|REBASE-m"
+			b="$(cat "$g/rebase-merge/head-name")"
+		elif [ -f "$g/MERGE_HEAD" ]
+		then
+			r="|MERGING"
+			b="$(git symbolic-ref HEAD 2>/dev/null)"
+		else
+			if [ -f "$g/BISECT_LOG" ]
+			then
+				r="|BISECTING"
+			fi
+			if ! b="$(git symbolic-ref HEAD 2>/dev/null)"
+			then
+				if ! b="$(git describe --exact-match HEAD 2>/dev/null)"
+				then
+					b="$(cut -c1-7 "$g/HEAD")..."
+				fi
+			fi
+		fi
+
+		if [ -n "${1-}" ]; then
+			printf "$1" "${b##refs/heads/}$r"
+		else
+			printf " (%s)" "${b##refs/heads/}$r"
+		fi
+	fi
 }
 
 ##BH |get_git_rb|Get git origin branch.|
@@ -777,15 +825,26 @@ get_git_rb() {
     fi
 }
 
+##BH |get_git_sc|Get git stash count|
+get_git_sc ()
+{
+    local sc=$(git stash list 2> /dev/null|wc -l)
+    if [ "$sc" != "" ]
+    then
+        echo "$sc"
+    fi
+}
+
 # fancy prompt with git details time stamp directory, git dirty status etc..
 print_myprompt() {
 
     local lcs=$?
     local d=`dirs`
-    local glb=`get_git_lb`
+    local glb=`get_git_lb "%s"`
     local grb=`get_git_rb`
     local gls=`get_git_ls`
     local gis=`get_git_is`
+    local gsc=`get_git_sc`
 
     local user=$USER
 
@@ -812,7 +871,7 @@ print_myprompt() {
     tclrt $right_color
     if [ "$grb" != "" ]
     then
-        rtxt "$gis $grb | $user@$hst | [$ts]"
+        rtxt "$gis [stashes:$gsc] $grb | $user@$hst | [$ts]"
     else
         rtxt "$user@$hst | [$ts]"
     fi
@@ -1183,9 +1242,12 @@ hfzf ()
     export FZF_DEFAULT_COMMAND="fd --type file --color=always --follow --hidden --ignore"
     export FZF_DEFAULT_OPTS="--ansi"
 }
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-source ~/devenv/fzfgit.sh
+if [ -f ~/.fzf.bash ]
+then
+    source ~/.fzf.bash
+    source ~/devenv/build/fzf/fzf/shell/completion.bash
+    source ~/devenv/fzfgit.sh
+fi
 
 if [ -d ~/.pyenv ]
 then
@@ -1199,5 +1261,6 @@ fi
 
 export PATH=$PATH:~/devenv/bin/:~/devenv/build/fancydiff/diff-so-fancy/
 
+# remove redundancies in path
 export PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 

@@ -46,30 +46,30 @@ install_tools ()
         cscope
         lua5.3
         ctags
-        python 
-        python3 
+        python
+        python3
         python3-pip
-        exuberant-ctags 
-        universal-ctags 
-        snapd 
-        fonts-powerline 
-        bash-completion 
-        lfm 
-        vifm 
-        libevent-dev 
+        exuberant-ctags
+        universal-ctags
+        snapd
+        fonts-powerline
+        bash-completion
+        lfm
+        vifm
+        libevent-dev
         libevent-dev
         plantuml
-        doxygen 
-        ccls 
-        libgemplugin-ruby 
-        rubygems 
+        doxygen
+        ccls
+        libgemplugin-ruby
+        rubygems
         clang-format
-        libncurses5-dev 
-        libncursesw5-dev 
-        p7zip-full 
-        cmake 
-        lynx 
-        ruby 
+        libncurses5-dev
+        libncursesw5-dev
+        p7zip-full
+        cmake
+        lynx
+        ruby
         ruby-dev
         python-pip
         fuse
@@ -157,7 +157,6 @@ install_albert()
     sudo apt install albert
 }
 
-
 install_alacritty()
 {
     ce_dir alacritty
@@ -168,33 +167,32 @@ install_alacritty()
     chmod +x target/release/alacritty
     sudo ln -sf $PWD/target/release/alacritty /usr/bin/alacritty
     gzip -c extra/alacritty.man | sudo tee -a /usr/local/share/man/man1/alacritty.1.gz > /dev/null
-    cp extra/completions/alacritty.bash $builddir/bash_completions/ 
+    cp extra/completions/alacritty.bash $builddir/bash_completions/
     ln -sf $builddir/dotfiles/alacritty.yml ~/.alacritty.yml
 }
 
 install_bat()
 {
-    bat --version|grep 'bat 0.17.1' && echo "bat already installed" && return;
+    [ "$FORCE_INSTALL" == "" ] && bat --version|grep 'bat 0.17.1' && echo "bat already installed" && return;
     ce_dir bat
     wget $(gh_rel sharkdp/bat "bat_.*amd.*deb")
     sudo dpkg -i $(ls -htr bat_*.deb|tail -1)
- 
+
 }
 
 install_fzf ()
 {
-    fzf --version && echo "fzf already installed" && return;
-    echo "fzf not found so installing..."
+    [ "$FORCE_INSTALL" == "" ] && fzf --version && echo "fzf already installed" && return;
+    echo "fzf installing..."
     ce_dir fzf
     git clone --depth 1 https://github.com/junegunn/fzf.git fzf
     ./fzf/install --all
-    . ./fzf/shell/completion.bash
 }
 
 install_ripgrep ()
 {
-    rg -V| grep '^ripgrep 11' && echo "ripgrep already installed" && return;
-    echo "ripgrep not found so installing..."
+    [ "$FORCE_INSTALL" == "" ] && rg -V| grep '^ripgrep 11' && echo "ripgrep already installed" && return;
+    echo "ripgrep installing..."
     ce_dir rg
     curl -vs -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
     sudo dpkg -i ripgrep_11.0.2_amd64.deb
@@ -204,8 +202,8 @@ install_ripgrep ()
 install_tmux ()
 {
     local VER="3.2"
-    tmux -V| grep "^tmux $VER" && echo "tmux already installed" && return ;
-    echo "tmux not found so installing..."
+    [ "$FORCE_INSTALL" == "" ] && tmux -V| grep "^tmux $VER" && echo "tmux already installed" && return ;
+    echo "tmux installing..."
     ce_dir tmux
     # curl -vs -LO https://github.com/tmux/tmux/releases/download/3.2-rc/tmux-3.2-rc3.tar.gz
     curl -vs -LO https://github.com/tmux/tmux/releases/download/$VER/tmux-$VER.tar.gz
@@ -216,8 +214,8 @@ install_tmux ()
 }
 install_pyenv ()
 {
-    pyenv --version| grep "^pyenv " && echo "pyenv already installed" && return ;
-    echo "pyenv not found so installing..."
+    [ "$FORCE_INSTALL" == "" ] && pyenv --version| grep "^pyenv " && echo "pyenv already installed" && return ;
+    echo "pyenv installing..."
     rm -rf ~/.pyenv
     ce_dir pyenv
     curl -vs -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer |bash
@@ -226,8 +224,8 @@ install_pyenv ()
 
 install_yarn()
 {
-    yarn --version| grep "^yarn " && echo "yarn already installed" && return ;
-    echo "yarn not found so installing..."
+    [ "$FORCE_INSTALL" == "" ] && yarn --version| grep "^yarn " && echo "yarn already installed" && return ;
+    echo "yarn installing..."
     ce_dir yarn
     curl -vs --compressed -o- -L https://yarnpkg.com/install.sh | bash
 }
@@ -284,7 +282,7 @@ install_nvim ()
 
     sudo pip3 install pynvim
     sudo pip3 install neovim
-    
+
     python -m pip -y uninstall neovim pynvim
     python -m pip -y install --user --upgrade pynvim
 
@@ -345,9 +343,9 @@ install_node ()
     ce_dir nodejs
     curl -vs -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
     sudo bash nodesource_setup.sh
-    sudo apt-get -yq update 
-    sudo apt-get -yq install nodejs 
-    sudo apt-get -yq install npm 
+    sudo apt-get -yq update
+    sudo apt-get -yq install nodejs
+    sudo apt-get -yq install npm
 }
 
 install_dotfiles()
@@ -401,10 +399,12 @@ list_packages ()
 usage ()
 {
     echo "
-./install.sh all -v               # Install all packages with logs
-./install.sh all                  # Install all packages without logs
-./install.sh <package name>       # Install specific package without logs
-./install.sh <package name> -v    # Install specific package with logs
+./install.sh all [OPTIONS]               # Install all packages
+./install.sh <package name> [OPTIONS]    # Install specific package
+
+OPTIONS :
+    -v      Enable verbose logging
+    -f      Force install
 
 <package name> can be one of [ $(list_packages) ]
     "
@@ -431,7 +431,6 @@ run_func ()
     install_$1 2>&1 | stdbuf -oL tr '\r' '\n' >> $LOGFILE
 }
 
-
 # Check valid params given
 [[ $# == 0 ]] && usage
 
@@ -440,6 +439,10 @@ run_func ()
 
 # Check verbose
 [[ "$2" == "-v" ]] && tail -f -n0 $LOGFILE &
+
+# Check verbose
+FORCE_INSTALL=""
+[[ "$3" == "-f" ]] && export FORCE_INSTALL='Y'
 
 # Main execution
 case $1 in
