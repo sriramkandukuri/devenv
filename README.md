@@ -2,9 +2,9 @@
 
 Script based Development environment for remote servers.
 
-1. bashrc [bashhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/bashhelp.md)
-2. tmux [tmuxhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/tmuxhelp.md)
-3. vimrc [vimhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/vimhelp.md)
+1. bashrc [bashhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/help/bashhelp.md)
+2. tmux [tmuxhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/help/tmuxhelp.md)
+3. vimrc [vimhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/help/vimhelp.md)
 
 ### Installation
 
@@ -65,7 +65,7 @@ Recently switched to Chrome application mentioned above. Due to bugs with key ma
 
 ### Vim
 
-Please refer to [vimhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/vimhelp.md) for available custom shortcuts in addition to original vim/nvim keyboard shortcuts
+Please refer to [vimhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/help/vimhelp.md) for available custom shortcuts in addition to original vim/nvim keyboard shortcuts
 
 #### Usefull cheat sheets
 
@@ -74,14 +74,14 @@ Please refer to [vimhelp.md](https://github.com/sriramkandukuri/devenv/blob/mast
 ### Tmux
 
 - Using Tmux config from [gpakosz](https://github.com/gpakosz/.tmux.git)
-- Customized config from (mytmux.conf)
+- Customized config from (tmux/tmux.conf)
 
-Refer to [tmuxhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/tmuxhelp.md) for available custom shortcuts.
+Refer to [tmuxhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/help/tmuxhelp.md) for available custom shortcuts.
 
 ### Bashrc
 
 Fully customised bashrc with beautiful prompt line and several helper functions.
-Refer to [bashhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/bashhelp.md) for all shortcuts available.
+Refer to [bashhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/help/bashhelp.md) for all shortcuts available.
 
 ### Default programs
 

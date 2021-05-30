@@ -21,7 +21,7 @@ alias lv="ls --color -lhvr"
 ##BH |ls|List files with colors |
 alias ls="ls --color"
 ##BH |mygrep|Grep recursive, prints numbers, excludes binaries, files with extensions .o, .o.cmd, .d, .htm, .map, .xsl files with names cscope*, *tags |
-alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --exclude "*.o.cmd" --exclude "*.d" --exclude "cscope*" --exclude "*tags" --exclude "*.htm" --exclude "*.map" --exclude "*.xsl"'
+alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --exclude "*.o.cmd" --exclude "*.d" --exclude "cscope*" --exclude "*tags" --exclude "*.htm" --exclude "*.map" --exclude "*.xsl" --exclude-dir ".git"'
 ##BH |d2u|Dos to unix command |
 alias d2u="dos2unix"
 ##BH |gettimestamp|Prints time in `YYYYMMDD_hhmmss` format. Usefull for generating any filenames based on timestamp|
@@ -92,12 +92,12 @@ dumphelp ()
 ##BH |tmhelp|Show tmux shortcuts help|
 tmhelp ()
 {
-    dumphelp ~/devenv/tmuxhelp.md $1
+    dumphelp ~/devenv/help/tmuxhelp.md $1
 }
 ##BH |bhelp|Show bashrc shortcuts help|
 bhelp ()
 {
-    dumphelp ~/devenv/bashhelp.md $1
+    dumphelp ~/devenv/help/bashhelp.md $1
 }
 ##BH |vhg|Show help of any command from vim help|
 vh ()
@@ -112,7 +112,7 @@ vhg ()
 ##BH |vhelp|Show custom vim shortcuts help|
 vhelp ()
 {
-    dumphelp ~/devenv/vimhelp.md $1
+    dumphelp ~/devenv/help/vimhelp.md $1
 }
 
 ##BH |csd|Open cscope with available cscope files in current directory|
@@ -172,7 +172,7 @@ alias tma="tmux attach -d -t"
 ##BH |tml|list currently running tmux sessions|
 alias tml="tmux ls"
 ##BH |vtm|Open tmux custom config provided by this repository for editing in vim|
-alias vtm="vim ~/.mytmux.conf"
+alias vtm="vim ~/.devenv_tmux.conf"
 ##BH |tmk|Kill tmux server and kill all processes having `tmux` in their command|
 alias tmk="tmux kill-server; kill -9 \$(ps -eaf|grep tmu[x] | sed 's/  */ /g' | cut -d\" \" -f2)"
 ##BH |tmks|Kill session with given name|

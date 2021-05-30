@@ -237,10 +237,11 @@ install_tmux_conf ()
     unlink ~/.tmux.conf.local > /dev/null 2>&1
     unlink ~/.tmux.conf > /dev/null 2>&1
     unlink ~/.mytmux.conf > /dev/null 2>&1
+    unlink ~/.devenv_tmux.conf > /dev/null 2>&1
     ln -s -f $PWD/.tmux/.tmux.conf ~/
     ln -s -f $PWD/.tmux/.tmux.conf.local ~/
-    ln -s -f $devdir/mytmux.conf ~/.mytmux.conf
-    echo "source-file ~/.mytmux.conf" >> ~/.tmux.conf.local
+    ln -s -f $devdir/tmux/tmux.conf ~/.devenv_tmux.conf
+    echo "source-file ~/.devenv_tmux.conf" >> ~/.tmux.conf.local
 }
 
 # install bashrc
