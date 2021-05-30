@@ -1,0 +1,40 @@
+#! /bin/bash
+
+# Changing this needs to restart tmux if using
+export USE_PWR_FONTS=1
+export DEVENV_LOADED=1
+
+#HISTORY helpers
+export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+export HISTSIZE=-100000                   # big big history
+export HISTFILESIZE=-100000               # big big history
+
+source ~/devenv/shell/common/cscope.sh
+
+source ~/devenv/shell/common/devenv_management.sh
+source ~/devenv/shell/common/general.sh
+source ~/devenv/shell/common/ssh_management.sh
+source ~/devenv/shell/common/debugging.sh
+
+
+source ~/devenv/shell/common/tools.sh
+source ~/devenv/shell/common/text_formatting.sh
+source ~/devenv/shell/common/completions.sh
+source ~/devenv/shell/common/nerdfont.sh
+source ~/devenv/shell/common/git.sh
+source ~/devenv/shell/common/github.sh
+source ~/devenv/shell/common/prompt.sh
+
+# After reading several suggestions decided to not set this in bashrc.
+# terminal should set this
+# export TERM="xterm-256color"
+
+source ~/devenv/shell/common/taskwarrior.sh
+source ~/devenv/shell/common/fzf.sh
+source ~/devenv/shell/common/pyenv.sh
+source ~/devenv/shell/common/tmux.sh
+
+export PATH=$PATH:~/devenv/build/fancydiff/diff-so-fancy/
+
+# remove redundancies in path
+export PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`

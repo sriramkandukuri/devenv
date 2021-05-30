@@ -3,7 +3,7 @@
 # set -x
 # echo "****************** INSTALLATION STARTS HERE ************************"
 devdir=$PWD
-LOGFILE=$PWD/install.log
+LOGFILE=$PWD/build/install.log
 rm -rf $LOGFILE > /dev/null 2>&1
 touch $LOGFILE
 myname=$0
@@ -17,7 +17,7 @@ fi
 builddir=$devdir/build
 
 shopt -s expand_aliases
-. ./bashrc
+. ./shell/bash/devenv_bashrc
 
 #crate and enter specific directory
 ce_dir ()
@@ -249,7 +249,7 @@ install_bashrc ()
 {
     if [ "$DEVENV_LOADED" == "" ]
     then
-        echo ". ~/devenv/bashrc" >> ~/.bashrc
+        echo ". ~/devenv/shell/bash/bashrc" >> ~/.bashrc
         source ~/.bashrc
     fi
 }

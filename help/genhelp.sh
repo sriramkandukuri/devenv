@@ -20,9 +20,18 @@ printf "3. Date and time stamp. This can be used for observing time taken by any
 
 
 printf "## Bash Shortcuts\n\nPlease find below shortcuts provided by bashrc.\n\n" >> $BHELP
-echo "|Shortcut|Description|" >> $BHELP
-echo "|---|---|" >> $BHELP
-grep "^##BH" bashrc | cut -d" " -f2- >> $BHELP
+for f in $(grep -nrl "^##BH" ~/devenv/shell/*)
+do
+    h=$(basename $f|cut -d'.' -f1)
+    h=$(echo ${h^}|tr '_' ' ')
+    echo "### $h" >> $BHELP
+    echo >> $BHELP
+
+    echo "|Shortcut|Description|" >> $BHELP
+    echo "|---|---|" >> $BHELP
+    grep "^##BH" $f | cut -d" " -f2- >> $BHELP
+    echo >> $BHELP
+done
 
 printf "## Tmux Shortcuts\n\nPlease find below shortcuts provided for tmux.\n\n" >> $TMHELP
 
