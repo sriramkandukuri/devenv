@@ -1,6 +1,6 @@
 # Devenv
 
-Script based Development environment for remote servers.
+Customized Development environment for linux
 
 1. bashrc [bashhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/help/bashhelp.md)
 2. tmux [tmuxhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/help/tmuxhelp.md)
@@ -16,28 +16,20 @@ Install nodejs version 10 as mentioned in https://joshtronic.com/2018/05/08/how-
 
 #### Installation
 
-Verbose to dump all logs to console
+Use `./install.sh help` for instructions.
 
-```
-./install.sh all -v
-```
-
-Non verbose mode
-
-```
-./install.sh all
-```
+To install everything use `./install.sh all`
 
 Add below line to your bashrc
 
 ```
-source ~/devenv/bashrc
+source ~/devenv/shell/bash/devenv_bashrc
 ```
 
 If powerline fonts are not supported add below lines to bashrc instead of above step.
 
 ```
-source ~/devenv/bashrc
+source ~/devenv/shell/bash/devenv_bashrc
 export USE_PWR_FONTS=0
 ```
 
@@ -49,7 +41,7 @@ Main help commands `bhelp <keyword>` `vhelp <keyword>` `tmhelp <keyword>`
 
 [Secure Shell App](https://chrome.google.com/webstore/detail/secure-shell-app/pnhechapfaindjhompbnflcldabbghjo?hl=en) a Chrome application which works very smooth.
 
-- Fonts that work fine with my setup.
+- Fonts that work better
   - [Source Code Pro Medium Regular](https://github.com/adobe-fonts/source-code-pro/releases/tag/2.030R-ro/1.050R-it) font woks fine.
   - Ubuntu Mono Regular
   - [Hack Regular](https://github.com/powerline/fonts/tree/master/Hack)
@@ -80,28 +72,13 @@ Refer to [tmuxhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/hel
 
 ### Bashrc
 
-Fully customised bashrc with beautiful prompt line and several helper functions.
+Fully customised bashrc with better prompt line and several helper functions.
 Refer to [bashhelp.md](https://github.com/sriramkandukuri/devenv/blob/master/help/bashhelp.md) for all shortcuts available.
-
-### Default programs
-
-Below programs get installed by default
-
-- cscope
-- ctags
-- python and python3
-- powerline fonts
-- bash-completion
-- ripgrep - For vim plugin
-- tmux
-- vim 8+
-- node js for coc plugin
-- etc...
 
 #### Note
 
-> Tested only with terminus and chrome secure shell on windows with ubuntu 16.04 remote server.
-> Please report issue if you face issue with same setup.
+> Tested only with terminus and chrome secure shell on windows with ubuntu 20.04 remote server.
+> Please report issue if you face any
 
 ### Contribution
 
@@ -109,13 +86,6 @@ Main goal is to use single script to get all the development environment on any 
 
 > You are welcome for contributions
 
-### Other files
+#### Collection of all cheat sheets
 
-- Dracula color scheme for any terminal
-  - `Dracula.colorscheme`
-- Helper script for printing color pallette
-  - `colors.sh`
-
-### TODO
-
-- Bash completion for several programs used often.
+- [Cheat sheets collection](https://github.com/LeCoupa/awesome-cheatsheets)
