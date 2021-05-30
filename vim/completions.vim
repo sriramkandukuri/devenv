@@ -167,3 +167,48 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"coc plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" coc config
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-pyright',
+  \ 'coc-jedi',
+  \ 'coc-eslint',
+  \ 'coc-json',
+  \ 'coc-cmake',
+  \ 'coc-git',
+  \ 'coc-prettier',
+  \ 'coc-highlight',
+  \ ]
+
+""VH |<Space>Fkey F12|Toggle diagnostics and error strings"
+nmap <silent> <Leader><F12> :call CocAction('diagnosticToggle')<CR>
+""VH |\<TAB\>|Autocompleter if available|
+fun! GoCoc()
+    inoremap <buffer> <silent><expr> <TAB>
+                \ pumvisible() ? "\<C-n>" :
+                \ <SID>check_back_space() ? "\<TAB>" :
+                \ coc#refresh()
+""VH |Shift+\<TAB\>|Select previous from autocomplete dropdown|
+    inoremap <buffer> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+""VH |Ctrl+Space|refresh CoC database|
+    inoremap <buffer> <silent><expr> <C-space> coc#refresh()
+
+    " GoTo code navigation.
+""VH |Space+gd|Goto definition of a function|
+    nmap <buffer> <leader>gd <Plug>(coc-definition)
+""VH |Space+gy|Goto type declaration of a function|
+    nmap <buffer> <leader>gy <Plug>(coc-type-definition)
+""VH |Space+gi|Goto implementation of a function|
+    nmap <buffer> <leader>gi <Plug>(coc-implementation)
+""VH |Space+gr|Show references|
+    nmap <buffer> <leader>gr <Plug>(coc-references)
+""VH |Space+cr|Restart CoC|
+    nnoremap <buffer> <leader>cr :CocRestart
+endfun
+
+autocmd FileType cpp,cxx,h,hpp,c :call GoCoc()
+

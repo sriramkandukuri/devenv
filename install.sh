@@ -318,7 +318,7 @@ install_vimrc ()
 {
     ce_dir vimrc
     unlink ~/.vimrc > /dev/null 2>&1
-    ln -s $devdir/myvimrc ~/.vimrc > /dev/null 2>&1
+    ln -s $devdir/vim/devenv.vimrc ~/.vimrc > /dev/null 2>&1
 
     # Install vim plug plugin manager
     ## remove already installed .vim directory
@@ -330,9 +330,8 @@ install_vimrc ()
     fix_coc_ccls;
     cd ~/.vim/plugged/YouCompleteMe/
     ./install.py --clangd-completer --clang-completer
-    ln -s -f $devdir/coc.vimrc ~/.cocvrc
-    ln -s -f $devdir/coc-settings.json ~/.vim/
-    ln -s -f $devdir/coc-settings.json ~/.config/nvim/
+    ln -s -f $devdir/vim/coc-settings.json ~/.vim/
+    ln -s -f $devdir/vim/coc-settings.json ~/.config/nvim/
     cd ~/.config/coc/extensions/node_modules/coc-ccls
     ln -s node_modules/ws/lib lib
     cd -

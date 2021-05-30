@@ -6,7 +6,7 @@ alias nv="nvim"
 ##BH |vim|Opens nvim|
 alias vim="nvim"
 ##BH |ovim|Opens old/original vim instead of nvim|
-alias ovim="/usr/bin/vim"
+alias ovim="TERM=xterm-256color /usr/bin/vim"
 
 ##BH |vbash|To edit `.bashrc` inside user home directory|
 alias vbash="vim ~/.bashrc"

@@ -23,13 +23,11 @@ printf "## Bash Shortcuts\n\nPlease find below shortcuts provided by bashrc.\n\n
 echo "|Shortcut|Description|" >> $BHELP
 echo "|---|---|" >> $BHELP
 grep "^##BH" bashrc | cut -d" " -f2- >> $BHELP
-vim $BHELP +'/^|' +TableModeRealign +wqall
 
 printf "## Tmux Shortcuts\n\nPlease find below shortcuts provided for tmux.\n\n" >> $TMHELP
 
 for f in $(grep -nrl "^##TH" ~/devenv/tmux/*)
 do
-
     h=$(basename $f|cut -d'.' -f1)
     h=$(echo ${h^}|tr '_' ' ')
     echo "### $h" >> $TMHELP
@@ -38,13 +36,21 @@ do
     echo "|Shortcut|Description|" >> $TMHELP
     echo "|---|---|" >> $TMHELP
     grep "^##TH" $f | cut -d" " -f2- >> $TMHELP
-    vim $TMHELP +'?^|Shortcut' +TableModeRealign +wqall
     echo >> $TMHELP
 done
 
 
 printf "## VIM/nvim Shortcuts\n\nPlease find below shortcuts provided for vim.\n\n" >> $VHELP
-echo "|Shortcut|Description|" >> $VHELP
-echo "|---|---|" >> $VHELP
-grep "^\"\"VH" myvimrc | cut -d" " -f2- >> $VHELP
-vim $VHELP +'/^|' +TableModeRealign +wqall
+
+for f in $(grep -nrl "^\"\"VH" ~/devenv/vim/*)
+do
+    h=$(basename $f|cut -d'.' -f1)
+    h=$(echo ${h^}|tr '_' ' ')
+    echo "### $h" >> $VHELP
+    echo >> $VHELP
+
+    echo "|Shortcut|Description|" >> $VHELP
+    echo "|---|---|" >> $VHELP
+    grep "^\"\"VH" $f | cut -d" " -f2- >> $VHELP
+    echo >> $VHELP
+done
