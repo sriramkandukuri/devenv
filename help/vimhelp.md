@@ -131,7 +131,7 @@ Please find below shortcuts provided for vim.
 
 |Shortcut|Description|
 |---|---|
-|<Space> G C |Show git conflicts and navigate through conflicts by pressing n
+|Space G C |Show git conflicts and navigate through conflicts by pressing n
 
 ### Man pages
 

@@ -1032,7 +1032,7 @@ done
 export TASKRC=~/devenv/taskrc
 
 alias g='BROWSER=w3m googler -n 7 -c en -l en'
-source ~/devenv/bashcolors.sh
+source ~/devenv/shell/common/bashcolors.sh
 
 TICK="✓"
 CROSS="✗"
@@ -1246,7 +1246,7 @@ if [ -f ~/.fzf.bash ]
 then
     source ~/.fzf.bash
     source ~/devenv/build/fzf/fzf/shell/completion.bash
-    source ~/devenv/fzfgit.sh
+    source ~/devenv/shell/common/fzfgit.sh
 fi
 
 if [ -d ~/.pyenv ]
