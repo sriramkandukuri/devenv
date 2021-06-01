@@ -164,6 +164,12 @@ Please find below shortcuts provided by bashrc.
 
 |Shortcut|Description|
 |---|---|
+|tnPN| Tag READY to next task in a project with name PN , you need to replace PN with actual project name|
+|taPN| Add task to project with name PN , you need to replace PN with actual project name|
+|taPN| Mark a task to done in project with name PN , you need to replace PN with actual project name|
+|trmPN| Delete task from project with name PN , you need to replace PN with actual project name|
+|tlPN| Add task to project with name PN , you need to replace PN with actual project name|
+|twstPN| Start timewarrior for project, you need to replace PN with actual project name|
 |t| Show tasks|
 |tn| Show next task|
 |tnu| Show next task urgency|

@@ -8,7 +8,6 @@ dumphelp ()
     cat $1 | grep -E "^\|" | column -t -s'|' | sed 's/^[ \t]*//;s/[ \t]*$//'
     # [ "$2" != "" ] && cat $1 |grep $2 && return
     # cat $1 | column -t -s'|'
-
 }
 ##BH |tmhelp|Show tmux shortcuts help|
 tmhelp ()

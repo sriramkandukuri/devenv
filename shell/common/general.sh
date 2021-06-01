@@ -27,7 +27,7 @@ alias ls="ls --color"
 alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --exclude "*.o.cmd" --exclude "*.d" --exclude "cscope*" --exclude "*tags" --exclude "*.htm" --exclude "*.map" --exclude "*.xsl" --exclude-dir ".git"'
 
 alias clangd="clangd-11"
-alias jedi-language-server="~/.local/bin/jedi-language-server"
+# alias jedi-language-server="~/.local/bin/jedi-language-server"
 
 ##BH |ai| shortcut to apt-get install|
 alias ai="apt-get -yqm install"
@@ -64,3 +64,5 @@ mkcd()
 {
     mkdir -p $@ && cd $1
 }
+
+alias g='BROWSER=w3m googler -n 7 -c en -l en'

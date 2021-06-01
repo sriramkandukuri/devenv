@@ -38,6 +38,7 @@ clean_dir ()
 install_tools ()
 {
     local apt_pkgs="
+        dos2unix
         apt-file
         rsync
         w3m

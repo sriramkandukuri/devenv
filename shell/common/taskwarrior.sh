@@ -1,6 +1,5 @@
 export TASKRC=~/devenv/taskwarrior/taskrc
 
-alias g='BROWSER=w3m googler -n 7 -c en -l en'
 source ~/devenv/shell/common/bashcolors.sh
 
 TICK="✓"
@@ -43,14 +42,21 @@ urgencyPrio=4
 # echo "DONE = $DONE / URGENT = $URGENT / OVERDUE = $OVERDUE / DUETODAY = $DUETODAY  / DUETOMORROW = $DUETOMORROW"
 
 # Loop will set up task next, task add, task log and timew start for all projects listed above
-for (( i = 0; i < $nrOfProjects; i++ ));
+for i in $(task _projects)
 do
     # echo "Project $i = ${projects[i]}"
-    alias tn$i="task next project:${projects[i]} +READY"
-    alias tnu$i="tn${i} urgency \> ${urgencyPrio}"
-    alias ta$i="task add project:${projects[i]}"
-    alias tl$i="task log project:${projects[i]}"
-    alias twst$i="timew start ${projects[i]}"
+##BH |tnPN| Tag READY to next task in a project with name PN , you need to replace PN with actual project name|
+    alias tn$i="task next project:$i +READY"
+##BH |taPN| Add task to project with name PN , you need to replace PN with actual project name|
+    alias ta$i="task add project:$i"
+##BH |taPN| Mark a task to done in project with name PN , you need to replace PN with actual project name|
+    alias td$i="task done project:$i"
+##BH |trmPN| Delete task from project with name PN , you need to replace PN with actual project name|
+    alias trm$i="task delete project:$i"
+##BH |tlPN| Add task to project with name PN , you need to replace PN with actual project name|
+    alias tl$i="task log project:$i"
+##BH |twstPN| Start timewarrior for project, you need to replace PN with actual project name|
+    alias twst$i="timew start $i"
 done;
 
 # General TaskWarrior commands

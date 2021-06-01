@@ -33,8 +33,8 @@ source ~/devenv/shell/common/taskwarrior.sh
 source ~/devenv/shell/common/fzf.sh
 source ~/devenv/shell/common/pyenv.sh
 source ~/devenv/shell/common/tmux.sh
-
 export PATH=$PATH:~/devenv/build/fancydiff/diff-so-fancy/
 
 # remove redundancies in path
 export PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
+source ~/devenv/shell/common/alias_completion.sh
