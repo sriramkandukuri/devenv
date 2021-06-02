@@ -1,6 +1,8 @@
 source ~/devenv/vim/plugins.vim
-source ~/devenv/vim/completions.vim
 source ~/devenv/vim/general.vim
+" Dont move above lines
+
+source ~/devenv/vim/completions.vim
 source ~/devenv/vim/code_style.vim
 source ~/devenv/vim/undo.vim
 source ~/devenv/vim/git.vim

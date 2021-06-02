@@ -185,7 +185,7 @@ let g:coc_global_extensions = [
   \ ]
 
 ""VH |<Space>Fkey F12|Toggle diagnostics and error strings"
-nmap <silent> <Leader><F12> :call CocAction('diagnosticToggle')<CR>
+nmap <Leader><F12> :call CocAction('diagnosticToggle')<CR>
 ""VH |\<TAB\>|Autocompleter if available|
 fun! GoCoc()
     inoremap <buffer> <silent><expr> <TAB>
@@ -211,4 +211,3 @@ fun! GoCoc()
 endfun
 
 autocmd FileType cpp,cxx,h,hpp,c :call GoCoc()
-

@@ -1,10 +1,3 @@
-if !has('nvim')
-    set runtimepath^=~/.vim runtimepath+=~/.vim/after
-    let &packpath = &runtimepath
-endif
-
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
 let mapleader = " "
 set hidden
 set noerrorbells
