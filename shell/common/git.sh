@@ -79,10 +79,18 @@ gicl ()
 alias gigt="git checkout --theirs"
 ##BH |gigo|git get ours|
 alias gigo="git checkout --ours"
-##BH |gipa|git pull all|
-alias gipa="git pull --all"
-##BH |gip|git pull|
-alias gip="git pull"
+##BH |gipsf|git push force|
+alias gipsf="git push -f"
+##BH |gipsof|git push origin force|
+alias gipsof="git push -f origin"
+##BH |gips|git push|
+alias gips="git push"
+##BH |gipso|git push origin|
+alias gipso="git push origin"
+##BH |gipla|git pull all|
+alias gipla="git pull --all"
+##BH |gipl|git pull|
+alias gipl="git pull"
 ##BH |gir|git rebase|
 alias gir="git rebase"
 ##BH |girc|git rebase continue|
@@ -111,14 +119,14 @@ alias gibD="git branch -D"
 alias gibda='git branch -d $(git branch |grep -v "^*")'
 ##BH |gibDa|git all branches force delete except current one|
 alias gibDa='git branch -D $(git branch |grep -v "^*")'
+##BH |gico|git commit with adding signature|
+alias gico="git commit -s"
 
 
 ##BH |gil|git log|
 alias gil="git log"
 ##BH |gilo|git log in oneline format|
 alias gilo="git log --oneline"
-##BH |gico|git commit with adding signature|
-alias gico="git commit -s"
 # see `git help log` for detailed help.
 #   %h: abbreviated commit hash
 #   %d: ref names, like the --decorate option of git-log(1)

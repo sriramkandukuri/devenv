@@ -127,8 +127,12 @@ Please find below shortcuts provided by bashrc.
 |gicl|git clone|
 |gigt|git get theirs|
 |gigo|git get ours|
-|gipa|git pull all|
-|gip|git pull|
+|gipsf|git push force|
+|gipsof|git push origin force|
+|gips|git push|
+|gipso|git push origin|
+|gipla|git pull all|
+|gipl|git pull|
 |gir|git rebase|
 |girc|git rebase continue|
 |girs|gir rebase skip|
@@ -143,9 +147,9 @@ Please find below shortcuts provided by bashrc.
 |gibD|git branch force delete |
 |gibda|git all branches delete except current one|
 |gibDa|git all branches force delete except current one|
+|gico|git commit with adding signature|
 |gil|git log|
 |gilo|git log in oneline format|
-|gico|git commit with adding signature|
 |gilol | awesome git log replacement|
 |gilod |git log same as above, but ISO date|
 |gilobi | git log using **b**uild-**i**n standards|
