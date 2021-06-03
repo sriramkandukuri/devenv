@@ -58,6 +58,5 @@ function alias_completion {
         new_completion="${new_completion% *} $alias_name"
         echo "$new_completion" >> "$tmp_file"
     done < <(alias -p | sed -Ene "s/$alias_regex/\1 '\2' '\3'/p")
-    cp $tmp_file ~/devenv/shell/common/alias_completion.sh
     source "$tmp_file" && rm -f "$tmp_file"
-}
+}; alias_completion
