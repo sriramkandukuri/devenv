@@ -188,8 +188,8 @@ Please find below shortcuts provided for vim.
 
 |Shortcut|Description|
 |---|---|
-|Space+Space+tg|Search through git files, enter to open selected file|
-|Space+Space+t|Search through files, enter to open selected file|
+|Space+t+Space+g|Search through git files, enter to open selected file|
+|Space+t+Space|Search through files, enter to open selected file|
 |Space+tf|Invoke ripgrep|
 |Space+t+<ENTER>|Search through available buffers and enter to open selected one|
 |Space+tvh|Search through available help tags|
