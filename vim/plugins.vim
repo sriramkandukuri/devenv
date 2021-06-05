@@ -1,9 +1,9 @@
 if !has('nvim')
-    set runtimepath^=~/.vim runtimepath+=~/.vim/after
+    set runtimepath^=~/.vim,~/.vim/after,~/devenv/vim
     let &packpath = &runtimepath
 endif
 
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
+set runtimepath^=~/.vim,~/.vim/after,~/devenv/vim
 let &packpath = &runtimepath
 "{{{
 " PLUGINS
@@ -157,6 +157,13 @@ Plug 'embear/vim-uncrustify'
 " Handle ansi color escases
 Plug 'powerman/vim-plugin-AnsiEsc'
 
+if has('nvim')
+    " telescope requirements...
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzy-native.nvim'
+endif
 
 call plug#end()
 "

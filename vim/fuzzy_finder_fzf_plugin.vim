@@ -41,16 +41,10 @@ autocmd  FileType fzf set noshowmode noruler nonu
 " endif
 
 " nnoremap <silent> <Leader><Leader> :Files<CR>
-""VH |Space+Space|Search through files, enter to open selected file|
-nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<CR>"
 ""VH |Space+C|Search through available color schemes and activate upon enter|
 nnoremap <silent> <Leader>C        :Colors<CR>
-""VH |Space+<ENTER>|Search through available buffers and enter to open selected one|
-nnoremap <silent> <Leader><Enter>  :Buffers<CR>
 ""VH |Space+L|Search through lines having some pattern you enter|
 nnoremap <silent> <Leader>L        :Lines<CR>
-""VH |Space+f|Invoke ripgrep|
-nnoremap <silent> <Leader>f       :RG <C-R><C-W><CR>
 ""VH |Space+RG|Invoke ripgrep|
 nnoremap <silent> <Leader>RG       :RG <C-R><C-A><CR>
 ""VH |Space+ag|Invoke advance grep|
