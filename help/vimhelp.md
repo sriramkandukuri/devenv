@@ -108,11 +108,8 @@ Please find below shortcuts provided for vim.
 
 |Shortcut|Description|
 |---|---|
-|Space+Space|Search through files, enter to open selected file|
 |Space+C|Search through available color schemes and activate upon enter|
-|Space+<ENTER>|Search through available buffers and enter to open selected one|
 |Space+L|Search through lines having some pattern you enter|
-|Space+f|Invoke ripgrep|
 |Space+RG|Invoke ripgrep|
 |Space+ag|Invoke advance grep|
 |Space+\`|Search through available marks and enter into selected one|
@@ -183,6 +180,17 @@ Please find below shortcuts provided for vim.
 |Shortcut|Description|
 |---|---|
 |FnKey F8|Toggle right side tagbar for all *.c,*.cpp,*.h,*.hpp files|
+
+### Telescope plugin
+
+|Shortcut|Description|
+|---|---|
+|Space+Space+g|Search through git files, enter to open selected file|
+|Space+Space|Search through files, enter to open selected file|
+|Space+f|Invoke ripgrep|
+|Space+<ENTER>|Search through available buffers and enter to open selected one|
+|Space+vh|Search through available help tags|
+|Space+vh|Search through devenv files|
 
 ### Undo
 
