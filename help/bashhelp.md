@@ -222,6 +222,7 @@ Please find below shortcuts provided by bashrc.
 |Shortcut|Description|
 |---|---|
 |v|Opens nvim|
+|vi|Opens nvim|
 |nv|Opens nvim|
 |vim|Opens nvim|
 |ovim|Opens old/original vim instead of nvim|

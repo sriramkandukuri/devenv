@@ -5,6 +5,8 @@ fi
 # Vim aliases
 ##BH |v|Opens nvim|
 alias v="nvim"
+##BH |vi|Opens nvim|
+alias vi="nvim"
 ##BH |nv|Opens nvim|
 alias nv="nvim"
 ##BH |vim|Opens nvim|
