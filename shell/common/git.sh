@@ -178,13 +178,6 @@ get_git_is() {
 
 ##BH |get_git_lb|Get git local branch|
 get_git_lb() {
-    # local bi=$(git status -bs 2> /dev/null|head -1|sed -e "s/## //g" | cut -d " " -f1)
-
-    # if [ "$bi" != "" ]
-    # then
-    #     local bil=$(echo $bi|awk -F'\\.\\.\\.' '{print $1}')
-    #     echo -ne "${bil}"
-    # fi
 	local g="$(git rev-parse --git-dir 2>/dev/null)"
 	if [ -n "$g" ]; then
 		local r
@@ -227,10 +220,16 @@ get_git_lb() {
 			fi
 		fi
 
+        if [ "$b" == "" ]; then
+            b=$(git branch | head -1 | sed -e 's/\* (no branch, rebasing //' -e 's/)//')
+        else
+            b=${b##refs/heads/}
+        fi
+
 		if [ -n "${1-}" ]; then
-			printf "$1" "${b##refs/heads/}$r"
+			printf "$1" "$b$r"
 		else
-			printf " (%s)" "${b##refs/heads/}$r"
+			printf " (%s)" "$b$r"
 		fi
 	fi
 }
