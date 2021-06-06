@@ -32,7 +32,7 @@ function SetColors()
     hi CocFloating guibg=#4a2661
     hi CocErrorFloat guibg=#8f1c1c
     hi PmenuSel guibg=#a05000
-    hi Normal ctermbg=NONE  guibg=NONE
+    hi Normal ctermbg=NONE  guibg=#181a26
 endfunction
 let g:dracula_bold = 1
 let g:dracula_italic = 1
