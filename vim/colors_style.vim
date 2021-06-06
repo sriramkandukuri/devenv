@@ -16,7 +16,7 @@ set termguicolors
 " Dracula customizations.
 function SetColors()
     hi DraculaComment ctermfg=75  guifg=#7a7f40
-    hi DraculaSubtle ctermbg=235  guibg=#282a36
+    hi DraculaSubtle ctermbg=235  guibg=#10141d
 
     hi ColorColumn ctermbg=234 guibg=#282a36
     hi CursorLine ctermbg=234 guibg=#282a36
@@ -32,7 +32,7 @@ function SetColors()
     hi CocFloating guibg=#4a2661
     hi CocErrorFloat guibg=#8f1c1c
     hi PmenuSel guibg=#a05000
-    hi Normal ctermbg=NONE  guibg=#181a26
+    hi Normal ctermbg=NONE  guibg=None
 endfunction
 let g:dracula_bold = 1
 let g:dracula_italic = 1

@@ -6,12 +6,12 @@ let g:vimade.enablesigns = 1
 
 function! FL()
     :VimadeFadeActive
-    hi Normal ctermbg=NONE  guibg=NONE
+    " hi Normal ctermbg=NONE  guibg=NONE
 endfunction
 
 function! FG()
     :VimadeUnfadeActive
-    hi Normal ctermbg=NONE  guibg=#181a26
+    " hi Normal ctermbg=NONE  guibg=#181a26
 endfunction
 
 au! FocusLost * :call FL()
