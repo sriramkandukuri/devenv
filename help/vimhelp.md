@@ -193,7 +193,7 @@ Please find below shortcuts provided for vim.
 |Space+tf|Invoke ripgrep|
 |Space+t+<ENTER>|Search through available buffers and enter to open selected one|
 |Space+tvh|Search through available help tags|
-|Space+tvh|Search through devenv files|
+|Space+tdv|Search through devenv files|
 
 ### Undo
 

@@ -34,6 +34,8 @@ jedi-language-server ()
     ~/.local/bin/jedi-language-server
 }
 
+alias ssh="ssh -o ServerAliveInterval=60"
+
 ##BH |ai| shortcut to apt-get install|
 alias ai="apt-get -yqm install"
 ##BH |sau| shortcut to sudo apt-get update and upgrade|
