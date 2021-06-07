@@ -12,5 +12,5 @@ nnoremap <leader>tl :lua require('telescope.builtin').live_grep( { search_dirs =
 nnoremap <leader>t<enter> :lua require('telescope.builtin').buffers()<CR>
 ""VH |Space+tvh|Search through available help tags|
 nnoremap <leader>tvh :lua require('telescope.builtin').help_tags()<CR>
-""VH |Space+tvh|Search through devenv files|
+""VH |Space+tdv|Search through devenv files|
 nnoremap <leader>tdv :lua require('devenv.tscope').search_devenv()<CR>

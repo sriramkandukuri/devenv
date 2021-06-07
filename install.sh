@@ -429,7 +429,8 @@ run_ninst_func ()
 
 run_func ()
 {
-    install_$1 2>&1 | stdbuf -oL tr '\r' '\n' >> $LOGFILE
+    install_$1
+    # install_$1 2>&1 | buf -oL tr '\r' '\n' >> $LOGFILE
 }
 
 # Check valid params given

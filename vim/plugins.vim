@@ -165,6 +165,10 @@ if has('nvim')
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 endif
 
+Plug 'junegunn/vim-easy-align'
+" Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/limelight.vim'
+
 call plug#end()
 "
 "}}}

@@ -45,6 +45,8 @@ highlight VertSplit cterm=NONE ctermfg=237 guifg=#5f5f9f ctermbg=NONE
 nmap <Leader>T i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
 "Remember line position
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent! loadview
 
 ""{{{
 "" ccls nvim inbuild lsp configuration
