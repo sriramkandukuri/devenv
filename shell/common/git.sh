@@ -22,11 +22,14 @@ gconfig ()
 ##BH |gid|git diff|
 gid ()
 {
-    if [ "$vopts" == "V" ]
+    if [ "$vopts" = "V" ]
     then
         git diff $opts $@ | diff-so-fancy > /tmp/.tmp_git_diff;
         vim -c ":term cat /tmp/.tmp_git_diff";
         # vim /tmp/.tmp_git_diff;
+    elif [ "$vopts" = "P" ]
+    then
+        git --no-pager diff $opts
     else
         git diff $opts $@
     fi
@@ -46,6 +49,26 @@ gidw ()
 {
     opts="-w HEAD"
     gid $@
+}
+##BH |pgid|git diff open in vim|
+pgid ()
+{
+    vopts="P"
+    gid $@
+}
+
+##BH |pgids|git diff with staged changes opens in vim|
+pgids ()
+{
+    vopts="P"
+    gids $@
+}
+
+##BH |pgidw|git diff ignoring white space opens in vim|
+pgidw ()
+{
+    vopts="P"
+    gidw $@
 }
 
 ##BH |vgid|git diff open in vim|
@@ -155,10 +178,10 @@ alias gigb='git log --all --graph --decorate --oneline --simplify-by-decoration 
 get_git_ls()
 {
     git status --porcelain 1> /dev/null 2>&1
-    if [ "$?" == "0" ]
+    if [ "$?" = "0" ]
     then
         x=$(git status --porcelain 2> /dev/null| cut -c1,2 |sort|uniq | awk '{print}' ORS=' ')
-        if [[ "$x" == "" ]]
+        if [[ "$x" = "" ]]
         then
             echo -ne "clean"
         else
@@ -220,7 +243,7 @@ get_git_lb() {
 			fi
 		fi
 
-        if [ "$b" == "" ]; then
+        if [ "$b" = "" ]; then
             b=$(git branch | head -1 | sed -e 's/\* (no branch, rebasing //' -e 's/)//')
         else
             b=${b##refs/heads/}
@@ -262,8 +285,8 @@ gucfg()
     local email
     read -p  "Enter user name > " username
     read -p "Enter email id > " email
-    [ "$username" == "" ] && echo "Invalid username" && return
-    [ "$email" == "" ] && echo "Invalid email" && return
+    [ "$username" = "" ] && echo "Invalid username" && return
+    [ "$email" = "" ] && echo "Invalid email" && return
     git config --global user.name "$username"
     git config --global user.email $email
     echo $username $email
@@ -278,8 +301,8 @@ lgcfg()
     local email
     read -p  "Enter user name > " username
     read -p "Enter email id > " email
-    [ "$username" == "" ] && echo "Invalid username" && return
-    [ "$email" == "" ] && echo "Invalid email" && return
+    [ "$username" = "" ] && echo "Invalid username" && return
+    [ "$email" = "" ] && echo "Invalid email" && return
     git config user.name "$username"
     git config user.email $email
     echo $username $email

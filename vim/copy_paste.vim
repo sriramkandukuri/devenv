@@ -55,6 +55,10 @@ vmap <leader>y :w! /tmp/vitmp<CR>
 ""VH |Space+p|Paste copied(using Space+y) text, use this for copy pasting between files opened in different shells|
 nmap <leader>p :r! cat /tmp/vitmp<CR>
 
+""VH |Space+d|Delete a selection or line to black hole buffer so that it wont stored in clipboard
+nmap <leader>d "_dd
+vmap <leader>d "_d
+
 set clipboard=unnamedplus
 "set clipboard=exclude:.*
 let &t_ZH="\e[3m"

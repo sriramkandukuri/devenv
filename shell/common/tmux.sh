@@ -8,7 +8,7 @@ tmn ()
 ##BH |rnp|Sets a titile which inturn renames a pane in tmux|
 rnp()
 {
-    if [ "$1" == "" ]
+    if [ "$1" = "" ]
     then
         printf '\033]2;%s\033\\' 'NO PANE TITLE'
     else

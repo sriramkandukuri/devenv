@@ -86,6 +86,7 @@ install_tools ()
         taskwarrior
         tasksh
         timewarrior
+        zsh
     "
 
     local npm_pkgs="
@@ -100,8 +101,7 @@ install_tools ()
         jedi
         jedi-language-server
     "
-    sudo apt-get -yq update
-    sudo apt-get -yq upgrade
+
     for i in $apt_pkgs
     do
         sudo apt-get -yqm install $i
@@ -250,8 +250,21 @@ install_bashrc ()
 {
     if [ "$DEVENV_LOADED" == "" ]
     then
-        echo ". ~/devenv/shell/bash/bashrc" >> ~/.bashrc
+        echo ". ~/devenv/shell/bash/devenv_bashrc" >> ~/.bashrc
         source ~/.bashrc
+    fi
+}
+
+install_zshrc ()
+{
+    ce_dir zsh
+
+    wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    ZSH=$PWD sh install.sh --unattended
+
+    if [ "$DEVENV_LOADED" == "" ]
+    then
+        echo ". ~/devenv/shell/zsh/devenv_zshrc" > ~/.zshrc
     fi
 }
 
@@ -429,8 +442,12 @@ run_ninst_func ()
 
 run_func ()
 {
-    install_$1
-    # install_$1 2>&1 | buf -oL tr '\r' '\n' >> $LOGFILE
+    if [ "$1" == "tools" ]
+    then
+        sudo apt-get -yq update
+        sudo apt-get -yq upgrade
+    fi
+    install_$1 2>&1 | buf -oL tr '\r' '\n' >> $LOGFILE
 }
 
 # Check valid params given
@@ -439,15 +456,29 @@ run_func ()
 # Check valid package or not
 [[ $(list_packages) =~ (^|[[:space:]])"$1"($|[[:space:]]) ]] && echo "Installing $1 ..." || usage
 
-# Check verbose
-[[ "$2" == "-v" ]] && tail -f -n0 $LOGFILE &
+FORCE_INSTALL=""
+app=""
+verbose=""
+for var in "$@"
+do
+    case $var in
+        -v)
+            verbose='y';
+            ;;
+        -f)
+            export FORCE_INSTALL='y'
+            ;;
+        *)
+            app="$var"
+            ;;
+    esac
+done
 
 # Check verbose
-FORCE_INSTALL=""
-[[ "$3" == "-f" ]] && export FORCE_INSTALL='Y'
+[[ "$verbose" == "y" ]] && tail -f -n0 $LOGFILE &
 
 # Main execution
-case $1 in
+case $app in
     help)
         usage
         ;;

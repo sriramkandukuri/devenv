@@ -53,17 +53,13 @@ require('telescope').setup {
 require('telescope').load_extension('fzf')
 
 local M = {}
-M.csfiles = function()
-    local tab={}
-    local t=vim.env.VIM_CSF_DIRS
 
-    if t == nil then
-        return tab
-    end
-    for str in string.gmatch(t, "([^ ]+)") do
-        table.insert(tab, str)
-    end
-    return tab
+M.csfiles = function()
+  local t=vim.env.VIM_CSF_DIRS
+  if t == nil then
+    return {}
+  end
+  return vim.split(t, ' ')
 end
 
 M.search_devenv = function()

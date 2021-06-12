@@ -121,6 +121,9 @@ Please find below shortcuts provided by bashrc.
 |gid|git diff|
 |gids|git diff with staged changes|
 |gidw|git diff ignoring white space|
+|pgid|git diff open in vim|
+|pgids|git diff with staged changes opens in vim|
+|pgidw|git diff ignoring white space opens in vim|
 |vgid|git diff open in vim|
 |vgids|git diff with staged changes opens in vim|
 |vgidw|git diff ignoring white space opens in vim|

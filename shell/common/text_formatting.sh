@@ -86,7 +86,7 @@ print_u8charset ()
                 x=$(printf "\\\x%02X\\\x%02X\\\x%02X" $i $j $k)
                 printf "%s( $x )" $x
                 count=`expr $count + 1`
-                if [ $count == 100 ]
+                if [ $count = 100 ]
                 then
                     count=0
                     echo

@@ -215,7 +215,7 @@ uncrust ()
     then
         echo "found $local_proj_cfg, use it?[y/n]"
         read confirm
-        if [ "$confirm" == "y" ]
+        if [ "$confirm" = "y" ]
         then
             cfg=$local_proj_cfg
         fi
@@ -225,7 +225,7 @@ uncrust ()
     then
         echo "found config in home dir, use it?[y/n]"
         read confirm
-        if [ "$confirm" == "y" ]
+        if [ "$confirm" = "y" ]
         then
             cfg="~/uncrustify.cfg"
         fi

@@ -1,4 +1,4 @@
-if [ $USE_PWR_FONTS == 1 ]
+if [ $USE_PWR_FONTS = 1 ]
 then
     PROMPT_SEP="\uE0B0"
 fi
@@ -18,13 +18,13 @@ print_myprompt() {
 
     local right_color=6272a4
     local dirbg=bd93f9
-    if [ "$USER" == "root" ]
+    if [ "$USER" = "root" ]
     then
         right_color=cf658c
         dirbg=e31045
     fi
     # Mostly inside docker
-    if [ "$USER" == "" ]
+    if [ "$USER" = "" ]
     then
         user="DOCKER on `whoami`"
         right_color=2d6187
@@ -51,7 +51,7 @@ print_myprompt() {
     # Git local status color setting green if clean red if changed with porcelain markings
     if [ "$gls" != "" ]
     then
-        if [ "$gls" == "clean" ]
+        if [ "$gls" = "clean" ]
         then
             tclrb 50fa7b 44475a
         else
@@ -69,7 +69,7 @@ print_myprompt() {
         printf " %s " "$glb"
         tclre
 
-        if [ $USE_PWR_FONTS == 1 ]
+        if [ $USE_PWR_FONTS = 1 ]
         then
             # separator with current background as foreground and next background as background.
             # powerline bulk arrow separator.
@@ -82,7 +82,7 @@ print_myprompt() {
     tclrb $dirbg 000000
     printf " %s " "$d"
     tclre
-    if [ $USE_PWR_FONTS == 1 ]
+    if [ $USE_PWR_FONTS = 1 ]
     then
         tclrt $dirbg
         printf $PROMPT_SEP
@@ -90,7 +90,7 @@ print_myprompt() {
     fi
 
     # last command status. green if 0 red if error.
-    if [[ "$lcs" == "130" ]]
+    if [[ "$lcs" = "130" ]]
     then
         tclrt deb810
     elif [ "$lcs" != 0 ]
@@ -102,13 +102,3 @@ print_myprompt() {
     printf " %s " "$lcs"
     tclre
 }
-
-PS1='`print_myprompt`\n$ '
-
-bashrc_sourced=$(stat -c %Y ~/.bashrc)
-bashdevrc_sourced=$(stat -c %Y ~/devenv/shell/bash/devenv_bashrc)
-
-prompt_command='
-   test $(stat -c %y ~/.bashrc) -ne $bashrc_sourced && source ~/.bashrc;
-   test $(stat -c %y ~/devenv/shell/bash/devenv_bashrc) -ne $bashdevrc_sourced && source ~/.bashrc
-'

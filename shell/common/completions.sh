@@ -12,5 +12,3 @@ for i in $(ls -A ~/devenv/build/bash_completions/)
 do
     source ~/devenv/build/bash_completions/$i
 done
-
-

@@ -75,6 +75,7 @@ Please find below shortcuts provided for vim.
 |Ctrl + l|Toggle line number format from relative to absolute and vice versa
 |Space+y|Copy selected text to some temporary file, use this for copy pasting between files opened in different shells|
 |Space+p|Paste copied(using Space+y) text, use this for copy pasting between files opened in different shells|
+|Space+d|Delete a selection or line to black hole buffer so that it wont stored in clipboard
 
 ### Cscope
 
