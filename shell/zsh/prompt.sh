@@ -1,1 +1,1 @@
-PS1='`print_myprompt`'
+PS1=`print_myprompt; printf "\n$ "`

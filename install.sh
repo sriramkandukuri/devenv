@@ -260,12 +260,10 @@ install_zshrc ()
     ce_dir zsh
 
     wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    ZSH=$PWD sh install.sh --unattended
+    echo $PWD
+    ZSH=$PWD/ohmyzsh sh ./install.sh --unattended
 
-    if [ "$DEVENV_LOADED" == "" ]
-    then
-        echo ". ~/devenv/shell/zsh/devenv_zshrc" > ~/.zshrc
-    fi
+    echo ". ~/devenv/shell/zsh/devenv_zshrc" >> ~/.zshrc
 }
 
 install_clangd ()
@@ -447,7 +445,7 @@ run_func ()
         sudo apt-get -yq update
         sudo apt-get -yq upgrade
     fi
-    install_$1 2>&1 | buf -oL tr '\r' '\n' >> $LOGFILE
+    install_$1 2>&1 | stdbuf -oL tr '\r' '\n' >> $LOGFILE
 }
 
 # Check valid params given
