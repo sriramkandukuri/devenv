@@ -64,6 +64,7 @@ install_tools ()
         ccls
         libgemplugin-ruby
         rubygems
+        ruby-full
         clang-format
         libncurses5-dev
         libncursesw5-dev
@@ -95,6 +96,7 @@ install_tools ()
 
     local gem_pkgs="
         nokogiri
+        colorls
     "
 
     local pip_pkgs="
@@ -264,6 +266,7 @@ install_zshrc ()
     ZSH=$PWD/ohmyzsh sh ./install.sh --unattended
 
     echo ". ~/devenv/shell/zsh/devenv_zshrc" >> ~/.zshrc
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git
 }
 
 install_clangd ()

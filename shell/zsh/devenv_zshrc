@@ -26,7 +26,9 @@ source ~/devenv/shell/common/nerdfont.sh
 source ~/devenv/shell/common/git.sh
 source ~/devenv/shell/common/github.sh
 source ~/devenv/shell/common/prompt.sh
-source ~/devenv/shell/zsh/prompt.sh
+# source ~/devenv/shell/zsh/prompt.sh
+source ~/devenv/build/zsh/powerlevel10k/powerlevel10k.zsh-theme
+source ~/devenv/shell/zsh/p10k.sh
 
 # After reading several suggestions decided to not set this in bashrc.
 # terminal should set this

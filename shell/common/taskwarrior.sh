@@ -2,8 +2,8 @@ export TASKRC=~/devenv/taskwarrior/taskrc
 
 source ~/devenv/shell/common/bashcolors.sh
 
-TICK="✓"
-CROSS="✗"
+TICK="✅"
+CROSS="❌"
 
 DONE="🖖"
 URGENT="🔥"

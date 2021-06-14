@@ -169,6 +169,9 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 
+" Devicons for vim
+Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 "
 "}}}

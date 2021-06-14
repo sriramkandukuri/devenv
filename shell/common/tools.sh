@@ -237,5 +237,3 @@ uncrust ()
         echo "No valid uncrustify config found."
     fi
 }
-
-

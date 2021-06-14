@@ -20,13 +20,15 @@ alias vbash="vim ~/.bashrc"
 ##BH |sbash|Source bash environment again after unaliasing all shortcuts|
 alias sbash="unalias -a;source ~/.bashrc"
 ##BH |l|List files with colors, show sizes in readable format and sort to print latest file at last |
-alias l="ls --color -lhtr"
+alias l="colorls --color -lhtr --sd"
 ##BH |lv|List files with colors, show sizes in readable format and sort by name |
-alias lv="ls --color -lhvr"
+alias lv="colorls --color -lhvr --sd"
 ##BH |ls|List files with colors |
 alias ls="ls --color"
 ##BH |mygrep|Grep recursive, prints numbers, excludes binaries, files with extensions .o, .o.cmd, .d, .htm, .map, .xsl files with names cscope*, *tags |
 alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --exclude "*.o.cmd" --exclude "*.d" --exclude "cscope*" --exclude "*tags" --exclude "*.htm" --exclude "*.map" --exclude "*.xsl" --exclude-dir ".git"'
+##BH |myrg|Grep recursive, prints numbers, excludes binaries, files with extensions .o, .o.cmd, .d, .htm, .map, .xsl files with names cscope*, *tags |
+alias myrg='rg --color always'
 
 alias clangd="clangd-11"
 jedi-language-server ()

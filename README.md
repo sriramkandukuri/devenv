@@ -42,9 +42,7 @@ Main help commands `bhelp <keyword>` `vhelp <keyword>` `tmhelp <keyword>`
 [Secure Shell App](https://chrome.google.com/webstore/detail/secure-shell-app/pnhechapfaindjhompbnflcldabbghjo?hl=en) a Chrome application which works very smooth.
 
 - Fonts that work better
-  - [Source Code Pro Medium Regular](https://github.com/adobe-fonts/source-code-pro/releases/tag/2.030R-ro/1.050R-it) font woks fine.
-  - Ubuntu Mono Regular
-  - [Hack Regular](https://github.com/powerline/fonts/tree/master/Hack)
+  - Right now only DejavuSansMono Nerd font working good with all kinds of icons and gylphs
   - [Nerd fonts collection](https://github.com/ryanoasis/nerd-fonts)
 
 For best experience with arrow keys or powerline symbols its suggested to install patched fonts.
