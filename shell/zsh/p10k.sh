@@ -160,7 +160,8 @@
   fi
 
   # Default background color.
-  typeset -g POWERLEVEL9K_BACKGROUND=238
+  # typeset -g POWERLEVEL9K_BACKGROUND=238
+  typeset -g POWERLEVEL9K_BACKGROUND='#33375a'
 
   # Separator between same-color segments on the left.
   typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='%246F\uE0B5'
@@ -250,7 +251,7 @@
     package.json
     stack.yaml
   )
-  typeset -g POWERLEVEL9K_SHORTEN_FOLDER_MARKER="(${(j:|:)anchor_files})"
+  typeset -g POWERLEVEL9K_SHORTEN_FOLDER_MARKER='(${(j:|:)anchor_files})'
   # If set to "first" ("last"), remove everything before the first (last) subdirectory that contains
   # files matching $POWERLEVEL9K_SHORTEN_FOLDER_MARKER. For example, when the current directory is
   # /foo/bar/git_repo/nested_git_repo/baz, prompt will display git_repo/nested_git_repo/baz (first)

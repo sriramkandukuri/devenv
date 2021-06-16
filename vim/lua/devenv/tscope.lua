@@ -65,7 +65,7 @@ end
 M.search_devenv = function()
     require("telescope.builtin").find_files({
         prompt_title = "< devenv >",
-        cwd = "$HOME/devenv/",
+        search_dirs = {"$HOME/devenv/"},
     })
 end
 

@@ -267,6 +267,7 @@ install_zshrc ()
 
     echo ". ~/devenv/shell/zsh/devenv_zshrc" >> ~/.zshrc
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 }
 
 install_clangd ()
