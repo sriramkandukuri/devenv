@@ -30,6 +30,7 @@ source ~/devenv/shell/common/prompt.sh
 source ~/devenv/build/zsh/powerlevel10k/powerlevel10k.zsh-theme
 source ~/devenv/shell/zsh/p10k.sh
 source ~/devenv/build/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/devenv/build/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # After reading several suggestions decided to not set this in bashrc.
 # terminal should set this
