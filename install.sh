@@ -420,7 +420,6 @@ usage ()
 ./install.sh <package name> [OPTIONS]    # Install specific package
 
 OPTIONS :
-    -v      Enable verbose logging
     -f      Force install
 
 <package name> can be one of [ $(list_packages) ]
@@ -440,7 +439,7 @@ postinst ()
 
 run_ninst_func ()
 {
-    $1 | tee -a $LOGFILE >> /dev/null 2>&1
+    $1 | tee -a $LOGFILE 2>&1
 }
 
 run_func ()
@@ -450,7 +449,7 @@ run_func ()
         sudo apt-get -yq update
         sudo apt-get -yq upgrade
     fi
-    install_$1 2>&1 | stdbuf -oL tr '\r' '\n' >> $LOGFILE
+    install_$1 2>&1
 }
 
 # Check valid params given
@@ -461,13 +460,9 @@ run_func ()
 
 FORCE_INSTALL=""
 app=""
-verbose=""
 for var in "$@"
 do
     case $var in
-        -v)
-            verbose='y';
-            ;;
         -f)
             export FORCE_INSTALL='y'
             ;;
@@ -476,9 +471,6 @@ do
             ;;
     esac
 done
-
-# Check verbose
-[[ "$verbose" == "y" ]] && tail -f -n0 $LOGFILE &
 
 # Main execution
 case $app in
