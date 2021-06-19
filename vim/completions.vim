@@ -210,4 +210,4 @@ fun! GoCoc()
     nnoremap <buffer> <leader>cr :CocRestart
 endfun
 
-autocmd FileType cpp,cxx,h,hpp,c :call GoCoc()
+autocmd FileType cpp,cxx,h,hpp,c,py :call GoCoc()
