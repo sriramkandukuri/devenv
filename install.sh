@@ -102,6 +102,7 @@ install_tools ()
     local pip_pkgs="
         jedi
         jedi-language-server
+        python-language-server
     "
 
     for i in $apt_pkgs
@@ -126,8 +127,8 @@ install_tools ()
 
     for i in $pip_pkgs
     do
-        sudo pip3 install $i
-        sudo pip install $i
+        sudo pip3 install $i -U
+        sudo pip2 install $i -U
     done
 }
 
