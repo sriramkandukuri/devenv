@@ -232,9 +232,11 @@ Please find below shortcuts provided by bashrc.
 |vbash|To edit `.bashrc` inside user home directory|
 |sbash|Source bash environment again after unaliasing all shortcuts|
 |l|List files with colors, show sizes in readable format and sort to print latest file at last |
+|cl|List files with colors, show sizes in readable format and sort to print latest file at last |
 |lv|List files with colors, show sizes in readable format and sort by name |
 |ls|List files with colors |
 |mygrep|Grep recursive, prints numbers, excludes binaries, files with extensions .o, .o.cmd, .d, .htm, .map, .xsl files with names cscope*, *tags |
+|myrg|Grep recursive, prints numbers, excludes binaries, files with extensions .o, .o.cmd, .d, .htm, .map, .xsl files with names cscope*, *tags |
 |ai| shortcut to apt-get install|
 |sau| shortcut to sudo apt-get update and upgrade|
 |sai| shortcut to sudo apt-get install|

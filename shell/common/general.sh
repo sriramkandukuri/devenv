@@ -20,9 +20,11 @@ alias vbash="vim ~/.bashrc"
 ##BH |sbash|Source bash environment again after unaliasing all shortcuts|
 alias sbash="unalias -a;source ~/.bashrc"
 ##BH |l|List files with colors, show sizes in readable format and sort to print latest file at last |
-alias l="colorls --color -lhtr --sd"
+alias l="ls --color -lhtr --group-directories-first"
+##BH |cl|List files with colors, show sizes in readable format and sort to print latest file at last |
+alias cl="colorls --color -lhtr --sd"
 ##BH |lv|List files with colors, show sizes in readable format and sort by name |
-alias lv="colorls --color -lhvr --sd"
+alias lv="ls --color -lhvr --group-directories-first"
 ##BH |ls|List files with colors |
 alias ls="ls --color"
 ##BH |mygrep|Grep recursive, prints numbers, excludes binaries, files with extensions .o, .o.cmd, .d, .htm, .map, .xsl files with names cscope*, *tags |
