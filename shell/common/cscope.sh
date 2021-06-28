@@ -7,7 +7,12 @@ alias csd='export VIM_CSF_DIRS=$VIM_CSF_DIRS_BAK;CSCOPE_EDITOR=nvim VIEWER=nvim 
 cs ()
 {
     printf "%s\n" "-ferror-limit=0" > compile_flags.txt
-    export VIM_CSF_DIRS="$@"
+    if [ "$@" != "" ]
+    then
+        export VIM_CSF_DIRS="$@"
+    else
+        export VIM_CSF_DIRS="."
+    fi
     $(gcc -print-prog-name=cc1) -v /dev/null -o /dev/null 2>&1 | grep include | grep -v "^#" | grep -v "ignoring" | sed -e 's/^ /-I\n/g' >> compile_flags.txt
     printf "%s\n%s\n%s\n%s\n%s\n" "%h" "-I" "./" "-I" "../" >> compile_flags.txt
     if [ $# == 0 ];then
