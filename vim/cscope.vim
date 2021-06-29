@@ -36,6 +36,11 @@ vmap <Leader>ci <plug>(quickr_cscope_includes)
 nmap <Leader>ca <plug>(quickr_cscope_assignments)
 vmap <Leader>ca <plug>(quickr_cscope_assignments)
 
+" Setting project specific ctags
+if $VIM_CSF_DIRS != ""
+    :set tags=$PWD/tags
+endif
+
 "}}}
 
 
