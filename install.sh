@@ -58,7 +58,6 @@ install_tools ()
         lfm
         vifm
         libevent-dev
-        libevent-dev
         plantuml
         doxygen
         ccls
