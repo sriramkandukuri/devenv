@@ -27,7 +27,8 @@ Please find below shortcuts provided for tmux.
 |Alt+M|Toggle mouse enable or disable|
 |Ctrl+b,Ctrl+c|Create new session|
 |Ctrl+b,Ctrl+f|Find session|
-|Ctrl+b,q|Select session from list|
+|Ctrl+Q|Select session from list|
+|Alt+Q|Rename current session|
 |Ctrl+Shift+\<RIGHT-ARROW\>|Select next tmux session|
 |Ctrl+Shift+\<LEFT-ARROW\>|Select previous tmux session|
 |Alt+:|Enter command prompt of tmux|

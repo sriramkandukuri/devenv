@@ -232,6 +232,7 @@ install_yarn()
     ce_dir yarn
     curl -vs --compressed -o- -L https://yarnpkg.com/install.sh | bash
 }
+
 # install tmux conf
 install_tmux_conf ()
 {
