@@ -25,7 +25,7 @@ Please find below shortcuts provided for tmux.
 |---|---|
 |Ctrl+b,m|Toggle mouse enable or disable|
 |Alt+M|Toggle mouse enable or disable|
-|Ctrl+b,Ctrl+c|Create new session|
+|Ctrl+b,Ctrl+c|Create new session, ask to rename|
 |Ctrl+b,Ctrl+f|Find session|
 |Ctrl+Q|Select session from list|
 |Alt+Q|Rename current session|
