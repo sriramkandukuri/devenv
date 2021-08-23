@@ -40,7 +40,7 @@ Plug 'https://github.com/vim-airline/vim-airline.git'
 " Directory diff plugin aalternative for meld
 Plug 'will133/vim-dirdiff'
 "Fast file grep from vim command :Rg
-Plug 'jremmen/vim-ripgrep'
+Plug 'sriramkandukuri/vim-ripgrep', { 'branch': 'hotfix' }
 "Git helpers :Git
 "   https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-fugitive'
