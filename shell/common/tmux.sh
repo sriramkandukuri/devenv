@@ -102,4 +102,3 @@ ftwind ()
     # Select window
     tmux select-window -t $target_window
 }
-

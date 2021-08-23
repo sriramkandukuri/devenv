@@ -114,6 +114,12 @@ Please find below shortcuts provided by bashrc.
 |create_pkeys|create ssh keys for automatic ssh logins.|
 |setup_ssh|Auto ssh login helper which set sshkeys to remote server, ex. `setup_ssh user@host`|
 
+### Taskwarrior tmux
+
+|Shortcut|Description|
+|---|---|
+|devtasks|Dashboard tmux window for task management with taskwarrior|
+
 ### Git
 
 |Shortcut|Description|

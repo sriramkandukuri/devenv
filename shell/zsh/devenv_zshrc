@@ -41,6 +41,7 @@ source ~/devenv/shell/common/fzf.sh
 source ~/devenv/shell/zsh/fzf.sh
 source ~/devenv/shell/common/pyenv.sh
 source ~/devenv/shell/common/tmux.sh
+source ~/devenv/shell/common/taskwarrior_tmux.sh
 export PATH=$PATH:~/devenv/build/fancydiff/diff-so-fancy/
 
 # remove redundancies in path

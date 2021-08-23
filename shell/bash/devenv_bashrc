@@ -40,3 +40,4 @@ source ~/devenv/shell/bash/fzf.sh
 source ~/devenv/shell/common/pyenv.sh
 source ~/devenv/shell/common/tmux.sh
 source ~/devenv/shell/common/generate_alias_completions.sh
+source ~/devenv/shell/common/taskwarrior_tmux.sh
