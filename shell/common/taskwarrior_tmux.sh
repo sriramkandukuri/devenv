@@ -1,10 +1,10 @@
 ##BH |devtasks|Dashboard tmux window for task management with taskwarrior|
 devtasks ()
 {
+    tmux rename-window TASKS
     local SNAME=$(tmux display-message -p "#S")
     local WNAME=$(tmux display-message -p "#W")
     local PFX="$SNAME:$WNAME"
-    tmux rename-window TASKS
     tmux select-pane -T INPROGRESS
     tmux split-window -h
     tmux select-pane -T BURNDOWN
