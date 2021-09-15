@@ -138,6 +138,26 @@ batch_rename()
     done
 }
 
+##BH |compress|creates <given name>.tar.gz from files uses first file name as tarball name|
+compress()
+{
+    if [ $# -lt 1 ]; then
+        echo "Usagge : compress <files or directories> ..."
+        return
+    fi
+    tar czf $1.tar.gz $@
+}
+
+##BH |bestcompress|creates <given name>tar.xz from files uses firstfile name as tarball name|
+bestcompress()
+{
+    if [ $# -lt 1 ]; then
+        echo "Usagge : compress <files or directories> ..."
+        return
+    fi
+    XZ_OPT=-9e tar cJf $1.tar.xz $@
+}
+
 # Thanks to https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
 
 ##BH |ex|archive extractor usage: ex <file>|
@@ -198,12 +218,6 @@ dirdiff()
     DIR1=$(printf '%q' "$1"); shift
     DIR2=$(printf '%q' "$1"); shift
     vim $@ -c "DirDiff $DIR1 $DIR2"
-}
-
-##BH |cheat|Show help from cheat.sh|
-cheat ()
-{
-    curl cht.sh/$@
 }
 
 ##BH |uncrust| 'uncrust [file names or wild char]' format given files as per the found config.|

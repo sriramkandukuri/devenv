@@ -15,8 +15,16 @@ rnp()
         printf '\033]2;%s\033\\' $1
     fi
 }
-##BH |tma|Attach to running tmux session|
-alias tma="tmux attach -d -t"
+##BH |tma|Attach to tmux session, if no arguments given last session will be opened, otherwise session with given name will be opened|
+tma()
+{
+    if [ "$1" == "" ]
+    then
+        tmux attach -d
+    else
+        tmux attach -d -t "$@"
+    fi
+}
 ##BH |tml|list currently running tmux sessions|
 alias tml="tmux ls"
 ##BH |vtm|Open tmux custom config provided by this repository for editing in vim|

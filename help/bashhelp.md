@@ -49,7 +49,7 @@ Please find below shortcuts provided by bashrc.
 |tmux|Run `tmux` command with predefined env settings aliased to `EDITOR=nvim TERM=tmux-256color tmux -2 -u`|
 |tmn|Open new tmux session with given name, by default it opens first window with 3 vertical panes, **Not giving argument causes unwanted behavior**|
 |rnp|Sets a titile which inturn renames a pane in tmux|
-|tma|Attach to running tmux session|
+|tma|Attach to tmux session, if no arguments given last session will be opened, otherwise session with given name will be opened|
 |tml|list currently running tmux sessions|
 |vtm|Open tmux custom config provided by this repository for editing in vim|
 |tmk|Kill tmux server and kill all processes having `tmux` in their command|
@@ -77,13 +77,21 @@ Please find below shortcuts provided by bashrc.
 |mmk|Make command wrapper with colored errors,warnings and highlighted directory entries and exits.|
 |batch_mv|`batch_mv x y` Renames files containing `x` in their names and replaces `x` with `y`|
 |batch_rename|`batch_rename x y` Renames files containing `x` in their names and replaces `x` with `y`. This also replaces file contents having `x` to `y`|
+|compress|creates <given name>.tar.gz from files uses first file name as tarball name|
+|bestcompress|creates <given name>tar.xz from files uses firstfile name as tarball name|
 |ex|archive extractor usage: ex <file>|
 |glow|Fill a pane(tmux) or split terminal with all white color,  might be useful if you dont have other light source|
 |vitmp|Create and open temporary file in vim|
 |clean_tmp|Remove all temporary files created by `mktemp` command|
 |dirdiff|Terminal based interactive directory diff tool using vim|
-|cheat|Show help from cheat.sh|
 |uncrust| 'uncrust [file names or wild char]' format given files as per the found config.|
+
+### Cheat sheet
+
+|Shortcut|Description|
+|---|---|
+|cheat|get help on given programing languages or tools using cht.sh + fzf|
+|tmch|Same as cheat command but opens in new tmux window and closes with Ctrl-C|
 
 ### Text formatting
 
