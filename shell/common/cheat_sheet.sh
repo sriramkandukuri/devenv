@@ -56,12 +56,13 @@ docker-compose
 stow
 chmod
 chown
+tmux
     "
     selected=`echo "$lang $cmd" | fzf`
     read -p "Enter Query: " query
 
+    query=`echo $query | tr ' ' '+'`
     if grep -qs "$selected" <<< "$lang"; then
-        query=`echo $query | tr ' ' '+'`
         curl cht.sh/$selected/$query
     elif grep -qs "$selected" <<< "$cmd"; then
         curl -s cht.sh/$selected~$query
