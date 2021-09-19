@@ -29,7 +29,7 @@ Please find below shortcuts provided for tmux.
 |Ctrl+b,Ctrl+f|Find session|
 |Alt+:|Enter command prompt of tmux|
 |Alt+n|Open new window|
-|Alt+q|Select pane from list of all panes on server, choose-tree|
+|Alt+q|Select pane from list of all panes on server using fzf and connect to that|
 |Alt+Q|Select session from list|
 |Ctrl+q|Rename current session|
 |Ctrl+Shift+\<RIGHT-ARROW\>|Select next tmux session|

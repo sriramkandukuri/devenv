@@ -55,6 +55,7 @@ Please find below shortcuts provided by bashrc.
 |tmk|Kill tmux server and kill all processes having `tmux` in their command|
 |tmks|Kill session with given name|
 |ftwind|Find tmux windows in popup|
+|ftpanes|Find all panes on server using fzf and switch to the selected one|
 
 ### Tools
 

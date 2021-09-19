@@ -110,3 +110,14 @@ ftwind ()
     # Select window
     tmux select-window -t $target_window
 }
+
+##BH |ftpanes|Find all panes on server using fzf and switch to the selected one|
+ftpanes()
+{
+    sel=`tmux list-panes -a -F "#S > #W > #T _:_ #S:#I.#P" | fzf`
+
+    pane=`echo $sel|awk -F' _:_ ' '{print $2}'`
+    if [ "$pane" != "" ]; then
+        tmux switch-client -t "$pane"
+    fi
+}
