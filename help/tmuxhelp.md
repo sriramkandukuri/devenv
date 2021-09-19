@@ -27,12 +27,13 @@ Please find below shortcuts provided for tmux.
 |Alt+M|Toggle mouse enable or disable|
 |Ctrl+b,Ctrl+c|Create new session, ask to rename|
 |Ctrl+b,Ctrl+f|Find session|
-|Ctrl+Q|Select session from list|
-|Alt+Q|Rename current session|
-|Ctrl+Shift+\<RIGHT-ARROW\>|Select next tmux session|
-|Ctrl+Shift+\<LEFT-ARROW\>|Select previous tmux session|
 |Alt+:|Enter command prompt of tmux|
 |Alt+n|Open new window|
+|Alt+q|Select pane from list of all panes on server, choose-tree|
+|Alt+Q|Select session from list|
+|Ctrl+q|Rename current session|
+|Ctrl+Shift+\<RIGHT-ARROW\>|Select next tmux session|
+|Ctrl+Shift+\<LEFT-ARROW\>|Select previous tmux session|
 |Ctrl+l|Clear pane history|
 |Ctrl+b,U|Enable or disable URL view in current pane|
 
