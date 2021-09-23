@@ -13,6 +13,11 @@ print_myprompt() {
     local gls=`get_git_ls`
     local gis=`get_git_is`
     local gsc=`get_git_sc`
+    if [ "$gsc" != "0" ];then
+        gsc="[stashes:$gsc]"
+    else
+        gsc=""
+    fi
 
     local user=$USER
 
@@ -39,7 +44,7 @@ print_myprompt() {
     tclrt $right_color
     if [ "$grb" != "" ]
     then
-        rtxt "$gis [stashes:$gsc] $grb | $user@$hst | [$ts]"
+        rtxt "$gis $gsc $grb | $user@$hst | [$ts]"
     else
         rtxt "$user@$hst | [$ts]"
     fi
