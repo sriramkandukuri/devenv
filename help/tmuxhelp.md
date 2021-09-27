@@ -2,6 +2,12 @@
 
 Please find below shortcuts provided for tmux.
 
+### Cheat sheet
+
+|Shortcut|Description|
+|---|---|
+|Ctrl+\<F6\>|Open cheatsheet fzf tool|
+
 ### Configuration
 
 |Shortcut|Description|

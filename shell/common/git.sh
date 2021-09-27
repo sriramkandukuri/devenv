@@ -50,21 +50,21 @@ gidw ()
     opts="-w HEAD"
     gid $@
 }
-##BH |pgid|git diff open in vim|
+##BH |pgid|patch formatted git diff|
 pgid ()
 {
     vopts="P"
     gid $@
 }
 
-##BH |pgids|git diff with staged changes opens in vim|
+##BH |pgids|patch formatted git diff with staged changes|
 pgids ()
 {
     vopts="P"
     gids $@
 }
 
-##BH |pgidw|git diff ignoring white space opens in vim|
+##BH |pgidw|patch formatted git diff ignoring white space|
 pgidw ()
 {
     vopts="P"
