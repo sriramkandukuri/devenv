@@ -114,9 +114,10 @@ ftwind ()
 ##BH |ftpanes|Find all panes on server using fzf and switch to the selected one|
 ftpanes()
 {
-    sel=`tmux list-panes -a -F "#S > #W > #T _:_ #S:#I.#P" | fzf`
+    local tmout=`tmux list-panes -a -F "#{p10:session_name} #{p20:window_name} #{p3:pane_index} #T _:_ #S:#I.#P"`
+    local sel=`echo "$tmout" | awk -F ' _:_ ' '{print $1}'| fzf`
 
-    pane=`echo $sel|awk -F' _:_ ' '{print $2}'`
+    pane=`echo "$tmout"|grep "$sel"|awk -F' _:_ ' '{print $2}'`
     if [ "$pane" != "" ]; then
         tmux switch-client -t "$pane"
     fi
