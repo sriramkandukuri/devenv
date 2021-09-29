@@ -142,7 +142,7 @@ install_bash_completions()
 install_googler_supports ()
 {
     ce_dir googler
-    sudo curl -vs -o /usr/bin/googler https://raw.githubusercontent.com/jarun/googler/v4.3.1/googler && sudo chmod +x /usr/bin/googler
+    sudo curl -sS -o /usr/bin/googler https://raw.githubusercontent.com/jarun/googler/v4.3.1/googler && sudo chmod +x /usr/bin/googler
     sudo apt-get -yqm install googler
     wget https://raw.githubusercontent.com/jarun/googler/master/auto-completion/bash/googler-completion.bash
     cp googler-completion.bash $builddir/bash_completions/
@@ -153,7 +153,7 @@ install_googler_supports ()
 install_albert()
 {
     ce_dir albert
-    curl -vs https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -
+    curl -sS https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -
     echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_20.04/ /' | sudo tee -a /etc/apt/sources.list.d/home:manuelschneid3r.list
     sudo wget -nv https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_20.04/Release.key -O "/etc/apt/trusted.gpg.d/home:manuelschneid3r.asc"
     sudo apt update
@@ -163,7 +163,7 @@ install_albert()
 install_alacritty()
 {
     ce_dir alacritty
-    # sudo curl -vs https://sh.rustup.rs -sSf | sh
+    # sudo curl -sS https://sh.rustup.rs -sSf | sh
     git clone https://github.com/jwilm/alacritty.git
     cd alacritty
     cargo build --release
@@ -176,10 +176,12 @@ install_alacritty()
 
 install_bat()
 {
+    set -x
     [ "$FORCE_INSTALL" == "" ] && bat --version|grep 'bat 0.17.1' && echo "bat already installed" && return;
     ce_dir bat
     wget $(gh_rel sharkdp/bat "bat_.*amd.*deb")
-    sudo dpkg -i $(ls -htr bat_*.deb|tail -1)
+    sudo dpkg -i $(/usr/bin/ls -htr bat_*.deb|tail -1)
+    set +x
 
 }
 
@@ -197,7 +199,7 @@ install_ripgrep ()
     [ "$FORCE_INSTALL" == "" ] && rg -V| grep '^ripgrep 11' && echo "ripgrep already installed" && return;
     echo "ripgrep installing..."
     ce_dir rg
-    curl -vs -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
+    curl -sS -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
     sudo dpkg -i ripgrep_11.0.2_amd64.deb
 }
 
@@ -208,8 +210,8 @@ install_tmux ()
     [ "$FORCE_INSTALL" == "" ] && tmux -V| grep "^tmux $VER" && echo "tmux already installed" && return ;
     echo "tmux installing..."
     ce_dir tmux
-    # curl -vs -LO https://github.com/tmux/tmux/releases/download/3.2-rc/tmux-3.2-rc3.tar.gz
-    curl -vs -LO https://github.com/tmux/tmux/releases/download/$VER/tmux-$VER.tar.gz
+    # curl -sS -LO https://github.com/tmux/tmux/releases/download/3.2-rc/tmux-3.2-rc3.tar.gz
+    curl -sS -LO https://github.com/tmux/tmux/releases/download/$VER/tmux-$VER.tar.gz
     tar -xf tmux-$VER.tar.gz
     cd tmux-$VER
     ./configure
@@ -221,7 +223,7 @@ install_pyenv ()
     echo "pyenv installing..."
     rm -rf ~/.pyenv
     ce_dir pyenv
-    curl -vs -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer |bash
+    curl -sS -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer |bash
     pyenv install 3.8.5
 }
 
@@ -230,7 +232,8 @@ install_yarn()
     [ "$FORCE_INSTALL" == "" ] && yarn --version| grep "^yarn " && echo "yarn already installed" && return ;
     echo "yarn installing..."
     ce_dir yarn
-    curl -vs --compressed -o- -L https://yarnpkg.com/install.sh | bash
+    rm -rf ~/.yarn
+    curl -sS -L https://yarnpkg.com/install.sh | bash
 }
 
 # install tmux conf
@@ -284,8 +287,9 @@ install_clangd ()
 install_nvim ()
 {
     ce_dir nvim
-#    curl -vs -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-    curl -vs -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+#    curl -sS -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+#    curl -sS -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    curl -sS -LO https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
     chmod u+x nvim.appimage
     sudo ln -sf $PWD/nvim.appimage /usr/local/bin/nvim
     mkdir -p ~/.config/nvim
@@ -293,24 +297,9 @@ install_nvim ()
     echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > ~/.config/nvim/init.vim
     echo "let &packpath = &runtimepath" >> ~/.config/nvim/init.vim
     echo "source ~/.vimrc" >> ~/.config/nvim/init.vim
-    python -m pip uninstall neovim pynvim
-    python -m pip install --user --upgrade pynvim
-
-    python3 -m pip install --user --upgrade pynvim
-    python2 -m pip install --user --upgrade pynvim
 
     sudo pip3 install pynvim
     sudo pip3 install neovim
-
-    python -m pip -y uninstall neovim pynvim
-    python -m pip -y install --user --upgrade pynvim
-
-    python3 -m pip -y install --user --upgrade pynvim
-    python2 -m pip install --user --upgrade pynvim
-
-    sudo pip3 -y install pynvim
-    sudo pip3 -y install neovim
-    # pip3 install --user neovim
     sudo gem install neovim
     sudo npm install -g neovim
 }
@@ -342,7 +331,7 @@ install_vimrc ()
     ## remove already installed .vim directory
     unlink ~/.vim > /dev/null 2>&1
     rm -rf ~/.vim > /dev/null 2>&1
-    curl -vs -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    curl -sS -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     nvim --headless -c 'PlugInstall' -c "CocInstall coc-clangd coc-ccls" -c 'qall!'
     fix_coc_ccls;
@@ -359,11 +348,17 @@ install_vimrc ()
 install_node ()
 {
     ce_dir nodejs
-    curl -vs -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+    curl -sS -L https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
     sudo bash nodesource_setup.sh
+    sudo apt -yq install aptitude
     sudo apt-get -yq update
     sudo apt-get -yq install nodejs
     sudo apt-get -yq install npm
+    sudo apt install libnode72=12.21.0~dfsg-3ubuntu1
+    sudo aptitude -yq install libnode-dev                        
+    sudo aptitude -yq install libnode64
+    sudo aptitude -yq install node-gyp
+    sudo aptitude -yq install npm
 }
 
 install_dotfiles()
@@ -429,11 +424,17 @@ OPTIONS :
 }
 preinst ()
 {
-    sudo apt-get clean
+    sudo apt-get -yq autoremove
+    sudo apt -yq --fix-broken install
+    sudo apt-get -yq update && sudo apt-get -yq upgrade
+    sudo dpkg --configure -a
+    sudo apt-get -yq install -f
+    sudo apt-get -yq clean
     install_bash_completions;
 }
 postinst ()
 {
+    sudo apt --fix-broken install
     sudo apt-get -yq autoremove
     killall tail > /dev/null 2>&1
 }
@@ -481,6 +482,8 @@ case $app in
     all)
         run_ninst_func preinst
         run_ninst_func clean_dir;
+        echo "================================ CHECK AND INSTALL node ================================"
+        run_func node
         echo "================================ CHECK AND INSTALL tools ================================"
         run_func tools
         echo "================================ CHECK AND INSTALL fzf ================================"
@@ -489,8 +492,6 @@ case $app in
         run_func clangd
         echo "================================ CHECK AND INSTALL yarn ================================"
         run_func yarn
-        echo "================================ CHECK AND INSTALL node ================================"
-        run_func node
         echo "================================ CHECK AND INSTALL bashrc ================================"
         run_func bashrc
         echo "================================ CHECK AND INSTALL tmux ================================"

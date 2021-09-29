@@ -179,7 +179,6 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-json',
   \ 'coc-cmake',
-  \ 'coc-git',
   \ 'coc-prettier',
   \ 'coc-highlight',
   \ ]

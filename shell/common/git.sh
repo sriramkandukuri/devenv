@@ -1,5 +1,6 @@
 gconfig ()
 {
+    git config --global core.editor "nvim"
     git config --global core.pager "~/devenv/build/fancydiff/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX"
     git config --global interactive.diffFilter "~/devenv/build/fancydiff/diff-so-fancy/diff-so-fancy --patch"
 

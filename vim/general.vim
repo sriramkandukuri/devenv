@@ -58,3 +58,9 @@ let g:DoxygenToolkit_authorName="Sriram.K"
 
 " Show all ctags by default
 nnoremap <C-]> g<C-]>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ripgrep plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if executable('rg')
+    let g:rg_derive_root='true'
+endif

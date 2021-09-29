@@ -1,4 +1,18 @@
 require('bufferline').setup {
+    highlights = {
+        fill = {
+            guibg = "#444444"
+        },
+        separator_selected = {
+            guifg = "#444444"
+        },
+        separator_visible = {
+            guifg = "#444444"
+        },
+        separator = {
+            guifg = "#444444"
+        },
+    },
     options = {
         numbers = function(opts)
             return string.format('%s ', opts.id)
@@ -60,7 +74,7 @@ require('bufferline').setup {
         -- [focused and unfocused]. eg: { '|', '|' }
         separator_style = "padded_slant",
         enforce_regular_tabs = false ,
-        always_show_bufferline = true
+        always_show_bufferline = true,
     }
 }
 

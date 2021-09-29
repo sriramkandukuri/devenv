@@ -32,6 +32,7 @@ source ~/devenv/vim/table_plugin.vim
 source ~/devenv/vim/all_maps.vim
 source ~/devenv/vim/telescope_plugin.vim
 source ~/devenv/vim/easy_align_plugin.vim
+" source ~/devenv/vim/nvimtree_plugin.vim
 
 if has('nvim')
 :lua <<EOF
