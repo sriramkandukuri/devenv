@@ -1,5 +1,3 @@
-lua require("devenv")
-
 ""VH |Space+t+Space+g|Search through git files, enter to open selected file|
 nnoremap <leader>tg :lua require('telescope.builtin').git_files( {search_dirs = require('devenv.tscope').csfiles() } )<CR>
 ""VH |Space+t+Space|Search through files, enter to open selected file|

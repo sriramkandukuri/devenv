@@ -2,7 +2,10 @@ set colorcolumn=100
 set cursorline
 set cursorcolumn
 
+" Example config in Vim-Script
+
 colorscheme dracula
+" let g:material_style = "deep ocean"
 " colorscheme gruvbox
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -18,13 +21,13 @@ function SetColors()
     hi DraculaComment ctermfg=75  guifg=#7a7f40
     hi DraculaSubtle ctermbg=235  guibg=#10141d
 
-    hi ColorColumn ctermbg=234 guibg=#282a36
-    hi CursorLine ctermbg=234 guibg=#282a36
-    hi CursorColumn ctermbg=234 guibg=#282a36
+    hi ColorColumn ctermbg=234 guibg=#383a46
+    hi CursorLine ctermbg=234 guibg=#383a46
+    hi CursorColumn ctermbg=234 guibg=#383a46
     hi LineNr ctermfg=237 guifg=#8f8faf ctermbg=235 guibg=#282a36
     hi SignColumn ctermfg=237 guifg=#8f8f8f ctermbg=235 guibg=#282a36
     " hi CursorLineNr guibg=#ffe5b9 guifg=#000000
-    hi CursorLineNr guibg=#bd93f9 guifg=#000000
+    hi CursorLineNr guibg=#282a36 guifg=yellow
     hi DiffAdd guibg=#4f8f33 guifg=#0f0f0f
     hi DiffChange guibg=#af8700 guifg=#0f0f0f
     hi DiffDelete guibg=#ae0808 guifg=#f0f0f0
@@ -32,7 +35,7 @@ function SetColors()
     hi CocFloating guibg=#4a2661
     hi CocErrorFloat guibg=#8f1c1c
     hi PmenuSel guibg=#a05000
-    hi Normal ctermbg=NONE  guibg=None
+    " hi Normal ctermbg=None  guibg=None ctermfg=None guifg=#282a36
 endfunction
 let g:dracula_bold = 1
 let g:dracula_italic = 1
@@ -57,9 +60,9 @@ autocmd FileType dirdiff :call SetDiffColors()
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Gruvbox customizations
 
-let g:gruvbox_italic = 1
-let g:gruvbox_improved_warnings = 1
-let g:gruvbox_improved_strings = 1
+" let g:gruvbox_italic = 1
+" let g:gruvbox_improved_warnings = 1
+" let g:gruvbox_improved_strings = 1
 
-let g:airline_theme='dracula'
+" let g:airline_theme='dracula'
 " let g:airline_theme='gruvbox'

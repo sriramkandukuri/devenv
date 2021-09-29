@@ -28,7 +28,7 @@ if has('nvim')
 endif
 "dracula themes
 "   https://github.com/dracula/vim.git
-Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
+" Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
 
 " https://github.com/rafi/awesome-vim-colorschemes
 Plug 'rafi/awesome-vim-colorschemes'
@@ -170,7 +170,17 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'junegunn/limelight.vim'
 
 " Devicons for vim
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'akinsho/bufferline.nvim'
+Plug 'marko-cerovac/material.nvim'
+Plug 'shaunsingh/nord.nvim'
+
+Plug 'tjdevries/colorbuddy.vim'
+Plug 'tjdevries/gruvbuddy.nvim'
+Plug 'sainnhe/sonokai'
+Plug 'Mofiqul/dracula.nvim'
+Plug 'EdenEast/nightfox.nvim'
 
 call plug#end()
 "

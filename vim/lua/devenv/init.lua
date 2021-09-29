@@ -1,1 +1,7 @@
 require("devenv.tscope")
+require("devenv.treesitter")
+require("devenv.web-devicons")
+require("devenv.bufline")
+-- require("devenv.material")
+-- require("devenv.gruvbuddy")
+-- require("devenv.nightfox")
