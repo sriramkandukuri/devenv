@@ -345,7 +345,7 @@ install_vimrc ()
     mkdir ~/.vim/undodir
 }
 
-install_node ()
+install_node21 ()
 {
     ce_dir nodejs
     curl -sS -L https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
@@ -359,6 +359,26 @@ install_node ()
     sudo aptitude -yq install libnode64
     sudo aptitude -yq install node-gyp
     sudo aptitude -yq install npm
+}
+
+install_node20()
+{
+    ce_dir nodejs
+    curl -vs -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+    sudo bash nodesource_setup.sh
+    sudo apt-get -yq update
+    sudo apt-get -yq install nodejs
+    sudo apt-get -yq install npm
+}
+
+install_node()
+{
+    local ubver=$(cat /etc/lsb-release |grep RELEASE|cut -d= -f2)
+    if [ "$ubver" = "21" ];then
+        install_node21
+    else
+        install_node20
+    fi
 }
 
 install_dotfiles()

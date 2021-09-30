@@ -196,4 +196,3 @@ Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
 call plug#end()
 "
 "}}}
-
