@@ -32,7 +32,12 @@ alias mygrep='grep -nrs --binary-files=without-match --color --exclude "*.o" --e
 ##BH |myrg|Grep recursive, prints numbers, excludes binaries, files with extensions .o, .o.cmd, .d, .htm, .map, .xsl files with names cscope*, *tags |
 alias myrg='rg --color always'
 
-alias clangd="clangd-11"
+if [ -n "$(type -P clangd-13)" ];then
+    alias clangd="clangd-13"
+else
+    alias clangd="clangd-11"
+fi
+
 jedi-language-server ()
 {
     ~/.local/bin/jedi-language-server

@@ -35,6 +35,42 @@ clean_dir ()
 
 ############################## INSTALLERS STARTS HERE ###################################
 
+prv_install_node21 ()
+{
+    ce_dir nodejs
+    sudo apt -yq install aptitude
+    sudo aptitude -yq install libnode-dev
+    sudo aptitude -yq install libnode64
+    sudo aptitude -yq install node-gyp
+    sudo aptitude -yq install npm
+    curl -sS -L https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+    sudo bash nodesource_setup.sh
+    sudo apt-get -yq update
+    sudo apt-get -yq install nodejs
+    sudo apt-get -yq install npm
+    sudo apt install libnode72=12.21.0~dfsg-3ubuntu1
+}
+
+prv_install_node20()
+{
+    ce_dir nodejs
+    curl -vs -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+    sudo bash nodesource_setup.sh
+    sudo apt-get -yq update
+    sudo apt-get -yq install nodejs
+    sudo apt-get -yq install npm
+}
+
+install_node()
+{
+    local ubver=$(cat /etc/lsb-release |grep RELEASE|cut -d= -f2)
+    if [ "$ubver" = "21" ];then
+        prv_install_node21
+    else
+        prv_install_node20
+    fi
+}
+
 install_tools ()
 {
     local apt_pkgs="
@@ -43,6 +79,7 @@ install_tools ()
         rsync
         w3m
         w3m-img
+        libbz2-dev
         curl
         cscope
         lua5.3
@@ -87,6 +124,9 @@ install_tools ()
         tasksh
         timewarrior
         zsh
+        figlet
+        toilet
+        ninja-build
     "
 
     local npm_pkgs="
@@ -150,7 +190,7 @@ install_googler_supports ()
     cp googler_at $builddir/bash_completions
 }
 
-install_albert()
+gui_install_albert()
 {
     ce_dir albert
     curl -sS https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -
@@ -160,7 +200,7 @@ install_albert()
     sudo apt install albert
 }
 
-install_alacritty()
+gui_install_alacritty()
 {
     ce_dir alacritty
     # sudo curl -sS https://sh.rustup.rs -sSf | sh
@@ -224,6 +264,9 @@ install_pyenv ()
     rm -rf ~/.pyenv
     ce_dir pyenv
     curl -sS -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer |bash
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(pyenv init --path)"
+    eval "$(pyenv virtualenv-init -)"
     pyenv install 3.8.5
 }
 
@@ -281,15 +324,28 @@ install_clangd ()
     ce_dir clangd
     sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 
-    sudo ln -sf /usr/bin/clangd-11 /usr/bin/clangd
+    sudo ln -sf $(ls --color=never /usr/bin/clangd-* | tail -1) /usr/bin/clangd
+}
+
+install_lua_lserver()
+{
+    ce_dir lua_ls
+    # clone project
+    git clone https://github.com/sumneko/lua-language-server
+    cd lua-language-server
+    git submodule update --init --recursive
+    cd 3rd/luamake
+    ./compile/install.sh
+    cd ../..
+    ./3rd/luamake/luamake rebuild
 }
 
 install_nvim ()
 {
     ce_dir nvim
 #    curl -sS -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-#    curl -sS -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-    curl -sS -LO https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
+   curl -sS -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    # curl -sS -LO https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
     chmod u+x nvim.appimage
     sudo ln -sf $PWD/nvim.appimage /usr/local/bin/nvim
     mkdir -p ~/.config/nvim
@@ -319,6 +375,22 @@ fix_coc_ccls()
         ln -s "$existing" "$missing"
     fi
 }
+prv_install_ycm()
+{
+    cd ~/.vim/plugged/YouCompleteMe/
+    ./install.py --clangd-completer --clang-completer
+}
+
+prv_install_coc()
+{
+    nvim --headless -c "CocInstall coc-clangd coc-ccls" -c 'qall!'
+    fix_coc_ccls;
+    ln -s -f $devdir/vim/coc-settings.json ~/.vim/
+    ln -s -f $devdir/vim/coc-settings.json ~/.config/nvim/
+    cd ~/.config/coc/extensions/node_modules/coc-ccls
+    ln -s node_modules/ws/lib lib
+    cd -
+}
 
 # get vimrc and install plugins
 install_vimrc ()
@@ -333,52 +405,10 @@ install_vimrc ()
     rm -rf ~/.vim > /dev/null 2>&1
     curl -sS -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    nvim --headless -c 'PlugInstall' -c "CocInstall coc-clangd coc-ccls" -c 'qall!'
-    fix_coc_ccls;
-    cd ~/.vim/plugged/YouCompleteMe/
-    ./install.py --clangd-completer --clang-completer
-    ln -s -f $devdir/vim/coc-settings.json ~/.vim/
-    ln -s -f $devdir/vim/coc-settings.json ~/.config/nvim/
-    cd ~/.config/coc/extensions/node_modules/coc-ccls
-    ln -s node_modules/ws/lib lib
-    cd -
+    # prv_install_ycm
+    # prv_install_coc
+    nvim --headless -c 'PlugInstall!' -c 'qall!'
     mkdir ~/.vim/undodir
-}
-
-install_node21 ()
-{
-    ce_dir nodejs
-    curl -sS -L https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
-    sudo bash nodesource_setup.sh
-    sudo apt -yq install aptitude
-    sudo apt-get -yq update
-    sudo apt-get -yq install nodejs
-    sudo apt-get -yq install npm
-    sudo apt install libnode72=12.21.0~dfsg-3ubuntu1
-    sudo aptitude -yq install libnode-dev                        
-    sudo aptitude -yq install libnode64
-    sudo aptitude -yq install node-gyp
-    sudo aptitude -yq install npm
-}
-
-install_node20()
-{
-    ce_dir nodejs
-    curl -vs -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
-    sudo bash nodesource_setup.sh
-    sudo apt-get -yq update
-    sudo apt-get -yq install nodejs
-    sudo apt-get -yq install npm
-}
-
-install_node()
-{
-    local ubver=$(cat /etc/lsb-release |grep RELEASE|cut -d= -f2)
-    if [ "$ubver" = "21" ];then
-        install_node21
-    else
-        install_node20
-    fi
 }
 
 install_dotfiles()
@@ -438,8 +468,9 @@ usage ()
 OPTIONS :
     -f      Force install
 
-<package name> can be one of [ $(list_packages) ]
+<package name> can be one of
     "
+    echo $(list_packages) | tr ' ' '\n' | sed -e 's/^/\t\t/g'
     exit
 }
 preinst ()
@@ -502,44 +533,11 @@ case $app in
     all)
         run_ninst_func preinst
         run_ninst_func clean_dir;
-        echo "================================ CHECK AND INSTALL node ================================"
-        run_func node
-        echo "================================ CHECK AND INSTALL tools ================================"
-        run_func tools
-        echo "================================ CHECK AND INSTALL fzf ================================"
-        run_func fzf
-        echo "================================ CHECK AND INSTALL clangd ================================"
-        run_func clangd
-        echo "================================ CHECK AND INSTALL yarn ================================"
-        run_func yarn
-        echo "================================ CHECK AND INSTALL bashrc ================================"
-        run_func bashrc
-        echo "================================ CHECK AND INSTALL tmux ================================"
-        run_func tmux
-        echo "================================ CHECK AND INSTALL tmux_conf ================================"
-        run_func tmux_conf
-        echo "================================ CHECK AND INSTALL nvim ================================"
-        run_func nvim
-        echo "================================ CHECK AND INSTALL vim ================================"
-        run_func vim
-        echo "================================ CHECK AND INSTALL ripgrep ================================"
-        run_func ripgrep
-        echo "================================ CHECK AND INSTALL vimrc ================================"
-        run_func vimrc
-        echo "================================ CHECK AND INSTALL pyenv ================================"
-        run_func pyenv
-        echo "================================ CHECK AND INSTALL bat ================================"
-        run_func bat
-        echo "================================ CHECK AND INSTALL googler addons ================================"
-        run_func googler_supports
-        echo "================================ CHECK AND INSTALL dotfiles ================================"
-        run_func dotfiles
-        echo "================================ CHECK AND INSTALL fd-find ================================"
-        run_func fd
-        echo "================================ CHECK AND INSTALL fancy diff ================================"
-        run_func fancydiff
-        echo "================================ CHECK AND INSTALL gitconfig ================================"
-        run_func gitconfig
+        for i in $(list_packages)
+        do
+            echo "================================ CHECK AND INSTALL $i ================================"
+            run_func $i
+        done
         run_ninst_func postinst
         ;;
     fix)

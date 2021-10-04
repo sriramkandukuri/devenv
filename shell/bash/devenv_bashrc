@@ -8,7 +8,7 @@ export DEVENV_LOADED=1
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=-100000                   # big big history
 export HISTFILESIZE=-100000               # big big history
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/devenv/build/fancydiff/diff-so-fancy/
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/devenv/build/fancydiff/diff-so-fancy/:~/devenv/build/bin/
 
 # remove redundancies in path
 export PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
