@@ -10,3 +10,21 @@ end
 function globals._execute(id, args)
   globals._store[id](args)
 end
+
+P = function(v)
+  print(vim.inspect(v))
+  return v
+end
+
+RELOAD = function(...)
+  return require("plenary.reload").reload_module(...)
+end
+
+R = function(name)
+  RELOAD(name)
+  return require(name)
+end
+
+local utils = require("devenv.utils")
+
+utils.nnoremap("<leader>rld", '<cmd>lua R("devenv")<CR>')

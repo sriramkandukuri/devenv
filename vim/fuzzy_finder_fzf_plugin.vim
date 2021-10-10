@@ -110,5 +110,3 @@ command! -bang -nargs=* Ag
   \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview('right', 'ctrl-/'), <bang>0)
 
 " }}}
-
-

@@ -1,53 +1,108 @@
 -- Reference from https://github.com/awesome-streamers/awesome-streamerrc/blob/master/ThePrimeagen/lua/theprimeagen/telescope.lua
 local actions = require('telescope.actions')
-require('telescope').setup {
-defaults = {
-    vimgrep_arguments = {
-        'rg',
-        '--color=never',
-        '--no-heading',
-        '--with-filename',
-        '--line-number',
-        '--column',
-        '--smart-case'
-    },
-    prompt_prefix = "> ",
-    selection_caret = "> ",
-    entry_prefix = "  ",
-    initial_mode = "insert",
-    selection_strategy = "reset",
-    sorting_strategy = "descending",
-    layout_strategy = "horizontal",
-    layout_config = {
-        horizontal = {
-            mirror = false,
-        },
-        vertical = {
-            mirror = false,
-        },
-    },
-    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
-    file_ignore_patterns = {},
-    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-    winblend = 0,
-    border = {},
-    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-    color_devicons = true,
-    use_less = true,
-    path_display = {},
-    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+local action_state = require "telescope.actions.state"
+local themes = require "telescope.themes"
+local utils = require("devenv.utils")
 
-    -- Developer configurations: Not meant for general override
-    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
-},
-extensions = {
-    -- fzy_native = {
-        --     override_generic_sorter = false,
-        --     override_file_sorter = true,
-        -- },
+local set_prompt_to_entry_value = function(prompt_bufnr)
+  local entry = action_state.get_selected_entry()
+  if not entry or not type(entry) == "table" then
+    return
+  end
+
+  action_state.get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
+end
+
+require('telescope').setup {
+    defaults = {
+        prompt_prefix = "❯ ",
+        selection_caret = "❯ ",
+        winblend = 0,
+        selection_strategy = "reset",
+        sorting_strategy = "descending",
+
+        layout_strategy = "horizontal",
+        layout_config = {
+            width = 0.95,
+            height = 0.85,
+            -- preview_cutoff = 120,
+            -- prompt_position = "top",
+
+            horizontal = {
+                preview_width = function(_, cols, _)
+                    if cols > 200 then
+                        return math.floor(cols * 0.4)
+                    else
+                        return math.floor(cols * 0.6)
+                    end
+                end,
+            },
+
+            vertical = {
+                width = 0.9,
+                height = 0.95,
+                preview_height = 0.5,
+            },
+
+            flex = {
+                horizontal = {
+                    preview_width = 0.9,
+                },
+            },
+        },
+
+        mappings = {
+            i = {
+                ["<C-x>"] = false,
+                ["<C-s>"] = actions.select_horizontal,
+                ["<C-n>"] = "move_selection_next",
+
+                ["<C-y>"] = set_prompt_to_entry_value,
+
+                ["<C-space>"] = function(prompt_bufnr)
+                    local opts = {
+                        callback = actions.toggle_selection,
+                        loop_callback = actions.send_selected_to_qflist,
+                    }
+                    require("telescope").extensions.hop._hop_loop(prompt_bufnr, opts)
+                end,
+            },
+        },
+
+        file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+        file_ignore_patterns = {},
+        generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+        border = {},
+        borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+        color_devicons = true,
+        set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+
+        file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+        grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+        qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+
+    },
+    extensions = {
+        hop = {
+            -- keys define your hop keys in order; defaults to roughly lower- and uppercased home row
+            keys = { "a", "s", "d", "f", "g", "h", "j", "k", "l", ";" }, -- ... and more
+
+            -- Highlight groups to link to signs and lines; the below configuration refers to demo
+            -- sign_hl typically only defines foreground to possibly be combined with line_hl
+            sign_hl = { "WarningMsg", "Title" },
+
+            -- optional, typically a table of two highlight groups that are alternated between
+            line_hl = { "CursorLine", "Normal" },
+
+            -- options specific to `hop_loop`
+            -- true temporarily disables Telescope selection highlighting
+            clear_selection_hl = false,
+            -- highlight hopped to entry with telescope selection highlight
+            -- note: mutually exclusive with `clear_selection_hl`
+            trace_entry = true,
+            -- jump to entry where hoop loop was started from
+            reset_selection = true,
+        },
         fzf = {
             fuzzy = true,                    -- false will only do exact matching
             override_generic_sorter = false, -- override the generic sorter
@@ -106,4 +161,33 @@ M.git_branches = function()
         end
     })
 end
+
+function M.lsp_code_actions()
+  local opts = themes.get_dropdown {
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false,
+  }
+
+  require("telescope.builtin").lsp_code_actions(opts)
+end
+
+--VH |Space+Space|Search through git files, enter to open selected file|
+--VH |Space+f+g|Search through files, enter to open selected file|
+--VH |Space+f|Search files having current word|
+--VH |Space+fl|Invoke ripgrep|
+--VH |Space+<ENTER>|Search through available buffers and enter to open selected one|
+--VH |Spacevh|Search through available help tags|
+--VH |Spacedv|Search through devenv files|
+local nnoremap = require("devenv.utils").nnoremap
+
+nnoremap( '<leader><leader>',"<cmd>lua require('telescope.builtin').git_files( {search_dirs = require('devenv.tscope').csfiles() } )<CR>")
+nnoremap( '<Leader>ff',"<cmd>lua require('telescope.builtin').find_files( {search_dirs = require('devenv.tscope').csfiles() } )<CR>")
+nnoremap( '<leader>fg',       "<cmd>lua require('telescope.builtin').grep_string( { search = vim.fn.expand('<cword>'), search_dirs = require('devenv.tscope').csfiles() } )<CR>")
+nnoremap( '<leader>fl',      "<cmd>lua require('telescope.builtin').live_grep( { search_dirs = require('devenv.tscope').csfiles() } )<CR>")
+nnoremap( '<leader><enter>', "<cmd>lua require('telescope.builtin').buffers()<CR>")
+nnoremap( '<leader>vh',      "<cmd>lua require('telescope.builtin').help_tags()<CR>")
+nnoremap( '<leader>dv',      "<cmd>lua require('devenv.tscope').search_devenv()<CR>")
+nnoremap( '<leader>ca',      "<cmd>lua require('devenv.tscope').lsp_code_actions()<CR>")
 return M

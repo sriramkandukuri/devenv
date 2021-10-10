@@ -1,8 +1,3 @@
-if !has('nvim')
-    set runtimepath^=~/.vim,~/.vim/after,~/devenv/vim
-    let &packpath = &runtimepath
-endif
-
 set runtimepath^=~/.vim,~/.vim/after,~/devenv/vim
 let &packpath = &runtimepath
 "{{{
@@ -13,9 +8,8 @@ let &packpath = &runtimepath
 call plug#begin('~/.vim/plugged')
 "Code completers
 " Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install'}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'rainglow/vim', {'as':'rg-colors'}
 " Directory diff plugin aalternative for meld
 Plug 'will133/vim-dirdiff'
 "Fast file grep from vim command :Rg
@@ -33,9 +27,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 " Some additional help to netrw
 "   https://github.com/tpope/vim-vinegar
-" Plug 'tpope/vim-vinegar'
-" Some good defaults but overwriting some custome settings. Currently disabled.
-" Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-vinegar'
 " taglist side bar for C/C++
 Plug 'yegappan/taglist'
 
@@ -82,10 +74,6 @@ Plug 'jiangmiao/auto-pairs'
 " UML syntax and refresh plugins
 Plug 'aklt/plantuml-syntax'
 Plug 'weirongxu/plantuml-previewer.vim'
-
-" Markdown preview plugin
-"   https://github.com/iamcco/markdown-preview.nvim
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " toml plugin used for hugo sites
 "   https://github.com/cespare/vim-toml
@@ -136,31 +124,6 @@ Plug 'embear/vim-uncrustify'
 " Handle ansi color escases
 Plug 'powerman/vim-plugin-AnsiEsc'
 
-if has('nvim')
-    " telescope requirements...
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'lewis6991/gitsigns.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-    Plug 'kyazdani42/nvim-web-devicons'
-    Plug 'akinsho/bufferline.nvim'
-    " Plug 'tjdevries/colorbuddy.vim'
-    " Plug 'tjdevries/gruvbuddy.nvim'
-
-    "  Plug 'neovim/nvim-lspconfig'
-    "  Plug 'nvim-lua/completion-nvim'
-    "  Plug 'nvim-lua/diagnostic-nvim'
-    "  Plug 'tjdevries/nlua.nvim'
-    "  Plug 'tjdevries/lsp_extensions.nvim'
-
-    "  Neovim Tree sitter
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-treesitter/playground'
-    Plug 'hoob3rt/lualine.nvim'
-    Plug 'kyazdani42/nvim-tree.lua'
-endif
-
 Plug 'junegunn/vim-easy-align'
 " Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
@@ -169,12 +132,8 @@ Plug 'junegunn/vim-easy-align'
 " ===========================================
 " Color schemes.................
 " ===========================================
-" Plug 'marko-cerovac/material.nvim'
-" Plug 'shaunsingh/nord.nvim'
 
-" Plug 'EdenEast/nightfox.nvim'
 " Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
-" Plug 'Mofiqul/dracula.nvim'
 " Plug 'sainnhe/sonokai'
 "dracula themes
 "   https://github.com/dracula/vim.git
@@ -188,11 +147,16 @@ Plug 'https://github.com/dracula/vim.git', {'as':'dracula'}
 " Plugins only for vim
 " ===========================================
 "Vim status line themes
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'https://github.com/vim-airline/vim-airline.git'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'https://github.com/vim-airline/vim-airline.git'
 " Devicons for vim
-" Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 "
 "}}}
+
+
+""VH |Space+p+r|Refresh all plugins|
+command! PUNC PlugClean! | PlugUpdate!
+nnoremap <F5> :PUNC<CR>

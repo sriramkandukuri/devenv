@@ -4,10 +4,10 @@ require('bufferline').setup {
             guibg = "#444444"
         },
         separator_selected = {
-            guifg = "#444444"
+            guifg = "#af4f0f"
         },
         separator_visible = {
-            guifg = "#444444"
+            guifg = "#3faf2f"
         },
         separator = {
             guifg = "#444444"
@@ -43,7 +43,7 @@ require('bufferline').setup {
         max_name_length = 18,
         max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
         tab_size = 18,
-        diagnostics = "coc",
+        diagnostics = "nvim_lsp",
         diagnostics_update_in_insert = false,
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
             return "("..count..")"
@@ -72,7 +72,7 @@ require('bufferline').setup {
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
         -- can also be a table containing 2 custom separators
         -- [focused and unfocused]. eg: { '|', '|' }
-        separator_style = "padded_slant",
+        separator_style = {'|', '|'},
         enforce_regular_tabs = false ,
         always_show_bufferline = true,
     }

@@ -64,3 +64,8 @@ nnoremap <C-]> g<C-]>
 if executable('rg')
     let g:rg_derive_root='true'
 endif
+
+""VH |Space+8|Add doxygen style comments before current line|
+nnoremap <leader>8 :Dox<cr>
+""VH |Space+`\`|Append line end comments Use only for c style doxygen comments for structure or parameter variables.|
+nnoremap <leader>\ :set paste <ESC>:norm A/**<  */<ESC>:set nopaste<ESC><Left><Left><ESC>i

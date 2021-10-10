@@ -13,5 +13,9 @@ nnoremap <silent> <Leader>+ :vertical resize +5<CR>
 ""VH |Space+`-`|Decrease vertical width of window by 5 points|
 nnoremap <silent> <Leader>- :vertical resize -5<CR>
 
+""VH |Space+\<TAB\>|Goto next buffer opened|
+map <leader><Tab> :bn<cr>
+""VH |Space+Shift+\<TAB\>|Goto previous buffer opened|
+map <leader><S-Tab> :bp<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

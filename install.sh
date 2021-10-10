@@ -216,7 +216,6 @@ gui_install_alacritty()
 
 install_bat()
 {
-    set -x
     [ "$FORCE_INSTALL" == "" ] && bat --version|grep 'bat 0.17.1' && echo "bat already installed" && return;
     ce_dir bat
     wget $(gh_rel sharkdp/bat "bat_.*amd.*deb")
@@ -327,9 +326,9 @@ install_clangd ()
     sudo ln -sf $(ls --color=never /usr/bin/clangd-* | tail -1) /usr/bin/clangd
 }
 
-install_lua_lserver()
+install_lserver()
 {
-    ce_dir lua_ls
+    ce_dir ls
     # clone project
     git clone https://github.com/sumneko/lua-language-server
     cd lua-language-server
@@ -338,13 +337,15 @@ install_lua_lserver()
     ./compile/install.sh
     cd ../..
     ./3rd/luamake/luamake rebuild
+    pip3 install cmake-language-server
+        
 }
 
 install_nvim ()
 {
     ce_dir nvim
 #    curl -sS -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-   curl -sS -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    curl -sS -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
     # curl -sS -LO https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
     chmod u+x nvim.appimage
     sudo ln -sf $PWD/nvim.appimage /usr/local/bin/nvim
@@ -392,6 +393,20 @@ prv_install_coc()
     cd -
 }
 
+prv_install_plug()
+{
+    curl -sS -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    /usr/bin/vim -c 'PlugInstall!' -c 'qall!'
+}
+
+prv_install_packer ()
+{
+    ce_dir packer
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.vim/pack/packer/start/packer.nvim
+    nvim --headless -c 'packadd packer.nvim | autocmd User PackerComplete quitall' -c 'PackerSync'
+}
+
 # get vimrc and install plugins
 install_vimrc ()
 {
@@ -403,11 +418,11 @@ install_vimrc ()
     ## remove already installed .vim directory
     unlink ~/.vim > /dev/null 2>&1
     rm -rf ~/.vim > /dev/null 2>&1
-    curl -sS -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    mkdir -p ~/.vim/pack/packer/start/
+    prv_install_plug
+    prv_install_packer
     # prv_install_ycm
     # prv_install_coc
-    nvim --headless -c 'PlugInstall!' -c 'qall!'
     mkdir ~/.vim/undodir
 }
 
@@ -467,6 +482,7 @@ usage ()
 
 OPTIONS :
     -f      Force install
+    -j      just install - no apt related pre post hooks
 
 <package name> can be one of
     "
@@ -475,7 +491,9 @@ OPTIONS :
 }
 preinst ()
 {
+    [ "$PLAIN_INSTALL" == "y" ] && return;
     sudo apt-get -yq autoremove
+    sudo apt -yq autoremove
     sudo apt -yq --fix-broken install
     sudo apt-get -yq update && sudo apt-get -yq upgrade
     sudo dpkg --configure -a
@@ -485,8 +503,10 @@ preinst ()
 }
 postinst ()
 {
-    sudo apt --fix-broken install
+    [ "$PLAIN_INSTALL" == "y" ] && return;
+    sudo apt -yq --fix-broken install
     sudo apt-get -yq autoremove
+    sudo apt -yq autoremove
     killall tail > /dev/null 2>&1
 }
 
@@ -512,12 +532,16 @@ run_func ()
 [[ $(list_packages) =~ (^|[[:space:]])"$1"($|[[:space:]]) ]] && echo "Installing $1 ..." || usage
 
 FORCE_INSTALL=""
+PLAIN_INSTALL=""
 app=""
 for var in "$@"
 do
     case $var in
         -f)
             export FORCE_INSTALL='y'
+            ;;
+        -j)
+            export PLAIN_INSTALL='y'
             ;;
         *)
             app="$var"

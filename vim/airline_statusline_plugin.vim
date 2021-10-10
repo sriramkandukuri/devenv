@@ -10,8 +10,6 @@ endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_symbols.linenr = ' ¶'
 let g:airline_symbols.maxlinenr = ''
-  let g:airline_symbols.colnr = ' ㏇:'
+let g:airline_symbols.colnr = ' ㏇:'
 let g:airline_symbols.dirty='!'
 let g:airline_symbols.whitespace = ''
-
-
