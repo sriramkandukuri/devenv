@@ -30,12 +30,36 @@ clean_dir ()
 {
     rm -rf build
     mkcd build
-    install_bash_completions;
+    prv_install_bash_completions;
 }
 
 ############################## INSTALLERS STARTS HERE ###################################
 
-prv_install_node21 ()
+gui_install_albert()
+{
+    ce_dir albert
+    curl -sS https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -
+    echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_20.04/ /' | sudo tee -a /etc/apt/sources.list.d/home:manuelschneid3r.list
+    sudo wget -nv https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_20.04/Release.key -O "/etc/apt/trusted.gpg.d/home:manuelschneid3r.asc"
+    sudo apt update
+    sudo apt install albert
+}
+
+gui_install_alacritty()
+{
+    ce_dir alacritty
+    # sudo curl -sS https://sh.rustup.rs -sSf | sh
+    git clone https://github.com/jwilm/alacritty.git
+    cd alacritty
+    cargo build --release
+    chmod +x target/release/alacritty
+    sudo ln -sf $PWD/target/release/alacritty /usr/bin/alacritty
+    gzip -c extra/alacritty.man | sudo tee -a /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+    cp extra/completions/alacritty.bash $builddir/bash_completions/
+    ln -sf $builddir/dotfiles/alacritty.yml ~/.alacritty.yml
+}
+
+prv_node21 ()
 {
     ce_dir nodejs
     sudo apt -yq install aptitude
@@ -45,13 +69,13 @@ prv_install_node21 ()
     sudo aptitude -yq install npm
     curl -sS -L https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
     sudo bash nodesource_setup.sh
+    sudo apt install libnode72=12.21.0~dfsg-3ubuntu1
     sudo apt-get -yq update
     sudo apt-get -yq install nodejs
     sudo apt-get -yq install npm
-    sudo apt install libnode72=12.21.0~dfsg-3ubuntu1
 }
 
-prv_install_node20()
+prv_node20()
 {
     ce_dir nodejs
     curl -vs -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
@@ -61,7 +85,7 @@ prv_install_node20()
     sudo apt-get -yq install npm
 }
 
-install_node()
+tools_node()
 {
     local ubver=$(cat /etc/lsb-release |grep RELEASE|cut -d= -f2)
     if [ "$ubver" = "21" ];then
@@ -71,7 +95,7 @@ install_node()
     fi
 }
 
-install_tools ()
+tools_pkgs ()
 {
     local apt_pkgs="
         dos2unix
@@ -171,15 +195,7 @@ install_tools ()
     done
 }
 
-install_bash_completions()
-{
-    if [ ! -d $builddir/bash_completions ]
-    then
-        mkdir $builddir/bash_completions
-    fi
-}
-
-install_googler_supports ()
+tools_googler_supports ()
 {
     ce_dir googler
     sudo curl -sS -o /usr/bin/googler https://raw.githubusercontent.com/jarun/googler/v4.3.1/googler && sudo chmod +x /usr/bin/googler
@@ -190,31 +206,7 @@ install_googler_supports ()
     cp googler_at $builddir/bash_completions
 }
 
-gui_install_albert()
-{
-    ce_dir albert
-    curl -sS https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -
-    echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_20.04/ /' | sudo tee -a /etc/apt/sources.list.d/home:manuelschneid3r.list
-    sudo wget -nv https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_20.04/Release.key -O "/etc/apt/trusted.gpg.d/home:manuelschneid3r.asc"
-    sudo apt update
-    sudo apt install albert
-}
-
-gui_install_alacritty()
-{
-    ce_dir alacritty
-    # sudo curl -sS https://sh.rustup.rs -sSf | sh
-    git clone https://github.com/jwilm/alacritty.git
-    cd alacritty
-    cargo build --release
-    chmod +x target/release/alacritty
-    sudo ln -sf $PWD/target/release/alacritty /usr/bin/alacritty
-    gzip -c extra/alacritty.man | sudo tee -a /usr/local/share/man/man1/alacritty.1.gz > /dev/null
-    cp extra/completions/alacritty.bash $builddir/bash_completions/
-    ln -sf $builddir/dotfiles/alacritty.yml ~/.alacritty.yml
-}
-
-install_bat()
+tools_bat()
 {
     [ "$FORCE_INSTALL" == "" ] && bat --version|grep 'bat 0.17.1' && echo "bat already installed" && return;
     ce_dir bat
@@ -224,7 +216,7 @@ install_bat()
 
 }
 
-install_fzf ()
+tools_fzf ()
 {
     [ "$FORCE_INSTALL" == "" ] && fzf --version && echo "fzf already installed" && return;
     echo "fzf installing..."
@@ -233,7 +225,7 @@ install_fzf ()
     ./fzf/install --all
 }
 
-install_ripgrep ()
+tools_ripgrep ()
 {
     [ "$FORCE_INSTALL" == "" ] && rg -V| grep '^ripgrep 11' && echo "ripgrep already installed" && return;
     echo "ripgrep installing..."
@@ -242,21 +234,7 @@ install_ripgrep ()
     sudo dpkg -i ripgrep_11.0.2_amd64.deb
 }
 
-# install tmux
-install_tmux ()
-{
-    local VER="3.2"
-    [ "$FORCE_INSTALL" == "" ] && tmux -V| grep "^tmux $VER" && echo "tmux already installed" && return ;
-    echo "tmux installing..."
-    ce_dir tmux
-    # curl -sS -LO https://github.com/tmux/tmux/releases/download/3.2-rc/tmux-3.2-rc3.tar.gz
-    curl -sS -LO https://github.com/tmux/tmux/releases/download/$VER/tmux-$VER.tar.gz
-    tar -xf tmux-$VER.tar.gz
-    cd tmux-$VER
-    ./configure
-    sudo make install
-}
-install_pyenv ()
+tools_pyenv ()
 {
     [ "$FORCE_INSTALL" == "" ] && pyenv --version| grep "^pyenv " && echo "pyenv already installed" && return ;
     echo "pyenv installing..."
@@ -269,7 +247,7 @@ install_pyenv ()
     pyenv install 3.8.5
 }
 
-install_yarn()
+tools_yarn()
 {
     [ "$FORCE_INSTALL" == "" ] && yarn --version| grep "^yarn " && echo "yarn already installed" && return ;
     echo "yarn installing..."
@@ -278,8 +256,71 @@ install_yarn()
     curl -sS -L https://yarnpkg.com/install.sh | bash
 }
 
+tools_dotfiles()
+{
+    cp -rf dotfiles/.* ~/
+}
+
+tools_uncrustify ()
+{
+    ce_dir uncrustify
+    git clone --depth=1 https://github.com/uncrustify/uncrustify.git
+    cd uncrustify
+    mkdir build
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+    make
+    sudo ln -s -f $PWD/uncrustify /usr/local/bin
+    cd $devdir
+}
+
+tools_fd ()
+{
+    ce_dir fdfind
+    wget https://github.com/sharkdp/fd/releases/download/v8.2.1/fd_8.2.1_amd64.deb
+    sudo dpkg -i fd_8.2.1_amd64.deb
+    cd $devdir
+}
+
+tools_fancydiff ()
+{
+    ce_dir fancydiff
+    git clone https://github.com/so-fancy/diff-so-fancy.git
+
+    cd $devdir
+}
+
+tools_gitconfig ()
+{
+    gconfig
+}
+
+install_devtools()
+{
+    pkgs=$(cat $myname|grep "^tools_"
+    for i in $pkgs
+    do
+        $i
+    done
+}
+
+# install tmux
+prv_install_tmux ()
+{
+    local VER="3.2"
+    [ "$FORCE_INSTALL" == "" ] && tmux -V| grep "^tmux $VER" && echo "tmux already installed" && return ;
+    echo "tmux installing..."
+    ce_dir tmux
+    # curl -sS -LO https://github.com/tmux/tmux/releases/download/3.2-rc/tmux-3.2-rc3.tar.gz
+    curl -sS -LO https://github.com/tmux/tmux/releases/download/$VER/tmux-$VER.tar.gz
+    tar -xf tmux-$VER.tar.gz
+    cd tmux-$VER
+    ./configure
+    sudo make install
+}
+
 # install tmux conf
-install_tmux_conf ()
+prv_install_tmux_conf ()
 {
     ce_dir tmuxconf
     git clone https://github.com/gpakosz/.tmux.git
@@ -293,8 +334,23 @@ install_tmux_conf ()
     echo "source-file ~/.devenv_tmux.conf" >> ~/.tmux.conf.local
 }
 
+install_tmux()
+{
+    prv_install_tmux
+    prv_install_tmux_conf
+}
+
+prv_install_bash_completions()
+{
+    if [ ! -d $builddir/bash_completions ]
+    then
+        mkdir $builddir/bash_completions
+    fi
+}
+
+
 # install bashrc
-install_bashrc ()
+prv_install_bashrc ()
 {
     if [ "$DEVENV_LOADED" == "" ]
     then
@@ -303,7 +359,7 @@ install_bashrc ()
     fi
 }
 
-install_zshrc ()
+prv_install_zshrc ()
 {
     ce_dir zsh
 
@@ -317,7 +373,14 @@ install_zshrc ()
     git clone https://github.com/zsh-users/zsh-autosuggestions.git
 }
 
-install_clangd ()
+install_shell()
+{
+    prv_install_bashrc
+    prv_install_zshrc
+    prv_install_bash_completions
+}
+
+prv_install_clangd ()
 {
     # 10
     ce_dir clangd
@@ -326,9 +389,10 @@ install_clangd ()
     sudo ln -sf $(ls --color=never /usr/bin/clangd-* | tail -1) /usr/bin/clangd
 }
 
-install_lserver()
+prv_install_luals()
 {
-    ce_dir ls
+
+    ce_dir lua_ls
     # clone project
     git clone https://github.com/sumneko/lua-language-server
     cd lua-language-server
@@ -337,11 +401,16 @@ install_lserver()
     ./compile/install.sh
     cd ../..
     ./3rd/luamake/luamake rebuild
-    pip3 install cmake-language-server
-        
 }
 
-install_nvim ()
+prv_install_ls()
+{
+    prv_install_luals
+    prv_install_clangd
+    pip3 install cmake-language-server
+}
+
+prv_install_nvim ()
 {
     ce_dir nvim
 #    curl -sS -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
@@ -361,12 +430,13 @@ install_nvim ()
     sudo npm install -g neovim
 }
 
-install_vim ()
+prv_install_vim ()
 {
     sudo add-apt-repository -y ppa:jonathonf/vim
     sudo apt-get update
     sudo apt-get install vim
 }
+
 fix_coc_ccls()
 {
     existing=~/.config/coc/extensions/node_modules/coc-ccls/node_modules/ws/lib/extension.js
@@ -408,7 +478,7 @@ prv_install_packer ()
 }
 
 # get vimrc and install plugins
-install_vimrc ()
+prv_install_vimrc ()
 {
     ce_dir vimrc
     unlink ~/.vimrc > /dev/null 2>&1
@@ -426,43 +496,12 @@ install_vimrc ()
     mkdir ~/.vim/undodir
 }
 
-install_dotfiles()
+install_vim()
 {
-    cp -rf dotfiles/.* ~/
-}
-
-install_uncrustify ()
-{
-    ce_dir uncrustify
-    git clone --depth=1 https://github.com/uncrustify/uncrustify.git
-    cd uncrustify
-    mkdir build
-    cd build
-    cmake -DCMAKE_BUILD_TYPE=Release ..
-    make
-    sudo ln -s -f $PWD/uncrustify /usr/local/bin
-    cd $devdir
-}
-
-install_fd ()
-{
-    ce_dir fdfind
-    wget https://github.com/sharkdp/fd/releases/download/v8.2.1/fd_8.2.1_amd64.deb
-    sudo dpkg -i fd_8.2.1_amd64.deb
-    cd $devdir
-}
-
-install_fancydiff ()
-{
-    ce_dir fancydiff
-    git clone https://github.com/so-fancy/diff-so-fancy.git
-
-    cd $devdir
-}
-
-install_gitconfig ()
-{
-    gconfig
+    prv_install_nvim
+    prv_install_vim
+    prv_install_vimrc
+    prv_install_ls
 }
 
 ############################## SCRIPT STARTS HERE ###################################
@@ -499,7 +538,7 @@ preinst ()
     sudo dpkg --configure -a
     sudo apt-get -yq install -f
     sudo apt-get -yq clean
-    install_bash_completions;
+    prv_install_bash_completions;
 }
 postinst ()
 {
