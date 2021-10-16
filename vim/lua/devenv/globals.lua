@@ -24,7 +24,3 @@ R = function(name)
   RELOAD(name)
   return require(name)
 end
-
-local utils = require("devenv.utils")
-
-utils.nnoremap("<leader>rld", '<cmd>lua R("devenv")<CR>')

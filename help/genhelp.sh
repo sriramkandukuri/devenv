@@ -63,3 +63,16 @@ do
     grep "^\"\"VH" $f | cut -d" " -f2- >> $VHELP
     echo >> $VHELP
 done
+
+for f in $(grep -nrl "^--VH" ~/devenv/vim/*)
+do
+    h=$(basename $f|cut -d'.' -f1)
+    h=$(echo ${h^}|tr '_' ' ')
+    echo "### $h" >> $VHELP
+    echo >> $VHELP
+
+    echo "|Shortcut|Description|" >> $VHELP
+    echo "|---|---|" >> $VHELP
+    grep "^--VH" $f | cut -d" " -f2- >> $VHELP
+    echo >> $VHELP
+done

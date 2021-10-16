@@ -298,12 +298,14 @@ config = {
   }
 }
 }
+
+--VH |F5|Refresh plugins|
 vim.cmd([[
 augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua PackerCompile
 augroup end
-""VH |Space+p+r|Refresh all plugins|
+""VH |Function key F5|Refresh all plugins|
 command! PUNC PackerSync
 nnoremap <F5> :PUNC<CR>
 ]])

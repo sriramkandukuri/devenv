@@ -174,7 +174,7 @@ function M.lsp_code_actions()
 end
 
 --VH |Space+Space|Search through git files, enter to open selected file|
---VH |Space+f+g|Search through files, enter to open selected file|
+--VH |Space+g+f|Search through files, enter to open selected file|
 --VH |Space+f|Search files having current word|
 --VH |Space+fl|Invoke ripgrep|
 --VH |Space+<ENTER>|Search through available buffers and enter to open selected one|
@@ -182,10 +182,10 @@ end
 --VH |Spacedv|Search through devenv files|
 local nnoremap = require("devenv.utils").nnoremap
 
-nnoremap( '<leader><leader>',"<cmd>lua require('telescope.builtin').git_files( {search_dirs = require('devenv.tscope').csfiles() } )<CR>")
-nnoremap( '<Leader>ff',"<cmd>lua require('telescope.builtin').find_files( {search_dirs = require('devenv.tscope').csfiles() } )<CR>")
-nnoremap( '<leader>fg',       "<cmd>lua require('telescope.builtin').grep_string( { search = vim.fn.expand('<cword>'), search_dirs = require('devenv.tscope').csfiles() } )<CR>")
-nnoremap( '<leader>fl',      "<cmd>lua require('telescope.builtin').live_grep( { search_dirs = require('devenv.tscope').csfiles() } )<CR>")
+nnoremap( '<leader><leader>',"<cmd>lua require('telescope.builtin').find_files( {search_dirs = require('devenv.tscope').csfiles() } )<CR>")
+nnoremap( '<Leader>gf',"<cmd>lua require('telescope.builtin').git_files( {search_dirs = require('devenv.tscope').csfiles() } )<CR>")
+nnoremap( '<leader>f',       "<cmd>lua require('telescope.builtin').grep_string( { search = vim.fn.expand('<cword>'), search_dirs = require('devenv.tscope').csfiles() } )<CR>")
+nnoremap( '<leader>gl',      "<cmd>lua require('telescope.builtin').live_grep( { search_dirs = require('devenv.tscope').csfiles() } )<CR>")
 nnoremap( '<leader><enter>', "<cmd>lua require('telescope.builtin').buffers()<CR>")
 nnoremap( '<leader>vh',      "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 nnoremap( '<leader>dv',      "<cmd>lua require('devenv.tscope').search_devenv()<CR>")

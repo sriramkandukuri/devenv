@@ -41,17 +41,7 @@ Please find below shortcuts provided for vim.
 |---|---|
 |Space+=|Format file or visual selection wrt clang definitions
 
-### Comments
-
-|Shortcut|Description|
-|---|---|
-|Space+//|Comment out current line or visual selection|
-|Space+8|Add doxygen style comments before current line|
-|Space+`\`|Append line end comments Use only for c style doxygen comments for structure or parameter variables.|
-|Space+\<TAB\>|Goto next buffer opened|
-|Space+Shift+\<TAB\>|Goto previous buffer opened|
-
-### Completions
+### Coc completions
 
 |Shortcut|Description|
 |---|---|
@@ -64,6 +54,12 @@ Please find below shortcuts provided for vim.
 |Space+gi|Goto implementation of a function|
 |Space+gr|Show references|
 |Space+cr|Restart CoC|
+
+### Comments
+
+|Shortcut|Description|
+|---|---|
+|Space+//|Comment out current line or visual selection|
 
 ### Copy paste
 
@@ -99,12 +95,6 @@ Please find below shortcuts provided for vim.
 |w,s,d|Ignore white space in diff windows, remember 'w'hite 's'pace 'd'isable|
 |w,s,e|Shows white space in diff windows, remember 'w'hite 's'pace 'e'nable|
 
-### File explorer
-
-|Shortcut|Description|
-|---|---|
-|-, Space+pv|Open directory browser as split window on left side|
-
 ### Fuzzy finder fzf plugin
 
 |Shortcut|Description|
@@ -127,12 +117,14 @@ Please find below shortcuts provided for vim.
 |Space+T|Enter timestamp at cursor position|
 |Space,g,f|Open file under cursor, create if not exist"
 |Space+T|Enter timestamp at cursor position|
+|Space+8|Add doxygen style comments before current line|
+|Space+`\`|Append line end comments Use only for c style doxygen comments for structure or parameter variables.|
 
-### Git
+### Plugins
 
 |Shortcut|Description|
 |---|---|
-|Space G C |Show git conflicts and navigate through conflicts by pressing n
+|Function key F5|Refresh all plugins|
 
 ### Man pages
 
@@ -150,6 +142,14 @@ Please find below shortcuts provided for vim.
 |Space+l|Goto right window|
 |Space+`+`|Increase vertical width of window by 5 points|
 |Space+`-`|Decrease vertical width of window by 5 points|
+|Space+\<TAB\>|Goto next buffer opened|
+|Space+Shift+\<TAB\>|Goto previous buffer opened|
+
+### Plugins
+
+|Shortcut|Description|
+|---|---|
+|Space+p+r|Refresh all plugins|
 
 ### Quickscope plugin
 
@@ -185,20 +185,27 @@ Please find below shortcuts provided for vim.
 |---|---|
 |FnKey F8|Toggle right side tagbar for all *.c,*.cpp,*.h,*.hpp files|
 
-### Telescope plugin
-
-|Shortcut|Description|
-|---|---|
-|Space+t+Space+g|Search through git files, enter to open selected file|
-|Space+t+Space|Search through files, enter to open selected file|
-|Space+tf|Invoke ripgrep|
-|Space+t+<ENTER>|Search through available buffers and enter to open selected one|
-|Space+tvh|Search through available help tags|
-|Space+tdv|Search through devenv files|
-
 ### Undo
 
 |Shortcut|Description|
 |---|---|
 |Space+u|show undo tree in spliview|
+
+### Tscope
+
+|Shortcut|Description|
+|---|---|
+|Space+Space|Search through git files, enter to open selected file|
+|Space+g+f|Search through files, enter to open selected file|
+|Space+f|Search files having current word|
+|Space+fl|Invoke ripgrep|
+|Space+<ENTER>|Search through available buffers and enter to open selected one|
+|Spacevh|Search through available help tags|
+|Spacedv|Search through devenv files|
+
+### Plugins
+
+|Shortcut|Description|
+|---|---|
+|F5|Refresh plugins|
 
