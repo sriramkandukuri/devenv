@@ -82,6 +82,7 @@ cmpcfg = {
         Reference = " ",
         Snippet = " ",
         Struct = " ",
+        Tabnine = "",
         Text = " ",
         TypeParameter = " ",
         Unit = "塞",
@@ -92,6 +93,7 @@ cmpcfg = {
         vim_item.kind = cmpcfg.formatting.kind_icons[vim_item.kind]
         vim_item.menu = ({
           nvim_lsp = "(LSP)",
+          nvim_lua = "(NLUA)",
           emoji = "(Emoji)",
           path = "(Path)",
           calc = "(Calc)",
@@ -138,22 +140,30 @@ cmpcfg = {
     },
     sources = {
         { name = 'nvim_lsp' },
-        { name = 'nvim_lua' },
         { name = 'calc' },
         -- For vsnip user.
-        { name = 'vsnip' },
-        { name = 'calc' },
+        -- { name = 'vsnip' },
         -- For luasnip user.
         { name = 'luasnip' },
         -- For ultisnips user.
-        { name = 'ultisnips' },
+        -- { name = 'ultisnips' },
         { name = 'buffer' },
         { name = "path" },
         { name = "crates" },
         { name = "nvim_lua" },
+        { name = 'cmp_tabnine' },
     }
 }
 cmp.setup(cmpcfg)
+
+local tabnine = require('cmp_tabnine.config')
+tabnine:setup({
+        max_lines = 1000;
+        max_num_results = 20;
+        sort = true;
+	run_on_every_keystroke = true;
+	snippet_placeholder = '..';
+})
 
 vim.cmd([[
     hi CmpItemMenu guifg=#8f8f8f
