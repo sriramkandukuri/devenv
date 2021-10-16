@@ -67,12 +67,12 @@ prv_node21 ()
     sudo aptitude -yq install libnode64
     sudo aptitude -yq install node-gyp
     sudo aptitude -yq install npm
-    curl -sS -L https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
-    sudo bash nodesource_setup.sh
-    sudo apt install libnode72=12.21.0~dfsg-3ubuntu1
+    # sudo apt install libnode72=12.21.0~dfsg-3ubuntu1
     sudo apt-get -yq update
     sudo apt-get -yq install nodejs
     sudo apt-get -yq install npm
+    curl -sS -L https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+    sudo bash nodesource_setup.sh
 }
 
 prv_node20()
@@ -95,6 +95,48 @@ tools_node()
     fi
 }
 
+gem_pkg()
+{
+    for i in $@
+    do
+        sudo gem install $i
+    done
+}
+
+npm_pkg()
+{
+    for i in $@
+    do
+        sudo npm i -g $i
+    done
+}
+
+apt_pkg()
+{
+    for i in $@
+    do
+        sudo apt-get -yqm install $i
+    done
+}
+
+cargo_pkg ()
+{
+    for i in $@
+    do
+        sudo cargo install $i
+    done
+}
+
+pip_pkg()
+{
+    for i in $@
+    do
+        sudo pip3 install $i -U
+        sudo pip2 install $i -U
+    done
+}
+
+
 tools_pkgs ()
 {
     local apt_pkgs="
@@ -106,7 +148,6 @@ tools_pkgs ()
         libbz2-dev
         curl
         cscope
-        lua5.3
         ctags
         python
         python3
@@ -114,11 +155,7 @@ tools_pkgs ()
         exuberant-ctags
         universal-ctags
         snapd
-        fonts-powerline
-        bash-completion
         lfm
-        vifm
-        libevent-dev
         plantuml
         doxygen
         ccls
@@ -126,8 +163,6 @@ tools_pkgs ()
         rubygems
         ruby-full
         clang-format
-        libncurses5-dev
-        libncursesw5-dev
         p7zip-full
         cmake
         lynx
@@ -153,46 +188,11 @@ tools_pkgs ()
         ninja-build
     "
 
-    local npm_pkgs="
-        bash-language-server
-    "
-
     local gem_pkgs="
         nokogiri
-        colorls
     "
-
-    local pip_pkgs="
-        jedi
-        jedi-language-server
-        python-language-server
-    "
-
-    for i in $apt_pkgs
-    do
-        sudo apt-get -yqm install $i
-    done
-
-    for i in $gem_pkgs
-    do
-        sudo gem install $i
-    done
-
-    for i in $npm_pkgs
-    do
-        sudo npm i -g $i
-    done
-
-    for i in $cargo_pkgs
-    do
-        sudo cargo install $i
-    done
-
-    for i in $pip_pkgs
-    do
-        sudo pip3 install $i -U
-        sudo pip2 install $i -U
-    done
+    apt_pkg $apt_pkgs
+    gen_pkg $gem_pkgs
 }
 
 tools_googler_supports ()
@@ -297,11 +297,56 @@ tools_gitconfig ()
 
 install_devtools()
 {
-    pkgs=$(cat $myname|grep "^tools_"
+    pkgs=$(cat $myname|grep "^tools_"|cut -d"(" -f1)
     for i in $pkgs
     do
         $i
     done
+}
+
+prv_install_bash_completions()
+{
+    if [ ! -d $builddir/bash_completions ]
+    then
+        mkdir $builddir/bash_completions
+    fi
+}
+
+
+# install bashrc
+prv_install_bashrc ()
+{
+    local apt_pkgs="
+        fonts-powerline
+        bash-completion
+    "
+    apt_pkg $apt_pkgs
+    if [ "$DEVENV_LOADED" == "" ]
+    then
+        echo ". ~/devenv/shell/bash/devenv_bashrc" >> ~/.bashrc
+        source ~/.bashrc
+    fi
+}
+
+prv_install_zshrc ()
+{
+    ce_dir zsh
+
+    wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    echo $PWD
+    ZSH=$PWD/ohmyzsh sh ./install.sh --unattended
+
+    echo ". ~/devenv/shell/zsh/devenv_zshrc" >> ~/.zshrc
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git
+}
+
+install_shell()
+{
+    prv_install_bashrc
+    prv_install_zshrc
+    prv_install_bash_completions
 }
 
 # install tmux
@@ -310,6 +355,12 @@ prv_install_tmux ()
     local VER="3.2"
     [ "$FORCE_INSTALL" == "" ] && tmux -V| grep "^tmux $VER" && echo "tmux already installed" && return ;
     echo "tmux installing..."
+    local apt_pkgs="
+        libevent-dev
+        libncurses5-dev
+        libncursesw5-dev
+    "
+    apt_pkg $apt_pkgs
     ce_dir tmux
     # curl -sS -LO https://github.com/tmux/tmux/releases/download/3.2-rc/tmux-3.2-rc3.tar.gz
     curl -sS -LO https://github.com/tmux/tmux/releases/download/$VER/tmux-$VER.tar.gz
@@ -340,46 +391,6 @@ install_tmux()
     prv_install_tmux_conf
 }
 
-prv_install_bash_completions()
-{
-    if [ ! -d $builddir/bash_completions ]
-    then
-        mkdir $builddir/bash_completions
-    fi
-}
-
-
-# install bashrc
-prv_install_bashrc ()
-{
-    if [ "$DEVENV_LOADED" == "" ]
-    then
-        echo ". ~/devenv/shell/bash/devenv_bashrc" >> ~/.bashrc
-        source ~/.bashrc
-    fi
-}
-
-prv_install_zshrc ()
-{
-    ce_dir zsh
-
-    wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    echo $PWD
-    ZSH=$PWD/ohmyzsh sh ./install.sh --unattended
-
-    echo ". ~/devenv/shell/zsh/devenv_zshrc" >> ~/.zshrc
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git
-}
-
-install_shell()
-{
-    prv_install_bashrc
-    prv_install_zshrc
-    prv_install_bash_completions
-}
-
 prv_install_clangd ()
 {
     # 10
@@ -405,16 +416,30 @@ prv_install_luals()
 
 prv_install_ls()
 {
+    local apt_pkgs="
+        lua5.3
+    "
+    local pip_pkgs="
+        jedi
+        jedi-language-server
+        python-language-server
+        cmake-language-server
+    "
+    local npm_pkgs="
+        bash-language-server
+    "
+    apt_pkg $apt_pkgs
+    pip_pkg $pip_pkgs
+    npm_pkg $npm_pkgs
     prv_install_luals
     prv_install_clangd
-    pip3 install cmake-language-server
 }
 
 prv_install_nvim ()
 {
     ce_dir nvim
-#    curl -sS -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-    curl -sS -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    curl -sS -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+    # curl -sS -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
     # curl -sS -LO https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
     chmod u+x nvim.appimage
     sudo ln -sf $PWD/nvim.appimage /usr/local/bin/nvim
@@ -498,6 +523,10 @@ prv_install_vimrc ()
 
 install_vim()
 {
+    local apt_pkgs="
+        vifm
+    "
+    apt_pkg $apt_pkgs
     prv_install_nvim
     prv_install_vim
     prv_install_vimrc
@@ -509,7 +538,6 @@ install_vim()
 list_packages ()
 {
     pkgs=$(cat $myname|grep "^install_"|cut -d"_" -f2-|cut -d"(" -f1)
-    pkgs="$pkgs all"
     echo $pkgs
 }
 
@@ -517,13 +545,13 @@ usage ()
 {
     echo "
 ./install.sh all [OPTIONS]               # Install all packages
-./install.sh <package name> [OPTIONS]    # Install specific package
+./install.sh <package_name> [OPTIONS]    # Install specific package
 
 OPTIONS :
     -f      Force install
     -j      just install - no apt related pre post hooks
 
-<package name> can be one of
+<package_name> can be one of
     "
     echo $(list_packages) | tr ' ' '\n' | sed -e 's/^/\t\t/g'
     exit
