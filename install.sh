@@ -157,7 +157,6 @@ tools_pkgs ()
         snapd
         lfm
         plantuml
-        doxygen
         ccls
         libgemplugin-ruby
         rubygems
@@ -180,6 +179,7 @@ tools_pkgs ()
         flex
         pylint
         taskwarrior
+        doxygen
         tasksh
         timewarrior
         zsh
@@ -435,14 +435,41 @@ prv_install_ls()
     prv_install_clangd
 }
 
+download_nvim()
+{
+    # curl -sS -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+    curl -sS -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    chmod u+x nvim.appimage
+    sudo ln -sf $PWD/nvim.appimage /usr/local/bin/nvim
+}
+
+build_nvim()
+{
+    local apt_pkgs="
+        ninja-build
+        gettext
+        libtool
+        libtool-bin
+        autoconf
+        automake
+        cmake
+        g++
+        pkg-config
+        unzip
+        curl
+        doxygen
+    "
+    apt_pkg $apt_pkgs
+    git clone --depth 1 https://github.com/neovim/neovim
+    cd neovim && make -j4
+    sudo make install
+}
+
 prv_install_nvim ()
 {
     ce_dir nvim
-    curl -sS -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-    # curl -sS -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-    # curl -sS -LO https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
-    chmod u+x nvim.appimage
-    sudo ln -sf $PWD/nvim.appimage /usr/local/bin/nvim
+    # download_nvim
+    build_nvim
     mkdir -p ~/.config/nvim
     touch ~/.config/nvim/init.vim
     echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > ~/.config/nvim/init.vim

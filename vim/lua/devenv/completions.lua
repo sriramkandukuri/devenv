@@ -50,8 +50,8 @@ local function shtab(fallback)
 end
 
 local function enterit(fallback)
-    if luasnip.expand_or_jumpable() then
-        return luasnip.expand_or_jump()
+    if cmp.visible() then
+        cmp.ConfirmBehavior.Replace()
     else
         F("<CR>")
     end
