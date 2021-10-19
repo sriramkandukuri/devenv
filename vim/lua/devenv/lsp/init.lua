@@ -45,11 +45,20 @@ _G.lsp_show_diagnostics = function()
   vim.lsp.diagnostic.show_line_diagnostics({border = border})
 end
 
+local lspsign = require("lsp_signature")
+lspsign.setup({
+    bind = true, -- This is mandatory, otherwise border config won't get registered.
+    handler_opts = {
+        border = "single"
+    }
+})
+
 local custom_attach = function(client, bufnr)
     -- local filetype = vim.api.nvim_buf_get_option(0, "filetype")
     print("LSP started")
 
     nvim_status.on_attach(client)
+    lspsign.on_attach(client)
 
     cmd [[command! LspDef lua vim.lsp.buf.definition()]]
     cmd [[command! LspFormatting lua vim.lsp.buf.formatting()]]
@@ -67,19 +76,19 @@ local custom_attach = function(client, bufnr)
     cmd [[command! LspSignatureHelp lua vim.lsp.buf.signature_help()]]
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+    -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
 
     nmap("gd", ":LspDef<CR>", {bufnr = bufnr})
     nmap("gr", ":LspRename<CR>", {bufnr = bufnr})
     nmap("gR", ":LspRefs<CR>", {bufnr = bufnr})
     nmap("gy", ":LspTypeDef<CR>", {bufnr = bufnr})
     nmap("gk", ":LspHover<CR>", {bufnr = bufnr})
-    nmap("gs", ":LspOrganize<CR>", {bufnr = bufnr})
+    nmap("gss", ":LspOrganize<CR>", {bufnr = bufnr})
     nmap("[a", ":LspDiagPrev<CR>", {bufnr = bufnr})
     nmap("]a", ":LspDiagNext<CR>", {bufnr = bufnr})
     nmap("ga", ":LspCodeAction<CR>", {bufnr = bufnr})
     nmap("gl", ":LspDiagLine<CR>", {bufnr = bufnr})
-    imap("<C-x><C-x>", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
+    imap("gs", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
