@@ -284,6 +284,11 @@ packer.startup{function()
         end
     }
 
+    use { 'rcarriga/nvim-notify',
+        config = function()
+            require("devenv.notify")
+        end
+    }
 
 -- ===========================================
 -- Plugins only for vim
