@@ -4,7 +4,7 @@ alias vdbash="vim ~/devenv/shell/bash/devenv_bashrc"
 alias genhelp='~/devenv/help/genhelp.sh'
 dumphelp ()
 {
-    [ "$2" != "" ] && cat $1 | grep -E "^\|" | column -t -s'|' |grep $2 |sed 's/^[ \t]*//;s/[ \t]*$//' && return
+    [ "$2" != "" ] && cat $1 | grep -E "^\|" | column -t -s'|' |grep -i $2 |sed 's/^[ \t]*//;s/[ \t]*$//' && return
     cat $1 | grep -E "^\|" | column -t -s'|' | sed 's/^[ \t]*//;s/[ \t]*$//'
     # [ "$2" != "" ] && cat $1 |grep $2 && return
     # cat $1 | column -t -s'|'
