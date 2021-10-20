@@ -1,10 +1,5 @@
 ##BH |tmux|Run `tmux` command with predefined env settings aliased to `EDITOR=nvim TERM=tmux-256color tmux -2 -u`|
 alias tmux="EDITOR=nvim TERM=tmux-256color tmux -2 -u"
-##BH |tmn|Open new tmux session with given name, by default it opens first window with 3 vertical panes, **Not giving argument causes unwanted behavior**|
-tmn ()
-{
-    tmux new -t $1 \; split-window -h -c "#{pane_current_path}" \; split-window -h -c "#{pane_current_path}" \; select-pane -L \; select-layout even-horizontal
-}
 ##BH |rnp|Sets a titile which inturn renames a pane in tmux|
 rnp()
 {
@@ -15,14 +10,14 @@ rnp()
         printf '\033]2;%s\033\\' $1
     fi
 }
-##BH |tma|Attach to tmux session, if no arguments given last session will be opened, otherwise session with given name will be opened|
-tma()
+##BH |tm|Open new tmux session with given name, or attach if its already exist|
+tm()
 {
     if [ "$1" == "" ]
     then
         tmux attach -d
     else
-        tmux attach -d -t "$@"
+        tmux new -AD -s "$@"
     fi
 }
 ##BH |tml|list currently running tmux sessions|

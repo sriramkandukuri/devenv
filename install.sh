@@ -368,6 +368,7 @@ prv_install_tmux ()
     cd tmux-$VER
     ./configure
     sudo make install
+    sudo ln -sf /usr/local/bin/tmux /usr/bin/tmux
 }
 
 # install tmux conf
