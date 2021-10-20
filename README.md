@@ -59,6 +59,8 @@ Working terminal emulators on Windows
 
 [Secure Shell App](https://chrome.google.com/webstore/detail/secure-shell-app/pnhechapfaindjhompbnflcldabbghjo?hl=en) a Chrome application which works very smooth.
 
+- Unwanted horizontal lines in tmux
+
 [Terminus](https://eugeny.github.io/terminus/) on windows with Dracula color theme. This has some minor issues.
 
 - Very slow xterm
