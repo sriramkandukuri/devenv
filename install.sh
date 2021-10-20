@@ -35,7 +35,7 @@ clean_dir ()
 
 ############################## INSTALLERS STARTS HERE ###################################
 
-gui_install_albert()
+install_gui_albert()
 {
     ce_dir albert
     curl -sS https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -
@@ -45,7 +45,7 @@ gui_install_albert()
     sudo apt install albert
 }
 
-gui_install_alacritty()
+install_gui_alacritty()
 {
     ce_dir alacritty
     # sudo curl -sS https://sh.rustup.rs -sSf | sh
@@ -561,6 +561,11 @@ install_vim()
     prv_install_ls
 }
 
+prv_install_test()
+{
+    echo "This is test function"
+}
+
 ############################## SCRIPT STARTS HERE ###################################
 
 list_packages ()
@@ -645,6 +650,8 @@ do
 done
 
 # Main execution
+lpkgs=$(echo $( list_packages )|tr ' ' '|')
+echo $lpkgs
 case $app in
     help)
         usage

@@ -88,7 +88,7 @@ local custom_attach = function(client, bufnr)
     nmap("]a", ":LspDiagNext<CR>", {bufnr = bufnr})
     nmap("ga", ":LspCodeAction<CR>", {bufnr = bufnr})
     nmap("gl", ":LspDiagLine<CR>", {bufnr = bufnr})
-    imap("gs", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
+    imap("<c-l>", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
