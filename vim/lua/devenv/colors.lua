@@ -29,29 +29,29 @@ function M.SetColors()
 end
 
 function M.init()
-vim.wo.colorcolumn = '100'
-vim.wo.cursorline = true
-vim.wo.cursorcolumn = true
+    vim.wo.colorcolumn = '100'
+    vim.wo.cursorline = true
+    vim.wo.cursorcolumn = true
 
-vim.o.background = 'dark'
-vim.o.termguicolors = true
+    vim.o.background = 'dark'
+    vim.o.termguicolors = true
 
-vim.g.colors_name = 'dracula'
-vim.cmd("colorscheme dracula")
+    vim.g.colors_name = 'dracula'
+    vim.cmd("colorscheme dracula")
 
 -- Common color scheme settings
 --
--- use the dark theme
+    -- use the dark theme
 
--- Dracula customizations.
-vim.g.dracula_bold = 1
-vim.g.dracula_italic = 1
-vim.g.dracula_underline = 1
-vim.g.dracula_undercurl = 1
-vim.g.dracula_inverse = 1
-vim.g.dracula_colorterm = 1
-M.SetColors()
-vim.cmd([[autocmd FileType dirdiff :lua require("devenv.colors").SetDiffColors()<CR>]])
-require("colorizer").setup()
+    -- Dracula customizations.
+    vim.g.dracula_bold = 1
+    vim.g.dracula_italic = 1
+    vim.g.dracula_underline = 1
+    vim.g.dracula_undercurl = 1
+    vim.g.dracula_inverse = 1
+    vim.g.dracula_colorterm = 1
+    M.SetColors()
+    vim.cmd([[autocmd FileType dirdiff :lua require("devenv.colors").SetDiffColors()<CR>]])
+    require("colorizer").setup()
 end
 return M

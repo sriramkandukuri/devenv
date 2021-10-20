@@ -21,9 +21,9 @@ packer.startup{function()
 --   https://github.com/dracula/vim.git
     use 'norcalli/nvim-colorizer.lua'
     use {'dracula/vim', as = 'dracula',
-    config = function()
-        require("devenv.colors").init()
-    end
+        config = function()
+            require("devenv.colors").init()
+        end
     }
 
 -- https://github.com/rafi/awesome-vim-colorschemes
@@ -288,6 +288,10 @@ packer.startup{function()
         config = function()
             require("devenv.notify")
         end
+    }
+    use {
+      "dstein64/vim-startuptime",
+      cmd = "StartupTime",
     }
 
 -- ===========================================
