@@ -8,6 +8,7 @@ rm -rf $LOGFILE > /dev/null 2>&1
 touch $LOGFILE
 myname=$0
 export DEBIAN_FRONTEND=noninteractive
+ubver=$(cat /etc/lsb-release |grep RELEASE|cut -d= -f2)
 
 if [ "$devdir" != "$HOME/devenv" ]
 then
@@ -34,30 +35,6 @@ clean_dir ()
 }
 
 ############################## INSTALLERS STARTS HERE ###################################
-
-install_gui_albert()
-{
-    ce_dir albert
-    curl -sS https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -
-    echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_20.04/ /' | sudo tee -a /etc/apt/sources.list.d/home:manuelschneid3r.list
-    sudo wget -nv https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_20.04/Release.key -O "/etc/apt/trusted.gpg.d/home:manuelschneid3r.asc"
-    sudo apt update
-    sudo apt install albert
-}
-
-install_gui_alacritty()
-{
-    ce_dir alacritty
-    # sudo curl -sS https://sh.rustup.rs -sSf | sh
-    git clone https://github.com/jwilm/alacritty.git
-    cd alacritty
-    cargo build --release
-    chmod +x target/release/alacritty
-    sudo ln -sf $PWD/target/release/alacritty /usr/bin/alacritty
-    gzip -c extra/alacritty.man | sudo tee -a /usr/local/share/man/man1/alacritty.1.gz > /dev/null
-    cp extra/completions/alacritty.bash $builddir/bash_completions/
-    ln -sf $builddir/dotfiles/alacritty.yml ~/.alacritty.yml
-}
 
 prv_node21 ()
 {
@@ -87,7 +64,6 @@ prv_node20()
 
 tools_node()
 {
-    local ubver=$(cat /etc/lsb-release |grep RELEASE|cut -d= -f2)
     if [ "$ubver" = "21" ];then
         prv_install_node21
     else
@@ -186,6 +162,7 @@ tools_pkgs ()
         figlet
         toilet
         ninja-build
+        ppa-purge
     "
 
     local gem_pkgs="
@@ -302,6 +279,35 @@ install_devtools()
     do
         $i
     done
+}
+
+install_gui_albert()
+{
+    ce_dir albert
+    curl -sS https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -
+    echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_20.04/ /' | sudo tee -a /etc/apt/sources.list.d/home:manuelschneid3r.list
+    sudo wget -nv https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_20.04/Release.key -O "/etc/apt/trusted.gpg.d/home:manuelschneid3r.asc"
+    sudo apt update
+    sudo apt install albert
+}
+
+# unused installer
+depre_install_gui_alacritty()
+{
+    local apt_pkgs="
+    libxkbcommon-x11-dev 
+    "
+    apt_pkg $apt_pkgs
+    ce_dir alacritty
+    # sudo curl -sS https://sh.rustup.rs -sSf | sh
+    git clone https://github.com/jwilm/alacritty.git
+    cd alacritty
+    cargo build --release
+    chmod +x target/release/alacritty
+    sudo ln -sf $PWD/target/release/alacritty /usr/bin/alacritty
+    gzip -c extra/alacritty.man | sudo tee -a /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+    cp extra/completions/alacritty.bash $builddir/bash_completions/
+    ln -sf $builddir/dotfiles/alacritty.yml ~/.alacritty.yml
 }
 
 prv_install_bash_completions()
@@ -485,9 +491,11 @@ prv_install_nvim ()
 
 prv_install_vim ()
 {
-    sudo add-apt-repository -y ppa:jonathonf/vim
-    sudo apt-get update
-    sudo apt-get install vim
+    if [ "$ubver" != "21" ];then
+        sudo add-apt-repository -y ppa:jonathonf/vim
+        sudo apt-get update
+        sudo apt-get install vim
+    fi
 }
 
 fix_coc_ccls()
@@ -629,7 +637,7 @@ run_func ()
 [[ $# == 0 ]] && usage
 
 # Check valid package or not
-[[ $(list_packages) =~ (^|[[:space:]])"$1"($|[[:space:]]) ]] && echo "Installing $1 ..." || usage
+[[ "$1" == "all" || $(list_packages) =~ (^|[[:space:]])"$1"($|[[:space:]]) ]] && echo "Installing $1 ..." || usage
 
 FORCE_INSTALL=""
 PLAIN_INSTALL=""
@@ -650,8 +658,6 @@ do
 done
 
 # Main execution
-lpkgs=$(echo $( list_packages )|tr ' ' '|')
-echo $lpkgs
 case $app in
     help)
         usage
