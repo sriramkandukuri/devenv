@@ -263,7 +263,7 @@ packer.startup{function()
         end,
     }
 
-    use {'shadmansaleh/lualine.nvim',
+    use { 'nvim-lualine/lualine.nvim',
         config = function()
             require("devenv.lualine")
         end
