@@ -259,7 +259,7 @@ Please find below shortcuts provided by bashrc.
 |---|---|
 |tmux|Run `tmux` command with predefined env settings aliased to `EDITOR=nvim TERM=tmux-256color tmux -2 -u`|
 |rnp|Sets a titile which inturn renames a pane in tmux|
-|tm|Open new tmux session with given name, or attach if its already exist|
+|tm|Open new tmux session with given name, or attach if its already exist, if used first time opens resurrected tmux sessions and connect them|
 |tml|list currently running tmux sessions|
 |vtm|Open tmux custom config provided by this repository for editing in vim|
 |tmk|Kill tmux server and kill all processes having `tmux` in their command|

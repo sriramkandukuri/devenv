@@ -10,9 +10,13 @@ rnp()
         printf '\033]2;%s\033\\' $1
     fi
 }
-##BH |tm|Open new tmux session with given name, or attach if its already exist|
+##BH |tm|Open new tmux session with given name, or attach if its already exist, if used first time opens resurrected tmux sessions and connect them|
 tm()
 {
+    local sess=$(cat ~/.tmux/resurrect/last | grep "^state" | tr '\t' ' ' | cut -d" " -f2)
+    if [ "$sess" != "" ];then
+        tmux has -t $sess || tmux
+    fi
     if [ "$1" == "" ]
     then
         tmux attach -d
