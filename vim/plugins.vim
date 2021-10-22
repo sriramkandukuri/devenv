@@ -37,7 +37,7 @@ Plug 'preservim/tagbar'
 " Plug 'leafgarland/typescript-vim'
 "Beautiful manpages for vim. K or :Man
 Plug 'vim-utils/vim-man'
-Plug 'lyuts/vim-rtags'
+" Plug 'lyuts/vim-rtags'
 
 "Undo tree with good history.
 Plug 'mbbill/undotree'

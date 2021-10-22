@@ -122,7 +122,7 @@ packer.startup{function()
 
     --Beautiful manpages for vim. K or :Man
     use 'vim-utils/vim-man'
-    use 'lyuts/vim-rtags'
+    -- use 'lyuts/vim-rtags'
 
     --Undo tree with good history.
     use 'mbbill/undotree'
