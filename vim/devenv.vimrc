@@ -20,6 +20,7 @@ source ~/devenv/vim/comments.vim
 source ~/devenv/vim/clang_plugin.vim
 source ~/devenv/vim/tagbar_plugin.vim
 endif
+source ~/devenv/vim/devenv.vim
 source ~/devenv/vim/undo.vim
 source ~/devenv/vim/code_style.vim
 source ~/devenv/vim/copy_paste.vim

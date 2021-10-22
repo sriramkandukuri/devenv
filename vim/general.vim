@@ -27,7 +27,7 @@ set updatetime=50
 set shortmess+=c
 
 ""VH |Space+v+r|Reload vimrc|
-nnoremap <Leader>vr :source $MYVIMRC<CR>
+nnoremap <Leader>vr :call devenv#save_and_exec()<CR>
 
 ""VH |Space+T|Enter timestamp at cursor position|
 nmap <Leader>T i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>

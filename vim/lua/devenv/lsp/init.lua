@@ -55,7 +55,7 @@ lspsign.setup({
 
 local custom_attach = function(client, bufnr)
     -- local filetype = vim.api.nvim_buf_get_option(0, "filetype")
-    print("LSP started")
+    -- print("LSP started")
 
     nvim_status.on_attach(client)
     lspsign.on_attach(client)

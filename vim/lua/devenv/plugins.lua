@@ -100,6 +100,7 @@ packer.startup{function()
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-calc",
             "ray-x/lsp_signature.nvim",
+            'hrsh7th/cmp-emoji',
         }
     }
     use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}

@@ -82,7 +82,7 @@ cmpcfg = {
         Reference = " ",
         Snippet = " ",
         Struct = " ",
-        Tabnine = "",
+        Tabnine = " ",
         Text = " ",
         TypeParameter = " ",
         Unit = "塞",
@@ -90,17 +90,17 @@ cmpcfg = {
         Variable = " ",
       },
       format = function(entry, vim_item)
-        vim_item.kind = cmpcfg.formatting.kind_icons[vim_item.kind]
+        vim_item.kind = cmpcfg.formatting.kind_icons[vim_item.kind] .. vim_item.kind
         vim_item.menu = ({
-          nvim_lsp = "(LSP)",
-          nvim_lua = "(NLUA)",
-          emoji = "(Emoji)",
-          path = "(Path)",
-          calc = "(Calc)",
-          cmp_tabnine = "(Tabnine)",
-          vsnip = "(Snippet)",
-          luasnip = "(Snippet)",
-          buffer = "(Buffer)",
+          nvim_lsp = "[LSP]",
+          nvim_lua = "[nvim]",
+          emoji = "[emoji]",
+          path = "[path]",
+          calc = "[calc]",
+          cmp_tabnine = "[tab9]",
+          vsnip = "[snip]",
+          luasnip = "[snip]",
+          buffer = "[buf]",
         })[entry.source.name]
         vim_item.dup = ({
           buffer = 1,
@@ -140,18 +140,19 @@ cmpcfg = {
     },
     sources = {
         { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = "nvim_lua" },
+        { name = 'buffer' },
+        { name = "path" },
         { name = 'calc' },
+        { name = 'cmp_tabnine' },
+        { name = 'emoji' },
         -- For vsnip user.
         -- { name = 'vsnip' },
         -- For luasnip user.
-        { name = 'luasnip' },
         -- For ultisnips user.
         -- { name = 'ultisnips' },
-        { name = 'buffer' },
-        { name = "path" },
         { name = "crates" },
-        { name = "nvim_lua" },
-        { name = 'cmp_tabnine' },
     }
 }
 cmp.setup(cmpcfg)
