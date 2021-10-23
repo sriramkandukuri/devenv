@@ -22,9 +22,9 @@ function! Redir(cmd, rng, start, end)
 		redir END
 		let output = split(output, "\n")
 	endif
-	vnew
-	let w:scratch = 1
-	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+	e /tmp/nvimredir
+	" let w:scratch = 1
+	setlocal buftype=nofile noswapfile
 	call setline(1, output)
 endfunction
 
@@ -32,6 +32,4 @@ command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>
 ""VH |Space+h+m|List all currently used maps to temporary buffer"
 nnoremap <Leader>hm :Redir verbose map<CR>
 ""VH |Space+h+m|List all currently used highlights to temporary buffer"
-nnoremap <Leader>hhi :Redir hi<CR>
-
-
+nnoremap <Leader>hhi :Redir verbose hi<CR>
