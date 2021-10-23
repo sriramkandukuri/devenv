@@ -15,12 +15,7 @@ packer.startup{function()
 
 -- use 'EdenEast/nightfox.nvim'
 -- use 'ChristianChiarulli/nvcode-color-schemes.vim'
--- use 'Mofiqul/dracula.nvim'
--- use 'sainnhe/sonokai'
---dracula themes
---   https://github.com/dracula/vim.git
-    use 'norcalli/nvim-colorizer.lua'
-    use {'dracula/vim', as = 'dracula',
+    use {'norcalli/nvim-colorizer.lua',
         config = function()
             require("devenv.colors").init()
         end
@@ -155,7 +150,7 @@ packer.startup{function()
     -- Autopairs
     use {
         "windwp/nvim-autopairs",
-        -- event = "InsertEnter",
+        event = "InsertEnter",
         after = "nvim-cmp",
         config = function()
             require("devenv.autopairs")
@@ -232,7 +227,7 @@ packer.startup{function()
     use {'akinsho/bufferline.nvim',
         config = function()
             require("devenv.bufline")
-        end
+        end,
     }
     -- use 'tjdevries/colorbuddy.vim'
     -- use 'tjdevries/gruvbuddy.nvim'
@@ -266,15 +261,14 @@ packer.startup{function()
     use { 'nvim-lualine/lualine.nvim',
         config = function()
             require("devenv.lualine")
-        end
+        end,
     }
     use {'kyazdani42/nvim-tree.lua',
+        enable = true,
         config = function()
             require("devenv.nvimtree")
         end
     }
-    use 'L3MON4D3/LuaSnip'
-    use 'saadparwaiz1/cmp_luasnip'
 
     use 'junegunn/vim-easy-align'
     -- use 'junegunn/goyo.vim'
@@ -315,9 +309,8 @@ config = {
 vim.cmd([[
 augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua PackerCompile
+    autocmd BufWritePost plugins.lua PackerCompile profile=true
 augroup end
 ""VH |Function key F5|Refresh all plugins|
-command! PUNC PackerSync
-nnoremap <F5> :PUNC<CR>
+nnoremap <F5> :PackerSync<CR>
 ]])
