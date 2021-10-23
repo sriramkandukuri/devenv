@@ -1,6 +1,7 @@
 _GlobalCallbacks = _GlobalCallbacks or {}
 
 _G.globals = {_store = _GlobalCallbacks}
+_G.devenv_debug = false
 
 function globals._create(f)
   table.insert(globals._store, f)
@@ -24,3 +25,13 @@ R = function(name)
   RELOAD(name)
   return require(name)
 end
+
+DVDBG = function(...)
+    if _G.devenv_debug then
+        print(...)
+    end
+end
+
+vim.cmd([[
+    command! PLD Redir lua P(package.loaded)
+]])
