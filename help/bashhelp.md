@@ -86,6 +86,7 @@ Please find below shortcuts provided by bashrc.
 |nv|Opens nvim|
 |vim|Opens nvim|
 |ovim|Opens old/original vim instead of nvim|
+|vdbg|Debug neovim with log file|
 |vbash|To edit `.bashrc` inside user home directory|
 |sbash|Source bash environment again after unaliasing all shortcuts|
 |l|List files with colors, show sizes in readable format and sort to print latest file at last |

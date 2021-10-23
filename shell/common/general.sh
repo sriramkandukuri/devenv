@@ -13,6 +13,8 @@ alias nv="nvim"
 alias vim="nvim"
 ##BH |ovim|Opens old/original vim instead of nvim|
 alias ovim="TERM=xterm-256color /usr/bin/vim"
+##BH |vdbg|Debug neovim with log file|
+alias vdbg="> /tmp/nvim.log;nvim -V20/tmp/nvim.log /tmp/nvim.log"
 
 ##BH |vbash|To edit `.bashrc` inside user home directory|
 alias vbash="vim ~/.bashrc"
