@@ -1,16 +1,8 @@
+local colors = require("devenv.colors").colors
 require('bufferline').setup {
     highlights = {
         fill = {
-            guibg = "#444444"
-        },
-        separator_selected = {
-            guifg = "#af4f0f"
-        },
-        separator_visible = {
-            guifg = "#3faf2f"
-        },
-        separator = {
-            guifg = "#444444"
+            guibg = colors.grey1
         },
     },
     options = {

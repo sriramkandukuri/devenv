@@ -2,6 +2,8 @@ vim.o.completeopt = 'menuone,noselect'
 -- load snippets from runtimepath, eg. friendly-snippets.
 require("luasnip.loaders.from_vscode").lazy_load()
 local utils = require("devenv.utils")
+local colors = require("devenv.colors").colors
+local hil = require("devenv.colors.hil")
 vim.opt.shortmess:append "c"
 
 local status_luasnip_ok, luasnip = pcall(require, "luasnip")
@@ -136,7 +138,7 @@ cmpcfg = {
         ['<C-e>'] = cmp.mapping.close(),
         ['<Tab>'] = cmp.mapping(tab, { "i", "s" }),
         ['<S-Tab>'] = cmp.mapping(shtab, { "i", "s" }),
-        ['<CR>'] = cmp.mapping(enterit, { "i", "s" }),
+        -- ['<CR>'] = cmp.mapping(enterit, { "i", "s" }),
     },
     sources = {
         { name = 'nvim_lsp' },
@@ -159,13 +161,18 @@ cmp.setup(cmpcfg)
 
 local tabnine = require('cmp_tabnine.config')
 tabnine:setup({
-        max_lines = 1000;
-        max_num_results = 20;
-        sort = true;
-	run_on_every_keystroke = true;
-	snippet_placeholder = '..';
+    max_lines = 1000;
+    max_num_results = 20;
+    sort = true;
+    run_on_every_keystroke = true;
+    snippet_placeholder = '..';
 })
 
-vim.cmd([[
-    hi CmpItemMenu guifg=#8f8f8f
-]])
+local cmpcolors = {
+    CmpItemAbbr = { colors.fg, nil, nil, nil },
+    CmpItemAbbrMatch = { colors.aqua, nil, nil, nil },
+    CmpItemAbbrMatchFuzzy = { colors.magenta, nil, nil, nil },
+    CmpItemKind = { colors.beige, nil, "italic", nil },
+    CmpItemMenu = { colors.black, nil, "italic", nil }
+}
+hil.colors(cmpcolors)

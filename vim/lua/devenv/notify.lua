@@ -19,26 +19,32 @@ require("notify").setup({
   },
 })
 
-vim.cmd([[
-highlight NotifyERRORBorder guifg=#8A1F1F
-highlight NotifyWARNBorder guifg=#79491D
-highlight NotifyINFOBorder guifg=#4F6752
-highlight NotifyDEBUGBorder guifg=#8B8B8B
-highlight NotifyTRACEBorder guifg=#4F3552
-highlight NotifyERRORIcon guifg=#F70067
-highlight NotifyWARNIcon guifg=#F79000
-highlight NotifyINFOIcon guifg=#A9FF68
-highlight NotifyDEBUGIcon guifg=#8B8B8B
-highlight NotifyTRACEIcon guifg=#D484FF
-highlight NotifyERRORTitle  guifg=#F70067
-highlight NotifyWARNTitle guifg=#F79000
-highlight NotifyINFOTitle guifg=#A9FF68
-highlight NotifyDEBUGTitle  guifg=#8B8B8B
-highlight NotifyTRACETitle  guifg=#D484FF
-highlight link NotifyERRORBody Normal
-highlight link NotifyWARNBody Normal
-highlight link NotifyINFOBody Normal
-highlight link NotifyDEBUGBody Normal
-highlight link NotifyTRACEBody Normal
-    ]]
-)
+local colors = require("devenv.colors").colors
+local hil = require("devenv.colors.hil")
+
+local notifyColors = {
+    NotifyERRORBorder = { colors.red, nil, nil, nil },
+    NotifyWARNBorder = { colors.brown, nil, nil, nil },
+    NotifyINFOBorder = { colors.aqua, nil, nil, nil },
+    NotifyDEBUGBorder = { colors.grey, nil, nil, nil },
+    NotifyTRACEBorder = { colors.violet, nil, nil, nil },
+    NotifyERRORIcon = { colors.red, nil, nil, nil },
+    NotifyWARNIcon = { colors.orange, nil, nil, nil },
+    NotifyINFOIcon = { colors.aqua, nil, nil, nil },
+    NotifyDEBUGIcon = { colors.grey, nil, nil, nil },
+    NotifyTRACEIcon = { colors.violet, nil, nil, nil },
+    NotifyERRORTitle  = { colors.red, nil, nil, nil },
+    NotifyWARNTitle = { colors.orange, nil, nil, nil },
+    NotifyINFOTitle = { colors.aqua, nil, nil, nil },
+    NotifyDEBUGTitle  = { colors.grey, nil, nil, nil },
+    NotifyTRACETitle  = { colors.violet, nil, nil, nil },
+}
+local notifylinks = {
+    NotifyERRORBody = "Normal",
+    NotifyWARNBody = "Normal",
+    NotifyINFOBody = "Normal",
+    NotifyDEBUGBody = "Normal",
+    NotifyTRACEBody = "Normal",
+}
+hil.colors(notifyColors)
+hil.links(notifylinks)

@@ -1,5 +1,2 @@
 require("devenv.plugins")
--- require("devenv.material")
--- require("devenv.gruvbuddy")
--- require("devenv.nightfox")
 require("devenv.globals")

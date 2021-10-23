@@ -70,55 +70,6 @@ function utils.termcodes(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
 
-function utils.bitmap24to8(str)
-    if str ~= nil then
-        local num = tonumber(string.sub(str,2),16)
-        local red = bit.lshift( math.floor( bit.rshift( num, 16 )/32 ), 5)
-        local green = bit.lshift( math.floor( bit.band(bit.rshift(num,8),0xff)/32 ), 2)
-        local blue = math.floor( bit.band(num,0xff)/64 )
-        local res = red + green + blue
-        if res == 0 then
-            return "1"
-        else
-            return res
-        end
-    end
-end
-
-function utils.hil(group, properties)
-    local bg = ""
-    local cbg = ""
-    local fg = ""
-    local cfg = ""
-    local style = ""
-    local cstyle = ""
-    if properties.bg ~= nil then
-        bg = "guibg=" .. properties.bg
-        cbg = "ctermbg=" .. utils.bitmap24to8(properties.bg)
-    end
-    if properties.fg ~= nil then
-        fg = "guifg=" .. properties.fg
-        cfg = "ctermfg=" .. utils.bitmap24to8(properties.fg)
-    end
-    if properties.style ~= nil then
-        style = "gui=" .. properties.style
-        cstyle = "cterm=" .. properties.style
-    end
-
-  local cmd = table.concat({
-    "highlight",
-    group,
-    cbg,
-    cfg,
-    bg,
-    fg,
-    style,
-    cstyle,
-  }, " ")
-
-  vim.api.nvim_command(cmd)
-end
-
 utils.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 return utils

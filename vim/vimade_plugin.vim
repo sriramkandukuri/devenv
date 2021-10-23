@@ -18,5 +18,3 @@ au! FocusLost * :call FL()
 au! FocusGained * :call FG()
 "
 "}}}
-
-
