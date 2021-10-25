@@ -7,7 +7,7 @@ M.colors = {
 	gutter_fg      = "#4B5263",
 	nontext        = "#3B4048",
 
-    bg             = "#181a26",
+    bg             = "#1a1f2a",
     CurrentLine    = "#44475a",
     subtle         = "#10141d",
     ruler          = "#282a36",

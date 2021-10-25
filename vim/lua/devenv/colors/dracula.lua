@@ -35,7 +35,7 @@ local editor = {
     NormalMode        = { fg = colors.accent, style = 'reverse' }, -- Normal mode message in the cmdline
     InsertMode        = { fg = colors.green, style = 'reverse' }, -- Insert mode message in the cmdline
     ReplacelMode      = { fg = colors.red, style = 'reverse' }, -- Replace mode message in the cmdline
-    VisualMode        = { fg = colors.purple, style = 'reverse' }, -- Visual mode message in the cmdline
+    VisualMode        = { bg = colors.selection, style = 'reverse' }, -- Visual mode message in the cmdline
     CommandMode       = { fg = colors.gray, style = 'reverse' }, -- Command mode message in the cmdline
     Warnings          = { fg = colors.yellow },
 
@@ -96,7 +96,6 @@ local editor = {
     ErrorMsg          = { colors.bright_red, nil, nil, nil},
     VertSplit         = { colors.black, nil, nil, nil},
     Folded            = { colors.comment, nil, nil, nil},
-    FoldColumn        = { nil, nil, nil, nil},
     Search            = { colors.black, colors.orange, nil, nil},
     IncSearch         = { colors.orange, colors.comment, nil, nil},
     LineNr            = { colors.violet1, colors.bg, nil, nil},
@@ -120,8 +119,8 @@ local editor = {
     TabLineSel        = { colors.white, nil, nil, nil},
     TabLineFill       = { nil, colors.bg, nil, nil},
     Terminal          = { colors.white, colors.black, nil, nil},
-    Visual            = { nil, colors.visual, nil, nil},
-    VisualNOS         = { colors.visual, nil, nil, nil},
+    Visual            = { nil, colors.selection, nil, nil},
+    VisualNOS         = { nil, colors.selection, nil, nil},
     WarningMsg        = { colors.yellow, nil, nil, nil},
     WildMenu          = { colors.black, colors.white, nil, nil},
     EndOfBuffer       = { colors.subtle, colors.subtle, nil, nil},

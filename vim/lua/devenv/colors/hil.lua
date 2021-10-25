@@ -60,7 +60,8 @@ end
 function M.hcolor(group, hinfo)
     DVDBG(group)
     local cmd, fg, bg, style, sp
-    if hinfo[1] then
+    if hinfo[1] or hinfo[2] or hinfo[3] or hinfo[4] then
+        print(group)
         fg = hinfo[1]
         bg = hinfo[2]
         style = hinfo[3]
