@@ -1,10 +1,23 @@
 local M = {}
+
+function M.getrgb(str)
+    local num = tonumber(string.sub(str,2),16)
+    local red = bit.rshift( num, 16 )
+    local green = bit.band(bit.rshift(num,8),0xff)
+    local blue = bit.band(num,0xff)
+    return red, green, blue
+end
+
+function M.getcolor(r, g, b)
+    return bit.lshift(r, 16) + bit.lshift(g, 8) + b
+end
+
 function M.bitmap24to8(str)
     if str ~= nil then
-        local num = tonumber(string.sub(str,2),16)
-        local red = bit.lshift( math.floor( bit.rshift( num, 16 )/32 ), 5)
-        local green = bit.lshift( math.floor( bit.band(bit.rshift(num,8),0xff)/32 ), 2)
-        local blue = math.floor( bit.band(num,0xff)/64 )
+        local red, green, blue = M.getrgb(str)
+        red = bit.lshift( math.floor( red/32 ), 5)
+        green = bit.lshift( math.floor( green/32 ), 2)
+        blue = math.floor( blue/64 )
         local res = red + green + blue
         if res == 0 then
             return "1"
@@ -14,13 +27,51 @@ function M.bitmap24to8(str)
     end
 end
 
+local function adjust(color, factor)
+    local ret
+    ret = color + math.floor((color * factor) / 100)
+    if ret >= 255 then
+        ret = 255
+    else if ret < 0 then
+            ret = 0
+        end
+    end
+    return ret
+end
+
+local function adjustrgb(str, factor)
+    local ret
+    if str then
+        local red, green, blue = M.getrgb(str)
+        ret = M.getcolor(adjust(red, factor), adjust(green, factor), adjust(blue, factor))
+        ret = string.format("#%x", ret)
+        return ret
+    end
+end
+
+function M.dark(str, factor)
+    return adjustrgb(str,factor and -factor or -5)
+end
+
+function M.light(str, factor)
+    return adjustrgb(str,factor and factor or 5)
+end
+
 function M.hcolor(group, hinfo)
     DVDBG(group)
-    local cmd = ""
-    local fg = hinfo[1]
-    local bg = hinfo[2]
-    local style = hinfo[3]
-    local sp = hinfo[4]
+    local cmd, fg, bg, style, sp
+    if hinfo[1] then
+        fg = hinfo[1]
+        bg = hinfo[2]
+        style = hinfo[3]
+        sp = hinfo[4]
+    else
+        fg = hinfo["fg"]
+        bg = hinfo["bg"]
+        style = hinfo["style"]
+        sp = hinfo["sp"]
+    end
+
     DVDBG(bg,fg,style,sp)
 
     bg = bg and "guibg=" .. bg .. " ctermbg=" .. M.bitmap24to8(bg) or "guibg=NONE ctermbg=NONE"
@@ -44,6 +95,9 @@ function M.hcolor(group, hinfo)
 end
 
 function M.hlink(group, link)
+    if type(link) == "table" then
+        link = link["link"]
+    end
     local cmd = table.concat({
         "highlight",
         "link",

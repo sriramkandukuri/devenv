@@ -17,7 +17,8 @@ packer.startup{function()
 -- use 'ChristianChiarulli/nvcode-color-schemes.vim'
     use {'norcalli/nvim-colorizer.lua',
         config = function()
-            require("devenv.colors").init()
+            -- require("devenv.colors").init()
+            require("colorizer").setup()
         end
     }
 

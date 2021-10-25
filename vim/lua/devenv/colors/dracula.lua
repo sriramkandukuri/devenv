@@ -1,281 +1,484 @@
 -- Dracula color scheme
 
 vim.api.nvim_command("set background=dark")
-vim.g.colors_name = "dracula"
-local colors = require('devenv.colors').colors
-local hil = require('devenv.colors.hil')
+vim.g.colors_name                    = "dracula"
+local colors                         = require('devenv.colors').colors
+local hil                            = require('devenv.colors.hil')
 
-vim.g.terminal_color_0 = colors.back
-vim.g.terminal_color_1 = colors.red
-vim.g.terminal_color_2 = colors.green
-vim.g.terminal_color_3 = colors.yellow
-vim.g.terminal_color_4 = colors.purple
-vim.g.terminal_color_5 = colors.pink
-vim.g.terminal_color_6 = colors.cyan
-vim.g.terminal_color_7 = colors.white
-vim.g.terminal_color_8 = colors.selection
-vim.g.terminal_color_9 = colors.bright_red
-vim.g.terminal_color_11 = colors.bright_yellow
-vim.g.terminal_color_12 = colors.bright_blue
-vim.g.terminal_color_13 = colors.bright_magenta
-vim.g.terminal_color_14 = colors.bright_cyan
-vim.g.terminal_color_15 = colors.bright_white
-vim.g.terminal_color_background = colors.bg
-vim.g.terminal_color_foreground = colors.fg
+vim.g.terminal_color_0               = colors.back
+vim.g.terminal_color_1               = colors.red
+vim.g.terminal_color_2               = colors.green
+vim.g.terminal_color_3               = colors.yellow
+vim.g.terminal_color_4               = colors.purple
+vim.g.terminal_color_5               = colors.pink
+vim.g.terminal_color_6               = colors.cyan
+vim.g.terminal_color_7               = colors.white
+vim.g.terminal_color_8               = colors.selection
+vim.g.terminal_color_9               = colors.bright_red
+vim.g.terminal_color_11              = colors.bright_yellow
+vim.g.terminal_color_12              = colors.bright_blue
+vim.g.terminal_color_13              = colors.bright_magenta
+vim.g.terminal_color_14              = colors.bright_cyan
+vim.g.terminal_color_15              = colors.bright_white
+vim.g.terminal_color_background      = colors.bg
+vim.g.terminal_color_foreground      = colors.fg
 
---         Comment = { fg = M.colors.comment, style = "italic"},
---         DraculaSubtle = { bg = M.colors.subtle, fg = M.colors.subtle},
+-- Group                                 = {Foreground, Backgroud, Attribute, Special}
+local editor = {
+    CursorIM          = { fg = colors.cursor, style = 'reverse' }, -- like Cursor, but used when in IME mode
+    ModeMsg           = { fg = colors.accent }, -- 'showmode' message (e.g., "-- INSERT -- ")
+    MoreMsg           = { fg = colors.accent }, -- |more-prompt|
+    qfLineNr          = { fg = colors.highlight, bg = colors.title, style = 'reverse' }, -- Line numbers for quickfix lists
+    TablineSel        = { fg = colors.bg, bg = colors.accent }, -- tab pages line, active tab page label
+    Tabline           = { fg = colors.fg },
+    Whitespace        = { fg = colors.selection }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
+    NormalMode        = { fg = colors.accent, style = 'reverse' }, -- Normal mode message in the cmdline
+    InsertMode        = { fg = colors.green, style = 'reverse' }, -- Insert mode message in the cmdline
+    ReplacelMode      = { fg = colors.red, style = 'reverse' }, -- Replace mode message in the cmdline
+    VisualMode        = { fg = colors.purple, style = 'reverse' }, -- Visual mode message in the cmdline
+    CommandMode       = { fg = colors.gray, style = 'reverse' }, -- Command mode message in the cmdline
+    Warnings          = { fg = colors.yellow },
 
--- Group = {Foreground, Backgroud, Attribute, Special}
-local dracula = {
-    Normal = { colors.fg, colors.bg, nil, nil},
-    NormalFloat = { colors.fg, colors.bg, nil, nil},
-    Comment = { colors.comment, nil, "italic", nil},
-    Constant = { colors.yellow, nil, nil, nil},
-    String = { colors.yellow, nil, nil, nil},
-    Character = { colors.green, nil, nil, nil},
-    Number = { colors.orange, nil, nil, nil},
-    Boolean = { colors.cyan, nil, nil, nil},
-    Float = { colors.orange, nil, nil, nil},
-    FloatBorder = { colors.white, nil, nil, nil},
-    Operator = { colors.purple, nil, nil, nil},
-    Keywords = { colors.cyan, nil, nil, nil},
-    Identifier = { colors.cyan, nil, nil, nil},
-    Function = { colors.yellow, nil, nil, nil},
-    Statement = { colors.purple, nil, nil, nil},
-    Conditional = { colors.pink, nil, nil, nil},
-    Repeat = { colors.pink, nil, nil, nil},
-    Label = { colors.cyan, nil, nil, nil},
-    Exception = { colors.purple, nil, nil, nil},
-    PreProc = { colors.yellow, nil, nil, nil},
-    Include = { colors.purple, nil, nil, nil},
-    Define = { colors.purple, nil, nil, nil},
-    Title = { colors.cyan, nil, nil, nil},
-    Macro = { colors.purple, nil, nil, nil},
-    PreCondit = { colors.cyan, nil, nil, nil},
-    Type = { colors.cyan, nil, nil, nil},
-    StorageClass = { colors.pink, nil, nil, nil},
-    Structure = { colors.yellow, nil, nil, nil},
-    TypeDef = { colors.yellow, nil, nil, nil},
-    Special = { colors.green, nil, nil, nil},
-    SpecialComment = { colors.comment, nil, "italic", nil},
-    Error = { colors.bright_red, nil, nil, nil},
-    Todo = { colors.purple, nil, "bold,italic",  nil},
-    Underlined = { colors.cyan, nil, "underline",  nil},
+    healthError       = { fg = colors.error },
+    healthSuccess     = { fg = colors.green },
+    healthWarning     = { fg = colors.yellow },
 
-    ColorColumn = {nil, colors.ruler, nil, nil},
-    Cursor = { nil, nil, "reverse",  nil},
-    CursorLineNr = { colors.yellow, nil, "bold",  nil},
-    SignColumn = { nil, colors.bg, nil, nil},
-    Conceal = { colors.comment, nil, nil, nil},
-    CursorColumn = { nil, colors.ruler, nil, nil},
-    CursorLine = { nil, colors.ruler, nil, nil},
+    -- Dashboard
+    DashboardShortCut = { fg = colors.red },
+    DashboardHeader   = { fg = colors.comments },
+    DashboardCenter   = { fg = colors.accent },
+    DashboardFooter   = { fg = colors.green, style = 'italic' },
+    Normal            = { colors.fg, colors.bg, nil, nil},
+    NormalFloat       = { colors.fg, colors.bg, nil, nil},
+    Constant          = { colors.yellow, nil, nil, nil},
+    String            = { colors.yellow, nil, nil, nil},
+    Character         = { colors.green, nil, nil, nil},
+    Number            = { colors.orange, nil, nil, nil},
+    Boolean           = { colors.cyan, nil, nil, nil},
+    Float             = { colors.orange, nil, nil, nil},
+    FloatBorder       = { colors.white, nil, nil, nil},
+    Operator          = { colors.purple, nil, nil, nil},
+    Keywords          = { colors.cyan, nil, nil, nil},
+    Identifier        = { colors.cyan, nil, nil, nil},
+    Function          = { colors.yellow, nil, nil, nil},
+    Statement         = { colors.purple, nil, nil, nil},
+    Conditional       = { colors.pink, nil, nil, nil},
+    Repeat            = { colors.pink, nil, nil, nil},
+    Label             = { colors.cyan, nil, nil, nil},
+    Exception         = { colors.purple, nil, nil, nil},
+    PreProc           = { colors.yellow, nil, nil, nil},
+    Include           = { colors.purple, nil, nil, nil},
+    Define            = { colors.purple, nil, nil, nil},
+    Title             = { colors.cyan, nil, nil, nil},
+    Error             = { colors.bright_red, nil, nil, nil},
+    Todo              = { colors.purple, nil, "bold,italic",  nil},
+    Underlined        = { colors.cyan, nil, "underline",  nil},
 
-    StatusLine = { colors.white, colors.black, nil, nil},
-    StatusLineNC = { colors.comment, nil, nil, nil},
-    StatusLineTerm = { colors.white, colors.black, nil, nil},
-    StatusLineTermNC = { colors.comment, nil, nil, nil},
+    ColorColumn       = {nil, colors.ruler, nil, nil},
+    Cursor            = { nil, nil, "reverse",  nil},
+    CursorLineNr      = { colors.yellow, nil, "bold",  nil},
+    SignColumn        = { nil, colors.bg, nil, nil},
+    Conceal           = { colors.comment, nil, nil, nil},
+    CursorColumn      = { nil, colors.ruler, nil, nil},
+    CursorLine        = { nil, colors.ruler, nil, nil},
 
-    Directory = { colors.cyan, nil, nil, nil},
-    DiffAdd = { colors.bg, colors.green, nil, nil},
-    DiffChange = { colors.orange, nil, nil, nil},
-    DiffDelete = { colors.red, nil, nil, nil},
-    DiffText = { colors.comment, nil, nil, nil},
+    StatusLine        = { colors.white, colors.black, nil, nil},
+    StatusLineNC      = { colors.comment, nil, nil, nil},
+    StatusLineTerm    = { colors.white, colors.black, nil, nil},
+    StatusLineTermNC  = { colors.comment, nil, nil, nil},
 
-    ErrorMsg = { colors.bright_red, nil, nil, nil},
-    VertSplit = { colors.black, nil, nil, nil},
-    Folded = { colors.comment, nil, nil, nil},
-    FoldColumn = { nil, nil, nil, nil},
-    Search = { colors.black, colors.orange, nil, nil},
-    IncSearch = { colors.orange, colors.comment, nil, nil},
-    LineNr = { colors.violet1, colors.bg, nil, nil},
-    MatchParen = { colors.fg, nil, "underline",  nil},
-    NonText = { colors.nontext, nil, nil, nil},
-    Pmenu = { colors.white, colors.grey1 , nil, nil},
-    PmenuSel = { colors.menu, colors.violet, nil, nil},
-    PmenuSbar = { nil, colors.bg, nil, nil},
-    PmenuThumb = { nil, colors.selection, nil, nil},
+    Directory         = { colors.cyan, nil, nil, nil},
+    DiffAdd           = { colors.bg, colors.green, nil, nil},
+    DiffChange        = { colors.orange, nil, nil, nil},
+    DiffDelete        = { colors.red, nil, nil, nil},
+    DiffText          = { colors.comment, nil, nil, nil},
 
-    Question = { colors.purple, nil, nil, nil},
-    QuickFixLine = { colors.black, colors.yellow, nil, nil},
-    SpecialKey = { colors.nontext, nil, nil, nil},
+    ErrorMsg          = { colors.bright_red, nil, nil, nil},
+    VertSplit         = { colors.black, nil, nil, nil},
+    Folded            = { colors.comment, nil, nil, nil},
+    FoldColumn        = { nil, nil, nil, nil},
+    Search            = { colors.black, colors.orange, nil, nil},
+    IncSearch         = { colors.orange, colors.comment, nil, nil},
+    LineNr            = { colors.violet1, colors.bg, nil, nil},
+    MatchParen        = { colors.fg, nil, "underline",  nil},
+    NonText           = { colors.nontext, nil, nil, nil},
+    Pmenu             = { colors.white, colors.grey1 , nil, nil},
+    PmenuSel          = { colors.menu, colors.violet, nil, nil},
+    PmenuSbar         = { nil, colors.bg, nil, nil},
+    PmenuThumb        = { nil, colors.selection, nil, nil},
 
-    SpellBad = { colors.bright_red, nil, "underline",  nil},
-    SpellCap = { colors.yellow, nil, nil, nil},
-    SpellLocal = { colors.yellow, nil, nil, nil},
-    SpellRare = { colors.yellow, nil, nil, nil},
+    Question          = { colors.purple, nil, nil, nil},
+    QuickFixLine      = { colors.black, colors.yellow, nil, nil},
+    SpecialKey        = { colors.nontext, nil, nil, nil},
 
-    TabLine = { colors.comment, nil, nil, nil},
-    TabLineSel = { colors.white, nil, nil, nil},
-    TabLineFill = { nil, colors.bg, nil, nil},
-    Terminal = { colors.white, colors.black, nil, nil},
-    Visual = { nil, colors.visual, nil, nil},
-    VisualNOS = { colors.visual, nil, nil, nil},
-    WarningMsg = { colors.yellow, nil, nil, nil},
-    WildMenu = { colors.black, colors.white, nil, nil},
-    EndOfBuffer = { colors.subtle, colors.subtle, nil, nil},
+    SpellBad          = { colors.bright_red, nil, "underline",  nil},
+    SpellCap          = { colors.yellow, nil, nil, nil},
+    SpellLocal        = { colors.yellow, nil, nil, nil},
+    SpellRare         = { colors.yellow, nil, nil, nil},
 
-    -- TreeSitter
-    TSError = { colors.bright_red, nil, nil, nil},
-    TSPunctDelimiter = { colors.fg, nil, nil, nil},
-    TSPunctBracket = { colors.fg, nil, nil, nil},
-    TSPunctSpecial = { colors.fg, nil, nil, nil},
+    TabLine           = { colors.comment, nil, nil, nil},
+    TabLineSel        = { colors.white, nil, nil, nil},
+    TabLineFill       = { nil, colors.bg, nil, nil},
+    Terminal          = { colors.white, colors.black, nil, nil},
+    Visual            = { nil, colors.visual, nil, nil},
+    VisualNOS         = { colors.visual, nil, nil, nil},
+    WarningMsg        = { colors.yellow, nil, nil, nil},
+    WildMenu          = { colors.black, colors.white, nil, nil},
+    EndOfBuffer       = { colors.subtle, colors.subtle, nil, nil},
 
-    TSConstant = { colors.purple, nil, nil, nil},
-    TSConstantBuiltin = { colors.purple, nil, nil, nil},
+}
+hil.colors(editor)
 
-    TSConstMacro = { colors.cyan, nil, nil, nil},
-    TSStringRegex = { colors.red, nil, nil, nil},
-    TSString = { colors.yellow, nil, nil, nil},
-    TSStringEscape = { colors.cyan, nil, nil, nil},
-    TSCharacter = { colors.green, nil, nil, nil},
-    TSNumber = { colors.purple, nil, nil, nil},
-    TSBoolean = { colors.purple, nil, nil, nil},
-    TSFloat = { colors.green, nil, nil, nil},
-    TSAnnotation = { colors.yellow, nil, nil, nil},
-    TSAttribute = { colors.cyan, nil, nil, nil},
-    TSNamespace = { "#FF00FF",  nil, nil, nil},
+local syntax = {
+    Macro           = { colors.purple, nil, nil, nil},
+    StorageClass    = { colors.pink, nil, nil, nil},
+    Structure       = { colors.yellow, nil, nil, nil},
+    TypeDef         = { colors.yellow, nil, "italic", nil},
+    Special         = { colors.green, nil, nil, nil},
+    SpecialComment  = { colors.gray, nil, "italic", nil},
+    Comment           = { colors.comment, nil, "italic", nil},
+    Type            = { fg = colors.purple }, -- int, long, char, etc.
+    Constant        = { fg = colors.yellow }, -- any constant
+    Character       = { fg = colors.orange }, -- any character constant: 'c', '\n'
+    Number          = { fg = colors.orange }, -- a number constant: 5
+    Boolean         = { fg = colors.orange }, -- a boolean constant: TRUE, false
+    Float           = { fg = colors.orange }, -- a floating point constant: 2.3e10
+    Statement       = { fg = colors.pink }, -- any statement
+    Label           = { fg = colors.purple }, -- case, default, etc.
+    Operator        = { fg = colors.cyan }, -- sizeof", "+", "*", etc.
+    Exception       = { fg = colors.cyan }, -- try, catch, throw
+    PreProc         = { fg = colors.purple }, -- generic Preprocessor
+    Include         = { fg = colors.blue }, -- preprocessor #include
+    Define          = { fg = colors.pink }, -- preprocessor #define
+    Typedef         = { fg = colors.red }, -- A typedef
+    PreCondit       = { fg = colors.cyan }, -- preprocessor #if, #else, #endif, etc.
+    SpecialChar     = { fg = colors.pink }, -- special character in a constant
+    Tag             = { fg = colors.red }, -- you can use CTRL-] on this
+    Delimiter       = { fg = colors.cyan }, -- character that needs attention like , or .
+    Debug           = { fg = colors.red }, -- debugging statements
+    Underlined      = { fg = colors.link, style = 'underline' }, -- text that stands out, HTML links
+    Ignore          = { fg = colors.disabled }, -- left blank, hidden
+    Error           = { fg = colors.error, style = 'bold,underline' }, -- any erroneous construct
+    Todo            = { fg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+    Conditional     = { fg = colors.purple }, -- normal if, then, else, endif, switch, etc.
+    Keyword         = { fg = colors.purple }, -- normal for, do, while, etc.
+    Repeat          = { fg = colors.purple }, -- normal any other keyword
 
-    TSFuncBuiltin = { colors.cyan, nil, nil, nil},
-    TSFunction = { colors.green, nil, nil, nil},
-    TSFuncMacro = { colors.green, nil, nil, nil},
-    TSParameter = { colors.orange, nil, nil, nil},
-    TSParameterReference = { colors.orange, nil, nil, nil},
-    TSMethod = { colors.green, nil, nil, nil},
-    TSField = { colors.orange, nil, nil, nil},
-    TSProperty = { colors.white, nil, nil, nil},
-    TSConstructor = { colors.cyan, nil, nil, nil},
+    Function        = { fg = colors.blue, style = 'italic' }, -- italic funtion names
+    Identifier      = { fg = colors.fg }, -- any variable name
 
-
-    TSConditional = { colors.pink, nil, nil, nil},
-    TSRepeat = { colors.pink, nil, nil, nil},
-    TSLabel = { colors.cyan, nil, nil, nil},
-
-    TSKeyword = { colors.pink, nil, nil, nil},
-    TSKeywordFunction = { colors.cyan, nil, nil, nil},
-    TSKeywordOperator = { colors.pink, nil, nil, nil},
-    TSOperator = { colors.pink, nil, nil, nil},
-    TSException = { colors.purple, nil, nil, nil},
-    TSType = { colors.pink, nil, nil, nil},
-    TSTypeBuiltin = { colors.cyan, nil, "italic",  nil},
-    TSStructure = { colors.purple, nil, nil, nil},
-    TSSymbol = { nil, colors.grey1, nil, nil},
-    TSInclude = { colors.pink, nil, nil, nil},
-
-
-    TSVariable = { colors.fg, nil, nil, nil},
-    TSVariableBuiltin = { colors.purple, nil, nil, nil},
-
-    TSText = { colors.orange,  nil, nil, nil},
-    TSStrong = { colors.orange,  nil, nil, nil},
-    TSEmphasis = { colors.orange,  nil, nil, nil},
-    TSUnderline = { colors.orange,  nil, nil, nil},
-    TSTitle = { colors.orange,  nil, nil, nil},
-    TSLiteral = { colors.orange,  nil, nil, nil},
-    TSURI = { colors.orange,  nil, nil, nil},
-
-    TSTag = { colors.cyan, nil, nil, nil},
-    TSTagDelimiter = { colors.white, nil, nil, nil},
-
-    -- HTML
-    htmlArg = { colors.yellow, nil, nil, nil},
-    htmlBold = { colors.yellow, nil, "bold",  nil},
-    htmlEndTag = { colors.white, nil, nil, nil},
-    htmlH1 = { colors.pink, nil, nil, nil},
-    htmlH2 = { colors.pink, nil, nil, nil},
-    htmlH3 = { colors.pink, nil, nil, nil},
-    htmlH4 = { colors.pink, nil, nil, nil},
-    htmlH5 = { colors.pink, nil, nil, nil},
-    htmlH6 = { colors.pink, nil, nil, nil},
-    htmlItalic = { colors.purple, nil, "italic",  nil},
-    htmlLink = { colors.purple, nil, "underline",  nil},
-    htmlSpecialChar = { colors.yellow, nil, nil, nil},
-    htmlSpecialTagName = { colors.cyan, nil, nil, nil},
-    htmlTag = { colors.pink, nil, nil, nil},
-    htmlTagN = { colors.pink, nil, nil, nil},
-    htmlTagName = { colors.cyan, nil, nil, nil},
-    htmlTitle = { colors.white, nil, nil, nil},
-
-    -- Markdown
-    markdownBlockquote = { colors.yellow, nil, "italic",  nil},
-    markdownBold = { colors.orange, nil, "bold",  nil},
-    markdownCode = { colors.green, nil, nil, nil},
-    markdownCodeBlock = { colors.orange, nil, nil, nil},
-    markdownCodeDelimiter = { colors.red, nil, nil, nil},
-    markdownH1 = { colors.pink, nil, "bold",  nil},
-    markdownH2 = { colors.pink, nil, "bold",  nil},
-    markdownH3 = { colors.pink, nil, "bold",  nil},
-    markdownH4 = { colors.pink, nil, "bold",  nil},
-    markdownH5 = { colors.pink, nil, "bold",  nil},
-    markdownH6 = { colors.pink, nil, "bold",  nil},
-    markdownHeadingDelimiter = { colors.red, nil, nil, nil},
-    markdownHeadingRule = { colors.comment, nil, nil, nil},
-    markdownId = { colors.purple, nil, nil, nil},
-    markdownIdDeclaration = { colors.cyan, nil, nil, nil},
-    markdownIdDelimiter = { colors.purple, nil, nil, nil},
-    markdownItalic = { colors.yellow, nil, "italic",  nil},
-    markdownLinkDelimiter = { colors.purple, nil, nil, nil},
-    markdownLinkText = { colors.pink, nil, nil, nil},
-    markdownListMarker = { colors.cyan, nil, nil, nil},
-    markdownOrderedListMarker = { colors.red, nil, nil, nil},
-    markdownRule = { colors.comment, nil, nil, nil},
-
-    --  Diff
-    diffAdded = { colors.green, nil, nil, nil},
-    diffRemoved = { colors.red, nil, nil, nil},
-    diffFileId = { colors.yellow, nil, "bold,reverse", nil},
-    diffFile = { colors.nontext, nil, nil, nil},
-    diffNewFile = { colors.green, nil, nil, nil},
-    diffOldFile = { colors.red, nil, nil, nil},
-
-    debugPc = { nil, colors.cyan, nil, nil},
+    String          = { fg = colors.yellow }, -- any string
+    debugPc         = { nil, colors.cyan, nil, nil},
     debugBreakpoint = { colors.red, nil, "reverse", nil},
+}
+hil.colors(syntax)
+
+local html = {
+    htmlLink           = { fg = colors.link, style = 'underline' },
+    htmlH1             = { fg = colors.cyan, style = 'bold' },
+    htmlH2             = { fg = colors.red, style = 'bold' },
+    htmlH3             = { fg = colors.green, style = 'bold' },
+    htmlH4             = { fg = colors.yellow, style = 'bold' },
+    htmlH5             = { fg = colors.purple, style = 'bold' },
+    htmlH6             = { colors.pink, nil, nil, nil},
+    htmlArg            = { colors.yellow, nil, nil, nil},
+    htmlBold           = { colors.yellow, nil, "bold",  nil},
+    htmlEndTag         = { colors.white, nil, nil, nil},
+    htmlItalic         = { colors.purple, nil, "italic",  nil},
+    htmlSpecialChar    = { colors.yellow, nil, nil, nil},
+    htmlSpecialTagName = { colors.cyan, nil, nil, nil},
+    htmlTag            = { colors.pink, nil, nil, nil},
+    htmlTagN           = { colors.pink, nil, nil, nil},
+    htmlTagName        = { colors.cyan, nil, nil, nil},
+    htmlTitle          = { colors.white, nil, nil, nil},
+}
+hil.colors(html)
+
+local markdown = {
+    markdownH1Delimiter       = { fg = colors.cyan },
+    markdownH2Delimiter       = { fg = colors.red },
+    markdownH3Delimiter       = { fg = colors.green },
+
+    markdownBlockquote        = { colors.yellow, nil, "italic",  nil},
+    markdownBold              = { colors.orange, nil, "bold",  nil},
+    markdownCode              = { colors.green, nil, nil, nil},
+    markdownCodeBlock         = { colors.orange, nil, nil, nil},
+    markdownCodeDelimiter     = { colors.red, nil, nil, nil},
+    markdownH1                = { fg = colors.cyan, style = 'bold' },
+    markdownH2                = { fg = colors.red, style = 'bold' },
+    markdownH3                = { fg = colors.green, style = 'bold' },
+    markdownH4                = { colors.blue, nil, "bold",  nil},
+    markdownH5                = { colors.purple, nil, "bold",  nil},
+    markdownH6                = { colors.grey, nil, "bold",  nil},
+    markdownHeadingDelimiter  = { colors.red, nil, nil, nil},
+    markdownHeadingRule       = { colors.comment, nil, nil, nil},
+    markdownId                = { colors.purple, nil, nil, nil},
+    markdownIdDeclaration     = { colors.cyan, nil, nil, nil},
+    markdownIdDelimiter       = { colors.purple, nil, nil, nil},
+    markdownItalic            = { colors.yellow, nil, "italic",  nil},
+    markdownLinkDelimiter     = { colors.purple, nil, nil, nil},
+    markdownLinkText          = { colors.pink, nil, nil, nil},
+    markdownListMarker        = { colors.cyan, nil, nil, nil},
+    markdownOrderedListMarker = { colors.red, nil, nil, nil},
+    markdownRule              = { colors.comment, nil, nil, nil},
+}
+hil.colors(markdown)
+
+local treesitter = {
+
+    TSConstantBuiltin    = { colors.purple, nil, nil, nil},
+
+    TSAnnotation         = { colors.yellow, nil, nil, nil},
+
+    TSStructure          = { colors.purple, nil, nil, nil},
+    TSAttribute          = { fg = colors.yellow }, -- (unstable) TODO: docs
+    TSBoolean            = { fg = colors.orange }, -- For booleans.
+    TSCharacter          = { fg = colors.orange }, -- For characters.
+    TSConstructor        = { fg = colors.purple }, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
+    TSConstant           = { fg = colors.yellow }, -- For constants
+    TSConstBuiltin       = { fg = colors.orange }, -- For constant that are built in the language: `nil` in Lua.
+    TSConstMacro         = { fg = colors.red }, -- For constants that are defined by macros: `NULL` in C.
+    TSError              = { fg = colors.error }, -- For syntax/parser errors.
+    TSException          = { fg = colors.red }, -- For exception related keywords.
+    TSField              = { fg = colors.orange }, -- For fields.
+    TSFloat              = { fg = colors.red }, -- For floats.
+    TSFuncMacro          = { fg = colors.blue }, -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
+    TSInclude            = { fg = colors.cyan }, -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
+    TSKeywordOperator    = { fg = colors.red }, -- Unary and binary operators that are English words: `and`, `or` in Python; `sizeof` in C.
+    TSKeywordReturn      = { fg = colors.cyan },
+    TSLabel              = { fg = colors.red }, -- For labels: `label:` in C and `:label:` in Lua.
+    TSNamespace          = { fg = colors.yellow }, -- For identifiers referring to modules and namespaces.
+    TSNumber             = { fg = colors.orange }, -- For all numbers
+    TSOperator           = { fg = colors.cyan }, -- For any operator: `+`, but also `->` and `*` in C.
+    TSParameter          = { fg = colors.paleblue }, -- For parameters of a function.
+    TSParameterReference = { fg = colors.paleblue }, -- For references to parameters of a function.
+    TSProperty           = { fg = colors.gray }, -- Same as `TSField`,accesing for struct members in C.
+    TSPunctDelimiter     = { fg = colors.cyan }, -- For delimiters ie: `.`
+    TSPunctBracket       = { fg = colors.cyan }, -- For brackets and parens.
+    TSPunctSpecial       = { fg = colors.cyan }, -- For special punctutation that does not fall in the catagories before.
+    TSStringRegex        = { fg = colors.blue }, -- For regexes.
+    TSStringEscape       = { fg = colors.disabled }, -- For escape characters within a string.
+    TSSymbol             = { fg = colors.yellow }, -- For identifiers referring to symbols or atoms.
+    TSStrong             = { fg = colors.paleblue, style = 'bold' }, -- Text to be represented in bold.
+    TSType               = { fg = colors.purple }, -- For types.
+    TSTypeBuiltin        = { fg = colors.purple }, -- For builtin types.
+    TSTag                = { fg = colors.red }, -- Tags like html tag names.
+    TSTagDelimiter       = { fg = colors.cyan }, -- Tag delimiter like `<` `>` `/`
+    TSTagAttribute       = { fg = colors.gray }, -- HTML tag attributes.
+    TSText               = { fg = colors.fg }, -- For strings considered text in a markup language.
+    TSTextReference      = { fg = colors.yellow }, -- FIXME
+    TSEmphasis           = { fg = colors.paleblue }, -- For text to be represented with emphasis.
+    TSUnderline          = { fg = colors.fg, style = 'underline' }, -- For text to be represented with an underline.
+    TSStrike             = { }, -- For strikethrough text.
+    TSTitle              = { fg = colors.title, style = 'bold' }, -- Text that is part of a title.
+    TSLiteral            = { fg = colors.fg }, -- Literal text.
+    TSURI                = { fg = colors.link }, -- Any URI like a link or email.
+    TSMath               = { fg = colors.blue }, -- Math environments like LaTeX's `$ ... $`
+    --TSNone             = { }, -- TODO: docs
+
+    TSComment            = { fg = colors.comment , style = 'italic' }, -- For comment blocks.
+
+    TSString             = { fg = colors.yellow }, -- For strings.
+
+    TSConditional        = { fg = colors.purple }, -- For keywords related to conditionnals.
+    TSKeyword            = { fg = colors.cyan }, -- For keywords that don't fall in previous categories.
+    TSRepeat             = { fg = colors.purple }, -- For keywords related to loops.
+    TSKeywordFunction    = { fg = colors.purple }, -- For keywords used to define a fuction.
+    TSFunction           = { fg = colors.blue, style = 'italic' }, -- For fuction (calls and definitions).
+    TSMethod             = { fg = colors.blue, style = 'italic' }, -- For method calls and definitions.
+    TSFuncBuiltin        = { fg = colors.cyan, style = 'italic' }, -- For builtin functions: `table.insert` in Lua.
+    TSVariable           = { fg = colors.fg }, -- Any variable name that does not have another highlight.
+    TSVariableBuiltin    = { fg = colors.fg }, -- Variable names that are defined by the languages, like `this` or `self`.
+}
+hil.colors(treesitter)
+
+local lsp = {
+    LspDiagnosticsDefaultError           = { fg = colors.error }, -- used for "Error" diagnostic virtual text
+    LspDiagnosticsSignError              = { fg = colors.error }, -- used for "Error" diagnostic signs in sign column
+    LspDiagnosticsFloatingError          = { fg = colors.error }, -- used for "Error" diagnostic messages in the diagnostics float
+    LspDiagnosticsVirtualTextError       = { fg = colors.error }, -- Virtual text "Error"
+    LspDiagnosticsUnderlineError         = { style = 'undercurl', sp = colors.error }, -- used to underline "Error" diagnostics.
+    LspDiagnosticsDefaultWarning         = { fg = colors.yellow }, -- used for "Warning" diagnostic signs in sign column
+    LspDiagnosticsSignWarning            = { fg = colors.yellow }, -- used for "Warning" diagnostic signs in sign column
+    LspDiagnosticsFloatingWarning        = { fg = colors.yellow }, -- used for "Warning" diagnostic messages in the diagnostics float
+    LspDiagnosticsVirtualTextWarning     = { fg = colors.yellow }, -- Virtual text "Warning"
+    LspDiagnosticsUnderlineWarning       = { style = 'undercurl', sp = colors.yellow }, -- used to underline "Warning" diagnostics.
+    LspDiagnosticsDefaultInformation     = { fg = colors.paleblue }, -- used for "Information" diagnostic virtual text
+    LspDiagnosticsSignInformation        = { fg = colors.paleblue },  -- used for "Information" diagnostic signs in sign column
+    LspDiagnosticsFloatingInformation    = { fg = colors.paleblue }, -- used for "Information" diagnostic messages in the diagnostics float
+    LspDiagnosticsVirtualTextInformation = { fg = colors.paleblue }, -- Virtual text "Information"
+    LspDiagnosticsUnderlineInformation   = { style = 'undercurl', sp = colors.paleblue }, -- used to underline "Information" diagnostics.
+    LspDiagnosticsDefaultHint            = { fg = colors.purple  },  -- used for "Hint" diagnostic virtual text
+    LspDiagnosticsSignHint               = { fg = colors.purple  }, -- used for "Hint" diagnostic signs in sign column
+    LspDiagnosticsFloatingHint           = { fg = colors.purple  }, -- used for "Hint" diagnostic messages in the diagnostics float
+    LspDiagnosticsVirtualTextHint        = { fg = colors.purple  }, -- Virtual text "Hint"
+    LspDiagnosticsUnderlineHint          = { style = 'undercurl', sp = colors.paleblue }, -- used to underline "Hint" diagnostics.
+    LspReferenceText                     = { bg = colors.highlight }, -- used for highlighting "text" references
+    LspReferenceRead                     = { bg = colors.highlight }, -- used for highlighting "read" references
+    LspReferenceWrite                    = { bg = colors.highlight }, -- used for highlighting "write" references
+}
+hil.colors(lsp)
+
+local lsplinks = {
+    DiagnosticVirtualTextWarn  = { link = "LspDiagnosticsVirtualTextWarning" },
+    DiagnosticUnderlineWarn    = { link = "LspDiagnosticsUnderlineWarning" },
+    DiagnosticFloatingWarn     = { link = "LspDiagnosticsFloatingWarning" },
+    DiagnosticSignWarn         = { link = "LspDiagnosticsSignWarning" },
+    DiagnosticVirtualTextError = { link = "LspDiagnosticsVirtualTextError" },
+    DiagnosticUnderlineError   = { link = "LspDiagnosticsUnderlineError" },
+    DiagnosticFloatingError    = { link = "LspDiagnosticsFloatingError" },
+    DiagnosticSignError        = { link = "LspDiagnosticsSignError" },
+    DiagnosticVirtualTextInfo  = { link = "LspDiagnosticsVirtualTextInformation" },
+    DiagnosticUnderlineInfo    = { link = "LspDiagnosticsUnderlineInformation" },
+    DiagnosticFloatingInfo     = { link = "LspDiagnosticsFloatingInformation" },
+    DiagnosticSignInfo         = { link = "LspDiagnosticsSignInformation" },
+    DiagnosticVirtualTextHint  = { link = "LspDiagnosticsVirtualTextHint" },
+    DiagnosticUnderlineHint    = { link = "LspDiagnosticsUnderlineHint" },
+    DiagnosticFloatingHint     = { link = "LspDiagnosticsFloatingHint" },
+    DiagnosticSignHint         = { link = "LspDiagnosticsSignHint" },
+}
+hil.links(lsplinks)
+
+local plugins = {
+
+    -- LspTrouble
+    LspTroubleText                = { fg = colors.text },
+    LspTroubleCount               = { fg = colors.purple, bg = colors.active },
+    LspTroubleNormal              = { fg = colors.fg, bg = colors.sidebar },
+
+    -- Diff
+    diffAdded                     = { fg = colors.green },
+    diffRemoved                   = { fg = colors.red },
+    diffChanged                   = { fg = colors.blue },
+    diffOldFile                   = { fg = colors.text },
+    diffNewFile                   = { fg = colors.title },
+    diffFile                      = { fg = colors.gray },
+    diffLine                      = { fg = colors.cyan },
+    diffIndexLine                 = { fg = colors.purple },
+
+    -- Neogit
+    NeogitBranch                  = { fg = colors.paleblue },
+    NeogitRemote                  = { fg = colors.purple },
+    NeogitHunkHeader              = { fg = colors.fg, bg = colors.highlight },
+    NeogitHunkHeaderHighlight     = { fg = colors.blue, bg = colors.contrast },
+    NeogitDiffContextHighlight    = { fg = colors.text, bg = colors.contrast },
+    NeogitDiffDeleteHighlight     = { fg = colors.red },
+    NeogitDiffAddHighlight        = { fg = colors.green },
+
+    -- GitGutter
+    GitGutterAdd                  = { fg = colors.green }, -- diff mode: Added line |diff.txt|
+    GitGutterChange               = { fg = colors.blue }, -- diff mode: Changed line |diff.txt|
+    GitGutterDelete               = { fg = colors.red }, -- diff mode: Deleted line |diff.txt|
 
     -- Git Signs
-    GitSignsAdd = { colors.bright_green, nil, nil, nil},
-    GitSignsChange = { colors.cyan, nil, nil, nil},
-    GitSignsDelete = { colors.bright_red, nil, nil, nil},
-    GitSignsAddLn = { colors.black, colors.bright_green, nil, nil},
-    GitSignsChangeLn = { colors.black, colors.cyan, nil, nil},
-    GitSignsDeleteLn = { colors.black, colors.bright_red, nil, nil},
+    GitSignsAdd                   = { colors.bright_green, nil, nil, nil},
+    GitSignsChange                = { colors.cyan, nil, nil, nil},
+    GitSignsDelete                = { colors.bright_red, nil, nil, nil},
+    GitSignsAddLn                 = { colors.bright_green, nil, nil, nil},
+    GitSignsChangeLn              = { colors.cyan, nil, nil, nil},
+    GitSignsDeleteLn              = { colors.bright_red, nil, nil, nil},
 
     -- Telescope
-    TelescopePromptBorder = { colors.green, nil, nil, nil},
-    TelescopeResultsBorder = { colors.bright_blue, nil, nil, nil},
-    TelescopePreviewBorder = { colors.pink, nil, nil, nil},
-    TelescopeSelection = { colors.white, colors.ruler, nil, nil},
-    TelescopeMultiSelection = { colors.purple, colors.ruler, nil, nil},
-    TelescopeNormal = { colors.fg, colors.bg, nil, nil},
-    TelescopeMatching = { colors.green, nil, nil, nil},
-    TelescopePromptPrefix = { colors.purple, nil, nil, nil},
+    TelescopePromptBorder         = { colors.green, nil, nil, nil},
+    TelescopeResultsBorder        = { colors.bright_blue, nil, nil, nil},
+    TelescopePreviewBorder        = { colors.pink, nil, nil, nil},
+    TelescopeSelection            = { colors.white, colors.ruler, nil, nil},
+    TelescopeMultiSelection       = { colors.purple, colors.ruler, nil, nil},
+    TelescopeNormal               = { colors.fg, colors.bg, nil, nil},
+    TelescopeMatching             = { colors.green, nil, nil, nil},
+    TelescopePromptPrefix         = { colors.purple, nil, nil, nil},
+    TelescopeSelectionCaret       = { fg = colors.purple },
 
     -- NvimTree
-    NvimTreeRootFolder = { colors.purple, nil, 'bold', nil},
-    NvimTreeNormal  = { colors.bright_blue, nil, nil, nil},
-    NvimTreeGitDirty = { colors.yellow, nil, nil, nil},
-    NvimTreeGitNew = { colors.bright_green, nil, nil, nil},
-    NvimTreeImageFile = { colors.pink, nil, nil, nil},
-    NvimTreeFolderIcon = { colors.purple, nil, nil, nil},
-    NvimTreeIndentMarker = { colors.nontext, nil, nil, nil},
-    NvimTreeEmptyFolderName = { colors.comment, nil, nil, nil},
-    NvimTreeFolderName = { colors.bright_blue, nil, nil, nil},
-    NvimTreeSpecialFile = { colors.pink, nil, 'underline', nil},
+    NvimTreeRootFolder            = { fg = colors.fg, style = 'italic' },
+    NvimTreeFolderName            = { fg = colors.text },
+    NvimTreeFolderIcon            = { fg = colors.accent, bg = colors.sidebar },
+    NvimTreeEmptyFolderName       = { fg = colors.disabled },
+    NvimTreeOpenedFolderName      = { fg = colors.accent, style = 'italic' },
+    NvimTreeIndentMarker          = { fg = colors.disabled },
+    NvimTreeGitDirty              = { fg = colors.blue },
+    NvimTreeGitNew                = { fg = colors.green },
+    NvimTreeGitStaged             = { fg = colors.comments },
+    NvimTreeGitDeleted            = { fg = colors.red },
+    NvimTreeOpenedFile            = { fg = colors.accent },
+    NvimTreeImageFile             = { fg = colors.yellow },
+    NvimTreeMarkdownFile          = { fg = colors.pink },
+    NvimTreeExecFile              = { fg = colors.green },
+    NvimTreeSpecialFile           = { fg = colors.purple , style = 'underline' },
+    LspDiagnosticsError           = { fg = colors.error },
+    LspDiagnosticsWarning         = { fg = colors.yellow },
+    LspDiagnosticsInformation     = { fg = colors.paleblue },
+    LspDiagnosticsHint            = { fg = colors.purple },
 
-    -- Bufferline
-    BufferLineIndicatorSelected = { colors.purple , nil, nil, nil},
-    BufferLineFill = { nil , colors.black, nil, nil},
+    -- WhichKey
+    WhichKey                      = { fg = colors.accent , style = 'bold'},
+    WhichKeyGroup                 = { fg = colors.text },
+    WhichKeyDesc                  = { fg = colors.blue, style = 'italic' },
+    WhichKeySeperator             = { fg = colors.fg },
+    WhichKeyFloating              = { bg = colors.float },
+    WhichKeyFloat                 = { bg = colors.float },
 
-    -- LSP
-    LspDiagnosticsDefaultError = { colors.red, nil, nil, nil},
-    LspDiagnosticsDefaultWarning = { colors.yellow, nil, nil, nil},
-    LspDiagnosticsDefaultInformation = { colors.cyan, nil, nil, nil},
-    LspDiagnosticsDefaultHint = { colors.cyan, nil, nil, nil},
-    LspDiagnosticsUnderlineError = { colors.red, nil, "undercurl",  nil},
-    LspDiagnosticsUnderlineWarning = { colors.yellow, nil, "undercurl",  nil},
-    LspDiagnosticsUnderlineInformation = { colors.cyan, nil, "undercurl",  nil},
-    LspDiagnosticsUnderlineHint = { colors.cyan, nil, "undercurl",  nil},
-    LspReferenceText = { nil, colors.grey1, nil, nil},
-    LspReferenceRead = { nil, colors.grey1, nil, nil},
-    LspReferenceWrite = { nil, colors.grey1, nil, nil},
+    -- LspSaga
+    LspFloatWinNormal             = { fg = colors.text, bg = colors.bg },
+    LspFloatWinBorder             = { fg = colors.purple },
+    DiagnosticError               = { fg = colors.error },
+    DiagnosticWarning             = { fg = colors.yellow },
+    DiagnosticInformation         = { fg = colors.paleblue },
+    DiagnosticHint                = { fg = colors.purple },
+    LspSagaDiagnosticBorder       = { fg = colors.gray },
+    LspSagaDiagnosticHeader       = { fg = colors.blue },
+    LspSagaDiagnosticTruncateLine = { fg = colors.border },
+    LspLinesDiagBorder            = { fg = colors.contrast },
+    ProviderTruncateLine          = { fg = colors.border },
+    LspSagaShTruncateLine         = { fg = colors.border },
+    LspSagaDocTruncateLine        = { fg = colors.border },
+    LineDiagTruncateLine          = { fg = colors.border },
+    LspSagaBorderTitle            = { fg = colors.cyan },
+    LspSagaHoverBorder            = { fg = colors.paleblue },
+    LspSagaRenameBorder           = { fg = colors.green },
+    LspSagaDefPreviewBorder       = { fg = colors.green },
+    LspSagaCodeActionTitle        = { fg = colors.paleblue },
+    LspSagaCodeActionContent      = { fg = colors.purple },
+    LspSagaCodeActionBorder       = { fg = colors.blue },
+    LspSagaCodeActionTruncateLine = { fg = colors.border },
+    LspSagaSignatureHelpBorder    = { fg = colors.pink },
+    LspSagaFinderSelection        = { fg = colors.green },
+    -- LspSagaAutoPreview         = { fg = colors.red },
+    ReferencesCount               = { fg = colors.purple },
+    DefinitionCount               = { fg = colors.purple },
+    DefinitionPreviewTitle        = { fg = colors.green },
+    DefinitionIcon                = { fg = colors.blue },
+    ReferencesIcon                = { fg = colors.blue },
+    TargetWord                    = { fg = colors.cyan },
+
+    -- BufferLine
+    BufferLineIndicatorSelected   = { fg = colors.accent },
+    BufferLineFill                = { bg = colors.bg },
+
+    -- Sneak
+    Sneak                         = { fg = colors.bg, bg = colors.accent },
+    SneakScope                    = { bg = colors.selection },
+
+    -- Indent Blankline
+    IndentBlanklineChar           = { fg = colors.highlight },
+    IndentBlanklineContextChar    = { fg = colors.fg },
+
+    -- Nvim dap
+    DapBreakpoint                 = { fg = colors.red },
+    DapStopped                    = { fg = colors.green },
+
+    -- Illuminate
+    illuminatedWord               = { bg = colors.highight },
+    illuminatedCurWord            = { bg = colors.highight },
+
+    -- Hop
+    HopNextKey                    = { fg = colors.accent, style = 'bold' },
+    HopNextKey1                   = { fg = colors.purple, style = 'bold' },
+    HopNextKey2                   = { fg = colors.blue },
+    HopUnmatched                  = { fg = colors.comments },
+
+    -- Fern
+    FernBranchText                = { fg = colors.blue },
+    NvimTreeNormal                = { fg = colors.comments}
 }
-hil.colors(dracula)
+hil.colors(plugins)
