@@ -64,15 +64,17 @@ do
     echo >> $VHELP
 done
 
-for f in $(grep -nrl "^--VH" ~/devenv/vim/*)
+cd ~/devenv/vim/lua/devenv
+for f in $(grep -nrl "^--VH" *)
 do
-    h=$(basename $f|cut -d'.' -f1)
-    h=$(echo ${h^}|tr '_' ' ')
+    h=$(echo $f|cut -d'.' -f1)
+    h=$(echo ${h^}|tr '_' ' '|tr '/' ' ')
     echo "### $h" >> $VHELP
     echo >> $VHELP
 
     echo "|Shortcut|Description|" >> $VHELP
     echo "|---|---|" >> $VHELP
-    grep "^--VH" $f | cut -d" " -f2- >> $VHELP
+    grep "^\-\-VH" $f | cut -d" " -f2- >> $VHELP
     echo >> $VHELP
 done
+cd -

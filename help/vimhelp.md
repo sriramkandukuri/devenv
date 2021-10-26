@@ -191,6 +191,29 @@ Please find below shortcuts provided for vim.
 |---|---|
 |Space+u|show undo tree in spliview|
 
+### Lsp init
+
+|Shortcut|Description|
+|---|---|
+|gd|go to definition|
+|gr|rename symbol|
+|gR|go to references|
+|gy|go to type definition|
+|gk|hover to get the signature help of the word under cursor|
+|gss|organize|
+|\[a|previous diagnostic|
+|\]a|next diagnostic|
+|ga|show code actions|
+|gl|show line diagnostics as popup|
+|Space F12|toggle diagnostics|
+|Ctrl+l|show signature help in insert mdoe|
+
+### Plugins
+
+|Shortcut|Description|
+|---|---|
+|F5|Refresh plugins|
+
 ### Tscope
 
 |Shortcut|Description|
@@ -202,10 +225,4 @@ Please find below shortcuts provided for vim.
 |Space+<ENTER>|Search through available buffers and enter to open selected one|
 |Spacevh|Search through available help tags|
 |Spacedv|Search through devenv files|
-
-### Plugins
-
-|Shortcut|Description|
-|---|---|
-|F5|Refresh plugins|
 

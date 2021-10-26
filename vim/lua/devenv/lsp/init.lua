@@ -53,6 +53,19 @@ lspsign.setup({
     }
 })
 
+vim.g.diagnostics_active = false
+function _G.toggle_diagnostics()
+    if vim.g.diagnostics_active then
+        vim.g.diagnostics_active = false
+        vim.lsp.diagnostic.disable()
+    else
+        vim.g.diagnostics_active = true
+        vim.lsp.diagnostic.enable()
+    end
+end
+
+vim.api.nvim_set_keymap('n', '<leader>tt', ':call v:lua.toggle_diagnostics()<CR>',  {noremap = true, silent = true})
+
 local custom_attach = function(client, bufnr)
     -- local filetype = vim.api.nvim_buf_get_option(0, "filetype")
     -- print("LSP started")
@@ -78,16 +91,29 @@ local custom_attach = function(client, bufnr)
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
     -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
 
+--VH |gd|go to definition|
     nmap("gd", ":LspDef<CR>", {bufnr = bufnr})
+--VH |gr|rename symbol|
     nmap("gr", ":LspRename<CR>", {bufnr = bufnr})
+--VH |gR|go to references|
     nmap("gR", ":LspRefs<CR>", {bufnr = bufnr})
+--VH |gy|go to type definition|
     nmap("gy", ":LspTypeDef<CR>", {bufnr = bufnr})
+--VH |gk|hover to get the signature help of the word under cursor|
     nmap("gk", ":LspHover<CR>", {bufnr = bufnr})
+--VH |gss|organize|
     nmap("gss", ":LspOrganize<CR>", {bufnr = bufnr})
+--VH |\[a|previous diagnostic|
     nmap("[a", ":LspDiagPrev<CR>", {bufnr = bufnr})
+--VH |\]a|next diagnostic|
     nmap("]a", ":LspDiagNext<CR>", {bufnr = bufnr})
+--VH |ga|show code actions|
     nmap("ga", ":LspCodeAction<CR>", {bufnr = bufnr})
+--VH |gl|show line diagnostics as popup|
     nmap("gl", ":LspDiagLine<CR>", {bufnr = bufnr})
+--VH |Space F12|toggle diagnostics|
+    nmap("<leader><F12>", ':call v:lua.toggle_diagnostics()<CR>')
+--VH |Ctrl+l|show signature help in insert mdoe|
     imap("<c-l>", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
