@@ -108,19 +108,30 @@ function M.hlink(group, link)
     vim.cmd(cmd)
 end
 
+local function check_hilg(group)
+    if not _G.devenv_err then
+        return
+    end
+    local g = _G.HILG
+    if g[group] ~= nil then
+        DVERR (group .. " is already configured")
+    else
+        g[group] = true
+    end
+end
 
 function M.colors(colors)
     DVDBG("Entered hiltable")
     for group, hinfo in pairs(colors) do
-        DVDBG(group)
+        check_hilg(group)
         M.hcolor(group, hinfo)
     end
 end
 
 function M.links(colors)
     for group, link in pairs(colors) do
-        M.hcolor(group, link)
+        check_hilg(group)
+        M.hlink(group, link)
     end
 end
 return M
-
