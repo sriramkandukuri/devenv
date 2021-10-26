@@ -3,9 +3,43 @@
 vim.api.nvim_command("set background=dark")
 local colors                         = require('devenv.colors').colors
 local hil                            = require('devenv.colors.hil')
+
+local function mapcommon(clrs)
+    clrs.error          = clrs.red
+    clrs.link           = clrs.dark_blue
+    clrs.cursor         = clrs.dark_grey
+    clrs.border         = clrs.dark_grey
+    clrs.sidebar        = clrs.dark_grey
+    clrs.ruler          = clrs.dark_grey
+
+    clrs.active         = clrs.grey
+    clrs.bg_alt         = clrs.black
+    clrs.line_numbers   = clrs.paleblue
+    clrs.text           = clrs.dark_white
+    clrs.title          = clrs.aqua
+    clrs.highlight      = clrs.grey
+    clrs.selection      = clrs.grey
+    clrs.disabled       = clrs.paleblue
+    clrs.float          = clrs.bright_black
+    clrs.menu           = clrs.bright_black
+    clrs.accent         = clrs.dark_black
+    clrs.nontext        = clrs.dark_grey
+    clrs.comments       = clrs.bright_grey1
+    clrs.visual         = clrs.dark_grey1
+    clrs.gutter_fg      = clrs.grey1
+
+    clrs.CurrentLine    = clrs.grey
+    clrs.bg             = clrs.black
+    clrs.subtle         = clrs.black
+    clrs.fg             = clrs.dark_white
+    clrs.comment        = clrs.bright_grey1
+end
+
+mapcommon(colors)
+
 vim.g.colors_name                    = colors.name
 
-vim.g.terminal_color_0               = colors.back
+vim.g.terminal_color_0               = colors.black
 vim.g.terminal_color_1               = colors.red
 vim.g.terminal_color_2               = colors.green
 vim.g.terminal_color_3               = colors.yellow
@@ -50,31 +84,9 @@ local editor = {
     DashboardFooter   = { fg = colors.green, style = 'italic' },
     Normal            = { colors.fg, colors.bg, nil, nil},
     NormalFloat       = { colors.fg, colors.bg, nil, nil},
-    Constant          = { colors.yellow, nil, nil, nil},
-    String            = { colors.yellow, nil, nil, nil},
-    Character         = { colors.green, nil, nil, nil},
-    Number            = { colors.orange, nil, nil, nil},
-    Boolean           = { colors.cyan, nil, nil, nil},
-    Float             = { colors.orange, nil, nil, nil},
     FloatBorder       = { colors.white, nil, nil, nil},
-    Operator          = { colors.purple, nil, nil, nil},
-    Keywords          = { colors.cyan, nil, nil, nil},
-    Identifier        = { colors.cyan, nil, nil, nil},
-    Function          = { colors.yellow, nil, nil, nil},
-    Statement         = { colors.purple, nil, nil, nil},
-    Conditional       = { colors.pink, nil, nil, nil},
-    Repeat            = { colors.pink, nil, nil, nil},
-    Label             = { colors.cyan, nil, nil, nil},
-    Exception         = { colors.purple, nil, nil, nil},
-    PreProc           = { colors.yellow, nil, nil, nil},
-    Include           = { colors.purple, nil, nil, nil},
-    Define            = { colors.purple, nil, nil, nil},
-    Title             = { colors.cyan, nil, nil, nil},
-    Error             = { colors.bright_red, nil, nil, nil},
-    Todo              = { colors.purple, nil, "bold,italic",  nil},
-    Underlined        = { colors.cyan, nil, "underline",  nil},
 
-    ColorColumn       = {nil, colors.ruler, nil, nil},
+    ColorColumn       = { nil, colors.ruler, nil, nil},
     Cursor            = { nil, nil, "reverse",  nil},
     CursorLineNr      = { colors.yellow, nil, "bold",  nil},
     SignColumn        = { nil, colors.bg, nil, nil},
@@ -98,7 +110,7 @@ local editor = {
     Folded            = { colors.comment, nil, nil, nil},
     Search            = { colors.black, colors.orange, nil, nil},
     IncSearch         = { colors.orange, colors.comment, nil, nil},
-    LineNr            = { colors.violet1, colors.bg, nil, nil},
+    LineNr            = { colors.line_numbers, colors.bg, nil, nil},
     MatchParen        = { colors.fg, nil, "underline",  nil},
     NonText           = { colors.nontext, nil, nil, nil},
     Pmenu             = { colors.white, colors.grey1 , nil, nil},
@@ -124,53 +136,9 @@ local editor = {
     WarningMsg        = { colors.yellow, nil, nil, nil},
     WildMenu          = { colors.black, colors.white, nil, nil},
     EndOfBuffer       = { colors.subtle, colors.subtle, nil, nil},
-
+    htmlLink           = { fg = colors.link, style = 'underline' },
 }
 hil.colors(editor)
-
-local syntax = {
-    Macro           = { colors.purple, nil, nil, nil},
-    StorageClass    = { colors.pink, nil, nil, nil},
-    Structure       = { colors.yellow, nil, nil, nil},
-    TypeDef         = { colors.yellow, nil, "italic", nil},
-    Special         = { colors.green, nil, nil, nil},
-    SpecialComment  = { colors.gray, nil, "italic", nil},
-    Comment           = { colors.comment, nil, "italic", nil},
-    Type            = { fg = colors.purple }, -- int, long, char, etc.
-    Constant        = { fg = colors.yellow }, -- any constant
-    Character       = { fg = colors.orange }, -- any character constant: 'c', '\n'
-    Number          = { fg = colors.orange }, -- a number constant: 5
-    Boolean         = { fg = colors.orange }, -- a boolean constant: TRUE, false
-    Float           = { fg = colors.orange }, -- a floating point constant: 2.3e10
-    Statement       = { fg = colors.pink }, -- any statement
-    Label           = { fg = colors.purple }, -- case, default, etc.
-    Operator        = { fg = colors.cyan }, -- sizeof", "+", "*", etc.
-    Exception       = { fg = colors.cyan }, -- try, catch, throw
-    PreProc         = { fg = colors.purple }, -- generic Preprocessor
-    Include         = { fg = colors.blue }, -- preprocessor #include
-    Define          = { fg = colors.pink }, -- preprocessor #define
-    Typedef         = { fg = colors.red }, -- A typedef
-    PreCondit       = { fg = colors.cyan }, -- preprocessor #if, #else, #endif, etc.
-    SpecialChar     = { fg = colors.pink }, -- special character in a constant
-    Tag             = { fg = colors.red }, -- you can use CTRL-] on this
-    Delimiter       = { fg = colors.cyan }, -- character that needs attention like , or .
-    Debug           = { fg = colors.red }, -- debugging statements
-    Underlined      = { fg = colors.link, style = 'underline' }, -- text that stands out, HTML links
-    Ignore          = { fg = colors.disabled }, -- left blank, hidden
-    Error           = { fg = colors.error, style = 'bold,underline' }, -- any erroneous construct
-    Todo            = { fg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    Conditional     = { fg = colors.purple }, -- normal if, then, else, endif, switch, etc.
-    Keyword         = { fg = colors.purple }, -- normal for, do, while, etc.
-    Repeat          = { fg = colors.purple }, -- normal any other keyword
-
-    Function        = { fg = colors.blue, style = 'italic' }, -- italic funtion names
-    Identifier      = { fg = colors.fg }, -- any variable name
-
-    String          = { fg = colors.yellow }, -- any string
-    debugPc         = { nil, colors.cyan, nil, nil},
-    debugBreakpoint = { colors.red, nil, "reverse", nil},
-}
-hil.colors(syntax)
 
 local html = {
     htmlLink           = { fg = colors.link, style = 'underline' },
@@ -223,12 +191,52 @@ local markdown = {
 }
 hil.colors(markdown)
 
+local syntax = {
+    Macro           = { colors.purple, nil, nil, nil},
+    StorageClass    = { colors.pink, nil, nil, nil},
+    Structure       = { colors.yellow, nil, nil, nil},
+    TypeDef         = { colors.yellow, nil, "italic", nil},
+    Special         = { colors.green, nil, nil, nil},
+    SpecialComment  = { colors.gray, nil, "italic", nil},
+    Comment         = { colors.comment, nil, "italic", nil},
+    Type            = { fg = colors.purple }, -- int, long, char, etc.
+    Constant        = { fg = colors.yellow }, -- any constant
+    Character       = { fg = colors.orange }, -- any character constant: 'c', '\n'
+    Number          = { fg = colors.orange }, -- a number constant: 5
+    Boolean         = { fg = colors.orange }, -- a boolean constant: TRUE, false
+    Float           = { fg = colors.orange }, -- a floating point constant: 2.3e10
+    Statement       = { fg = colors.pink }, -- any statement
+    Keywords        = { colors.cyan, nil, nil, nil},
+    Label           = { fg = colors.purple }, -- case, default, etc.
+    Operator        = { fg = colors.cyan }, -- sizeof", "+", "*", etc.
+    Exception       = { fg = colors.cyan }, -- try, catch, throw
+    PreProc         = { fg = colors.purple }, -- generic Preprocessor
+    Include         = { fg = colors.blue }, -- preprocessor #include
+    Define          = { fg = colors.pink }, -- preprocessor #define
+    Typedef         = { fg = colors.red }, -- A typedef
+    PreCondit       = { fg = colors.cyan }, -- preprocessor #if, #else, #endif, etc.
+    SpecialChar     = { fg = colors.pink }, -- special character in a constant
+    Tag             = { fg = colors.red }, -- you can use CTRL-] on this
+    Delimiter       = { fg = colors.cyan }, -- character that needs attention like , or .
+    Debug           = { fg = colors.red }, -- debugging statements
+    Underlined      = { fg = colors.link, style = 'underline' }, -- text that stands out, HTML links
+    Ignore          = { fg = colors.disabled }, -- left blank, hidden
+    Error           = { fg = colors.error, style = 'bold,underline' }, -- any erroneous construct
+    Todo            = { fg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+    Conditional     = { fg = colors.purple }, -- normal if, then, else, endif, switch, etc.
+    Keyword         = { fg = colors.purple }, -- normal for, do, while, etc.
+    Repeat          = { fg = colors.purple }, -- normal any other keyword
+
+    Function        = { fg = colors.blue, style = 'italic' }, -- italic funtion names
+    Identifier      = { fg = colors.fg }, -- any variable name
+
+    String          = { fg = colors.yellow }, -- any string
+}
+hil.colors(syntax)
+
 local treesitter = {
-
     TSConstantBuiltin    = { colors.purple, nil, nil, nil},
-
     TSAnnotation         = { colors.yellow, nil, nil, nil},
-
     TSStructure          = { colors.purple, nil, nil, nil},
     TSAttribute          = { fg = colors.yellow }, -- (unstable) TODO: docs
     TSBoolean            = { fg = colors.orange }, -- For booleans.
@@ -478,6 +486,10 @@ local plugins = {
 
     -- Fern
     FernBranchText                = { fg = colors.blue },
-    NvimTreeNormal                = { fg = colors.comments}
+    NvimTreeNormal                = { fg = colors.comments},
+
+    -- debug/dap
+    debugPc         = { nil, colors.cyan, nil, nil},
+    debugBreakpoint = { colors.red, nil, "reverse", nil},
 }
 hil.colors(plugins)
