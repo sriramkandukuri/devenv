@@ -59,7 +59,7 @@ packer.startup{function()
             vim.g.cursorhold_udpatetime = '100'
         end
     } -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
-    use { "nvim-lua/lsp-status.nvim",
+    use { "nvim-lua/lsp-status.nvim", as = "lsp_status",
         config = function()
             require("devenv.lsp.status")
         end
@@ -263,6 +263,7 @@ packer.startup{function()
         config = function()
             require("devenv.lualine")
         end,
+        after = "lsp_status",
     }
     use {'kyazdani42/nvim-tree.lua',
         enable = true,
