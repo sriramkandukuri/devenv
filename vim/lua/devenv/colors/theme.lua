@@ -1,9 +1,9 @@
 -- Dracula color scheme
 
 vim.api.nvim_command("set background=dark")
-vim.g.colors_name                    = "dracula"
 local colors                         = require('devenv.colors').colors
 local hil                            = require('devenv.colors.hil')
+vim.g.colors_name                    = colors.name
 
 vim.g.terminal_color_0               = colors.back
 vim.g.terminal_color_1               = colors.red
