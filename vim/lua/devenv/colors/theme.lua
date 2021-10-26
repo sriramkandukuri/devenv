@@ -222,10 +222,10 @@ local syntax = {
     Ignore          = { fg = colors.disabled }, -- left blank, hidden
     Error           = { fg = colors.error, style = 'bold,underline' }, -- any erroneous construct
     Todo            = { fg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    Conditional     = { fg = colors.purple }, -- normal if, then, else, endif, switch, etc.
+    Conditional     = { fg = colors.pink }, -- normal if, then, else, endif, switch, etc.
     Keywords        = { colors.cyan, nil, nil, nil},
     Keyword         = { fg = colors.dark_yellow, style = "italic" }, -- normal for, do, while, etc.
-    Repeat          = { fg = colors.purple }, -- normal any other keyword
+    Repeat          = { fg = colors.bright_violet, style = "bold,italic" }, -- normal any other keyword
 
     Function        = { fg = colors.bright_blue, style = 'italic' }, -- italic funtion names
     Identifier      = { fg = colors.fg }, -- any variable name
@@ -247,8 +247,8 @@ local treesitter = {
     TSKeywordOperator    = { fg = colors.red }, -- Unary and binary operators that are English words: `and`, `or` in Python; `sizeof` in C.
     TSKeywordReturn      = { fg = colors.cyan },
     TSNamespace          = { fg = colors.yellow }, -- For identifiers referring to modules and namespaces.
-    TSParameter          = { fg = colors.paleblue }, -- For parameters of a function.
-    TSParameterReference = { fg = colors.paleblue }, -- For references to parameters of a function.
+    TSParameter          = { fg = colors.beige }, -- For parameters of a function.
+    TSParameterReference = { fg = colors.beige }, -- For references to parameters of a function.
     TSProperty           = { fg = colors.bright_white }, -- Same as `TSField`,accesing for struct members in C.
     TSPunctDelimiter     = { fg = colors.cyan }, -- For delimiters ie: `.`
     TSPunctBracket       = { fg = colors.cyan }, -- For brackets and parens.
@@ -274,7 +274,7 @@ local treesitter = {
 
     TSString             = { fg = colors.yellow }, -- For strings.
 
-    TSKeywordFunction    = { fg = colors.purple }, -- For keywords used to define a fuction.
+    TSKeywordFunction    = { fg = colors.purple, style = "italic"}, -- For keywords used to define a fuction.
     TSFuncBuiltin        = { fg = colors.cyan, style = 'italic' }, -- For builtin functions: `table.insert` in Lua.
     TSVariable           = { fg = colors.fg }, -- Any variable name that does not have another highlight.
     TSVariableBuiltin    = { fg = colors.paleblue }, -- Variable names that are defined by the languages, like `this` or `self`.
