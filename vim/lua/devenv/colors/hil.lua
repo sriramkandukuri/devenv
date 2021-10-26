@@ -124,14 +124,12 @@ function M.colors(colors)
     DVDBG("Entered hiltable")
     for group, hinfo in pairs(colors) do
         check_hilg(group)
-        M.hcolor(group, hinfo)
+        if type(hinfo) == "string" or (type(hinfo) == "table" and hinfo["link"] ~= nil) then
+            M.hlink(group,hinfo)
+        else
+            M.hcolor(group, hinfo)
+        end
     end
 end
 
-function M.links(colors)
-    for group, link in pairs(colors) do
-        check_hilg(group)
-        M.hlink(group, link)
-    end
-end
 return M
