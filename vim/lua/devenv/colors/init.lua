@@ -1,3 +1,4 @@
+local nnoremap = require("devenv.utils").nnoremap
 local M = {}
 
 M.colors = require("devenv.colorscheme").dracula
@@ -17,6 +18,7 @@ function M.init()
     vim.o.termguicolors = true
 
     require('devenv.colors.theme')
+    nnoremap( '<F3>',"<cmd>TSHighlightCapturesUnderCursor<CR>")
 
     vim.cmd([[autocmd FileType dirdiff :lua require("devenv.colors").SetDiffColors()<CR>]])
 end
