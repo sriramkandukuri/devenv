@@ -28,6 +28,7 @@ M.dracula = {
     bright_violet  = "#D6ACFF",
     bright_magenta = "#FF92DF",
     bright_cyan    = "#A4FFFF",
+    bright_blue    = "#4ff7ff",
     bright_white   = "#FFFFFF",
     bright_black   = "#21222C",
     bright_grey    = "#8c979a",

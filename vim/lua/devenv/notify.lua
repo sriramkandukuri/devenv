@@ -38,8 +38,7 @@ local notifyColors = {
     NotifyINFOTitle = { colors.aqua, nil, nil, nil },
     NotifyDEBUGTitle  = { colors.grey, nil, nil, nil },
     NotifyTRACETitle  = { colors.violet, nil, nil, nil },
-}
-local notifylinks = {
+
     NotifyERRORBody = "Normal",
     NotifyWARNBody = "Normal",
     NotifyINFOBody = "Normal",
@@ -47,4 +46,3 @@ local notifylinks = {
     NotifyTRACEBody = "Normal",
 }
 hil.colors(notifyColors)
-hil.links(notifylinks)

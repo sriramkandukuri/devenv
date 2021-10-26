@@ -195,25 +195,24 @@ local syntax = {
     Macro           = { colors.purple, nil, nil, nil},
     StorageClass    = { colors.pink, nil, nil, nil},
     Structure       = { colors.yellow, nil, nil, nil},
-    TypeDef         = { colors.yellow, nil, "italic", nil},
     Special         = { colors.green, nil, nil, nil},
     SpecialComment  = { colors.gray, nil, "italic", nil},
     Comment         = { colors.comment, nil, "italic", nil},
-    Type            = { fg = colors.purple }, -- int, long, char, etc.
-    Constant        = { fg = colors.yellow }, -- any constant
+    Type            = { fg = colors.pink, style = "italic" }, -- int, long, char, etc.
+    Constant        = { fg = colors.bright_magenta }, -- any constant
     Character       = { fg = colors.orange }, -- any character constant: 'c', '\n'
     Number          = { fg = colors.orange }, -- a number constant: 5
     Boolean         = { fg = colors.orange }, -- a boolean constant: TRUE, false
     Float           = { fg = colors.orange }, -- a floating point constant: 2.3e10
     Statement       = { fg = colors.pink }, -- any statement
-    Keywords        = { colors.cyan, nil, nil, nil},
-    Label           = { fg = colors.purple }, -- case, default, etc.
+    Label           = { fg = colors.green }, -- case, default, etc.
     Operator        = { fg = colors.cyan }, -- sizeof", "+", "*", etc.
     Exception       = { fg = colors.cyan }, -- try, catch, throw
     PreProc         = { fg = colors.purple }, -- generic Preprocessor
-    Include         = { fg = colors.blue }, -- preprocessor #include
+    Include         = { fg = colors.pink }, -- preprocessor #include
     Define          = { fg = colors.pink }, -- preprocessor #define
-    Typedef         = { fg = colors.red }, -- A typedef
+    TypeDef         = { colors.yellow, nil, "italic", nil},
+    Typedef         = { fg = colors.yellow, style = "italic" }, -- A typedef
     PreCondit       = { fg = colors.cyan }, -- preprocessor #if, #else, #endif, etc.
     SpecialChar     = { fg = colors.pink }, -- special character in a constant
     Tag             = { fg = colors.red }, -- you can use CTRL-] on this
@@ -224,42 +223,33 @@ local syntax = {
     Error           = { fg = colors.error, style = 'bold,underline' }, -- any erroneous construct
     Todo            = { fg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
     Conditional     = { fg = colors.purple }, -- normal if, then, else, endif, switch, etc.
-    Keyword         = { fg = colors.purple }, -- normal for, do, while, etc.
+    Keywords        = { colors.cyan, nil, nil, nil},
+    Keyword         = { fg = colors.dark_yellow, style = "italic" }, -- normal for, do, while, etc.
     Repeat          = { fg = colors.purple }, -- normal any other keyword
 
-    Function        = { fg = colors.blue, style = 'italic' }, -- italic funtion names
+    Function        = { fg = colors.bright_blue, style = 'italic' }, -- italic funtion names
     Identifier      = { fg = colors.fg }, -- any variable name
 
     String          = { fg = colors.yellow }, -- any string
+    helpExample     = { colors.beige, nil, "italic", nil}
 }
 hil.colors(syntax)
 
 local treesitter = {
     TSConstantBuiltin    = { colors.purple, nil, nil, nil},
     TSAnnotation         = { colors.yellow, nil, nil, nil},
-    TSStructure          = { colors.purple, nil, nil, nil},
     TSAttribute          = { fg = colors.yellow }, -- (unstable) TODO: docs
-    TSBoolean            = { fg = colors.orange }, -- For booleans.
-    TSCharacter          = { fg = colors.orange }, -- For characters.
     TSConstructor        = { fg = colors.purple }, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
-    TSConstant           = { fg = colors.yellow }, -- For constants
     TSConstBuiltin       = { fg = colors.orange }, -- For constant that are built in the language: `nil` in Lua.
-    TSConstMacro         = { fg = colors.red }, -- For constants that are defined by macros: `NULL` in C.
-    TSError              = { fg = colors.error }, -- For syntax/parser errors.
-    TSException          = { fg = colors.red }, -- For exception related keywords.
+    TSConstMacro         = { fg = colors.purple }, -- For constants that are defined by macros: `NULL` in C.
     TSField              = { fg = colors.orange }, -- For fields.
-    TSFloat              = { fg = colors.red }, -- For floats.
     TSFuncMacro          = { fg = colors.blue }, -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
-    TSInclude            = { fg = colors.cyan }, -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
     TSKeywordOperator    = { fg = colors.red }, -- Unary and binary operators that are English words: `and`, `or` in Python; `sizeof` in C.
     TSKeywordReturn      = { fg = colors.cyan },
-    TSLabel              = { fg = colors.red }, -- For labels: `label:` in C and `:label:` in Lua.
     TSNamespace          = { fg = colors.yellow }, -- For identifiers referring to modules and namespaces.
-    TSNumber             = { fg = colors.orange }, -- For all numbers
-    TSOperator           = { fg = colors.cyan }, -- For any operator: `+`, but also `->` and `*` in C.
     TSParameter          = { fg = colors.paleblue }, -- For parameters of a function.
     TSParameterReference = { fg = colors.paleblue }, -- For references to parameters of a function.
-    TSProperty           = { fg = colors.gray }, -- Same as `TSField`,accesing for struct members in C.
+    TSProperty           = { fg = colors.bright_white }, -- Same as `TSField`,accesing for struct members in C.
     TSPunctDelimiter     = { fg = colors.cyan }, -- For delimiters ie: `.`
     TSPunctBracket       = { fg = colors.cyan }, -- For brackets and parens.
     TSPunctSpecial       = { fg = colors.cyan }, -- For special punctutation that does not fall in the catagories before.
@@ -267,9 +257,6 @@ local treesitter = {
     TSStringEscape       = { fg = colors.disabled }, -- For escape characters within a string.
     TSSymbol             = { fg = colors.yellow }, -- For identifiers referring to symbols or atoms.
     TSStrong             = { fg = colors.paleblue, style = 'bold' }, -- Text to be represented in bold.
-    TSType               = { fg = colors.purple }, -- For types.
-    TSTypeBuiltin        = { fg = colors.purple }, -- For builtin types.
-    TSTag                = { fg = colors.red }, -- Tags like html tag names.
     TSTagDelimiter       = { fg = colors.cyan }, -- Tag delimiter like `<` `>` `/`
     TSTagAttribute       = { fg = colors.gray }, -- HTML tag attributes.
     TSText               = { fg = colors.fg }, -- For strings considered text in a markup language.
@@ -281,21 +268,36 @@ local treesitter = {
     TSLiteral            = { fg = colors.fg }, -- Literal text.
     TSURI                = { fg = colors.link }, -- Any URI like a link or email.
     TSMath               = { fg = colors.blue }, -- Math environments like LaTeX's `$ ... $`
+    TSType               = { fg = colors.bright_violet, style = "italic" }, --Custom types
     --TSNone             = { }, -- TODO: docs
 
-    TSComment            = { fg = colors.comment , style = 'italic' }, -- For comment blocks.
 
     TSString             = { fg = colors.yellow }, -- For strings.
 
-    TSConditional        = { fg = colors.purple }, -- For keywords related to conditionnals.
-    TSKeyword            = { fg = colors.cyan }, -- For keywords that don't fall in previous categories.
-    TSRepeat             = { fg = colors.purple }, -- For keywords related to loops.
     TSKeywordFunction    = { fg = colors.purple }, -- For keywords used to define a fuction.
-    TSFunction           = { fg = colors.blue, style = 'italic' }, -- For fuction (calls and definitions).
-    TSMethod             = { fg = colors.blue, style = 'italic' }, -- For method calls and definitions.
     TSFuncBuiltin        = { fg = colors.cyan, style = 'italic' }, -- For builtin functions: `table.insert` in Lua.
     TSVariable           = { fg = colors.fg }, -- Any variable name that does not have another highlight.
-    TSVariableBuiltin    = { fg = colors.fg }, -- Variable names that are defined by the languages, like `this` or `self`.
+    TSVariableBuiltin    = { fg = colors.paleblue }, -- Variable names that are defined by the languages, like `this` or `self`.
+
+    TSFloat              = "Float", -- For floats.
+    TSStructure          = "Structure",
+    TSBoolean            = "Boolean", -- For booleans.
+    TSCharacter          = "Character", -- For characters.
+    TSConstant           = "Constant", -- For constants
+    TSError              = "Error", -- For syntax/parser errors.
+    TSException          = "Exception", -- For exception related keywords.
+    TSInclude            = "Include", -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
+    TSLabel              = "Label", -- For labels: `label:` in C and `:label:` in Lua.
+    TSNumber             = "Number", -- For all numbers
+    TSOperator           = "Operator", -- For any operator: `+`, but also `->` and `*` in C.
+    TSTypeBuiltin        = "Type", -- For builtin types.
+    TSTag                = "Tag", -- Tags like html tag names.
+    TSComment            = "Comment", -- For comment blocks.
+    TSConditional        = "Conditional", -- For keywords related to conditionnals.
+    TSKeyword            = "Keyword", -- For keywords that don't fall in previous categories.
+    TSRepeat             = "Repeat", -- For keywords related to loops.
+    TSFunction           = "Function", -- For fuction (calls and definitions).
+    TSMethod             = "Function", -- For method calls and definitions.
 }
 hil.colors(treesitter)
 
@@ -323,10 +325,7 @@ local lsp = {
     LspReferenceText                     = { bg = colors.highlight }, -- used for highlighting "text" references
     LspReferenceRead                     = { bg = colors.highlight }, -- used for highlighting "read" references
     LspReferenceWrite                    = { bg = colors.highlight }, -- used for highlighting "write" references
-}
-hil.colors(lsp)
 
-local lsplinks = {
     DiagnosticVirtualTextWarn  = { link = "LspDiagnosticsVirtualTextWarning" },
     DiagnosticUnderlineWarn    = { link = "LspDiagnosticsUnderlineWarning" },
     DiagnosticFloatingWarn     = { link = "LspDiagnosticsFloatingWarning" },
@@ -344,7 +343,7 @@ local lsplinks = {
     DiagnosticFloatingHint     = { link = "LspDiagnosticsFloatingHint" },
     DiagnosticSignHint         = { link = "LspDiagnosticsSignHint" },
 }
-hil.links(lsplinks)
+hil.colors(lsp)
 
 local plugins = {
 
@@ -354,14 +353,53 @@ local plugins = {
     LspTroubleNormal              = { fg = colors.fg, bg = colors.sidebar },
 
     -- Diff
-    diffAdded                     = { fg = colors.green },
-    diffRemoved                   = { fg = colors.red },
-    diffChanged                   = { fg = colors.blue },
-    diffOldFile                   = { fg = colors.text },
-    diffNewFile                   = { fg = colors.title },
-    diffFile                      = { fg = colors.gray },
-    diffLine                      = { fg = colors.cyan },
-    diffIndexLine                 = { fg = colors.purple },
+    diffAdded                  = { fg = colors.green },
+    diffRemoved                = { fg = colors.red },
+    diffChanged                = { fg = colors.blue },
+    diffOldFile                = { fg = colors.text },
+    diffNewFile                = { fg = colors.title },
+    diffFile                   = { fg = colors.gray },
+    diffLine                   = { fg = colors.cyan },
+    diffIndexLine              = { fg = colors.purple },
+
+    -- Below are possible syntax for git and diff so please dont remove
+    -- diffOnly                = {},
+    -- diffIdentical           = {},
+    -- diffDiffer              = {},
+    -- diffBDiffer             = {},
+    -- diffIsA                 = {},
+    -- diffNoEOL               = {},
+    -- diffCommon              = {},
+    -- diffSubname             = {},
+    -- diffComment             = {},
+    gitcommitDiff              = {},
+    gitcommitFirstLine         = {colors.pink, nil, "bold", nil},
+    gitcommitSummary           = {colors.pink, nil, "bold", nil},
+    -- gitcommitOverflow       = {},
+    -- gitcommitBlank          = {},
+    gitcommitComment           = "Comment",
+    -- gitcommitHead           = {},
+    -- gitcommitBranch         = {},
+    -- gitcommitOnBranch       = {},
+    -- gitcommitNoBranch       = {},
+    gitcommitHeader            = {colors.dark_orange, nil, "bold", nil},
+    gitcommitAuthor            = {colors.cyan, nil, "italic", nil},
+    -- gitcommitNoChanges      = {},
+    gitcommitUntracked         = {colors.pink, nil, "bold", nil},
+    gitcommitUntrackedFile     = {colors.pink, nil, "italic", nil},
+    gitcommitSelected          = {colors.dark_green, nil, "bold", nil},
+    gitcommitSelectedType      = {colors.green, nil, "bold", nil},
+    gitcommitSelectedFile      = {colors.green, nil, 'italic', nil},
+    gitcommitDiscarded         = {colors.dark_violet, nil, 'bold', nil},
+    gitcommitDiscardedType     = {colors.violet, nil, 'bold', nil},
+    gitcommitDiscardedFile     = {colors.violet, nil, 'italic', nil},
+    gitcommitUnmerged          = {colors.dark_red, nil, 'bold', nil},
+    gitcommitUnmergedType      = {colors.red, nil, 'bold', nil},
+    gitcommitUnmergedFile      = {colors.red, nil, 'italic', nil},
+    -- gitcommitDiscardedArrow = {},
+    -- gitcommitSelectedArrow  = {},
+    -- gitcommitUnmergedArrow  = {},
+    gitcommitWarning           = {colors.dark_orange, nil, 'bold', nil},
 
     -- Neogit
     NeogitBranch                  = { fg = colors.paleblue },
