@@ -19,9 +19,10 @@ M = {
         purple         = "#a9a1e1",
         paleblue       = "#6272a4",
         white          = "#eff0f1",
-        black          = "#1b1f2a",
+        black          = "#282a36",
         grey           = "#44475A",
         grey1          = "#6f6f6f",
+        grey2          = "#333646",
     }
 }
 return M

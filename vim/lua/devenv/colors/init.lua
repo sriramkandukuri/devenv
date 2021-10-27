@@ -33,8 +33,10 @@ function M.colors()
         -- automatically add bright and dark variants of colors to palette
         if c ~= "name" then
             retcolors[c] = v
-            retcolors["dark_"..c] = mods.dark(v)
-            retcolors["bright_"..c] = mods.light(v)
+            retcolors["dark_"..c] = mods.dark(v, 0.05)
+            retcolors["darker_"..c] = mods.dark(v, 0.15)
+            retcolors["bright_"..c] = mods.light(v, 0.05)
+            retcolors["brighter_"..c] = mods.light(v, 0.15)
         end
     end
     return retcolors

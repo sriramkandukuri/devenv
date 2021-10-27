@@ -7,14 +7,14 @@ local hil                            = require('devenv.colors.hil')
 local function mapcommon(clrs)
     clrs.error          = clrs.red
     clrs.link           = clrs.dark_blue
-    clrs.cursor         = clrs.dark_grey
-    clrs.border         = clrs.dark_grey
-    clrs.sidebar        = clrs.dark_grey
-    clrs.ruler          = clrs.dark_grey
+    clrs.ruler          = clrs.bright_grey2
+    clrs.cursor         = clrs.ruler
+    clrs.border         = clrs.ruler
+    clrs.sidebar        = clrs.ruler
 
     clrs.active         = clrs.grey
     clrs.bg_alt         = clrs.black
-    clrs.line_numbers   = clrs.paleblue
+    clrs.line_numbers   = clrs.brighter_paleblue
     clrs.text           = clrs.dark_white
     clrs.title          = clrs.aqua
     clrs.highlight      = clrs.grey
@@ -30,9 +30,9 @@ local function mapcommon(clrs)
 
     clrs.CurrentLine    = clrs.grey
     clrs.bg             = clrs.black
-    clrs.subtle         = clrs.black
+    clrs.subtle         = clrs.dark_black
     clrs.fg             = clrs.dark_white
-    clrs.comment        = clrs.bright_grey1
+    clrs.comment        = clrs.brighter_grey1
 end
 
 mapcommon(colors)
@@ -113,7 +113,7 @@ local editor = {
     LineNr            = { colors.line_numbers, colors.bg, nil, nil},
     MatchParen        = { colors.fg, nil, "underline",  nil},
     NonText           = { colors.nontext, nil, nil, nil},
-    Pmenu             = { colors.white, colors.grey1 , nil, nil},
+    Pmenu             = { colors.white, colors.grey , nil, nil},
     PmenuSel          = { colors.menu, colors.violet, nil, nil},
     PmenuSbar         = { nil, colors.bg, nil, nil},
     PmenuThumb        = { nil, colors.selection, nil, nil},
