@@ -124,7 +124,7 @@ Please find below shortcuts provided for vim.
 
 |Shortcut|Description|
 |---|---|
-|GG|Enter Git status page|
+|Space + G|Enter Git status page|
 |cc|in fugitive buffer commit the changes
 
 ### Plugins
