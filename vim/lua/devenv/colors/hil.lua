@@ -1,61 +1,6 @@
 local M = {}
 
-function M.getrgb(str)
-    local num = tonumber(string.sub(str,2),16)
-    local red = bit.rshift( num, 16 )
-    local green = bit.band(bit.rshift(num,8),0xff)
-    local blue = bit.band(num,0xff)
-    return red, green, blue
-end
-
-function M.getcolor(r, g, b)
-    return bit.lshift(r, 16) + bit.lshift(g, 8) + b
-end
-
-function M.bitmap24to8(str)
-    if str ~= nil then
-        local red, green, blue = M.getrgb(str)
-        red = bit.lshift( math.floor( red/32 ), 5)
-        green = bit.lshift( math.floor( green/32 ), 2)
-        blue = math.floor( blue/64 )
-        local res = red + green + blue
-        if res == 0 then
-            return "1"
-        else
-            return res
-        end
-    end
-end
-
-local function adjust(color, factor)
-    local ret
-    ret = color + math.floor((color * factor) / 100)
-    if ret >= 255 then
-        ret = 255
-    else if ret < 0 then
-            ret = 0
-        end
-    end
-    return ret
-end
-
-local function adjustrgb(str, factor)
-    local ret
-    if str then
-        local red, green, blue = M.getrgb(str)
-        ret = M.getcolor(adjust(red, factor), adjust(green, factor), adjust(blue, factor))
-        ret = string.format("#%x", ret)
-        return ret
-    end
-end
-
-function M.dark(str, factor)
-    return adjustrgb(str,factor and -factor or -5)
-end
-
-function M.light(str, factor)
-    return adjustrgb(str,factor and factor or 5)
-end
+local mods = require("devenv.colors.mods")
 
 function M.hcolor(group, hinfo)
     DVDBG(group)
@@ -74,8 +19,8 @@ function M.hcolor(group, hinfo)
 
     DVDBG(bg,fg,style,sp)
 
-    bg = bg and "guibg=" .. bg .. " ctermbg=" .. M.bitmap24to8(bg) or "guibg=NONE ctermbg=NONE"
-    fg = fg and "guifg=" .. fg .. " ctermfg=" .. M.bitmap24to8(fg) or "guifg=NONE ctermfg=NONE"
+    bg = bg and "guibg=" .. bg .. " ctermbg=" .. mods.bitmap24to8(bg) or "guibg=NONE ctermbg=NONE"
+    fg = fg and "guifg=" .. fg .. " ctermfg=" .. mods.bitmap24to8(fg) or "guifg=NONE ctermfg=NONE"
     style = style and "gui=" .. style .." cterm=" .. style or "gui=NONE cterm=NONE"
     sp = sp and "guisp=" .. sp or "guisp=NONE"
 
