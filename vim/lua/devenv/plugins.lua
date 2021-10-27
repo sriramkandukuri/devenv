@@ -19,8 +19,23 @@ packer.startup{function()
         config = function()
             -- require("devenv.colors").init()
             require("colorizer").setup()
-        end
+        end,
+        after = 'devenv'
     }
+
+    use { 'tjdevries/colorbuddy.vim', as = "colorbuddy" }
+
+    use { "~/devenv/vim/lua/devenv", as = 'devenv',
+        config = function()
+            require("devenv.globals")
+            require("devenv.colors").init()
+        end,
+        after = 'colorbuddy'
+    }
+
+
+    -- use 'tjdevries/gruvbuddy.nvim'
+
 
 -- https://github.com/rafi/awesome-vim-colorschemes
 -- use 'rafi/awesome-vim-colorschemes'
@@ -97,7 +112,9 @@ packer.startup{function()
             "hrsh7th/cmp-calc",
             "ray-x/lsp_signature.nvim",
             'hrsh7th/cmp-emoji',
-        }
+            'tzachar/cmp-tabnine'
+        },
+        after = "devenv"
     }
     use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
     use {
@@ -230,8 +247,6 @@ packer.startup{function()
             require("devenv.bufline")
         end,
     }
-    -- use 'tjdevries/colorbuddy.vim'
-    -- use 'tjdevries/gruvbuddy.nvim'
 
     use 'glepnir/lspsaga.nvim'
     --  use 'nvim-lua/completion-nvim'
@@ -284,7 +299,8 @@ packer.startup{function()
     use { 'rcarriga/nvim-notify',
         config = function()
             require("devenv.notify")
-        end
+        end,
+        after = "devenv"
     }
     use {
       "dstein64/vim-startuptime",

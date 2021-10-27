@@ -19,7 +19,7 @@ require("notify").setup({
   },
 })
 
-local colors = require("devenv.colors").colors
+local colors = require("devenv.colors").colors()
 local hil = require("devenv.colors.hil")
 
 local notifyColors = {

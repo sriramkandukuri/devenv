@@ -2,7 +2,7 @@ vim.o.completeopt = 'menuone,noselect'
 -- load snippets from runtimepath, eg. friendly-snippets.
 require("luasnip.loaders.from_vscode").lazy_load()
 local utils = require("devenv.utils")
-local colors = require("devenv.colors").colors
+local colors = require("devenv.colors").colors()
 local hil = require("devenv.colors.hil")
 vim.opt.shortmess:append "c"
 

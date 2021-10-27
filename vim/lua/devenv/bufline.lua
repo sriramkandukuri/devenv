@@ -1,4 +1,4 @@
-local colors = require("devenv.colors").colors
+local colors = require("devenv.colors").colors()
 require('bufferline').setup {
     highlights = {
         fill = {

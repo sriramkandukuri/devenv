@@ -1,7 +1,7 @@
 -- Dracula color scheme
 
 vim.api.nvim_command("set background=dark")
-local colors                         = require('devenv.colors').colors
+local colors                         = require('devenv.colors').colors()
 local hil                            = require('devenv.colors.hil')
 
 local function mapcommon(clrs)
