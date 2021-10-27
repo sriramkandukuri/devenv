@@ -40,6 +40,7 @@ source ~/devenv/vim/remove_unwanted_spaces.vim
 source ~/devenv/vim/table_plugin.vim
 source ~/devenv/vim/all_maps.vim
 source ~/devenv/vim/easy_align_plugin.vim
+source ~/devenv/vim/git.vim
 " source ~/devenv/vim/nvimtree_plugin.vim
 
 " source ~/devenv/vim/goyo_limelight_plugin.vim

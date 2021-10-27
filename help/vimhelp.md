@@ -120,6 +120,13 @@ Please find below shortcuts provided for vim.
 |Space+8|Add doxygen style comments before current line|
 |Space+`\`|Append line end comments Use only for c style doxygen comments for structure or parameter variables.|
 
+### Git
+
+|Shortcut|Description|
+|---|---|
+|GG|Enter Git status page|
+|cc|in fugitive buffer commit the changes
+
 ### Plugins
 
 |Shortcut|Description|
