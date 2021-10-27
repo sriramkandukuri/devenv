@@ -1,7 +1,7 @@
 local nnoremap = require("devenv.utils").nnoremap
 local M = {}
 
-M.colors = require("devenv.colorscheme").dracula
+M.colors = require("devenv.colors.palette").dracula
 
 function M.SetDiffColors()
     vim.g.colors_name = 'gruvbox'
