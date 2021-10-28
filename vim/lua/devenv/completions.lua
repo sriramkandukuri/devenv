@@ -6,57 +6,10 @@ local colors = require("devenv.colors").colors()
 local hil = require("devenv.colors.hil")
 vim.opt.shortmess:append "c"
 
-local status_luasnip_ok, luasnip = pcall(require, "luasnip")
-if not status_luasnip_ok then
-    print("luasnip load failed")
-    return
-end
-
 local status_cmp_ok, cmp = pcall(require, "cmp")
 if not status_cmp_ok then
     print("cmp load failed")
     return
-end
-
-local has_words_before = function()
-    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-        return false
-    end
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
-local F = function(key)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col "." - 1
-    return col == 0 or vim.fn.getline("."):sub(col, col):match "%s" ~= nil
-end
-
-local function tab(fallback)
-    if cmp.visible() then
-        cmp.select_next_item()
-    else
-        F("<Tab>")
-    end
-end
-
-local function shtab(fallback)
-    if cmp.visible() then
-        cmp.select_prev_item()
-    else
-        F('<S-Tab>')
-    end
-end
-
-local function enterit(fallback)
-    if cmp.visible() then
-        cmp.ConfirmBehavior.Replace()
-    else
-        F("<CR>")
-    end
 end
 
 local cmpcfg = {}
@@ -134,11 +87,18 @@ cmpcfg = {
     mapping = {
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<Tab>'] = cmp.mapping(tab, { "i", "s" }),
-        ['<S-Tab>'] = cmp.mapping(shtab, { "i", "s" }),
-        -- ['<CR>'] = cmp.mapping(enterit, { "i", "s" }),
+        ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+        ['<CR>'] = cmp.mapping({
+            i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+            c = function(fallback)
+                if cmp.visible() then
+                    cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                else
+                    fallback()
+                end
+            end
+        }),
     },
     sources = {
         { name = 'nvim_lsp' },
@@ -166,6 +126,22 @@ tabnine:setup({
     sort = true;
     run_on_every_keystroke = true;
     snippet_placeholder = '..';
+})
+
+-- Use buffer source for `/`.
+cmp.setup.cmdline('/', {
+    sources = {
+        { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } }
+    }
+})
+
+-- Use cmdline & path source for ':'.
+cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+            { name = 'cmdline' }
+        })
 })
 
 local cmpcolors = {
