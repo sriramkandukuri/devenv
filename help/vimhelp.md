@@ -230,6 +230,7 @@ Please find below shortcuts provided for vim.
 |Space+f|Search files having current word|
 |Space+fl|Invoke ripgrep|
 |Space+<ENTER>|Search through available buffers and enter to open selected one|
-|Spacevh|Search through available help tags|
-|Spacedv|Search through devenv files|
+|Space+vh|Search through available help tags|
+|Space+dv|Search through devenv files|
+|Space+ts|Open telescope builtin commands in telescope|
 

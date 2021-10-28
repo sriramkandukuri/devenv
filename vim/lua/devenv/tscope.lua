@@ -178,8 +178,9 @@ end
 --VH |Space+f|Search files having current word|
 --VH |Space+fl|Invoke ripgrep|
 --VH |Space+<ENTER>|Search through available buffers and enter to open selected one|
---VH |Spacevh|Search through available help tags|
---VH |Spacedv|Search through devenv files|
+--VH |Space+vh|Search through available help tags|
+--VH |Space+dv|Search through devenv files|
+--VH |Space+ts|Open telescope builtin commands in telescope|
 local nnoremap = require("devenv.utils").nnoremap
 
 nnoremap( '<leader><leader>',"<cmd>lua require('telescope.builtin').find_files( {search_dirs = require('devenv.tscope').csfiles() } )<CR>")
@@ -190,4 +191,5 @@ nnoremap( '<leader><enter>', "<cmd>lua require('telescope.builtin').buffers()<CR
 nnoremap( '<leader>vh',      "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 nnoremap( '<leader>dv',      "<cmd>lua require('devenv.tscope').search_devenv()<CR>")
 nnoremap( '<leader>ca',      "<cmd>lua require('devenv.tscope').lsp_code_actions()<CR>")
+nnoremap( '<leader>ts',      "<cmd>lua require('telescope.builtin').builtin()<CR>")
 return M
