@@ -1,8 +1,6 @@
 local M = {}
 M = {
     dracula = {
-        name           = "dracula",
-
         cyan           = "#8be9fd",
         green          = "#50fa7b",
         orange         = "#ffb86c",
@@ -21,7 +19,7 @@ M = {
         white          = "#eff0f1",
         black          = "#282a36",
         grey           = "#44475A",
-        grey1          = "#6f6f6f",
+        grey1          = "#808080",
         grey2          = "#333646",
     }
 }

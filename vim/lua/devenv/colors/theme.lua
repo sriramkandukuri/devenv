@@ -24,7 +24,6 @@ local function mapcommon(clrs)
     clrs.menu           = clrs.bright_black
     clrs.accent         = clrs.dark_black
     clrs.nontext        = clrs.dark_grey
-    clrs.comments       = clrs.bright_grey1
     clrs.visual         = clrs.dark_grey1
     clrs.gutter_fg      = clrs.grey1
 
@@ -32,7 +31,8 @@ local function mapcommon(clrs)
     clrs.bg             = clrs.black
     clrs.subtle         = clrs.dark_black
     clrs.fg             = clrs.dark_white
-    clrs.comment        = clrs.brighter_grey1
+    clrs.comment        = clrs.bright_grey1
+    clrs.comments       = clrs.comment
 end
 
 mapcommon(colors)

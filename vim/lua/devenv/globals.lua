@@ -1,10 +1,7 @@
 _GlobalCallbacks = _GlobalCallbacks or {}
-
-_G.globals = {_store = _GlobalCallbacks}
-_G.devenv_debug = false
-_G.devenv_err = false
 _G.HILG = {}
 
+_G.globals = {_store = _GlobalCallbacks}
 function globals._create(f)
   table.insert(globals._store, f)
   return #globals._store
@@ -26,17 +23,6 @@ end
 R = function(name)
   RELOAD(name)
   return require(name)
-end
-
-DVDBG = function(...)
-    if _G.devenv_debug then
-        print("DBG",...)
-    end
-end
-DVERR = function(...)
-    if _G.devenv_err then
-        print("ERR",...)
-    end
 end
 
 vim.cmd([[

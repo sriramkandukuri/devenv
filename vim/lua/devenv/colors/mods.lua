@@ -11,7 +11,7 @@ function M.dark(str, factor)
     return cuti.hsl_to_rgb_string(h, s, l)
 end
 
-function M.light(str, factor)
+function M.bright(str, factor)
     local h, s, l = cuti.rgb_string_to_hsl(str)
     h, s, l = unpack(cmods.light(h, s, l, factor))
     return cuti.hsl_to_rgb_string(h, s, l)

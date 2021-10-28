@@ -31,14 +31,33 @@ function M.colors()
     local clrs = palette[colorscheme]
     for c, v in pairs(clrs) do
         -- automatically add bright and dark variants of colors to palette
-        if c ~= "name" then
-            retcolors[c] = v
-            retcolors["dark_"..c] = mods.dark(v, 0.05)
-            retcolors["darker_"..c] = mods.dark(v, 0.15)
-            retcolors["bright_"..c] = mods.light(v, 0.05)
-            retcolors["brighter_"..c] = mods.light(v, 0.15)
-        end
+        retcolors[c] = v
+        retcolors["dark_"..c] = mods.dark(v, 0.05)
+        retcolors["darker_"..c] = mods.dark(v, 0.15)
+        retcolors["bright_"..c] = mods.bright(v, 0.05)
+        retcolors["brighter_"..c] = mods.bright(v, 0.15)
     end
     return retcolors
 end
+
+function M.debugclrs()
+    local palette = require("devenv.colors.palette")
+    local clrnames = palette["dracula"]
+    local clrs = M.colors()
+    print("color | darker | dark | orig |bright |brighter ")
+    for c, _ in pairs(clrnames) do
+        print(c.." | ",
+            clrs["darker_"..c].." | ",
+            clrs["dark_"..c].." | ",
+            clrs[c].." | ",
+            clrs["bright_"..c].." | ",
+            clrs["brighter_"..c].." | "
+            )
+    end
+end
+
+vim.cmd([[
+    command! DVCLRS lua require('devenv.colors').debugclrs()<CR>
+]])
+
 return M
