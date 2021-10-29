@@ -174,7 +174,7 @@ tabnine:setup({
 local cmpcolors = {
     CmpItemAbbr = { colors.fg, nil, nil, nil },
     CmpItemAbbrMatch = { colors.aqua, nil, nil, nil },
-    CmpItemAbbrMatchFuzzy = { colors.magenta, nil, nil, nil },
+    CmpItemAbbrMatchFuzzy = { colors.bright_salmon, nil, nil, nil },
     CmpItemKind = { colors.dark_beige, nil, "italic", nil },
     CmpItemMenu = { colors.paleblue, nil, "italic", nil }
 }

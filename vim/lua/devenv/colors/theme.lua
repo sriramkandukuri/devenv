@@ -298,6 +298,9 @@ local treesitter = {
     TSRepeat             = "Repeat", -- For keywords related to loops.
     TSFunction           = "Function", -- For fuction (calls and definitions).
     TSMethod             = "Function", -- For method calls and definitions.
+
+    --vim help
+    helpHyperTextJump    = "Function"
 }
 hil.colors(treesitter)
 
