@@ -163,6 +163,7 @@ tools_pkgs ()
         toilet
         ninja-build
         ppa-purge
+        jq
     "
 
     local gem_pkgs="

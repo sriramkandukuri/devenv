@@ -1,5 +1,5 @@
-##BH |install_nerd_font|Install any nerd font from |
-install_nerd_font()
+##BH |install_nf|Install any nerd font from github release|
+install_nf()
 {
     [ "$1" = "" ] && echo "Give valid font name" && return
     pushd /tmp
@@ -18,3 +18,64 @@ install_nerd_font()
     fc-cache -f -v
 }
 
+##BH |install_all_nf|Install all nerd fonts from github release|
+install_all_nf()
+{
+flist="
+3270
+Agave
+AnonymousPro
+Arimo
+AurulentSansMono
+BigBlueTerminal
+BitstreamVeraSansMono
+CascadiaCode
+CodeNewRoman
+Cousine
+DaddyTimeMono
+DejaVuSansMono
+DroidSansMono
+FantasqueSansMono
+FiraCode
+FiraMono
+Go-Mono
+Gohu
+Hack
+Hasklig
+HeavyData
+Hermit
+iA-Writer
+IBMPlexMono
+Inconsolata
+InconsolataGo
+InconsolataLGC
+Iosevka
+JetBrainsMono
+Lekton
+LiberationMono
+Meslo
+Monofur
+Monoid
+Mononoki
+MPlus
+Noto
+OpenDyslexic
+Overpass
+ProFont
+ProggyClean
+RobotoMono
+ShareTechMono
+SourceCodePro
+SpaceMono
+Terminus
+Tinos
+Ubuntu
+UbuntuMono
+VictorMono
+"
+    for font in $flist
+    do
+        echo $font
+        install_nf $font
+    done
+}

@@ -145,7 +145,8 @@ Please find below shortcuts provided by bashrc.
 
 |Shortcut|Description|
 |---|---|
-|install_nerd_font|Install any nerd font from |
+|install_nf|Install any nerd font from github release|
+|install_all_nf|Install all nerd fonts from github release|
 
 ### Devenv management
 
