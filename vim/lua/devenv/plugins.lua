@@ -112,11 +112,14 @@ packer.startup{function()
             "hrsh7th/cmp-calc",
             "ray-x/lsp_signature.nvim",
             'hrsh7th/cmp-emoji',
-            'tzachar/cmp-tabnine'
+            'tzachar/cmp-tabnine',
+            'hrsh7th/cmp-cmdline',
+            "dmitmel/cmp-cmdline-history"
         },
         after = "devenv"
     }
     use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+    use {'tzachar/cmp-fzy-buffer', requires = {'hrsh7th/nvim-cmp', 'romgrk/fzy-lua-native'}}
     use {
         "rafamadriz/friendly-snippets",
         -- event = "InsertCharPre",
@@ -305,6 +308,11 @@ packer.startup{function()
     use {
       "dstein64/vim-startuptime",
       cmd = "StartupTime",
+    }
+
+    use {
+        "~/data/sriram/mywork/github/myrepos/copilot.vim",
+        branch = 'release',
     }
 
 -- ===========================================

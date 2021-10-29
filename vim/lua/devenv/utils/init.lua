@@ -70,6 +70,10 @@ function utils.termcodes(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
 
+function utils.feedkeys(key, mode)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
+
 utils.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 return utils

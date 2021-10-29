@@ -6,13 +6,48 @@ local colors = require("devenv.colors").colors()
 local hil = require("devenv.colors.hil")
 vim.opt.shortmess:append "c"
 
-local status_cmp_ok, cmp = pcall(require, "cmp")
-if not status_cmp_ok then
-    print("cmp load failed")
-    return
+local cmp = require("cmp")
+local cmpcfg = {}
+
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local cmpcfg = {}
+local luasnip = require("luasnip")
+
+local function tab(fallback)
+    if cmp.visible() then
+        cmp.select_next_item()
+    elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+    elseif has_words_before() then
+        cmp.complete()
+    else
+        -- F("<Tab>")
+        fallback()
+    end
+end
+
+local function shtab(fallback)
+    if cmp.visible() then
+        cmp.select_prev_item()
+    elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+    else
+        -- F('<S-Tab>')
+        fallback()
+    end
+end
+
+local function enterit(fallback)
+    if cmp.visible() and cmp.get_selected_entry() then
+        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false  })
+    else
+        -- F("<CR>")
+        fallback()
+    end
+end
 
 cmpcfg = {
     formatting = {
@@ -56,6 +91,9 @@ cmpcfg = {
           vsnip = "[snip]",
           luasnip = "[snip]",
           buffer = "[buf]",
+          fzy_buffer = "[fzbuf]",
+          cmdline = "[cmd]",
+          cmdline_history = "[cmd-hist]",
         })[entry.source.name]
         vim_item.dup = ({
           buffer = 1,
@@ -78,7 +116,7 @@ cmpcfg = {
             -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
 
             -- For `luasnip` user.
-            require('luasnip').lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
 
             -- For `ultisnips` user.
             -- vim.fn["UltiSnips#Anon"](args.body)
@@ -87,24 +125,16 @@ cmpcfg = {
     mapping = {
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
-        ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
-        ['<CR>'] = cmp.mapping({
-            i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
-            c = function(fallback)
-                if cmp.visible() then
-                    cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-                else
-                    fallback()
-                end
-            end
-        }),
+        ['<Tab>'] = cmp.mapping(tab, {'i', 's', 'c'}),
+        ['<S-Tab>'] = cmp.mapping(shtab, { 'i', 's', 'c'}),
+        ['<CR>'] = cmp.mapping(enterit, {"i", "s"}),
     },
     sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = "nvim_lua" },
         { name = 'buffer' },
+        { name = 'fzy_buffer' },
         { name = "path" },
         { name = 'calc' },
         { name = 'cmp_tabnine' },
@@ -115,9 +145,22 @@ cmpcfg = {
         -- For ultisnips user.
         -- { name = 'ultisnips' },
         { name = "crates" },
-    }
+    },
 }
 cmp.setup(cmpcfg)
+
+-- Use cmdline & path source for ':'.
+for _, cmd_type in ipairs({':', '/', '?', '@', '='}) do
+    cmp.setup.cmdline(cmd_type, {
+        sources = {
+            { name = 'cmdline' },
+            { name = 'fzy_buffer' },
+            { name = 'path' },
+            { name = 'cmdline_history' },
+        }
+    })
+end
+
 
 local tabnine = require('cmp_tabnine.config')
 tabnine:setup({
@@ -128,27 +171,11 @@ tabnine:setup({
     snippet_placeholder = '..';
 })
 
--- Use buffer source for `/`.
-cmp.setup.cmdline('/', {
-    sources = {
-        { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } }
-    }
-})
-
--- Use cmdline & path source for ':'.
-cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-        { name = 'path' }
-    }, {
-            { name = 'cmdline' }
-        })
-})
-
 local cmpcolors = {
     CmpItemAbbr = { colors.fg, nil, nil, nil },
     CmpItemAbbrMatch = { colors.aqua, nil, nil, nil },
     CmpItemAbbrMatchFuzzy = { colors.magenta, nil, nil, nil },
-    CmpItemKind = { colors.beige, nil, "italic", nil },
-    CmpItemMenu = { colors.black, nil, "italic", nil }
+    CmpItemKind = { colors.dark_beige, nil, "italic", nil },
+    CmpItemMenu = { colors.paleblue, nil, "italic", nil }
 }
 hil.colors(cmpcolors)
