@@ -200,10 +200,10 @@ local syntax = {
     Comment         = { colors.comment, nil, "italic", nil},
     Type            = { fg = colors.pink, style = "italic" }, -- int, long, char, etc.
     Constant        = { fg = colors.bright_magenta }, -- any constant
-    Character       = { fg = colors.orange }, -- any character constant: 'c', '\n'
-    Number          = { fg = colors.orange }, -- a number constant: 5
-    Boolean         = { fg = colors.orange }, -- a boolean constant: TRUE, false
-    Float           = { fg = colors.orange }, -- a floating point constant: 2.3e10
+    Character       = { fg = colors.cyan }, -- any character constant: 'c', '\n'
+    Number          = { fg = colors.darker_blue }, -- a number constant: 5
+    Boolean         = { fg = colors.blue }, -- a boolean constant: TRUE, false
+    Float           = { fg = colors.aqua}, -- a floating point constant: 2.3e10
     Statement       = { fg = colors.pink }, -- any statement
     Label           = { fg = colors.green }, -- case, default, etc.
     Operator        = { fg = colors.cyan }, -- sizeof", "+", "*", etc.
@@ -236,13 +236,12 @@ local syntax = {
 hil.colors(syntax)
 
 local treesitter = {
-    TSConstantBuiltin    = { colors.purple, nil, nil, nil},
     TSAnnotation         = { colors.yellow, nil, nil, nil},
     TSAttribute          = { fg = colors.yellow }, -- (unstable) TODO: docs
     TSConstructor        = { fg = colors.purple }, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
-    TSConstBuiltin       = { fg = colors.orange }, -- For constant that are built in the language: `nil` in Lua.
+    TSConstBuiltin       = { fg = colors.bright_red }, -- For constant that are built in the language: `nil` in Lua.
     TSConstMacro         = { fg = colors.purple }, -- For constants that are defined by macros: `NULL` in C.
-    TSField              = { fg = colors.orange }, -- For fields.
+    TSField              = { fg = colors.bright_orange }, -- For fields.
     TSFuncMacro          = { fg = colors.blue }, -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
     TSKeywordOperator    = { fg = colors.red }, -- Unary and binary operators that are English words: `and`, `or` in Python; `sizeof` in C.
     TSKeywordReturn      = { fg = colors.cyan },
@@ -277,8 +276,9 @@ local treesitter = {
     TSKeywordFunction    = { fg = colors.purple, style = "italic"}, -- For keywords used to define a fuction.
     TSFuncBuiltin        = { fg = colors.cyan, style = 'italic' }, -- For builtin functions: `table.insert` in Lua.
     TSVariable           = { fg = colors.fg }, -- Any variable name that does not have another highlight.
-    TSVariableBuiltin    = { fg = colors.paleblue }, -- Variable names that are defined by the languages, like `this` or `self`.
+    TSVariableBuiltin    = { fg = colors.brighter_paleblue }, -- Variable names that are defined by the languages, like `this` or `self`.
 
+    TSConstantBuiltin    = "TSConstBuiltin",
     TSFloat              = "Float", -- For floats.
     TSStructure          = "Structure",
     TSBoolean            = "Boolean", -- For booleans.

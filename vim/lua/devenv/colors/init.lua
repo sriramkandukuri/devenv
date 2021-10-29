@@ -56,8 +56,22 @@ function M.debugclrs()
     end
 end
 
+function M.hslist()
+    local cbu = require("colorbuddy.util")
+
+    local s, l = 0.75, 0.6
+
+    for h=0,360,10 do
+        local str = cbu.hsl_to_rgb_string(h, s, l)
+        print(str)
+    end
+end
+
 vim.cmd([[
     command! DVCLRS lua require('devenv.colors').debugclrs()<CR>
+    command! DCLR Redir DVCLRS | ColorizerToggle
+    command! DVHSLST lua require('devenv.colors').hslist()<CR>
+    command! HSLST Redir DVHSLST | ColorizerToggle
 ]])
 
 return M
