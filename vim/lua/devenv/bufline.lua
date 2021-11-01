@@ -1,10 +1,4 @@
-local colors = require("devenv.colors").colors()
 require('bufferline').setup {
-    highlights = {
-        fill = {
-            guibg = colors.grey1
-        },
-    },
     options = {
         numbers = function(opts)
             return string.format('%s ', opts.id)

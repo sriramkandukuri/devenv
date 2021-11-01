@@ -223,7 +223,7 @@ local syntax = {
     Todo            = { fg = colors.black, bg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
     Conditional     = { fg = colors.dark_pink , style = "italic"}, -- normal if, then, else, endif, switch, etc.
     Keywords        = { colors.cyan, nil, nil, nil},
-    Keyword         = { fg = colors.dark_yellow, style = "italic" }, -- normal for, do, while, etc.
+    Keyword         = { fg = colors.cyan, style = "italic" }, -- normal for, do, while, etc.
     Repeat          = { fg = colors.bright_violet, style = "bold,italic" }, -- normal any other keyword
 
     Function        = { fg = colors.green, style = 'italic' }, -- italic funtion names
@@ -274,7 +274,7 @@ local treesitter = {
     TSString             = { fg = colors.yellow }, -- For strings.
 
     TSKeywordFunction    = { fg = colors.purple, style = "italic"}, -- For keywords used to define a fuction.
-    TSFuncBuiltin        = { fg = colors.cyan, style = 'italic' }, -- For builtin functions: `table.insert` in Lua.
+    TSFuncBuiltin        = { fg = colors.green, style = 'bold,italic' }, -- For builtin functions: `table.insert` in Lua.
     TSVariable           = { fg = colors.fg }, -- Any variable name that does not have another highlight.
     TSVariableBuiltin    = { fg = colors.brighter_paleblue }, -- Variable names that are defined by the languages, like `this` or `self`.
 
@@ -500,8 +500,53 @@ local plugins = {
     TargetWord                    = { fg = colors.cyan },
 
     -- BufferLine
-    BufferLineIndicatorSelected   = { fg = colors.accent },
-    BufferLineFill                = { bg = colors.bg },
+    BufferLineIndicatorSelected   = { fg = colors.cyan, style = "bold"},
+    BufferLineFill                = { bg = colors.black },
+    -- BufferLineGroupSeparator = {},
+    -- BufferLineGroupLabel = {},
+    -- BufferLineTab = {},
+    -- BufferLineTabSelected = {},
+    -- BufferLineTabclose = {},
+    BufferLineBackground = {bg = colors.darker_black, fg = colors.grey1},
+    BufferLineCloseButton = "BufferLineBackground",
+    BufferLineCloseButtonVisible = "BufferLineBackground",
+    BufferLineBuffer = "BufferLineBackground",
+    BufferLineBufferVisible = "BufferLineBackground",
+    BufferLineBufferSelected = {bg = colors.bg, style = "bold,italic"},
+    BufferLineCloseButtonSelected = "BufferLineBufferSelected",
+    -- BufferLineDiagnostic = {},
+    -- BufferLineDiagnosticVisible = {},
+    -- BufferLineDiagnosticSelected = {},
+    -- BufferLineInfo = {},
+    -- BufferLineInfoVisible = {},
+    -- BufferLineInfoSelected = {},
+    -- BufferLineInfoDiagnostic = {},
+    -- BufferLineInfoDiagnosticVisible = {},
+    -- BufferLineInfoDiagnosticSelected = {},
+    -- BufferLineWarning = {},
+    -- BufferLineWarningVisible = {},
+    -- BufferLineWarningSelected = {},
+    -- BufferLineWarningDiagnostic = {},
+    -- BufferLineWarningDiagnosticVisible = {},
+    -- BufferLineWarningDiagnosticSelected = {},
+    -- BufferLineError = {},
+    -- BufferLineErrorVisible = {},
+    -- BufferLineErrorSelected = {},
+    -- BufferLineErrorDiagnostic = {},
+    -- BufferLineErrorDiagnosticVisible = {},
+    -- BufferLineErrorDiagnosticSelected = {},
+    -- BufferLineModified = {},
+    -- BufferLineModifiedVisible = {},
+    -- BufferLineModifiedSelected = {},
+    -- BufferLineDuplicateSelected = {},
+    -- BufferLineDuplicateVisible = {},
+    -- BufferLineDuplicate = {},
+    BufferLineSeparatorSelected = { fg = colors.black, bg = colors.black },
+    BufferLineSeparatorVisible = "BufferLineSeparatorSelected",
+    BufferLineSeparator = "BufferLineSeparatorSelected",
+    -- BufferLinePickSelected = {},
+    -- BufferLinePickVisible = {},
+    -- BufferLinePick = {},
 
     -- Sneak
     Sneak                         = { fg = colors.bg, bg = colors.accent },
