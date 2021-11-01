@@ -28,7 +28,7 @@ function! Redir(cmd, rng, start, end)
 	call setline(1, output)
 endfunction
 
-command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
+command! -nargs=* -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
 ""VH |Space+h+m|List all currently used maps to temporary buffer"
 nnoremap <Leader>hm :Redir verbose map<CR>
 ""VH |Space+h+m|List all currently used highlights to temporary buffer"
