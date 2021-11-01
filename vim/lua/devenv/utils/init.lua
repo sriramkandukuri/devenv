@@ -53,17 +53,17 @@ function utils.has_map(map, mode)
 end
 
 function utils.has_module(name)
-  if
-    pcall(
-      function()
-        require(name)
-      end
-    )
-   then
-    return true
-  else
-    return false
-  end
+    if
+        pcall (
+            function()
+                require(name)
+            end
+        )
+    then
+        return true
+    else
+        return false
+    end
 end
 
 function utils.termcodes(str)
