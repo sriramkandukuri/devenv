@@ -17,12 +17,14 @@ function M.init()
 
     require('devenv.colors.theme')
     nnoremap( '<F3>',"<cmd>TSHighlightCapturesUnderCursor<CR>")
+    nnoremap( '<leader>c~',"<cmd>ColorizerToggle<CR>")
+
 
     vim.cmd([[autocmd FileType dirdiff :lua require("devenv.colors").SetDiffColors()<CR>]])
 end
+local colorscheme = "dracula"
 
 function M.colors()
-    local colorscheme = "dracula"
     local palette = require("devenv.colors.palette")
     local mods = require('devenv.colors.mods')
 
@@ -42,7 +44,7 @@ end
 
 function M.debugclrs()
     local palette = require("devenv.colors.palette")
-    local clrnames = palette["dracula"]
+    local clrnames = palette[colorscheme]
     local clrs = M.colors()
     print("color | darker | dark | orig |bright |brighter ")
     for c, _ in pairs(clrnames) do
@@ -56,22 +58,18 @@ function M.debugclrs()
     end
 end
 
-function M.hslist()
+function M.hslist(step, s, l)
     local cbu = require("colorbuddy.util")
 
-    local s, l = 0.75, 0.6
-
-    for h=0,360,10 do
+    for h=0,359,step do
         local str = cbu.hsl_to_rgb_string(h, s, l)
-        print(str)
+        print("\""..str.."\"")
     end
 end
 
 vim.cmd([[
     command! DVCLRS lua require('devenv.colors').debugclrs()<CR>
     command! DCLR Redir DVCLRS | ColorizerToggle
-    command! DVHSLST lua require('devenv.colors').hslist()<CR>
-    command! HSLST Redir DVHSLST | ColorizerToggle
 ]])
 
 return M

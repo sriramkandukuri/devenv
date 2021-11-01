@@ -113,7 +113,7 @@ local editor = {
     LineNr            = { colors.line_numbers, colors.bg, nil, nil},
     MatchParen        = { colors.fg, nil, "underline",  nil},
     NonText           = { colors.nontext, nil, nil, nil},
-    Pmenu             = { colors.white, colors.grey , nil, nil},
+    Pmenu             = { colors.white, colors.dark_grey , nil, nil},
     PmenuSel          = { colors.menu, colors.violet, nil, nil},
     PmenuSbar         = { nil, colors.bg, nil, nil},
     PmenuThumb        = { nil, colors.selection, nil, nil},
@@ -199,7 +199,7 @@ local syntax = {
     SpecialComment  = { colors.gray, nil, "italic", nil},
     Comment         = { colors.comment, nil, "italic", nil},
     Type            = { fg = colors.pink, style = "italic" }, -- int, long, char, etc.
-    Constant        = { fg = colors.bright_magenta }, -- any constant
+    Constant        = { fg = colors.bright_salmon }, -- any constant
     Character       = { fg = colors.cyan }, -- any character constant: 'c', '\n'
     Number          = { fg = colors.darker_blue }, -- a number constant: 5
     Boolean         = { fg = colors.blue }, -- a boolean constant: TRUE, false
@@ -222,7 +222,7 @@ local syntax = {
     Ignore          = { fg = colors.disabled }, -- left blank, hidden
     Error           = { fg = colors.error, style = 'bold,underline' }, -- any erroneous construct
     Todo            = { fg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    Conditional     = { fg = colors.pink }, -- normal if, then, else, endif, switch, etc.
+    Conditional     = { fg = colors.dark_pink , style = "italic"}, -- normal if, then, else, endif, switch, etc.
     Keywords        = { colors.cyan, nil, nil, nil},
     Keyword         = { fg = colors.dark_yellow, style = "italic" }, -- normal for, do, while, etc.
     Repeat          = { fg = colors.bright_violet, style = "bold,italic" }, -- normal any other keyword

@@ -1,26 +1,30 @@
 local M = {}
 M = {
     dracula = {
-        violet         = "#bd93f9",
-        purple         = "#a9a1e1",
-        paleblue       = "#6272a4",
-        cyan           = "#8be9fd",
-        aqua           = "#3affdb",
-        blue           = "#5fd7ff",
-        green          = "#50fa7b",
-        beige          = "#f5c06f",
-        orange         = "#e5994c",
-        salmon         = "#bf6888",
-        red            = "#ff5555",
-        brown          = "#905532",
-        pink           = "#ff79c6",
-        magenta        = "#bf00a9",
-        yellow         = "#f1fa8c",
-        white          = "#eff0f1",
-        black          = "#282a36",
-        grey           = "#44475A",
-        grey1          = "#808080",
-        grey2          = "#333646",
-    }
+        -- opensource dracula palette colors are tagged as DC
+        red       = "#ff5555", --DC
+        yellow    = "#f1fa8c", --DC
+        violet    = "#bd93f9", --DC
+        purple    = "#ad5ee6",
+        salmon    = "#ffb4b4",
+        pink      = "#ff79c6", --DC
+        magenta   = "#ff57ff",
+        brown     = "#c98059",
+        orange    = "#ffb86c", --DC
+        beige     = "#e1c699",
+        green     = "#50fa7b", --DC
+        limegreen = "#c3fe4c",
+        aqua      = "#0affff",
+        blue      = "#33ccff",
+        cyan      = "#8be9fd", --DC
+        paleblue  = "#6272a4", --DC
+        inkblue   = "#4c4cfe",
+        white     = "#f8f8f2", --DC
+        black     = "#282a36", --DC
+        grey      = "#44475A", --DC
+        grey1     = "#808080",
+        grey2     = "#333646",
+
+    },
 }
 return M

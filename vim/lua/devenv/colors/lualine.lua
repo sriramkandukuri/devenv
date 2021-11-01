@@ -3,8 +3,8 @@ local lltheme = {}
 local colors = require("devenv.colors").colors()
 
 lltheme.normal = {
-  b = {fg = colors.purple, bg = colors.grey},
-  a = {fg = colors.black, bg = colors.purple, gui = 'bold'},
+  b = {fg = colors.violet, bg = colors.grey},
+  a = {fg = colors.black, bg = colors.violet, gui = 'bold'},
   c = {fg = colors.white, bg = colors.dark_grey;}
 }
 
