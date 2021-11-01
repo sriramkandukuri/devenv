@@ -18,7 +18,7 @@ packer.startup{function()
     use {'norcalli/nvim-colorizer.lua',
         config = function()
             -- require("devenv.colors").init()
-            require("colorizer").setup()
+            require("devenv.colorizer")
         end,
         after = 'devenv'
     }

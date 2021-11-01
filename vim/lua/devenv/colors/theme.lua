@@ -14,7 +14,7 @@ local function mapcommon(clrs)
 
     clrs.active         = clrs.grey
     clrs.bg_alt         = clrs.black
-    clrs.line_numbers   = clrs.brighter_paleblue
+    clrs.line_numbers   = clrs.bright_paleblue
     clrs.text           = clrs.dark_white
     clrs.title          = clrs.aqua
     clrs.highlight      = clrs.grey

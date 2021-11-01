@@ -53,5 +53,9 @@ require'nvim-tree'.setup {
       -- list of mappings to set on the tree manually
       list = {}
     }
-  }
+  },
+    filters = {
+        dotfiles = true,
+        custom = { '.git', 'node_modules', '.cache' }
+    }
 }
