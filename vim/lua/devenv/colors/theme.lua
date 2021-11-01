@@ -264,7 +264,6 @@ local treesitter = {
     TSUnderline          = { fg = colors.fg, style = 'underline' }, -- For text to be represented with an underline.
     TSStrike             = { }, -- For strikethrough text.
     TSTitle              = { fg = colors.title, style = 'bold' }, -- Text that is part of a title.
-    TSLiteral            = { fg = colors.fg }, -- Literal text.
     TSURI                = { fg = colors.link }, -- Any URI like a link or email.
     TSMath               = { fg = colors.blue }, -- Math environments like LaTeX's `$ ... $`
     TSType               = { fg = colors.bright_violet, style = "italic" }, --Custom types
@@ -278,6 +277,7 @@ local treesitter = {
     TSVariable           = { fg = colors.fg }, -- Any variable name that does not have another highlight.
     TSVariableBuiltin    = { fg = colors.brighter_paleblue }, -- Variable names that are defined by the languages, like `this` or `self`.
 
+    TSLiteral            = "TSString", -- Literal text.
     TSConstantBuiltin    = "TSConstBuiltin",
     TSFloat              = "Float", -- For floats.
     TSStructure          = "Structure",
