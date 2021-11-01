@@ -7,7 +7,7 @@ local hil                            = require('devenv.colors.hil')
 local function mapcommon(clrs)
     clrs.error          = clrs.red
     clrs.link           = clrs.dark_blue
-    clrs.ruler          = clrs.bright_grey2
+    clrs.ruler          = clrs.dark_grey
     clrs.cursor         = clrs.ruler
     clrs.border         = clrs.ruler
     clrs.sidebar        = clrs.ruler
@@ -17,7 +17,7 @@ local function mapcommon(clrs)
     clrs.line_numbers   = clrs.bright_paleblue
     clrs.text           = clrs.dark_white
     clrs.title          = clrs.aqua
-    clrs.highlight      = clrs.grey
+    clrs.highlight      = clrs.brighter_grey2
     clrs.selection      = clrs.grey
     clrs.disabled       = clrs.paleblue
     clrs.float          = clrs.bright_black
@@ -59,7 +59,6 @@ vim.g.terminal_color_foreground      = colors.fg
 
 -- Group                                 = {Foreground, Backgroud, Attribute, Special}
 local editor = {
-    CursorIM          = { fg = colors.cursor, style = 'reverse' }, -- like Cursor, but used when in IME mode
     ModeMsg           = { fg = colors.accent }, -- 'showmode' message (e.g., "-- INSERT -- ")
     MoreMsg           = { fg = colors.accent }, -- |more-prompt|
     qfLineNr          = { fg = colors.highlight, bg = colors.title, style = 'reverse' }, -- Line numbers for quickfix lists
@@ -221,17 +220,20 @@ local syntax = {
     Underlined      = { fg = colors.link, style = 'underline' }, -- text that stands out, HTML links
     Ignore          = { fg = colors.disabled }, -- left blank, hidden
     Error           = { fg = colors.error, style = 'bold,underline' }, -- any erroneous construct
-    Todo            = { fg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+    Todo            = { fg = colors.black, bg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
     Conditional     = { fg = colors.dark_pink , style = "italic"}, -- normal if, then, else, endif, switch, etc.
     Keywords        = { colors.cyan, nil, nil, nil},
     Keyword         = { fg = colors.dark_yellow, style = "italic" }, -- normal for, do, while, etc.
     Repeat          = { fg = colors.bright_violet, style = "bold,italic" }, -- normal any other keyword
 
-    Function        = { fg = colors.bright_blue, style = 'italic' }, -- italic funtion names
+    Function        = { fg = colors.green, style = 'italic' }, -- italic funtion names
     Identifier      = { fg = colors.fg }, -- any variable name
 
     String          = { fg = colors.yellow }, -- any string
-    helpExample     = { colors.beige, nil, "italic", nil}
+
+    --vim help
+    helpExample     = { colors.beige, nil, "italic", nil},
+    helpHyperTextJump    = { colors.cyan, nil, "italic", nil}
 }
 hil.colors(syntax)
 
@@ -242,7 +244,6 @@ local treesitter = {
     TSConstBuiltin       = { fg = colors.bright_red }, -- For constant that are built in the language: `nil` in Lua.
     TSConstMacro         = { fg = colors.purple }, -- For constants that are defined by macros: `NULL` in C.
     TSField              = { fg = colors.bright_orange }, -- For fields.
-    TSFuncMacro          = { fg = colors.blue }, -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
     TSKeywordOperator    = { fg = colors.red }, -- Unary and binary operators that are English words: `and`, `or` in Python; `sizeof` in C.
     TSKeywordReturn      = { fg = colors.cyan },
     TSNamespace          = { fg = colors.yellow }, -- For identifiers referring to modules and namespaces.
@@ -296,11 +297,10 @@ local treesitter = {
     TSConditional        = "Conditional", -- For keywords related to conditionnals.
     TSKeyword            = "Keyword", -- For keywords that don't fall in previous categories.
     TSRepeat             = "Repeat", -- For keywords related to loops.
+    TSFuncMacro          = "Function",
     TSFunction           = "Function", -- For fuction (calls and definitions).
     TSMethod             = "Function", -- For method calls and definitions.
-
-    --vim help
-    helpHyperTextJump    = "Function"
+    TSNote               = "Todo",
 }
 hil.colors(treesitter)
 
