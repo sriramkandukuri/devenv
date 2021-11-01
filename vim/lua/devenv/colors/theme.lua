@@ -199,7 +199,7 @@ local syntax = {
     SpecialComment  = { colors.gray, nil, "italic", nil},
     Comment         = { colors.comment, nil, "italic", nil},
     Type            = { fg = colors.pink, style = "italic" }, -- int, long, char, etc.
-    Constant        = { fg = colors.bright_salmon }, -- any constant
+    Constant        = { fg = colors.salmon  }, -- any constant
     Character       = { fg = colors.cyan }, -- any character constant: 'c', '\n'
     Number          = { fg = colors.darker_blue }, -- a number constant: 5
     Boolean         = { fg = colors.blue }, -- a boolean constant: TRUE, false
