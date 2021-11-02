@@ -4,10 +4,10 @@ if not has_lsp then
 end
 
 local utils = require("devenv.utils")
+local border = utils.border
 local nmap = utils.nmap
 local imap = utils.imap
 local cmd = vim.cmd
-local border = utils.border
 
 local lspconfig_util = require "lspconfig.util"
 local nvim_status = require "lsp-status"
@@ -40,11 +40,6 @@ table.insert(runtime_path, "lua/?/init.lua")
 
 status.activate()
 
--- show diagnostic line with custom border and styling
-_G.lsp_show_diagnostics = function()
-  vim.lsp.diagnostic.show_line_diagnostics({border = border})
-end
-
 local lspsign = require("lsp_signature")
 lspsign.setup({
     bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -55,20 +50,19 @@ lspsign.setup({
 
 vim.g.diagnostics_active = false
 function _G.toggle_diagnostics()
+    print("toggling diags")
     if vim.g.diagnostics_active then
         vim.g.diagnostics_active = false
-        vim.lsp.diagnostic.disable()
+        vim.diagnostic.disable()
     else
         vim.g.diagnostics_active = true
-        vim.lsp.diagnostic.enable()
+        vim.diagnostic.enable()
     end
 end
 
-vim.api.nvim_set_keymap('n', '<leader>tt', ':call v:lua.toggle_diagnostics()<CR>',  {noremap = true, silent = true})
-
 local custom_attach = function(client, bufnr)
     -- local filetype = vim.api.nvim_buf_get_option(0, "filetype")
-    -- print("LSP started")
+    print("LSP started")
 
     nvim_status.on_attach(client)
     lspsign.on_attach(client)
@@ -83,9 +77,9 @@ local custom_attach = function(client, bufnr)
     cmd [[command! LspRefs lua vim.lsp.buf.references()]]
     cmd [[command! LspTypeDef lua vim.lsp.buf.type_definition()]]
     cmd [[command! LspImplementation lua vim.lsp.buf.implementation()]]
-    cmd [[command! LspDiagPrev lua vim.lsp.diagnostic.goto_prev()]]
-    cmd [[command! LspDiagNext lua vim.lsp.diagnostic.goto_next()]]
-    cmd [[command! LspDiagLine lua lsp_show_diagnostics()]]
+    cmd [[command! LspDiagPrev lua require("devenv.lsp.diags").gprv()]]
+    cmd [[command! LspDiagNext lua require("devenv.lsp.diags").gnxt()]]
+    cmd [[command! LspDiagLine lua require("devenv.lsp.diags").show()]]
     cmd [[command! LspSignatureHelp lua vim.lsp.buf.signature_help()]]
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
