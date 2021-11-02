@@ -1,4 +1,57 @@
+local colors                         = require('devenv.colors').colors()
+local hil                            = require('devenv.colors.hil')
 require('bufferline').setup {
+    highlights = {
+        -- BufferLine
+        indicator_selected   = { guifg = colors.cyan, gui = "bold"},
+        fill                = { guibg = colors.gre1 },
+        -- group_separator = {},
+        -- group_label = {},
+        -- tab = {guibg = colors.bg, gui = "bold,italic"},
+        tab_selected = { guifg = colors.green, gui = "bold"},
+        tab_close = {guibg = colors.bg, guifg = colors.darker_red},
+        background = {guibg = colors.darker_black, guifg = colors.grey1},
+        close_button = {guibg = colors.darker_black, guifg = colors.bright_red},
+        close_button_visible = {guibg = colors.black, guifg = colors.bright_red},
+        close_button_selected = {guibg = colors.bg, guifg = colors.darker_red},
+        -- buffer = {guibg = colors.darker_black, guifg = colors.grey1},
+        buffer = {highlight = "PMenu"},
+        buffer_visible = {guibg = colors.darker_black, guifg = colors.grey1},
+        buffer_selected = {guibg = colors.bg, gui = "bold,italic"},
+        -- diagnostic = {},
+        -- diagnostic_visible = {},
+        -- diagnostic_selected = {},
+        -- info = {},
+        -- info_visible = {},
+        -- info_selected = {},
+        -- info_diagnostic = {},
+        -- info_diagnostic_visible = {},
+        -- info_diagnostic_selected = {},
+        -- warning = {},
+        -- warning_visible = {},
+        -- warning_selected = {},
+        -- warning_diagnostic = {},
+        -- warning_diagnostic_visible = {},
+        -- warning_diagnostic_selected = {},
+        -- error = {},
+        -- error_visible = {},
+        -- error_selected = {},
+        -- error_diagnostic = {},
+        -- error_diagnostic_visible = {},
+        -- error_diagnostic_selected = {},
+        -- modified = {},
+        -- modified_visible = {},
+        -- modified_selected = {},
+        -- duplicate_selected = {},
+        -- duplicate_visible = {},
+        -- duplicate = {},
+        -- separator_selected = { guifg = colors.cyan, guibg = colors.cyan },
+        -- separator_visible = { guifg = colors.cyan, guibg = colors.cyan },
+        -- separator = { guifg = colors.cyan, guibg = colors.cyan },
+        -- pick_selected = {},
+        -- pick_visible = {},
+        -- pick = {},
+    },
     options = {
         numbers = function(opts)
             return string.format('%s ', opts.id)
@@ -11,7 +64,7 @@ require('bufferline').setup {
         -- and so changing this is NOT recommended, this is intended
         -- as an escape hatch for people who cannot bear it for whatever reason
         indicator_icon = '▎',
-        buffer_close_icon = '',
+        buffer_close_icon = '',
         modified_icon = '●',
         close_icon = '',
         left_trunc_marker = '',
@@ -58,10 +111,8 @@ require('bufferline').setup {
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
         -- can also be a table containing 2 custom separators
         -- [focused and unfocused]. eg: { '|', '|' }
-        separator_style = {'|', '|'},
+        separator_style = {'',''},
         enforce_regular_tabs = false ,
         always_show_bufferline = true,
     }
 }
-
-
