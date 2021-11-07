@@ -92,6 +92,7 @@ cmpcfg = {
           luasnip = "[snip]",
           buffer = "[buf]",
           fzy_buffer = "[fzbuf]",
+          fuzzy_path = "[fzpath]",
           cmdline = "[cmd]",
           cmdline_history = "[cmd-hist]",
         })[entry.source.name]
@@ -135,6 +136,7 @@ cmpcfg = {
         { name = "nvim_lua" },
         { name = 'buffer' },
         { name = 'fzy_buffer' },
+        { name = 'fuzzy_path' },
         { name = "path" },
         { name = 'calc' },
         { name = 'cmp_tabnine' },
@@ -156,6 +158,7 @@ for _, cmd_type in ipairs({':', '/', '?', '@', '='}) do
             { name = 'cmdline' },
             { name = 'fzy_buffer' },
             { name = 'path' },
+            { name = 'fuzzy_path' },
             { name = 'cmdline_history' },
         }
     })
