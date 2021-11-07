@@ -119,7 +119,7 @@ packer.startup{function()
         after = "devenv"
     }
     use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
-    use {'tzachar/cmp-fzy-buffer', requires = {'hrsh7th/nvim-cmp', 'romgrk/fzy-lua-native'}}
+    use {'tzachar/cmp-fzy-buffer', requires = {'hrsh7th/nvim-cmp', 'tzachar/fuzzy.nvim', 'romgrk/fzy-lua-native'}}
     use {
         "rafamadriz/friendly-snippets",
         -- event = "InsertCharPre",

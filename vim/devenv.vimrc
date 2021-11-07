@@ -19,6 +19,7 @@ source ~/devenv/vim/coc_completions.vim
 source ~/devenv/vim/comments.vim
 source ~/devenv/vim/clang_plugin.vim
 source ~/devenv/vim/tagbar_plugin.vim
+source ~/devenv/vim/vimade_plugin.vim
 endif
 source ~/devenv/vim/devenv.vim
 source ~/devenv/vim/undo.vim
@@ -29,7 +30,6 @@ source ~/devenv/vim/uncrustify_plugin.vim
 source ~/devenv/vim/google_plugin.vim
 source ~/devenv/vim/cheatsheet_plugin.vim
 source ~/devenv/vim/cscope.vim
-source ~/devenv/vim/vimade_plugin.vim
 source ~/devenv/vim/markdown_plugin.vim
 source ~/devenv/vim/dirdiff_plugin.vim
 source ~/devenv/vim/quickscope_plugin.vim

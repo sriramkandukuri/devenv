@@ -15,7 +15,8 @@ function M.init()
     vim.o.background = 'dark'
     vim.o.termguicolors = true
 
-    require('devenv.colors.theme')
+    require('devenv.colors.theme').apply()
+    require('devenv.focusev')
     nnoremap( '<F3>',"<cmd>TSHighlightCapturesUnderCursor<CR>")
     nnoremap( '<leader>c~',"<cmd>ColorizerToggle<CR>")
 
