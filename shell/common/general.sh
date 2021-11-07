@@ -84,3 +84,4 @@ mkcd()
 }
 
 alias g='BROWSER=w3m googler -n 7 -c en -l en'
+export DISPLAY=:0.0
