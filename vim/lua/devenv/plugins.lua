@@ -311,11 +311,6 @@ packer.startup{function()
       cmd = "StartupTime",
     }
 
-    use {
-        "~/data/sriram/mywork/github/myrepos/copilot.vim",
-        branch = 'release',
-    }
-
 -- ===========================================
 -- Plugins only for vim
 -- ===========================================
