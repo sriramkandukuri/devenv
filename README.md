@@ -20,6 +20,9 @@ Install nodejs version 10 as mentioned in https://joshtronic.com/2018/05/08/how-
 Use `./install.sh help` for instructions.
 
 To install everything use `./install.sh all`
+Add below line to your bashrc to enable all bash custom commands
+
+`. ~/devenv/shell/bash/devenv_bashrc`
 
 If powerline fonts are not supported add below lines to bashrc instead of above step.
 
