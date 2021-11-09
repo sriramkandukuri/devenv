@@ -77,7 +77,11 @@ Working terminal emulators on Windows
 
 For best experience with icons its suggested to install patched fonts.
 
-  - Collection of such fonts can be found from [Nerd fonts collection](https://github.com/ryanoasis/nerd-fonts)
+  - Collection of such fonts can be found from [Nerd fonts collection repo](https://github.com/ryanoasis/nerd-fonts) Dowonload from latest [nerd-fonts-release](https://github.com/ryanoasis/nerd-fonts/releases)
+
+On Windows  
+- [How to install fonts](https://www.creativefabrica.com/the-ultimate-font-guide/how-to-install-multiple-fonts-at-once-on-windows/)
+- [Reload font cache](https://help.extensis.com/hc/en-us/articles/360010243153-How-to-rebuild-the-Font-Cache-in-Windows-Universal-Type-Client-7)
 
 #### Note
 
