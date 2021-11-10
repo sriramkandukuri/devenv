@@ -11,7 +11,13 @@ Customized Development environment for linux
 
 Clone this repo to your home directory on any linux host.
 
-### Prerequisite for Ubuntu 18-04
+```
+cd
+git clone https://github.com/sriramkandukuri/devenv.git
+```
+
+
+### Prerequisite for Ubuntu 18-04 only
 
 Install nodejs version 10 as mentioned in https://joshtronic.com/2018/05/08/how-to-install-nodejs-10-on-ubuntu-1804-lts/
 
@@ -20,14 +26,23 @@ Install nodejs version 10 as mentioned in https://joshtronic.com/2018/05/08/how-
 Use `./install.sh help` for instructions.
 
 To install everything use `./install.sh all`
+
 Add below line to your bashrc to enable all bash custom commands
 
-`. ~/devenv/shell/bash/devenv_bashrc`
+```
+. ~/devenv/shell/bash/devenv_bashrc
+```
 
-If powerline fonts are not supported add below lines to bashrc instead of above step.
+or command 
 
 ```
-export USE_PWR_FONTS=0
+echo ". ~/devenv/shell/bash/devenv_bashrc" >> ~/.bashrc
+```
+
+If powerline fonts are not needed use below command
+
+```
+echo "export USE_PWR_FONTS=0" >> ~/.bashrc
 ```
 
 Reload your shell or start new shell.
