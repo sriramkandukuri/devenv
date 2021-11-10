@@ -3,6 +3,13 @@
 # set -x
 # echo "****************** INSTALLATION STARTS HERE ************************"
 devdir=$PWD
+if [ "$devdir" != "$HOME/devenv" ]
+then
+    echo "Please install from ~/devenv"
+    exit -1
+fi
+builddir=$devdir/build
+mkdir $builddir
 LOGFILE=$PWD/build/install.log
 rm -rf $LOGFILE > /dev/null 2>&1
 touch $LOGFILE
@@ -10,12 +17,6 @@ myname=$0
 export DEBIAN_FRONTEND=noninteractive
 ubver=$(cat /etc/lsb-release |grep RELEASE|cut -d= -f2)
 
-if [ "$devdir" != "$HOME/devenv" ]
-then
-    echo "Please install from ~/devenv"
-    exit -1
-fi
-builddir=$devdir/build
 
 shopt -s expand_aliases
 . ./shell/bash/devenv_bashrc
