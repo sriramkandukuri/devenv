@@ -44,5 +44,5 @@ source ~/devenv/shell/common/taskwarrior_tmux.sh
 source ~/devenv/shell/common/cheat_sheet.sh
 
 if [ -f ~/.privbashrc ]; then
-    soruce ~/.privbashrc
+    source ~/.privbashrc
 fi
