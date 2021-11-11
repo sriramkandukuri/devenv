@@ -9,11 +9,17 @@ function FG()
     ct.vimade_focus_gain()
 end
 
-vim.cmd ([[
-let g:vimade = {}
-let g:vimade.fadelevel = 0.5
-let g:vimade.enablesigns = 1
+vim.g.vimade = {}
+vim.g.vimade = vim.tbl_extend('force', vim.g.vimade,
+    {
+        ["fadelevel"] = 0.5,
+        ["enablesigns"] = 1,
+        ["enablefocusfading"] = 1,
+        ["enablebasegroups"] = 1,
+    }
+)
 
+vim.cmd ([[
 au! FocusLost * :lua FL()
 au! FocusGained * :lua FG()
 ]])
