@@ -5,15 +5,15 @@ rnp()
 {
     if [ "$1" = "" ]
     then
-        printf '\033]2;%s\033\\' 'NO PANE TITLE'
+        tmux set -p @devenv-panename "NO-PANE-NAME"
     else
-        printf '\033]2;%s\033\\' $1
+        tmux set -p @devenv-panename $1
     fi
 }
 ##BH |tm|Open new tmux session with given name, or attach if its already exist, if used first time opens resurrected tmux sessions and connect them|
 tm()
 {
-    local sess=$(cat ~/.tmux/resurrect/last | grep "^state" | tr '\t' ' ' | cut -d" " -f2)
+    local sess=$(cat ~/.tmux/resurrect/last | grep "^state" | tr '\t' ' ' | cut -d" " -f2 > /dev/null 2>&1)
     if [ "$sess" != "" ];then
         tmux has -t $sess || tmux
     fi
@@ -113,7 +113,7 @@ ftwind ()
 ##BH |ftpanes|Find all panes on server using fzf and switch to the selected one|
 ftpanes()
 {
-    local tmout=`tmux list-panes -a -F "#{p10:session_name} #{p20:window_name} #{p3:pane_index} #T _:_ #S:#I.#P"`
+    local tmout=`tmux list-panes -a -F "#{p10:session_name} #I:#{p20:window_name} #{pane_index}:#{p20:@devenv-panename} _:_ #S:#I.#P"`
     local sel=`echo "$tmout" | awk -F ' _:_ ' '{print $1}'| fzf`
 
     pane=`echo "$tmout"|grep "$sel"|awk -F' _:_ ' '{print $2}'`
