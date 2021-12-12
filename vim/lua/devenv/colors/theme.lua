@@ -234,6 +234,7 @@ M.apply = function()
         Identifier        = { fg = colors.cyan }, -- any variable name
 
         String            = { fg = colors.yellow }, -- any string
+        MatchParen        = { style = 'bold,reverse'},
 
         --vim help
         helpExample       = { colors.beige, nil, "italic", nil},
