@@ -32,6 +32,8 @@ alias vtm="vim ~/.devenv_tmux.conf"
 alias tmk="tmux kill-server; kill -9 \$(ps -eaf|grep tmu[x] | sed 's/  */ /g' | cut -d\" \" -f2)"
 ##BH |tmks|Kill session with given name|
 alias tmks="tmux kill-session -t"
+##BH |tmkap|kill all panes other than current pane in tmux
+alias tmkap="tmux kill-pane -a"
 
 ##BH |ftwind|Find tmux windows in popup|
 ftwind ()
