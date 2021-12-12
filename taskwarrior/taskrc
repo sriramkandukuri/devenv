@@ -62,7 +62,7 @@ report._reviewed.filter=( reviewed.none: or reviewed.before:now-1week ) and ( +P
 report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency
 
 # Ready report: don't show annotations. Don't show depends.indicator
-report.ready.columns=id,start.age,entry.age,priority,project,tags,recur.indicator,scheduled.countdown,due.relative,until.remaining,description.count,urgency
+report.ready.columns=id,start.age,entry.age,priority,project,tags,recur.indicator,scheduled.countdown,due.relative,until.remaining,description.combined,urgency
 report.ready.labels=ID,Active,Age,P,Project,Tags,R,S,Due,Until,Description,Urg
 
 # OMG completed report, don't show me annotations.
