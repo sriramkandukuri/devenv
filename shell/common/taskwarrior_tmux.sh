@@ -5,11 +5,12 @@ devtasks ()
     local SNAME=$(tmux display-message -p "#S")
     local WNAME=$(tmux display-message -p "#W")
     local PFX="$SNAME:$WNAME"
-    tmux select-pane -T INPROGRESS
+    # tmux select-pane -T INPROGRESS
+    rnp INPROGRESS
     tmux split-window -h
-    tmux select-pane -T BURNDOWN
+    rnp BURNDOWN
     tmux split-window -h
-    tmux select-pane -T DONE
+    rnp DONE
     tmux select-pane -L
     tmux select-pane -L
     tmux resize-pane -x 33%
@@ -19,7 +20,7 @@ devtasks ()
     tmux resize-pane -x 33%
     tmux select-pane -L
     tmux split-window -v
-    tmux select-pane -T CONTROL
+    rnp CONTROL
     tmux send-keys -t $PFX.1 "wt" Enter
     tmux send-keys -t $PFX.2 "wtb" Enter
     tmux send-keys -t $PFX.4 "wtey" Enter
