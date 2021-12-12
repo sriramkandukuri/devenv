@@ -155,11 +155,11 @@ cmp.setup(cmpcfg)
 for _, cmd_type in ipairs({':', '/', '?', '@', '='}) do
     cmp.setup.cmdline(cmd_type, {
         sources = {
-            { name = 'cmdline' },
-            { name = 'fzy_buffer' },
-            { name = 'path' },
-            { name = 'fuzzy_path' },
             { name = 'cmdline_history' },
+            { name = 'cmdline' },
+            { name = 'path' },
+            { name = 'fzy_buffer' },
+            { name = 'fuzzy_path' },
         }
     })
 end
