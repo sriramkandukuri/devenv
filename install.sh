@@ -274,6 +274,15 @@ tools_gitconfig ()
     gconfig
 }
 
+tools_btoppp()
+{
+    ce_dir btop
+    wget https://github.com/aristocratos/btop/releases/download/v1.1.3/btop-x86_64-linux-musl.tbz
+    ex btop-x86_64-linux-musl.tbz
+    make PREFIX=$PWD install
+    sudo ln -sf $builddir/btop/bin/btop /usr/local/bin/btop
+}
+
 install_devtools()
 {
     pkgs=$(cat $myname|grep "^tools_"|cut -d"(" -f1)
