@@ -266,6 +266,7 @@ packer.startup{function()
     }
     use {"nvim-treesitter/playground", requires = "nvim-treesitter/nvim-treesitter"}
     use {"vigoux/architext.nvim",requires = "nvim-treesitter/nvim-treesitter"}
+    use {"p00f/nvim-ts-rainbow",requires = "nvim-treesitter/nvim-treesitter"}
 
     use {"nvim-treesitter/nvim-treesitter-textobjects", requires = "nvim-treesitter/nvim-treesitter"}
     use {"JoosepAlviste/nvim-ts-context-commentstring", requires = "nvim-treesitter/nvim-treesitter"}
