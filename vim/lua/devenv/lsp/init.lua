@@ -162,8 +162,8 @@ local servers = {
         handlers = nvim_status.extensions.clangd.setup(),
     },
     html = false,
-    jedi_language_server = true,
-    pylsp = false,
+    jedi_language_server = false,
+    pylsp =  true,
     sumneko_lua = {
         cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
         settings = {
@@ -215,3 +215,4 @@ end
 for server, config in pairs(servers) do
     setup_server(server, config)
 end
+vim.diagnostic.disable()

@@ -433,6 +433,7 @@ prv_install_ls()
         jedi-language-server
         python-language-server
         cmake-language-server
+        python-lsp-server[all]
     "
     local npm_pkgs="
         bash-language-server
@@ -470,7 +471,7 @@ build_nvim()
     "
     apt_pkg $apt_pkgs
     git clone --depth 1 https://github.com/neovim/neovim
-    cd neovim && make -j4
+    cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo -j4 
     sudo make install
 }
 
