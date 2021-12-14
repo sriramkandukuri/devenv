@@ -151,6 +151,7 @@ tools_pkgs ()
         libfreetype6-dev
         libfontconfig1-dev
         xclip
+        xsel
         libxcb-composite0-dev
         bison
         flex
