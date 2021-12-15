@@ -23,7 +23,7 @@ local function mapcommon(clrs)
     clrs.float          = clrs.bright_black
     clrs.menu           = clrs.bright_grey2
     clrs.accent         = clrs.dark_black
-    clrs.nontext        = clrs.dark_grey
+    clrs.nontext        = clrs.bright_grey
     clrs.visual         = clrs.dark_grey1
     clrs.gutter_fg      = clrs.grey1
 
@@ -67,7 +67,7 @@ M.apply = function()
         qfLineNr          = { fg = colors.highlight, bg = colors.title, style = 'reverse' }, -- Line numbers for quickfix lists
         TablineSel        = { fg = colors.bg, bg = colors.accent }, -- tab pages line, active tab page label
         Tabline           = { fg = colors.fg },
-        Whitespace        = { fg = colors.selection }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
+        Whitespace        = { fg = colors.nontext }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
         NormalMode        = { fg = colors.accent, style = 'reverse' }, -- Normal mode message in the cmdline
         InsertMode        = { fg = colors.green, style = 'reverse' }, -- Insert mode message in the cmdline
         ReplacelMode      = { fg = colors.red, style = 'reverse' }, -- Replace mode message in the cmdline

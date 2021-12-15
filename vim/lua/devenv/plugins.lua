@@ -227,6 +227,17 @@ packer.startup{function()
     -- https://github.com/tpope/vim-abolish
     use 'tpope/vim-abolish'
 
+    -- better and dynamic indentation
+    use 'tpope/vim-sleuth'
+
+    -- show listchars 
+    use {
+      'tjdevries/cyclist.vim', 
+      config = function()
+        require("devenv.cyclist-settings")
+      end
+    }
+
     -- uncrustify plugin
     --   https://github.com/embear/vim-uncrustify
     use 'embear/vim-uncrustify'

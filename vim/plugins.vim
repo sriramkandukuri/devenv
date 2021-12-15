@@ -119,7 +119,7 @@ Plug 'tpope/vim-abolish'
 "   https://github.com/embear/vim-uncrustify
 Plug 'embear/vim-uncrustify'
 
-" Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-sleuth'
 
 " Handle ansi color escases
 Plug 'powerman/vim-plugin-AnsiEsc'

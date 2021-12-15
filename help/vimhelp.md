@@ -133,6 +133,12 @@ Please find below shortcuts provided for vim.
 |---|---|
 |Function key F5|Refresh all plugins|
 
+### Cyclist-settings
+
+|Shortcut|Description|
+|---|---|
+|Space+`c|Toggle list chars for invisible characters like tabs spaces etc...|
+
 ### Man pages
 
 |Shortcut|Description|
