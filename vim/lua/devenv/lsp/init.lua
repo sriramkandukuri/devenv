@@ -105,8 +105,8 @@ local custom_attach = function(client, bufnr)
     nmap("ga", ":LspCodeAction<CR>", {bufnr = bufnr})
 --VH |gl|show line diagnostics as popup|
     nmap("gl", ":LspDiagLine<CR>", {bufnr = bufnr})
---VH |Space F12|toggle diagnostics|
-    nmap("<leader><F12>", ':call v:lua.toggle_diagnostics()<CR>')
+--VH |Space `d|toggle diagnostics|
+    nmap("<leader>`d", ':call v:lua.toggle_diagnostics()<CR>')
 --VH |Ctrl+l|show signature help in insert mdoe|
     imap("<c-l>", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
 

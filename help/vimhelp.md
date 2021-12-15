@@ -26,14 +26,14 @@ Please find below shortcuts provided for vim.
 |Space+K+p|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output below line|
 |Space+K+P|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output above line|
 |Space+K+B|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output new buffer |
-|\+h| Previous Answer works only inside cheat buffer|
-|\+j| Next Question works only inside cheat buffer|
-|\+k| Previous Question works only inside cheat buffer|
-|\+l| Next Answer works only inside cheat buffer|
-|\+H| Previous history works only inside cheat buffer|
-|\+J| Next "See also" works only inside cheat buffer|
-|\+K| Previous "See also" works only inside cheat buffer|
-|\+L| Next history works only inside cheat buffer|
+|\\+h| Previous Answer works only inside cheat buffer|
+|\\+j| Next Question works only inside cheat buffer|
+|\\+k| Previous Question works only inside cheat buffer|
+|\\+l| Next Answer works only inside cheat buffer|
+|\\+H| Previous history works only inside cheat buffer|
+|\\+J| Next "See also" works only inside cheat buffer|
+|\\+K| Previous "See also" works only inside cheat buffer|
+|\\+L| Next history works only inside cheat buffer|
 
 ### Clang plugin
 
@@ -218,7 +218,7 @@ Please find below shortcuts provided for vim.
 |\]a|next diagnostic|
 |ga|show code actions|
 |gl|show line diagnostics as popup|
-|Space F12|toggle diagnostics|
+|Space `d|toggle diagnostics|
 |Ctrl+l|show signature help in insert mdoe|
 
 ### Plugins
@@ -235,7 +235,7 @@ Please find below shortcuts provided for vim.
 |Space+g+f|Search through files, enter to open selected file|
 |Space+f|Search files having current word|
 |Space+fl|Invoke ripgrep|
-|Space+<ENTER>|Search through available buffers and enter to open selected one|
+|Space+\<ENTER\>|Search through available buffers and enter to open selected one|
 |Space+vh|Search through available help tags|
 |Space+dv|Search through devenv files|
 |Space+ts|Open telescope builtin commands in telescope|

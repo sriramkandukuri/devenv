@@ -177,7 +177,7 @@ end
 --VH |Space+g+f|Search through files, enter to open selected file|
 --VH |Space+f|Search files having current word|
 --VH |Space+fl|Invoke ripgrep|
---VH |Space+<ENTER>|Search through available buffers and enter to open selected one|
+--VH |Space+\<ENTER\>|Search through available buffers and enter to open selected one|
 --VH |Space+vh|Search through available help tags|
 --VH |Space+dv|Search through devenv files|
 --VH |Space+ts|Open telescope builtin commands in telescope|

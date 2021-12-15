@@ -57,13 +57,13 @@ autocmd BufRead,BufNewFile _cheat :maplocalleader="\\"
 ""VH |Space+K+p|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output below line|
 ""VH |Space+K+P|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output above line|
 ""VH |Space+K+B|Print ( cheat.sh )[ https://github.com/dbeniamine/cheat.sh-vim ] output new buffer |
-""VH |\+h| Previous Answer works only inside cheat buffer|
-""VH |\+j| Next Question works only inside cheat buffer|
-""VH |\+k| Previous Question works only inside cheat buffer|
-""VH |\+l| Next Answer works only inside cheat buffer|
-""VH |\+H| Previous history works only inside cheat buffer|
-""VH |\+J| Next "See also" works only inside cheat buffer|
-""VH |\+K| Previous "See also" works only inside cheat buffer|
-""VH |\+L| Next history works only inside cheat buffer|
+""VH |\\+h| Previous Answer works only inside cheat buffer|
+""VH |\\+j| Next Question works only inside cheat buffer|
+""VH |\\+k| Previous Question works only inside cheat buffer|
+""VH |\\+l| Next Answer works only inside cheat buffer|
+""VH |\\+H| Previous history works only inside cheat buffer|
+""VH |\\+J| Next "See also" works only inside cheat buffer|
+""VH |\\+K| Previous "See also" works only inside cheat buffer|
+""VH |\\+L| Next history works only inside cheat buffer|
 "
 ""}}}
