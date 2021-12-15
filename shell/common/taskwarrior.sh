@@ -169,6 +169,10 @@ tsl ()
         tclre
         task project:$i $@
     done
+    if [[ "$header" = *"Completed"* ]];then
+        task summary
+        task calendar
+    fi
 }
 
 ##BH |wtsl| watch tasks per project |
