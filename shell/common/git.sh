@@ -18,6 +18,7 @@ gconfig ()
     git config --global color.diff.old        "red bold"
     git config --global color.diff.new        "green bold"
     git config --global color.diff.whitespace "red reverse"
+    git config --global credential.helper 'cache --timeout=300'
 }
 
 ##BH |gid|git diff|
