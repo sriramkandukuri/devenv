@@ -29,6 +29,7 @@ packer.startup{function()
         config = function()
             require("devenv.globals")
             require("devenv.colors").init()
+            require("devenv.listchar").setlist("devenv")
         end,
         after = 'colorbuddy'
     }
@@ -229,14 +230,6 @@ packer.startup{function()
 
     -- better and dynamic indentation
     use 'tpope/vim-sleuth'
-
-    -- show listchars 
-    use {
-      'tjdevries/cyclist.vim', 
-      config = function()
-        require("devenv.cyclist-settings")
-      end
-    }
 
     -- uncrustify plugin
     --   https://github.com/embear/vim-uncrustify
