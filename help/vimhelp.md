@@ -78,15 +78,15 @@ Please find below shortcuts provided for vim.
 |Shortcut|Description|
 |---|---|
 |Space+c+o|Connect to cscope db using already existing cscope.out file
-|Space+c+s|**c**scope Find this C **s**ymbol
-|Space+c+d|**c**scope Find global **d**efinition
-|Space+c+c+b|**c**scope Find functions **c**alled **b**y this function
-|Space+c+c|**c**scope Find functions **c**alling this function
-|Space+c+t|**c**scope Find this **t**ext string
-|Space+c+e|**c**scope Find this **e**grep pattern
-|Space+c+f|**c**scope Find this **f**ile
-|Space+c+i|**c**scope Find files #**i**ncluding this file
-|Space+c+a|**c**scope Find **a**ssignments of a variable this file
+|Space+c+s|cscope Find this C symbol
+|Space+c+d|cscope Find global definition
+|Space+c+c+b|cscope Find functions called by this function
+|Space+c+c|cscope Find functions calling this function
+|Space+c+t|cscope Find this text string
+|Space+c+e|cscope Find this egrep pattern
+|Space+c+f|cscope Find this file
+|Space+c+i|cscope Find files #including this file
+|Space+c+a|cscope Find assignments of a variable this file
 
 ### Dirdiff plugin
 
@@ -132,12 +132,6 @@ Please find below shortcuts provided for vim.
 |Shortcut|Description|
 |---|---|
 |Function key F5|Refresh all plugins|
-
-### Cyclist-settings
-
-|Shortcut|Description|
-|---|---|
-|Space+`c|Toggle list chars for invisible characters like tabs spaces etc...|
 
 ### Man pages
 
