@@ -84,4 +84,6 @@ mkcd()
 }
 
 alias g='BROWSER=w3m googler -n 7 -c en -l en'
-eval $(tmux showenv|grep ^DISPLAY)
+if [ "$TMUX" != "" ];then
+    eval $(tmux showenv|grep ^DISPLAY)
+fi
