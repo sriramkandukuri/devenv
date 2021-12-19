@@ -216,6 +216,7 @@ alias wtey='wtsl end.after:yesterday completed'
 ##BH |wtlw| Watch task I completed in the last week|
 alias wtlw='wtsl end.after:today-1wk completed'
 
+##BH |twaddholiday| Add holiday to taskwarrior takes two params date and description |
 twaddholiday()
 {
     # $1 date in YYYY-MM-DD format
@@ -237,11 +238,13 @@ twaddholiday()
     echo holiday.day${curcount}.name=$@ >> ~/.holidays
 }
 
+##BH |twundoholiday| undo recently addedholiday to taskwarrior |
 twundoholiday()
 {
     cat ~/.holidays | head -n -2 > ~/.holidays
 }
 
+##BH |twholidays| import holidays to taskwarrior provide csv file with two columns date and description|
 twholidays()
 {
     # $1 file in csvformat having entries DD-MM-YYYY,Name

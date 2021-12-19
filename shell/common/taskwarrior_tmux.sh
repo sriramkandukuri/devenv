@@ -25,3 +25,16 @@ devtasks ()
     tmux send-keys -t $PFX.2 "wtb" Enter
     tmux send-keys -t $PFX.4 "wtey" Enter
 }
+
+##BH |devtaskskill|Kill Dashboard tmux window for task management with taskwarrior|
+devtaskskill ()
+{
+    tmux rename-window TASKS
+    local SNAME=$(tmux display-message -p "#S")
+    local WNAME=$(tmux display-message -p "#W")
+    local PFX="$SNAME:$WNAME"
+    tmux send-keys -t $PFX.1 "C-c" Enter
+    tmux send-keys -t $PFX.2 "C-c" Enter
+    tmux send-keys -t $PFX.4 "C-c" Enter
+    tmux kill-pane -a
+}

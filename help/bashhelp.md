@@ -128,6 +128,7 @@ Please find below shortcuts provided by bashrc.
 |Shortcut|Description|
 |---|---|
 |devtasks|Dashboard tmux window for task management with taskwarrior|
+|devtaskskill|Kill Dashboard tmux window for task management with taskwarrior|
 
 ### Git
 
@@ -228,6 +229,9 @@ Please find below shortcuts provided by bashrc.
 |wty| Watch tasks completed yesterday|
 |wtey| Watch tasks completed after yesterday|
 |wtlw| Watch task I completed in the last week|
+|twaddholiday| Add holiday to taskwarrior takes two params date and description |
+|twundoholiday| undo recently addedholiday to taskwarrior |
+|twholidays| import holidays to taskwarrior provide csv file with two columns date and description|
 
 ### Nerdfont
 
