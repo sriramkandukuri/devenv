@@ -2,6 +2,10 @@ export TASKRC=~/devenv/taskwarrior/taskrc
 
 source ~/devenv/shell/common/bashcolors.sh
 
+if [ ! -f ~/.holidays ];then
+    touch ~/.holidays
+fi
+    
 TICK="✅"
 CROSS="❌"
 
@@ -212,3 +216,46 @@ alias wtey='wtsl end.after:yesterday completed'
 ##BH |wtlw| Watch task I completed in the last week|
 alias wtlw='wtsl end.after:today-1wk completed'
 
+twaddholiday()
+{
+    # $1 date in YYYY-MM-DD format
+    # $2 name
+    if [ "$1" == "" -o "$2" == "" ];then
+        echo "Please give valid parameters \'twaddholiday <date in YYYY-MM-DD <Name of holiday>\'"
+        return
+    fi
+    local date=$(date "+%Y-%m-%d" -d "$1")
+    if [ $? != 0 ];then
+        echo "invalid date format: $1"
+        return
+    fi
+
+    local curcount=$(expr $(cat ~/.holidays|wc -l) \/ 2)
+    curcount=$(expr $curcount \+ 1)
+    echo holiday.day${curcount}.date=${date} >> ~/.holidays
+    shift
+    echo holiday.day${curcount}.name=$@ >> ~/.holidays
+}
+
+twundoholiday()
+{
+    cat ~/.holidays | head -n -2 > ~/.holidays
+}
+
+twholidays()
+{
+    # $1 file in csvformat having entries DD-MM-YYYY,Name
+    if [ "$1" == "" -o ! -f "$1" ];then
+        echo "Please give csv file"
+        return
+    fi
+    > /tmp/holidays
+    local oldIFS=$IFS
+    IFS=,
+    while read date name
+    do
+        echo $date $name
+        twaddholiday $date $name
+    done <<< $(cat $1)
+    IFS=$oldIFS
+}

@@ -114,3 +114,5 @@ kusarigama.plugins=GitCommit,Renew
 # custom overrides in my shell aliases and functions.
 verbose=blank,footnote,label,new-id,affected,edit,special,project,sync,unwait,recur
 context=srs
+include ~/.holidays
+calendar.holidays=full
