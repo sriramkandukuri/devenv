@@ -30,7 +30,7 @@ ce_dir ()
 
 clean_dir ()
 {
-    rm -rf build
+    sudo rm -rf build
     mkcd build
     prv_install_bash_completions;
 }
