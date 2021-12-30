@@ -488,8 +488,8 @@ build_nvim()
 prv_install_nvim ()
 {
     ce_dir nvim
-    # download_nvim
-    build_nvim
+    download_nvim
+    # build_nvim
     mkdir -p ~/.config/nvim
     touch ~/.config/nvim/init.vim
     echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > ~/.config/nvim/init.vim
