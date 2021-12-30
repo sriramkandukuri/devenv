@@ -24,7 +24,7 @@ shopt -s expand_aliases
 #crate and enter specific directory
 ce_dir ()
 {
-    rm -rf $builddir/$1 > /dev/null;
+    sudo rm -rf $builddir/$1 > /dev/null;
     mkcd $builddir/$1
 }
 
