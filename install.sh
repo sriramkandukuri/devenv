@@ -435,6 +435,7 @@ prv_install_luals()
 
 prv_install_ls()
 {
+    python3 -m keyring --disable
     local apt_pkgs="
         lua5.3
     "
