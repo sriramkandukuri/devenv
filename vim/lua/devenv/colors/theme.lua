@@ -22,7 +22,7 @@ local function mapcommon(clrs)
     clrs.disabled       = clrs.paleblue
     clrs.float          = clrs.bright_black
     clrs.menu           = clrs.bright_grey2
-    clrs.accent         = clrs.dark_black
+    clrs.accent         = clrs.brighter_inkblue
     clrs.nontext        = clrs.bright_grey
     clrs.visual         = clrs.dark_grey1
     clrs.gutter_fg      = clrs.grey1
@@ -64,6 +64,7 @@ M.apply = function()
     local editor = {
         ModeMsg           = { fg = colors.accent }, -- 'showmode' message (e.g., "-- INSERT -- ")
         MoreMsg           = { fg = colors.accent }, -- |more-prompt|
+        MsgArea           = { fg = colors.accent }, -- |more-prompt|
         qfLineNr          = { fg = colors.highlight, bg = colors.title, style = 'reverse' }, -- Line numbers for quickfix lists
         TablineSel        = { fg = colors.bg, bg = colors.accent }, -- tab pages line, active tab page label
         Tabline           = { fg = colors.fg },
@@ -86,6 +87,8 @@ M.apply = function()
 
         ColorColumn       = { nil, colors.ruler, nil, nil},
         Cursor            = { nil, nil, "reverse",  nil},
+        lCursor            = { nil, nil, "reverse",  nil},
+        CursorIM            = { nil, nil, "reverse",  nil},
         CursorLineNr      = { colors.yellow, nil, "bold",  nil},
         SignColumn        = { nil, colors.bg, nil, nil},
         Conceal           = { colors.comment, nil, nil, nil},
@@ -109,7 +112,6 @@ M.apply = function()
         Search            = { colors.black, colors.orange, nil, nil},
         IncSearch         = { colors.orange, colors.comment, nil, nil},
         LineNr            = { colors.line_numbers, colors.bg, nil, nil},
-        MatchParen        = { colors.fg, nil, "underline",  nil},
         NonText           = { colors.nontext, nil, nil, nil},
 
         Pmenu             = { colors.white, colors.menu, nil, nil},
@@ -119,7 +121,8 @@ M.apply = function()
 
         Question          = { colors.purple, nil, nil, nil},
         QuickFixLine      = { colors.black, colors.yellow, nil, nil},
-        SpecialKey        = { colors.nontext, nil, nil, nil},
+        SpecialKey        = { colors.dark_aqua, nil, nil, nil},
+        Tooltip           = { colors.dark_aqua, nil, nil, nil},
 
         SpellBad          = { colors.bright_red, nil, "underline",  nil},
         SpellCap          = { colors.yellow, nil, nil, nil},
@@ -194,47 +197,45 @@ M.apply = function()
     hil.colors(markdown)
 
     local syntax = {
-        Title             = { colors.cyan, nil, nil, nil},
-        Macro             = { colors.purple, nil, nil, nil},
-        StorageClass      = { colors.pink, nil, nil, nil},
-        Structure         = { colors.purple, nil, nil, nil},
-        Special           = { colors.green, nil, nil, nil},
-        SpecialComment    = { colors.comment, nil, 'italic', nil},
-        Comment           = { colors.comment, nil, "italic", nil},
-        Type              = { colors.cyan, nil, 'italic', nil}, -- int, long, char, etc.
-        Constant          = { colors.purple, nil, nil, nil},
-        Character         = { colors.green, nil, nil, nil}, -- any character constant: 'c', '\n'
-        Number            = { colors.purple, nil, nil, nil}, -- a number constant: 5
         Boolean           = { colors.purple, nil, nil, nil}, -- a boolean constant: TRUE, false
-        Float             = { fg = colors.aqua}, -- a floating point constant: 2.3e10
-        Statement         = { colors.purple, nil, nil, nil},
-        Label             = { colors.cyan, nil, nil, nil},
-        Operator          = { colors.pink, nil, nil, nil}, -- sizeof", "+", "*", etc.
-        Exception         = { colors.purple, nil, nil, nil}, -- try, catch, throw
-        PreProc           = { fg = colors.purple }, -- generic Preprocessor
-        Include           = { colors.pink, nil, nil, nil}, -- preprocessor #include
-        Define            = { fg = colors.pink }, -- preprocessor #define
-        TypeDef           = { colors.yellow, nil, "italic", nil},
-        Typedef           = { fg = colors.yellow, style = "italic" }, -- A typedef
-        PreCondit         = { fg = colors.cyan }, -- preprocessor #if, #else, #endif, etc.
-        SpecialChar       = { fg = colors.pink }, -- special character in a constant
-        Tag               = { colors.cyan, nil, nil, nil}, -- you can use CTRL-] on this
-        Delimiter         = { fg = colors.cyan }, -- character that needs attention like , or .
-        Debug             = { fg = colors.red }, -- debugging statements
-        Underlined        = { fg = colors.link, style = 'underline' }, -- text that stands out, HTML links
-        Ignore            = { fg = colors.disabled }, -- left blank, hidden
-        Error             = { fg = colors.error, style = 'bold,underline' }, -- any erroneous construct
-        Todo              = { fg = colors.black, bg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+        Character         = { colors.green, nil, nil, nil}, -- any character constant: 'c', '\n'
+        Comment           = { colors.comment, nil, "italic", nil},
         Conditional       = { fg = colors.dark_pink , style = "italic"}, -- normal if, then, else, endif, switch, etc.
-        Keywords          = { colors.cyan, nil, nil, nil},
-        Keyword           = { colors.pink, nil, 'italic', nil}, -- normal for, do, while, etc.
-        Repeat            = { fg = colors.bright_violet, style = "bold,italic" }, -- normal any other keyword
-
+        Constant          = { colors.purple, nil, nil, nil},
+        Debug             = { fg = colors.red }, -- debugging statements
+        Define            = { fg = colors.pink }, -- preprocessor #define
+        Delimiter         = { fg = colors.cyan }, -- character that needs attention like , or .
+        Error             = { fg = colors.error, style = 'bold,underline' }, -- any erroneous construct
+        Exception         = { colors.purple, nil, nil, nil}, -- try, catch, throw
+        Float             = { fg = colors.aqua}, -- a floating point constant: 2.3e10
         Function          = { fg = colors.green, style = 'italic' }, -- italic funtion names
         Identifier        = { fg = colors.cyan }, -- any variable name
-
-        String            = { fg = colors.yellow }, -- any string
+        Ignore            = { fg = colors.disabled }, -- left blank, hidden
+        Include           = { colors.pink, nil, nil, nil}, -- preprocessor #include
+        Keyword           = { colors.pink, nil, 'italic', nil}, -- normal for, do, while, etc.
+        Keywords          = { colors.cyan, nil, nil, nil},
+        Label             = { colors.cyan, nil, nil, nil},
+        Macro             = { colors.purple, nil, nil, nil},
         MatchParen        = { style = 'bold,reverse'},
+        Number            = { colors.purple, nil, nil, nil}, -- a number constant: 5
+        Operator          = { colors.pink, nil, nil, nil}, -- sizeof", "+", "*", etc.
+        PreCondit         = { fg = colors.cyan }, -- preprocessor #if, #else, #endif, etc.
+        PreProc           = { fg = colors.purple }, -- generic Preprocessor
+        Repeat            = { fg = colors.bright_violet, style = "bold,italic" }, -- normal any other keyword
+        Special           = { colors.green, nil, nil, nil},
+        SpecialChar       = { fg = colors.pink }, -- special character in a constant
+        SpecialComment    = { colors.comment, nil, 'italic', nil},
+        Statement         = { colors.purple, nil, nil, nil},
+        StorageClass      = { colors.pink, nil, nil, nil},
+        String            = { fg = colors.yellow }, -- any string
+        Structure         = { colors.purple, nil, nil, nil},
+        Tag               = { colors.cyan, nil, nil, nil}, -- you can use CTRL-] on this
+        Title             = { colors.cyan, nil, nil, nil},
+        Todo              = { fg = colors.black, bg = colors.yellow, style = 'bold,italic' }, -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+        Type              = { colors.cyan, nil, 'italic', nil}, -- int, long, char, etc.
+        TypeDef           = { colors.yellow, nil, "italic", nil},
+        Typedef           = { fg = colors.yellow, style = "italic" }, -- A typedef
+        Underlined        = { fg = colors.link, style = 'underline' }, -- text that stands out, HTML links
 
         --vim help
         helpExample       = { colors.beige, nil, "italic", nil},
@@ -243,69 +244,68 @@ M.apply = function()
     hil.colors(syntax)
 
     local treesitter = {
+
+        --TSNone             = { }, -- TODO: docs
         TSAnnotation         = { colors.yellow, nil, nil, nil},
         TSAttribute          = { colors.cyan, nil, nil, nil},
-        TSConstructor        = { colors.cyan, nil, nil, nil},
         TSConstBuiltin       = { colors.purple, nil, nil, nil},
         TSConstMacro         = { colors.cyan, nil, nil, nil},
+        TSConstructor        = { colors.cyan, nil, nil, nil},
+        TSEmphasis           = { fg = colors.paleblue }, -- For text to be represented with emphasis.
         TSField              = { colors.orange, nil, nil, nil},
+        TSFuncBuiltin        = { colors.cyan, nil, "bold,italic", nil},
+        TSKeywordFunction    = { fg = colors.purple, style = "italic"}, -- For keywords used to define a fuction.
         TSKeywordOperator    = { colors.pink, nil, nil, nil},
         TSKeywordReturn      = { fg = colors.cyan },
+        TSMath               = { fg = colors.blue }, -- Math environments like LaTeX's `$ ... $`
         TSNamespace          = { colors.magenta, nil, nil, nil},
         TSParameter          = { fg = colors.beige }, -- For parameters of a function.
         TSParameterReference = { fg = colors.bright_yellow }, -- For references to parameters of a function.
         TSProperty           = { fg = colors.bright_white }, -- Same as `TSField`,accesing for struct members in C.
-        TSPunctDelimiter     = { fg = colors.cyan }, -- For delimiters ie: `.`
         TSPunctBracket       = { fg = colors.cyan }, -- For brackets and parens.
+        TSPunctDelimiter     = { fg = colors.cyan }, -- For delimiters ie: `.`
         TSPunctSpecial       = { fg = colors.cyan }, -- For special punctutation that does not fall in the catagories before.
-        TSStringRegex        = { colors.red, nil, nil, nil},
-        TSStringEscape       = { colors.cyan, nil, nil, nil},
-        TSSymbol             = { fg = colors.yellow }, -- For identifiers referring to symbols or atoms.
-        TSStrong             = { fg = colors.paleblue, style = 'bold' }, -- Text to be represented in bold.
-        TSTagDelimiter       = { colors.white, nil, nil, nil},
-        TSTagAttribute       = { fg = colors.gray }, -- HTML tag attributes.
-        TSTextReference      = { fg = colors.yellow }, -- FIXME
-        TSEmphasis           = { fg = colors.paleblue }, -- For text to be represented with emphasis.
-        TSUnderline          = { fg = colors.fg, style = 'underline' }, -- For text to be represented with an underline.
         TSStrike             = { }, -- For strikethrough text.
-        TSTitle              = { fg = colors.title, style = 'bold' }, -- Text that is part of a title.
-        TSURI                = { fg = colors.link }, -- Any URI like a link or email.
-        TSMath               = { fg = colors.blue }, -- Math environments like LaTeX's `$ ... $`
-        TSType               = { colors.pink, nil, nil, nil},
-        --TSNone             = { }, -- TODO: docs
-
-
         TSString             = { fg = colors.yellow }, -- For strings.
-
-        TSKeywordFunction    = { fg = colors.purple, style = "italic"}, -- For keywords used to define a fuction.
-        TSFuncBuiltin        = { colors.cyan, nil, "bold,italic", nil},
+        TSStringEscape       = { colors.cyan, nil, nil, nil},
+        TSStringRegex        = { colors.red, nil, nil, nil},
+        TSStrong             = { fg = colors.paleblue, style = 'bold' }, -- Text to be represented in bold.
+        TSSymbol             = { fg = colors.yellow }, -- For identifiers referring to symbols or atoms.
+        TSTagAttribute       = { fg = colors.gray }, -- HTML tag attributes.
+        TSTagDelimiter       = { colors.white, nil, nil, nil},
+        TSTextReference      = { fg = colors.yellow }, -- FIXME
+        TSTitle              = { fg = colors.title, style = 'bold' }, -- Text that is part of a title.
+        TSType               = { colors.pink, nil, nil, nil},
+        TSURI                = { fg = colors.link }, -- Any URI like a link or email.
+        TSUnderline          = { fg = colors.fg, style = 'underline' }, -- For text to be represented with an underline.
         TSVariable           = { fg = colors.fg }, -- Any variable name that does not have another highlight.
         TSVariableBuiltin    = { fg = colors.brighter_paleblue }, -- Variable names that are defined by the languages, like `this` or `self`.
 
-        TSText               = "TSString", -- For strings considered text in a markup language.
-        TSLiteral            = "TSString", -- Literal text.
-        TSConstantBuiltin    = "TSConstBuiltin",
-        TSFloat              = "Float", -- For floats.
-        TSStructure          = "Structure",
         TSBoolean            = "Boolean", -- For booleans.
         TSCharacter          = "Character", -- For characters.
-        TSConstant           = "Constant", -- For constants
-        TSError              = "Error", -- For syntax/parser errors.
-        TSException          = "Exception", -- For exception related keywords.
-        TSInclude            = "Include", -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
-        TSLabel              = "Label", -- For labels: `label:` in C and `:label:` in Lua.
-        TSNumber             = "Number", -- For all numbers
-        TSOperator           = "Operator", -- For any operator: `+`, but also `->` and `*` in C.
-        TSTypeBuiltin        = "Type", -- For builtin types.
-        TSTag                = "Tag", -- Tags like html tag names.
+        TSClass              = "StorageClass",
         TSComment            = "Comment", -- For comment blocks.
         TSConditional        = "Conditional", -- For keywords related to conditionnals.
-        TSKeyword            = "Keyword", -- For keywords that don't fall in previous categories.
-        TSRepeat             = "Repeat", -- For keywords related to loops.
+        TSConstant           = "Constant", -- For constants
+        TSConstantBuiltin    = "TSConstBuiltin",
+        TSError              = "Error", -- For syntax/parser errors.
+        TSException          = "Exception", -- For exception related keywords.
+        TSFloat              = "Float", -- For floats.
         TSFuncMacro          = "Function",
         TSFunction           = "Function", -- For fuction (calls and definitions).
+        TSInclude            = "Include", -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
+        TSKeyword            = "Keyword", -- For keywords that don't fall in previous categories.
+        TSLabel              = "Label", -- For labels: `label:` in C and `:label:` in Lua.
+        TSLiteral            = "TSString", -- Literal text.
         TSMethod             = "Function", -- For method calls and definitions.
         TSNote               = "Todo",
+        TSNumber             = "Number", -- For all numbers
+        TSOperator           = "Operator", -- For any operator: `+`, but also `->` and `*` in C.
+        TSRepeat             = "Repeat", -- For keywords related to loops.
+        TSStructure          = "Structure",
+        TSTag                = "Tag", -- Tags like html tag names.
+        TSText               = "TSString", -- For strings considered text in a markup language.
+        TSTypeBuiltin        = "Type", -- For builtin types.
     }
     hil.colors(treesitter)
 
@@ -333,6 +333,7 @@ M.apply = function()
         LspReferenceText                     = { bg = colors.highlight }, -- used for highlighting "text" references
         LspReferenceRead                     = { bg = colors.highlight }, -- used for highlighting "read" references
         LspReferenceWrite                    = { bg = colors.highlight }, -- used for highlighting "write" references
+        LSPComment            = "Comment", -- For comment blocks.
 
         DiagnosticVirtualTextWarn  = { link = "LspDiagnosticsVirtualTextWarning" },
         DiagnosticUnderlineWarn    = { link = "LspDiagnosticsUnderlineWarning" },

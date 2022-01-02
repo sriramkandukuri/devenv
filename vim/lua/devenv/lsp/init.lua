@@ -1,38 +1,17 @@
-local has_lsp, lspconfig = pcall(require, "lspconfig")
-if not has_lsp then
-    return
-end
-
 local utils = require("devenv.utils")
 local border = utils.border
 local nmap = utils.nmap
 local imap = utils.imap
+local xmap = utils.xmap
 local cmd = vim.cmd
 
-local lspconfig_util = require "lspconfig.util"
 local nvim_status = require "lsp-status"
 local status = require "devenv.lsp.status"
-local telescope_mapper = require "devenv.utils.telemapper"
 
 local custom_init = function(client)
     client.config.flags = client.config.flags or {}
     client.config.flags.allow_incremental_sync = true
 end
-
-local system_name
-if vim.fn.has("mac") == 1 then
-  system_name = "macOS"
-elseif vim.fn.has("unix") == 1 then
-  system_name = "Linux"
-elseif vim.fn.has('win32') == 1 then
-  system_name = "Windows"
-else
-  print("Unsupported system for sumneko")
-end
-
--- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = os.getenv( "HOME" )..'/devenv/build/lua_ls/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
@@ -69,17 +48,16 @@ local custom_attach = function(client, bufnr)
 
     cmd [[command! LspDef lua vim.lsp.buf.definition()]]
     cmd [[command! LspFormatting lua vim.lsp.buf.formatting()]]
-    cmd [[command! LspCodeAction lua vim.lsp.buf.code_action()]]
-    cmd [[command! LspHover lua vim.lsp.buf.hover()]]
-    cmd [[command! LspRename lua vim.lsp.buf.rename()]]
+    -- cmd [[command! LspCodeAction lua vim.lsp.buf.code_action()]]
+    -- cmd [[command! LspHover lua vim.lsp.buf.hover()]]
+    -- cmd [[command! LspRename lua vim.lsp.buf.rename()]]
     cmd [[command! LspOrganize lua lsp_organize_imports()]]
-    cmd [[command! OR lua lsp_organize_imports()]]
     cmd [[command! LspRefs lua vim.lsp.buf.references()]]
     cmd [[command! LspTypeDef lua vim.lsp.buf.type_definition()]]
     cmd [[command! LspImplementation lua vim.lsp.buf.implementation()]]
-    cmd [[command! LspDiagPrev lua require("devenv.lsp.diags").gprv()]]
-    cmd [[command! LspDiagNext lua require("devenv.lsp.diags").gnxt()]]
-    cmd [[command! LspDiagLine lua require("devenv.lsp.diags").show()]]
+    -- cmd [[command! LspDiagPrev lua require("devenv.lsp.diags").gprv()]]
+    -- cmd [[command! LspDiagNext lua require("devenv.lsp.diags").gnxt()]]
+    -- cmd [[command! LspDiagLine lua require("devenv.lsp.diags").show()]]
     cmd [[command! LspSignatureHelp lua vim.lsp.buf.signature_help()]]
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
@@ -88,27 +66,30 @@ local custom_attach = function(client, bufnr)
 --VH |gd|go to definition|
     nmap("gd", ":LspDef<CR>", {bufnr = bufnr})
 --VH |gr|rename symbol|
-    nmap("gr", ":LspRename<CR>", {bufnr = bufnr})
---VH |gR|go to references|
-    nmap("gR", ":LspRefs<CR>", {bufnr = bufnr})
+    nmap("gr", "<cmd>Lspsaga rename<cr>", {bufnr = bufnr})
 --VH |gy|go to type definition|
     nmap("gy", ":LspTypeDef<CR>", {bufnr = bufnr})
 --VH |gk|hover to get the signature help of the word under cursor|
-    nmap("gk", ":LspHover<CR>", {bufnr = bufnr})
+    nmap("gk", "<cmd>Lspsaga hover_doc<cr>", {bufnr = bufnr})
 --VH |gss|organize|
     nmap("gss", ":LspOrganize<CR>", {bufnr = bufnr})
 --VH |\[a|previous diagnostic|
-    nmap("[a", ":LspDiagPrev<CR>", {bufnr = bufnr})
+    nmap("[a", "<cmd>Lspsaga diagnostic_jump_prev<cr>", {bufnr = bufnr})
 --VH |\]a|next diagnostic|
-    nmap("]a", ":LspDiagNext<CR>", {bufnr = bufnr})
+    nmap("]a", "<cmd>Lspsaga diagnostic_jump_next<cr>", {bufnr = bufnr})
 --VH |ga|show code actions|
-    nmap("ga", ":LspCodeAction<CR>", {bufnr = bufnr})
+    nmap("ga", "<cmd>Lspsaga code_action<cr>", {bufnr = bufnr})
+    xmap("ga", "<cmd>Lspsaga code_action<cr>", {bufnr = bufnr})
 --VH |gl|show line diagnostics as popup|
-    nmap("gl", ":LspDiagLine<CR>", {bufnr = bufnr})
+    nmap("gl", "<cmd>Lspsaga show_line_diagnostics<cr>", {bufnr = bufnr})
 --VH |Space `d|toggle diagnostics|
     nmap("<leader>`d", ':call v:lua.toggle_diagnostics()<CR>')
 --VH |Ctrl+l|show signature help in insert mdoe|
     imap("<c-l>", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
+--VH |Ctrl+u|smart scroll up using lsp|
+    nmap("<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>", {bufnr = bufnr})
+--VH |Ctrl+d|smart scroll down using lsp|
+    nmap("<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>", {bufnr = bufnr})
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
@@ -165,7 +146,6 @@ local servers = {
     jedi_language_server = false,
     pylsp =  true,
     sumneko_lua = {
-        cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
         settings = {
             Lua = {
                 runtime = {
@@ -191,6 +171,7 @@ local servers = {
     },
     jsonls = true,
 }
+local lspinst_servers = require('nvim-lsp-installer.servers')
 local setup_server = function(server, config)
     if not config then
         return
@@ -208,11 +189,20 @@ local setup_server = function(server, config)
             debounce_text_changes = 50,
         },
     }, config)
-
-    lspconfig[server].setup(config)
+    local server_available, requested_server = lspinst_servers.get_server(server)
+    if server_available then
+        if not requested_server:is_installed() then
+            -- Queue the server to be installed
+            requested_server:install()
+        end
+        requested_server:on_ready(function ()
+            requested_server:setup(config)
+        end)
+    end
 end
 
 for server, config in pairs(servers) do
     setup_server(server, config)
 end
 vim.diagnostic.disable()
+require("devenv.lsp.saga")

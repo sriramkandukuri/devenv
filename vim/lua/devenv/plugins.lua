@@ -81,6 +81,7 @@ packer.startup{function()
         end
     }
     use { "neovim/nvim-lspconfig",
+        requires = 'williamboman/nvim-lsp-installer',
         config = function()
             require("devenv.lsp")
         end,
@@ -115,7 +116,9 @@ packer.startup{function()
             'hrsh7th/cmp-emoji',
             'tzachar/cmp-tabnine',
             'hrsh7th/cmp-cmdline',
-            "dmitmel/cmp-cmdline-history"
+            "dmitmel/cmp-cmdline-history",
+            "dmitmel/cmp-digraphs",
+            "kdheepak/cmp-latex-symbols"
         },
         after = "devenv"
     }
@@ -256,7 +259,7 @@ packer.startup{function()
         end,
     }
 
-    use 'glepnir/lspsaga.nvim'
+    use "tami5/lspsaga.nvim"
     --  use 'nvim-lua/completion-nvim'
     --  use 'nvim-lua/diagnostic-nvim'
     --  use 'tjdevries/nlua.nvim'
@@ -312,8 +315,22 @@ packer.startup{function()
         after = "devenv"
     }
     use {
-      "dstein64/vim-startuptime",
-      cmd = "StartupTime",
+        "dstein64/vim-startuptime",
+        cmd = "StartupTime",
+    }
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("devenv.todo-comments")
+        end
+    }
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+            require("devenv.trouble")
+        end
     }
 
 -- ===========================================

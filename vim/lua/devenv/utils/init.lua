@@ -47,6 +47,25 @@ utils.onoremap = make_keymap_fn("o", noremap_opts)
 utils.tnoremap = make_keymap_fn("t", noremap_opts)
 utils.cnoremap = make_keymap_fn("c", noremap_opts)
 
+local bmap_opts = {noremap = false, silent = true}
+utils.bnmap = make_keymap_fn("n", bmap_opts)
+utils.bxmap = make_keymap_fn("x", bmap_opts)
+utils.bimap = make_keymap_fn("i", bmap_opts)
+utils.bvmap = make_keymap_fn("v", bmap_opts)
+utils.bomap = make_keymap_fn("o", bmap_opts)
+utils.btmap = make_keymap_fn("t", bmap_opts)
+utils.bsmap = make_keymap_fn("s", bmap_opts)
+utils.bcmap = make_keymap_fn("c", bmap_opts)
+
+local bnoremap_opts = {noremap = true, silent = true, bufnr = 0}
+utils.bnnoremap = make_keymap_fn("n", bnoremap_opts)
+utils.bxnoremap = make_keymap_fn("x", bnoremap_opts)
+utils.bvnoremap = make_keymap_fn("v", bnoremap_opts)
+utils.binoremap = make_keymap_fn("i", bnoremap_opts)
+utils.bonoremap = make_keymap_fn("o", bnoremap_opts)
+utils.btnoremap = make_keymap_fn("t", bnoremap_opts)
+utils.bcnoremap = make_keymap_fn("c", bnoremap_opts)
+
 function utils.has_map(map, mode)
   mode = mode or "n"
   return fn.maparg(map, mode) ~= ""

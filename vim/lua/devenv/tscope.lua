@@ -181,6 +181,7 @@ end
 --VH |Space+vh|Search through available help tags|
 --VH |Space+dv|Search through devenv files|
 --VH |Space+ts|Open telescope builtin commands in telescope|
+--VH |Space+td|Open diagnostics in telescope|
 local nnoremap = require("devenv.utils").nnoremap
 
 nnoremap( '<leader><leader>',"<cmd>lua require('telescope.builtin').find_files( {search_dirs = require('devenv.tscope').csfiles() } )<CR>")
@@ -192,4 +193,5 @@ nnoremap( '<leader>vh',      "<cmd>lua require('telescope.builtin').help_tags()<
 nnoremap( '<leader>dv',      "<cmd>lua require('devenv.tscope').search_devenv()<CR>")
 nnoremap( '<leader>ca',      "<cmd>lua require('devenv.tscope').lsp_code_actions()<CR>")
 nnoremap( '<leader>ts',      "<cmd>lua require('telescope.builtin').builtin()<CR>")
+nnoremap( '<leader>td',      "<cmd>lua require('telescope.builtin').diagnostics()<CR>")
 return M

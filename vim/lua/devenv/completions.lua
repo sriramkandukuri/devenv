@@ -49,58 +49,56 @@ local function enterit(fallback)
     end
 end
 
+local cmpicons = {
+    Class = " ",
+    Color = " ",
+    Constant = "C ",
+    Constructor = " ",
+    Enum = "練",
+    EnumMember = " ",
+    Event = " ",
+    Field = " ",
+    File = "",
+    Folder = " ",
+    Function = " ",
+    Interface = "i ",
+    Keyword = " ",
+    Method = " ",
+    Module = " ",
+    Operator = "",
+    Property = " ",
+    Reference = " ",
+    Snippet = " ",
+    Struct = " ",
+    Tabnine = " ",
+    Text = " ",
+    TypeParameter = " ",
+    Unit = "塞",
+    Value = " ",
+    Variable = " ",
+}
+
+local cmpmenu = {
+    nvim_lsp = "[LSP]",
+    nvim_lua = "[nvim]",
+    emoji = "[emoji]",
+    path = "[path]",
+    calc = "[calc]",
+    cmp_tabnine = "[tab9]",
+    vsnip = "[snip]",
+    luasnip = "[snip]",
+    buffer = "[buf]",
+    fzy_buffer = "[fzbuf]",
+    fuzzy_path = "[fzpath]",
+    cmdline = "[cmd]",
+    cmdline_history = "[cmd-hist]",
+}
+
 cmpcfg = {
     formatting = {
-      kind_icons = {
-        Class = " ",
-        Color = " ",
-        Constant = "C ",
-        Constructor = " ",
-        Enum = "練",
-        EnumMember = " ",
-        Event = " ",
-        Field = " ",
-        File = "",
-        Folder = " ",
-        Function = " ",
-        Interface = "i ",
-        Keyword = " ",
-        Method = " ",
-        Module = " ",
-        Operator = "",
-        Property = " ",
-        Reference = " ",
-        Snippet = " ",
-        Struct = " ",
-        Tabnine = " ",
-        Text = " ",
-        TypeParameter = " ",
-        Unit = "塞",
-        Value = " ",
-        Variable = " ",
-      },
       format = function(entry, vim_item)
-        vim_item.kind = cmpcfg.formatting.kind_icons[vim_item.kind] .. vim_item.kind
-        vim_item.menu = ({
-          nvim_lsp = "[LSP]",
-          nvim_lua = "[nvim]",
-          emoji = "[emoji]",
-          path = "[path]",
-          calc = "[calc]",
-          cmp_tabnine = "[tab9]",
-          vsnip = "[snip]",
-          luasnip = "[snip]",
-          buffer = "[buf]",
-          fzy_buffer = "[fzbuf]",
-          fuzzy_path = "[fzpath]",
-          cmdline = "[cmd]",
-          cmdline_history = "[cmd-hist]",
-        })[entry.source.name]
-        vim_item.dup = ({
-          buffer = 1,
-          path = 1,
-          nvim_lsp = 0,
-        })[entry.source.name] or 0
+        vim_item.kind = string.format( "%s %s ", cmpicons[vim_item.kind], vim_item.kind)
+        vim_item.menu = cmpmenu[entry.source.name]
         return vim_item
       end,
     },
@@ -131,22 +129,19 @@ cmpcfg = {
         ['<CR>'] = cmp.mapping(enterit, {"i", "s"}),
     },
     sources = {
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        { name = "nvim_lua" },
-        { name = 'buffer' },
-        { name = 'fzy_buffer' },
-        { name = 'fuzzy_path' },
-        { name = "path" },
-        { name = 'calc' },
-        { name = 'cmp_tabnine' },
-        { name = 'emoji' },
-        -- For vsnip user.
-        -- { name = 'vsnip' },
-        -- For luasnip user.
-        -- For ultisnips user.
-        -- { name = 'ultisnips' },
-        { name = "crates" },
+        { name = 'nvim_lsp', max_item_count = 10},
+        { name = 'luasnip', max_item_count = 10},
+        { name = "nvim_lua", max_item_count = 10},
+        { name = 'buffer', max_item_count = 10},
+        { name = 'fzy_buffer', max_item_count = 10},
+        { name = 'fuzzy_path', max_item_count = 10},
+        { name = "path", max_item_count = 10},
+        { name = 'calc', max_item_count = 10},
+        { name = 'cmp_tabnine', max_item_count = 10},
+        { name = 'emoji', max_item_count = 10},
+        { name = "crates", max_item_count = 10},
+        {name = "latex_symbols", max_item_count = 10},
+        {name = "digraphs", max_item_count = 10},
     },
 }
 cmp.setup(cmpcfg)
@@ -155,15 +150,16 @@ cmp.setup(cmpcfg)
 for _, cmd_type in ipairs({':', '/', '?', '@', '='}) do
     cmp.setup.cmdline(cmd_type, {
         sources = {
-            { name = 'cmdline_history' },
-            { name = 'cmdline' },
-            { name = 'path' },
-            { name = 'fzy_buffer' },
-            { name = 'fuzzy_path' },
-        }
+            { name = 'cmdline_history', max_item_count = 10},
+            { name = 'cmdline', max_item_count = 10},
+            { name = 'path', max_item_count = 10},
+            { name = 'fzy_buffer', max_item_count = 10},
+            { name = 'fuzzy_path', max_item_count = 10},
+        },
+        max_lines = 30
+
     })
 end
-
 
 local tabnine = require('cmp_tabnine.config')
 tabnine:setup({
@@ -179,6 +175,34 @@ local cmpcolors = {
     CmpItemAbbrMatch = { colors.aqua, nil, nil, nil },
     CmpItemAbbrMatchFuzzy = { colors.bright_salmon, nil, nil, nil },
     CmpItemKind = { colors.dark_beige, nil, "italic", nil },
-    CmpItemMenu = { colors.paleblue, nil, "italic", nil }
+    CmpItemMenu = { colors.paleblue, nil, "italic", nil },
+    CmpItemKindClass         = "TSClass",
+    CmpItemKindColor         = "TSColor",
+    CmpItemKindConstant      = "TSConstant",
+    CmpItemKindConstructor   = "TSConstructor",
+    CmpItemKindEnum          = "TSEnum",
+    CmpItemKindEnumMember    = "TSEnumMember",
+    CmpItemKindEvent         = "TSEvent",
+    CmpItemKindField         = "TSField",
+    CmpItemKindFile          = "TSFile",
+    CmpItemKindFolder        = "TSFolder",
+    CmpItemKindFunction      = "TSFunction",
+    CmpItemKindInterface     = "TSInterface",
+    CmpItemKindKeyword       = "TSKeyword",
+    CmpItemKindMethod        = "TSMethod",
+    CmpItemKindModule        = "TSModule",
+    CmpItemKindOperator      = "TSOperator",
+    CmpItemKindProperty      = "TSProperty",
+    CmpItemKindReference     = "TSReference",
+    CmpItemKindSnippet       = "TSSnippet",
+    CmpItemKindStruct        = "TSStruct",
+    CmpItemKindTabnine       = "TSTabnine",
+    CmpItemKindText          = "TSText",
+    CmpItemKindTypeParameter = "TSTypeParameter",
+    CmpItemKindUnit          = "TSUnit",
+    CmpItemKindValue         = "TSValue",
+    CmpItemKindVariable      = "TSVariable",
 }
 hil.colors(cmpcolors)
+
+vim.cmd([[set pumheight=30]])

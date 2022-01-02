@@ -225,6 +225,9 @@ tools_pyenv ()
     eval "$(pyenv init --path)"
     eval "$(pyenv virtualenv-init -)"
     pyenv install 3.8.5
+    pyenv global 3.8.5
+    python3 -m keyring --disable
+    pip install --upgrade pip
 }
 
 tools_yarn()
@@ -435,7 +438,6 @@ prv_install_luals()
 
 prv_install_ls()
 {
-    python3 -m keyring --disable
     local apt_pkgs="
         lua5.3
     "
@@ -564,7 +566,7 @@ prv_install_vimrc ()
     unlink ~/.vim > /dev/null 2>&1
     rm -rf ~/.vim > /dev/null 2>&1
     mkdir -p ~/.vim/pack/packer/start/
-    prv_install_plug
+    # prv_install_plug
     prv_install_packer
     # prv_install_ycm
     # prv_install_coc
@@ -573,14 +575,14 @@ prv_install_vimrc ()
 
 install_vim()
 {
-    local apt_pkgs="
-        vifm
-    "
-    apt_pkg $apt_pkgs
+    # local apt_pkgs="
+    #     vifm
+    # "
+    # apt_pkg $apt_pkgs
     prv_install_nvim
     prv_install_vim
     prv_install_vimrc
-    prv_install_ls
+    # prv_install_ls
 }
 
 prv_install_test()
