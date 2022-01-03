@@ -127,8 +127,10 @@ Please find below shortcuts provided by bashrc.
 
 |Shortcut|Description|
 |---|---|
-|devtasks|Dashboard tmux window for task management with taskwarrior|
-|devtaskskill|Kill Dashboard tmux window for task management with taskwarrior|
+|devtask|Dashboard tmux window for task management with taskwarrior|
+|devtaskkill|Kill Dashboard tmux window for task management with taskwarrior|
+|devtaskstop|Stop Dashboard tmux window for task management with taskwarrior|
+|devtaskrelaod|Restart tracking tasks in Dashboard tmux window for task management with taskwarrior|
 
 ### Git
 
