@@ -1,4 +1,4 @@
-set runtimepath^=~/.vim,~/.vim/after,~/devenv/vim
+set runtimepath^=~/.vim,~/.vim/pack,~/.vim/pack/packer,~/.vim/pack/packer/start,~/.vim/after,~/devenv/vim,~/.local/share/nvim/site/pack/packer/start
 let &packpath = &runtimepath
 
 if has('nvim')

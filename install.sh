@@ -283,7 +283,6 @@ tools_btoppp()
     ce_dir btop
     wget https://github.com/aristocratos/btop/releases/download/v1.1.3/btop-x86_64-linux-musl.tbz
     ex btop-x86_64-linux-musl.tbz
-    make PREFIX=$PWD install
     sudo ln -sf $builddir/btop/bin/btop /usr/local/bin/btop
 }
 
@@ -550,8 +549,10 @@ prv_install_plug()
 prv_install_packer ()
 {
     ce_dir packer
+    rm -rf ~/.local/share/nvim/site/pack/packer
+    rm -rf ~/.config/nvim/plugin/packer_compiled.lua
     git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.vim/pack/packer/start/packer.nvim
-    nvim --headless -c 'packadd packer.nvim | autocmd User PackerComplete quitall' -c 'PackerSync'
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 }
 
 # get vimrc and install plugins
@@ -580,7 +581,7 @@ install_vim()
     # "
     # apt_pkg $apt_pkgs
     prv_install_nvim
-    prv_install_vim
+    #prv_install_vim
     prv_install_vimrc
     # prv_install_ls
 }
