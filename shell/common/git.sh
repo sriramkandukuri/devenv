@@ -146,6 +146,20 @@ alias gibda='git branch -d $(git branch |grep -v "^*")'
 alias gibDa='git branch -D $(git branch |grep -v "^*")'
 ##BH |gico|git commit with adding signature|
 alias gico="git commit -s"
+##BH |gicoa|git commit with adding signature and amending|
+alias gicoa="git commit -s --amend"
+##BH |gicoane|git commit with adding signature amend without editing message|
+alias gicoane="git commit -s --amend --no-edit"
+##BH |girepl|git replace given commit with head commit|
+alias girepl="git reset --hard @~1 && git cherry-pick"
+
+##BH |gickhpush|git check current branch is pushed or not|
+gichkpush()
+{
+    git fetch --all
+    local b=$(git branch|awk '/^\*/{print $2}')
+    gilol ${b}..origin/${b}
+}
 
 
 ##BH |gil|git log|

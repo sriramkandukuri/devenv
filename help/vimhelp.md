@@ -204,7 +204,6 @@ Please find below shortcuts provided for vim.
 |---|---|
 |gd|go to definition|
 |gr|rename symbol|
-|gR|go to references|
 |gy|go to type definition|
 |gk|hover to get the signature help of the word under cursor|
 |gss|organize|
@@ -214,12 +213,25 @@ Please find below shortcuts provided for vim.
 |gl|show line diagnostics as popup|
 |Space `d|toggle diagnostics|
 |Ctrl+l|show signature help in insert mdoe|
+|Ctrl+u|smart scroll up using lsp|
+|Ctrl+d|smart scroll down using lsp|
 
 ### Plugins
 
 |Shortcut|Description|
 |---|---|
 |F5|Refresh plugins|
+
+### Trouble
+
+|Shortcut|Description|
+|---|---|
+|Space + x + x|show navigation pane for diags qlist loclist|
+|Space + x + w|show diagnostics of workspace|
+|Space + x + d|show document diagnostics|
+|Space + x + l|show beutified loclist|
+|Space + x + l|show beutified quickfix list|
+|Space + x + l|show lsp references|
 
 ### Tscope
 
@@ -233,4 +245,5 @@ Please find below shortcuts provided for vim.
 |Space+vh|Search through available help tags|
 |Space+dv|Search through devenv files|
 |Space+ts|Open telescope builtin commands in telescope|
+|Space+td|Open diagnostics in telescope|
 

@@ -129,19 +129,19 @@ cmpcfg = {
         ['<CR>'] = cmp.mapping(enterit, {"i", "s"}),
     },
     sources = {
-        { name = 'nvim_lsp', max_item_count = 10},
-        { name = 'luasnip', max_item_count = 10},
-        { name = "nvim_lua", max_item_count = 10},
-        { name = 'buffer', max_item_count = 10},
-        { name = 'fzy_buffer', max_item_count = 10},
-        { name = 'fuzzy_path', max_item_count = 10},
-        { name = "path", max_item_count = 10},
-        { name = 'calc', max_item_count = 10},
-        { name = 'cmp_tabnine', max_item_count = 10},
-        { name = 'emoji', max_item_count = 10},
-        { name = "crates", max_item_count = 10},
-        {name = "latex_symbols", max_item_count = 10},
-        {name = "digraphs", max_item_count = 10},
+        { name = 'nvim_lsp'},
+        { name = 'luasnip'},
+        { name = "nvim_lua"},
+        { name = 'buffer'},
+        { name = 'fzy_buffer'},
+        { name = 'fuzzy_path'},
+        { name = "path"},
+        { name = 'calc'},
+        { name = 'cmp_tabnine'},
+        { name = 'emoji'},
+        { name = "crates"},
+        {name = "latex_symbols"},
+        {name = "digraphs"},
     },
 }
 cmp.setup(cmpcfg)
@@ -150,11 +150,11 @@ cmp.setup(cmpcfg)
 for _, cmd_type in ipairs({':', '/', '?', '@', '='}) do
     cmp.setup.cmdline(cmd_type, {
         sources = {
-            { name = 'cmdline_history', max_item_count = 10},
-            { name = 'cmdline', max_item_count = 10},
-            { name = 'path', max_item_count = 10},
-            { name = 'fzy_buffer', max_item_count = 10},
-            { name = 'fuzzy_path', max_item_count = 10},
+            { name = 'cmdline_history'},
+            { name = 'cmdline'},
+            { name = 'path'},
+            { name = 'fzy_buffer'},
+            { name = 'fuzzy_path'},
         },
         max_lines = 30
 

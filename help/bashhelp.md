@@ -169,6 +169,10 @@ Please find below shortcuts provided by bashrc.
 |gibda|git all branches delete except current one|
 |gibDa|git all branches force delete except current one|
 |gico|git commit with adding signature|
+|gicoa|git commit with adding signature and amending|
+|gicoane|git commit with adding signature amend without editing message|
+|girepl|git replace given commit with head commit|
+|gickhpush|git check current branch is pushed or not|
 |gil|git log|
 |gilo|git log in oneline format|
 |gilol | awesome git log replacement|
