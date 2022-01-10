@@ -12,3 +12,11 @@ gh_rel()
         curl -s https://api.github.com/repos/$repo/releases/latest | grep browser_download_url|cut -d: -f2-|sed -e 's/\"//g' -e 's/^ //g'
     fi
 }
+
+##BH |ghkey|copy github key to clipboard one should add their github key to ~/.ghkey file|
+ghkey()
+{
+    if [ -f ~/.ghkey ];then
+        cat ~/.ghkey|xsel
+    fi
+}

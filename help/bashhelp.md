@@ -285,4 +285,5 @@ Please find below shortcuts provided by bashrc.
 |Shortcut|Description|
 |---|---|
 |gh_rel|Get latest github release file from a repo `Usage gh_rel <repo name> <file regex pattern>`|
+|ghkey|copy github key to clipboard one should add their github key to ~/.ghkey file|
 
