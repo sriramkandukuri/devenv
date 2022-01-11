@@ -29,7 +29,6 @@ source ~/devenv/vim/spell_check.vim
 source ~/devenv/vim/uncrustify_plugin.vim
 source ~/devenv/vim/google_plugin.vim
 source ~/devenv/vim/cheatsheet_plugin.vim
-source ~/devenv/vim/cscope.vim
 source ~/devenv/vim/markdown_plugin.vim
 source ~/devenv/vim/dirdiff_plugin.vim
 source ~/devenv/vim/quickscope_plugin.vim

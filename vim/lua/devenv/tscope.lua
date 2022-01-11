@@ -194,4 +194,5 @@ nnoremap( '<leader>dv',      "<cmd>lua require('devenv.tscope').search_devenv()<
 nnoremap( '<leader>ca',      "<cmd>lua require('devenv.tscope').lsp_code_actions()<CR>")
 nnoremap( '<leader>ts',      "<cmd>lua require('telescope.builtin').builtin()<CR>")
 nnoremap( '<leader>td',      "<cmd>lua require('telescope.builtin').diagnostics()<CR>")
+nnoremap( '<leader>t.',      "<cmd>lua require('telescope.builtin').resume()<CR>")
 return M

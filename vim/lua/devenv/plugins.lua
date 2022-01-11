@@ -30,6 +30,7 @@ packer.startup{function()
             require("devenv.globals")
             require("devenv.colors").init()
             require("devenv.listchar").setlist("devenv")
+            require("devenv.cscope")
         end,
         after = 'colorbuddy'
     }
@@ -223,9 +224,6 @@ packer.startup{function()
     -- Google Plugin for vim
     --   https://github.com/szw/vim-g
     use 'szw/vim-g'
-
-    -- Cscope helper
-    use 'ronakg/quickr-cscope.vim'
 
     -- Format changers and some grammer fixers
     -- https://github.com/tpope/vim-abolish

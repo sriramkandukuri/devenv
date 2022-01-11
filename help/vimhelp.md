@@ -73,21 +73,6 @@ Please find below shortcuts provided for vim.
 |Space+p|Paste copied(using Space+y) text, use this for copy pasting between files opened in different shells|
 |Space+d|Delete a selection or line to black hole buffer so that it wont stored in clipboard
 
-### Cscope
-
-|Shortcut|Description|
-|---|---|
-|Space+c+o|Connect to cscope db using already existing cscope.out file
-|Space+c+s|cscope Find this C symbol
-|Space+c+d|cscope Find global definition
-|Space+c+c+b|cscope Find functions called by this function
-|Space+c+c|cscope Find functions calling this function
-|Space+c+t|cscope Find this text string
-|Space+c+e|cscope Find this egrep pattern
-|Space+c+f|cscope Find this file
-|Space+c+i|cscope Find files #including this file
-|Space+c+a|cscope Find assignments of a variable this file
-
 ### Dirdiff plugin
 
 |Shortcut|Description|
@@ -197,6 +182,19 @@ Please find below shortcuts provided for vim.
 |Shortcut|Description|
 |---|---|
 |Space+u|show undo tree in spliview|
+
+### Cscope init
+
+|Shortcut|Description|
+|---|---|
+|Space+c+o|Connect to cscope db using already existing cscope.out file
+|Space+C|open cscope interactively in telescope
+|Space+c+s|cscope Find this C symbol
+|Space+c+d|cscope Find global definition
+|Space+c+c|cscope Find functions calling this function
+|Space+c+f|cscope Find this file
+|Space+c+i|cscope Find files #including this file
+|Space+c+a|cscope Find assignments of a variable this file
 
 ### Lsp init
 
