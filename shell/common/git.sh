@@ -59,6 +59,13 @@ pgid ()
     gid $@
 }
 
+##BH |gidls|git diff only output file names changed|
+gidls ()
+{
+    opts="--name-only"
+    gid $@
+}
+
 ##BH |pgids|patch formatted git diff with staged changes|
 pgids ()
 {
@@ -152,6 +159,10 @@ alias gicoa="git commit -s --amend"
 alias gicoane="git commit -s --amend --no-edit"
 ##BH |girepl|git replace given commit with head commit|
 alias girepl="git reset --hard @~1 && git cherry-pick"
+##BH |gifa|git fetch all|
+alias gifa='git fetch --all'
+##BH |gipure|git rebase and pull|
+alias gipure="git pull --rebase"
 
 ##BH |gickhpush|git check current branch is pushed or not|
 gichkpush()

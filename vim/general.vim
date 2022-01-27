@@ -71,7 +71,8 @@ nnoremap <leader>8 :Dox<cr>
 ""VH |Space+`\`|Append line end comments Use only for c style doxygen comments for structure or parameter variables.|
 nnoremap <leader>\ :set paste <ESC>:norm A/**<  */<ESC>:set nopaste<ESC><Left><Left><ESC>i
 " Automatically update copyright notice with current year
+command UPDATECOPYRIGHT
+  \  exe "g#\\cCOPYRIGHT \\(".strftime("%Y")."\\)\\@![0-9]\\{4\\}\\(-".strftime("%Y")."\\)\\@!#s#\\([0-9]\\{4\\}\\)\\(-[0-9]\\{4\\}\\)\\?#\\1-".strftime("%Y") |
 autocmd BufWritePre *
-  \ if &modified |
-  \   exe "g#\\cCOPYRIGHT \\(".strftime("%Y")."\\)\\@![0-9]\\{4\\}\\(-".strftime("%Y")."\\)\\@!#s#\\([0-9]\\{4\\}\\)\\(-[0-9]\\{4\\}\\)\\?#\\1-".strftime("%Y") |
+  \ if &modified | exe "UPDATECOPYRIGHT" |
   \ endif

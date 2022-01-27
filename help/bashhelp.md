@@ -16,6 +16,182 @@ This bash environment provides prompt with 2 segments
 
 Please find below shortcuts provided by bashrc.
 
+### Fzf
+
+|Shortcut|Description|
+|---|---|
+|hfzf|fzf with hidden files enabled|
+
+### Devenv management
+
+|Shortcut|Description|
+|---|---|
+|vdbash|To edit `bashrc` provided by this repository, **This works only if this repo cloned to home directory.**|
+|genhelp|Generate help documents of devenv|
+|tmhelp|Show tmux shortcuts help|
+|bhelp|Show bashrc shortcuts help|
+|vhg|Show help of any command from vim help|
+|vhg|Show help of any query from vim help|
+|vhelp|Show custom vim shortcuts help|
+
+### Cscope
+
+|Shortcut|Description|
+|---|---|
+|csd|Open cscope with available cscope files in current directory|
+|cs|Create cscope db and open cscope. This also takes directories as arguments to which cscopedb need to be created.|
+|csf|Similar to above `cs` but removes all the cscope db files before creating new set of files. This can used to refresh the db if source is changed.|
+
+### Tmux
+
+|Shortcut|Description|
+|---|---|
+|tmux|Run `tmux` command with predefined env settings aliased to `EDITOR=nvim TERM=tmux-256color tmux -2 -u`|
+|rnp|Sets a titile which inturn renames a pane in tmux|
+|tm|Open new tmux session with given name, or attach if its already exist, if used first time opens resurrected tmux sessions and connect them|
+|tml|list currently running tmux sessions|
+|vtm|Open tmux custom config provided by this repository for editing in vim|
+|tmk|Kill tmux server and kill all processes having `tmux` in their command|
+|tmks|Kill session with given name|
+|tmkap|kill all panes other than current pane in tmux
+|ftwind|Find tmux windows in popup|
+|ftpanes|Find all panes on server using fzf and switch to the selected one|
+
+### Tools
+
+|Shortcut|Description|
+|---|---|
+|d2u|Dos to unix command |
+|gettimestamp|Prints time in `YYYYMMDD_hhmmss` format. Usefull for generating any filenames based on timestamp|
+|gettimestampbb|Prints time in `YYYY.MM.DD-hh:mm:ss` format. Usefull for generating any filenames based on timestamp|
+|getsource|Get any git repo as a tar ball witout git information.|
+|fsw|Find any swap files in current directory|
+|hugelist|Find top 5 space consuming files or directories|
+|cdsize|Current directory size|
+|?|Get details of an alias/command example "? fsw"|
+|countdown|Countdown timer become handy to track time sometimes.ex. `countdown 60` `countdown $((2*60*60))` `countdown $((24*60*60))`|
+|stopwatch|Stopwatch kind of display on terminal|
+|man|Similar to man but presented colorful|
+|bkp|Just create a backup of file/directory with appending timestamp to its name.|
+|tarbkp|Just create a backup of file/directory with timestamp as tarball.|
+|myecho|echo command wrapper with colored errors,warnings and highlighted directory entries and exits.|
+|mmk|Make command wrapper with colored errors,warnings and highlighted directory entries and exits.|
+|batch_mv|`batch_mv x y` Renames files containing `x` in their names and replaces `x` with `y`|
+|batch_rename|`batch_rename x y` Renames files containing `x` in their names and replaces `x` with `y`. This also replaces file contents having `x` to `y`|
+|compress|creates <given name>.tar.gz from files uses first file name as tarball name|
+|bestcompress|creates <given name>tar.xz from files uses firstfile name as tarball name|
+|ex|archive extractor usage: ex <file>|
+|glow|Fill a pane(tmux) or split terminal with all white color,  might be useful if you dont have other light source|
+|vitmp|Create and open temporary file in vim|
+|clean_tmp|Remove all temporary files created by `mktemp` command|
+|dirdiff|Terminal based interactive directory diff tool using vim|
+|uncrust| 'uncrust [file names or wild char]' format given files as per the found config.|
+
+### Cheat sheet
+
+|Shortcut|Description|
+|---|---|
+|cheat|get help on given programing languages or tools using cht.sh + fzf|
+|tmch|Same as cheat command but opens in new tmux window and closes with Ctrl-C|
+
+### Text formatting
+
+|Shortcut|Description|
+|---|---|
+|printcolors|Test terminal supports 256 colors or not. Also outputs color numbers.|
+|rgbtest|Test your terminal supports rgb colors or not and print them|
+|-|Function naming as (t)(clr)(t)(b) --> (true)(color)(text)(bold)|
+|-|tclrtb, tclrt. tclrbg are single argument functions which take one color code|
+|-|tclr and tclrb takes two arguments first one background and second one foreground|
+|-|tclre ends color coding. **All color codes to be given in hex format**|
+|tclrtb|Color only foreground and set text to bold|
+|tclrt|Color only foreground|
+|tclrbg|Color only background|
+|tclrb|Color background and foreground and make text to bold|
+|tclrb|Color background and foreground.|
+|tclre|Ends color coding.|
+|print_u8charset|Print whole UTF-8 char set. Not working correctly as there are several unwanted characters|
+|rtxt|print given arguments right aligned|
+|ctxt|print given arguments center aligned|
+|ctxtf|print given arguments center aligned with trailing spaces(f)|
+|drawline|print horizontal line useful for screen seperation in some scripts|
+
+### Ssh management
+
+|Shortcut|Description|
+|---|---|
+|create_pkeys|create ssh keys for automatic ssh logins.|
+|setup_ssh|Auto ssh login helper which set sshkeys to remote server, ex. `setup_ssh user@host`|
+
+### Taskwarrior tmux
+
+|Shortcut|Description|
+|---|---|
+|devtask|Dashboard tmux window for task management with taskwarrior|
+|devtaskkill|Kill Dashboard tmux window for task management with taskwarrior|
+|devtaskstop|Stop Dashboard tmux window for task management with taskwarrior|
+|devtaskrelaod|Restart tracking tasks in Dashboard tmux window for task management with taskwarrior|
+
+### Git
+
+|Shortcut|Description|
+|---|---|
+|gid|git diff|
+|gids|git diff with staged changes|
+|gidw|git diff ignoring white space|
+|pgid|patch formatted git diff|
+|gidls|git diff only output file names changed|
+|pgids|patch formatted git diff with staged changes|
+|pgidw|patch formatted git diff ignoring white space|
+|vgid|git diff open in vim|
+|vgids|git diff with staged changes opens in vim|
+|vgidw|git diff ignoring white space opens in vim|
+|gicl|git clone|
+|gigt|git get theirs|
+|gigo|git get ours|
+|gipsf|git push force|
+|gipsof|git push origin force|
+|gips|git push|
+|gipso|git push origin|
+|gipla|git pull all|
+|gipl|git pull|
+|gir|git rebase|
+|girc|git rebase continue|
+|girs|gir rebase skip|
+|gira|gir rebase abort|
+|gia|git add|
+|gis|git status|
+|gich|git checkout|
+|gicb|git checkour new branch with given name|
+|gib|git branch|
+|giba|git show all branches including remotes|
+|gibd|git branch delete|
+|gibD|git branch force delete |
+|gibda|git all branches delete except current one|
+|gibDa|git all branches force delete except current one|
+|gico|git commit with adding signature|
+|gicoa|git commit with adding signature and amending|
+|gicoane|git commit with adding signature amend without editing message|
+|girepl|git replace given commit with head commit|
+|gifa|git fetch all|
+|gipure|git rebase and pull|
+|gickhpush|git check current branch is pushed or not|
+|gil|git log|
+|gilo|git log in oneline format|
+|gilol | awesome git log replacement|
+|gilod |git log same as above, but ISO date|
+|gilobi | git log using **b**uild-**i**n standards|
+|gilobc | git log to show **b**ranches and their last **c**ommits|
+|gigl| **gi**t **g**raph by **l**og|
+|gigb| **gi**t **g**raph by **b**ranches|
+|get_git_ls|Get git local status|
+|get_git_is|Get git index status information about ahead or behind|
+|get_git_lb|Get git local branch|
+|get_git_rb|Get git origin branch.|
+|get_git_sc|Get git stash count|
+|gucfg|Global git user config|
+|lgucfg|Local git user config for repository level|
+
 ### Taskwarrior
 
 |Shortcut|Description|
@@ -66,19 +242,12 @@ Please find below shortcuts provided by bashrc.
 |twundoholiday| undo recently addedholiday to taskwarrior |
 |twholidays| import holidays to taskwarrior provide csv file with two columns date and description|
 
-### Ssh management
+### Nerdfont
 
 |Shortcut|Description|
 |---|---|
-|create_pkeys|create ssh keys for automatic ssh logins.|
-|setup_ssh|Auto ssh login helper which set sshkeys to remote server, ex. `setup_ssh user@host`|
-
-### Cheat sheet
-
-|Shortcut|Description|
-|---|---|
-|cheat|get help on given programing languages or tools using cht.sh + fzf|
-|tmch|Same as cheat command but opens in new tmux window and closes with Ctrl-C|
+|install_nf|Install any nerd font from github release|
+|install_all_nf|Install all nerd fonts from github release|
 
 ### General
 
@@ -108,156 +277,11 @@ Please find below shortcuts provided by bashrc.
 |lf|List file with fullpath usefull while remote copying.|
 |mkcd|Make directory and cd to it|
 
-### Cscope
+### Debugging
 
 |Shortcut|Description|
 |---|---|
-|csd|Open cscope with available cscope files in current directory|
-|cs|Create cscope db and open cscope. This also takes directories as arguments to which cscopedb need to be created.|
-|csf|Similar to above `cs` but removes all the cscope db files before creating new set of files. This can used to refresh the db if source is changed.|
-
-### Text formatting
-
-|Shortcut|Description|
-|---|---|
-|printcolors|Test terminal supports 256 colors or not. Also outputs color numbers.|
-|rgbtest|Test your terminal supports rgb colors or not and print them|
-|-|Function naming as (t)(clr)(t)(b) --> (true)(color)(text)(bold)|
-|-|tclrtb, tclrt. tclrbg are single argument functions which take one color code|
-|-|tclr and tclrb takes two arguments first one background and second one foreground|
-|-|tclre ends color coding. **All color codes to be given in hex format**|
-|tclrtb|Color only foreground and set text to bold|
-|tclrt|Color only foreground|
-|tclrbg|Color only background|
-|tclrb|Color background and foreground and make text to bold|
-|tclrb|Color background and foreground.|
-|tclre|Ends color coding.|
-|print_u8charset|Print whole UTF-8 char set. Not working correctly as there are several unwanted characters|
-|rtxt|print given arguments right aligned|
-|ctxt|print given arguments center aligned|
-|ctxtf|print given arguments center aligned with trailing spaces(f)|
-|drawline|print horizontal line useful for screen seperation in some scripts|
-
-### Fzf
-
-|Shortcut|Description|
-|---|---|
-|hfzf|fzf with hidden files enabled|
-
-### Nerdfont
-
-|Shortcut|Description|
-|---|---|
-|install_nf|Install any nerd font from github release|
-|install_all_nf|Install all nerd fonts from github release|
-
-### Devenv management
-
-|Shortcut|Description|
-|---|---|
-|vdbash|To edit `bashrc` provided by this repository, **This works only if this repo cloned to home directory.**|
-|genhelp|Generate help documents of devenv|
-|tmhelp|Show tmux shortcuts help|
-|bhelp|Show bashrc shortcuts help|
-|vhg|Show help of any command from vim help|
-|vhg|Show help of any query from vim help|
-|vhelp|Show custom vim shortcuts help|
-
-### Git
-
-|Shortcut|Description|
-|---|---|
-|gid|git diff|
-|gids|git diff with staged changes|
-|gidw|git diff ignoring white space|
-|pgid|patch formatted git diff|
-|pgids|patch formatted git diff with staged changes|
-|pgidw|patch formatted git diff ignoring white space|
-|vgid|git diff open in vim|
-|vgids|git diff with staged changes opens in vim|
-|vgidw|git diff ignoring white space opens in vim|
-|gicl|git clone|
-|gigt|git get theirs|
-|gigo|git get ours|
-|gipsf|git push force|
-|gipsof|git push origin force|
-|gips|git push|
-|gipso|git push origin|
-|gipla|git pull all|
-|gipl|git pull|
-|gir|git rebase|
-|girc|git rebase continue|
-|girs|gir rebase skip|
-|gira|gir rebase abort|
-|gia|git add|
-|gis|git status|
-|gich|git checkout|
-|gicb|git checkour new branch with given name|
-|gib|git branch|
-|giba|git show all branches including remotes|
-|gibd|git branch delete|
-|gibD|git branch force delete |
-|gibda|git all branches delete except current one|
-|gibDa|git all branches force delete except current one|
-|gico|git commit with adding signature|
-|gicoa|git commit with adding signature and amending|
-|gicoane|git commit with adding signature amend without editing message|
-|girepl|git replace given commit with head commit|
-|gickhpush|git check current branch is pushed or not|
-|gil|git log|
-|gilo|git log in oneline format|
-|gilol | awesome git log replacement|
-|gilod |git log same as above, but ISO date|
-|gilobi | git log using **b**uild-**i**n standards|
-|gilobc | git log to show **b**ranches and their last **c**ommits|
-|gigl| **gi**t **g**raph by **l**og|
-|gigb| **gi**t **g**raph by **b**ranches|
-|get_git_ls|Get git local status|
-|get_git_is|Get git index status information about ahead or behind|
-|get_git_lb|Get git local branch|
-|get_git_rb|Get git origin branch.|
-|get_git_sc|Get git stash count|
-|gucfg|Global git user config|
-|lgucfg|Local git user config for repository level|
-
-### Tools
-
-|Shortcut|Description|
-|---|---|
-|d2u|Dos to unix command |
-|gettimestamp|Prints time in `YYYYMMDD_hhmmss` format. Usefull for generating any filenames based on timestamp|
-|gettimestampbb|Prints time in `YYYY.MM.DD-hh:mm:ss` format. Usefull for generating any filenames based on timestamp|
-|getsource|Get any git repo as a tar ball witout git information.|
-|fsw|Find any swap files in current directory|
-|hugelist|Find top 5 space consuming files or directories|
-|cdsize|Current directory size|
-|?|Get details of an alias/command example "? fsw"|
-|countdown|Countdown timer become handy to track time sometimes.ex. `countdown 60` `countdown $((2*60*60))` `countdown $((24*60*60))`|
-|stopwatch|Stopwatch kind of display on terminal|
-|man|Similar to man but presented colorful|
-|bkp|Just create a backup of file/directory with appending timestamp to its name.|
-|tarbkp|Just create a backup of file/directory with timestamp as tarball.|
-|myecho|echo command wrapper with colored errors,warnings and highlighted directory entries and exits.|
-|mmk|Make command wrapper with colored errors,warnings and highlighted directory entries and exits.|
-|batch_mv|`batch_mv x y` Renames files containing `x` in their names and replaces `x` with `y`|
-|batch_rename|`batch_rename x y` Renames files containing `x` in their names and replaces `x` with `y`. This also replaces file contents having `x` to `y`|
-|compress|creates <given name>.tar.gz from files uses first file name as tarball name|
-|bestcompress|creates <given name>tar.xz from files uses firstfile name as tarball name|
-|ex|archive extractor usage: ex <file>|
-|glow|Fill a pane(tmux) or split terminal with all white color,  might be useful if you dont have other light source|
-|vitmp|Create and open temporary file in vim|
-|clean_tmp|Remove all temporary files created by `mktemp` command|
-|dirdiff|Terminal based interactive directory diff tool using vim|
-|uncrust| 'uncrust [file names or wild char]' format given files as per the found config.|
-
-### Taskwarrior tmux
-
-|Shortcut|Description|
-|---|---|
-|devtask|Dashboard tmux window for task management with taskwarrior|
-|devtaskkill|Kill Dashboard tmux window for task management with taskwarrior|
-|devtaskstop|Stop Dashboard tmux window for task management with taskwarrior|
-|devtaskrelaod|Restart tracking tasks in Dashboard tmux window for task management with taskwarrior|
+|getsymbolo|Debugging helper find any symbol from compile .o files in any subdirectory.|
 
 ### Github
 
@@ -265,25 +289,4 @@ Please find below shortcuts provided by bashrc.
 |---|---|
 |gh_rel|Get latest github release file from a repo `Usage gh_rel <repo name> <file regex pattern>`|
 |ghkey|copy github key to clipboard one should add their github key to ~/.ghkey file|
-
-### Tmux
-
-|Shortcut|Description|
-|---|---|
-|tmux|Run `tmux` command with predefined env settings aliased to `EDITOR=nvim TERM=tmux-256color tmux -2 -u`|
-|rnp|Sets a titile which inturn renames a pane in tmux|
-|tm|Open new tmux session with given name, or attach if its already exist, if used first time opens resurrected tmux sessions and connect them|
-|tml|list currently running tmux sessions|
-|vtm|Open tmux custom config provided by this repository for editing in vim|
-|tmk|Kill tmux server and kill all processes having `tmux` in their command|
-|tmks|Kill session with given name|
-|tmkap|kill all panes other than current pane in tmux
-|ftwind|Find tmux windows in popup|
-|ftpanes|Find all panes on server using fzf and switch to the selected one|
-
-### Debugging
-
-|Shortcut|Description|
-|---|---|
-|getsymbolo|Debugging helper find any symbol from compile .o files in any subdirectory.|
 
