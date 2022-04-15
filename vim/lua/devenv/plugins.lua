@@ -97,6 +97,7 @@ packer.startup{function()
     use{"nvim-telescope/telescope-packer.nvim"}
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
     use { "nvim-telescope/telescope-hop.nvim" }
+    use {'will133/vim-dirdiff'}
 
     -- Install nvim-cmp, and buffer source as a dependency
     use {

@@ -73,6 +73,6 @@ nnoremap <leader>\ :set paste <ESC>:norm A/**<  */<ESC>:set nopaste<ESC><Left><L
 " Automatically update copyright notice with current year
 command UPDATECOPYRIGHT
   \  exe "g#\\cCOPYRIGHT \\(".strftime("%Y")."\\)\\@![0-9]\\{4\\}\\(-".strftime("%Y")."\\)\\@!#s#\\([0-9]\\{4\\}\\)\\(-[0-9]\\{4\\}\\)\\?#\\1-".strftime("%Y") |
-autocmd BufWritePre *
-  \ if &modified | exe "UPDATECOPYRIGHT" |
-  \ endif
+" autocmd BufWritePre *
+"   \ if &modified | exe "UPDATECOPYRIGHT" |
+"   \ endif

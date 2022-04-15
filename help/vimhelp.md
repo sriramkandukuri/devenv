@@ -188,7 +188,7 @@ Please find below shortcuts provided for vim.
 |Shortcut|Description|
 |---|---|
 |Space+c+o|Connect to cscope db using already existing cscope.out file
-|Space+C|open cscope interactively in telescope
+|Space+tcs|open cscope interactively in telescope
 |Space+c+s|cscope Find this C symbol
 |Space+c+d|cscope Find global definition
 |Space+c+c|cscope Find functions calling this function

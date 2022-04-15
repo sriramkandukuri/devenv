@@ -124,7 +124,7 @@ M.cscope = function(opts)
 end
 
 --VH |Space+c+o|Connect to cscope db using already existing cscope.out file
---VH |Space+C|open cscope interactively in telescope
+--VH |Space+tcs|open cscope interactively in telescope
 --VH |Space+c+s|cscope Find this C symbol
 --VH |Space+c+d|cscope Find global definition
 --VH |Space+c+c|cscope Find functions calling this function

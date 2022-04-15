@@ -106,8 +106,8 @@ cmpcfg = {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    documentation = {
-        border = utils.border,
+    window = {
+        documentation = cmp.config.window.bordered(),
     },
     snippet = {
         expand = function(args)
