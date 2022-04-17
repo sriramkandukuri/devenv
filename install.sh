@@ -253,6 +253,9 @@ tools_uncrustify ()
     cd build
     cmake -DCMAKE_BUILD_TYPE=Release ..
     make
+    if [ ! -d /usr/local/bin ];then
+        sudo mkdir /usr/local/bin/
+    fi
     sudo ln -s -f $PWD/uncrustify /usr/local/bin
     cd $devdir
 }
