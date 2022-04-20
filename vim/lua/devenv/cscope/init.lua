@@ -54,27 +54,27 @@ local cscopefilefn = function(c)
 end
 
 M.symbols = function()
-    word = word or vim.fn.expand "<cword>"
+    word = vim.fn.expand "<cword>"
     cscopefn("s")
 end
 M.callers = function()
-    word = word or vim.fn.expand "<cword>"
+    word = vim.fn.expand "<cword>"
     cscopefn("c")
 end
 M.files = function()
-    file = file or vim.fn.expand "<cfile>:t"
+    file = vim.fn.expand "<cfile>:t"
     cscopefilefn("f")
 end
 M.definitions = function()
-    word = word or vim.fn.expand "<cword>"
+    word = vim.fn.expand "<cword>"
     cscopefn("d")
 end
 M.includes = function()
-    file = file or vim.fn.expand "<cfile>:t"
+    file = vim.fn.expand "<cfile>:t"
     cscopefilefn("i")
 end
 M.assignments = function()
-    word = word or vim.fn.expand "<cword>"
+    word = vim.fn.expand "<cword>"
     cscopefn("a")
 end
 
@@ -84,8 +84,6 @@ local conf = require("telescope.config").values
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 M.cscope = function(opts)
-    word = vim.fn.expand "<cword>"
-    file = vim.fn.expand "<cfile>:t"
     opts = opts or {}
     local fns = {}
     for k,_ in pairs(M) do

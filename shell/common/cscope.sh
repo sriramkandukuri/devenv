@@ -34,7 +34,7 @@ cs ()
 ##BH |csf|Similar to above `cs` but removes all the cscope db files before creating new set of files. This can used to refresh the db if source is changed.|
 csf ()
 {
-    rm -rf $(find . -name "cscope.out" -o -name "tags" -o -name "compile_flags.txt" -o -name "cscope.files" -o -name "ccls-cache")
+    rm -rf $(find $@ -name "cscope.out" -o -name "tags" -o -name "compile_flags.txt" -o -name "cscope.files" -o -name "ccls-cache")
     cs $@
 }
 
