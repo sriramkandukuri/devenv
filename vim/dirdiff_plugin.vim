@@ -1,6 +1,6 @@
 " Dir diff options
 let g:DirDiffEnableMappings = 1
-let g:DirDiffExcludes = "cscope.files,cscope.out,tags,*.o,*.so,*.a,CVS,*.class,*.exe,.*.swp,*.git*"
+let g:DirDiffExcludes = "*__pycache__*,cscope.files,cscope.out,tags,*.o,*.so,*.a,CVS,*.class,*.exe,.*.swp,*.git*"
 let g:DirDiffIgnore = "Id:,Revision:,Date:"
 let g:DirDiffAddArgs = "-w -B"
 set diffopt+=iwhite

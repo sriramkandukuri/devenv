@@ -166,6 +166,7 @@ tools_pkgs ()
         ninja-build
         ppa-purge
         jq
+        ncdu
     "
 
     local gem_pkgs="
