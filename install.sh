@@ -507,6 +507,7 @@ prv_install_nvim ()
 
     pip3 install pynvim
     pip3 install neovim
+    pip3 install 'python-lsp-server[all]'
     sudo gem install neovim
     sudo npm install -g neovim
 }

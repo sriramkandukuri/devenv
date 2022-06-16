@@ -94,7 +94,7 @@ local custom_attach = function(client, bufnr)
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
     -- Set autocommands conditional on server_capabilities
-    if client.resolved_capabilities.document_highlight then
+    if client.server_capabilities.document_highlight then
         vim.cmd [[
         augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -104,7 +104,7 @@ local custom_attach = function(client, bufnr)
         ]]
     end
 
-    if client.resolved_capabilities.code_lens then
+    if client.server_capabilities.code_lens then
         vim.cmd [[
         augroup lsp_document_codelens
         au! * <buffer>
@@ -118,6 +118,7 @@ local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
 updated_capabilities = vim.tbl_deep_extend("keep", updated_capabilities, nvim_status.capabilities)
 updated_capabilities.textDocument.codeLens = { dynamicRegistration = false }
 updated_capabilities = require("cmp_nvim_lsp").update_capabilities(updated_capabilities)
+local lcutil = require("lspconfig.util")
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
@@ -151,7 +152,30 @@ local servers = {
     },
     html = false,
     jedi_language_server = false,
-    pylsp =  true,
+    pylsp =  {
+        cmd = {"pylsp"},
+        root_dir = function(fname)
+            local root_files = {
+                'pyproject.toml',
+                'setup.py',
+                'setup.cfg',
+                'requirements.txt',
+                'Pipfile',
+            }
+            return lcutil.root_pattern(unpack(root_files))(fname) or lcutil.find_git_ancestor(fname)
+        end,
+        settings = {
+            pylsp = {
+                configurationSources = {"pylint"},
+                plugins = {
+                    pylint = { enabled = true },
+                    flake8 = { enabled = false },
+                    pycodestyle = { enabled = false },
+                    pyflakes = { enabled = false },
+                }
+            }
+        }
+    },
     sumneko_lua = {
         settings = {
             Lua = {

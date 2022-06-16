@@ -76,3 +76,4 @@ command UPDATECOPYRIGHT
 " autocmd BufWritePre *
 "   \ if &modified | exe "UPDATECOPYRIGHT" |
 "   \ endif
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}
