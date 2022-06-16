@@ -2,7 +2,6 @@ vim.cmd('source ~/devenv/vim/nvimtree_plugin.vim')
 require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
   auto_reload_on_write = true,
   disable_netrw = true,
-  hide_root_folder = false,
   hijack_cursor = false,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
@@ -12,7 +11,10 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
   open_on_tab = false,
   sort_by = "name",
   update_cwd = false,
+  create_in_closed_folder = false,
+  respect_buf_cwd = true,
   view = {
+    hide_root_folder = false,
     width = 30,
     height = 30,
     side = "left",
@@ -28,6 +30,12 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
     },
   },
   renderer = {
+    root_folder_modifier = ":~",
+    add_trailing = true,
+    group_empty = true,
+    highlight_git = true,
+    full_name = false,
+    highlight_opened_files = "none",
     indent_markers = {
       enable = true,
       icons = {
@@ -36,6 +44,42 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
         none = "  ",
       },
     },
+    icons = {
+      webdev_colors = true,
+      git_placement = "before",
+      padding = " ",
+      symlink_arrow = " ➛ ",
+      show = {
+        file = true,
+        folder = true,
+        folder_arrow = true,
+        git = true,
+      },
+      glyphs = {
+        default = "",
+        symlink = "",
+        folder = {
+          arrow_closed = "",
+          arrow_open = "",
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+          symlink = "",
+          symlink_open = "",
+        },
+        git = {
+          unstaged = "✗",
+          staged = "✓",
+          unmerged = "",
+          renamed = "➜",
+          untracked = "★",
+          deleted = "",
+          ignored = "◌",
+        },
+      },
+    },
+    special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
   },
   hijack_directories = {
     enable = true,

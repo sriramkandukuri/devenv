@@ -167,6 +167,7 @@ tools_pkgs ()
         ppa-purge
         jq
         ncdu
+        ripgrep
     "
 
     local gem_pkgs="
@@ -208,7 +209,7 @@ tools_fzf ()
 
 tools_ripgrep ()
 {
-    [ "$FORCE_INSTALL" == "" ] && rg -V| grep '^ripgrep 11' && echo "ripgrep already installed" && return;
+    rg -V| grep -E '^ripgrep 11|^ripgrep 13' && echo "ripgrep already installed" && return;
     echo "ripgrep installing..."
     ce_dir rg
     curl -sS -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
@@ -501,9 +502,11 @@ prv_install_nvim ()
     echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > ~/.config/nvim/init.vim
     echo "let &packpath = &runtimepath" >> ~/.config/nvim/init.vim
     echo "source ~/.vimrc" >> ~/.config/nvim/init.vim
+    # by this time we should be able to have pyenv
+    pyenvit
 
-    sudo pip3 install pynvim
-    sudo pip3 install neovim
+    pip3 install pynvim
+    pip3 install neovim
     sudo gem install neovim
     sudo npm install -g neovim
 }
