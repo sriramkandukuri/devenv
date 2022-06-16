@@ -3,14 +3,15 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 # Vim aliases
+alias mynvim="pyenvit;nvim"
 ##BH |v|Opens nvim|
-alias v="nvim"
+alias v="mynvim"
 ##BH |vi|Opens nvim|
-alias vi="nvim"
+alias vi="mynvim"
 ##BH |nv|Opens nvim|
-alias nv="nvim"
+alias nv="mynvim"
 ##BH |vim|Opens nvim|
-alias vim="nvim"
+alias vim="mynvim"
 ##BH |ovim|Opens old/original vim instead of nvim|
 alias ovim="TERM=xterm-256color /usr/bin/vim"
 ##BH |vdbg|Debug neovim with log file|
