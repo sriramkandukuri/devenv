@@ -37,7 +37,7 @@ Please find below shortcuts provided for tmux.
 |Alt+n|Open new window|
 |Alt+q|Select pane from list of all panes on server using fzf and connect to that|
 |Alt+Q|Select session from list|
-|Ctrl+q|Rename current session|
+|Ctrl+b Ctrl+q|Rename current session|
 |Ctrl+Shift+\<RIGHT-ARROW\>|Select next tmux session|
 |Ctrl+Shift+\<LEFT-ARROW\>|Select previous tmux session|
 |Ctrl+l|Clear pane history|
