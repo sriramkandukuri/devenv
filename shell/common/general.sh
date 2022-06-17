@@ -64,7 +64,11 @@ alias chx="chmod +x"
 # set -o vi
 
 ##BH |r|Refresh command, if some programs delte and recreate some directory you can just press r to refresh it. works mostly ;)|
-alias r="ls -lhtr;cd $PWD"
+r ()
+{
+    ls -lhtr;
+    cd $(pwd)
+}
 
 ##BH |f|Simple find command to find given patterned files in current directory|
 f ()
