@@ -258,7 +258,7 @@ packer.startup{function()
         end,
     }
 
-    use "tami5/lspsaga.nvim"
+    use "glepnir/lspsaga.nvim"
     --  use 'nvim-lua/completion-nvim'
     --  use 'nvim-lua/diagnostic-nvim'
     --  use 'tjdevries/nlua.nvim'
