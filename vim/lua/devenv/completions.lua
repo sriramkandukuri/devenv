@@ -140,8 +140,8 @@ cmpcfg = {
         { name = 'cmp_tabnine'},
         { name = 'emoji'},
         { name = "crates"},
-        {name = "latex_symbols"},
-        {name = "digraphs"},
+        { name = "latex_symbols", trigger_characters = "\lxs"},
+        { name = "digraphs", trigger_characters = "\dgs"},
     },
 }
 cmp.setup(cmpcfg)
