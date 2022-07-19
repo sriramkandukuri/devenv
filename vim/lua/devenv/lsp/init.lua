@@ -94,7 +94,7 @@ local custom_attach = function(client, bufnr)
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
     -- Set autocommands conditional on server_capabilities
-    if client.server_capabilities.document_highlight then
+    if client.server_capabilities.documentHighlightProvider then
         vim.cmd [[
         augroup lsp_document_highlight
         autocmd! * <buffer>

@@ -3,7 +3,7 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 # Vim aliases
-alias mynvim="pyenvit;nvim"
+alias mynvim="pyenvit && nvim"
 ##BH |v|Opens nvim|
 alias v="mynvim"
 ##BH |vi|Opens nvim|
