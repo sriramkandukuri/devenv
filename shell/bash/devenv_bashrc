@@ -41,6 +41,7 @@ source ~/devenv/shell/common/pyenv.sh
 source ~/devenv/shell/common/tmux.sh
 source ~/devenv/shell/common/taskwarrior_tmux.sh
 source ~/devenv/shell/common/cheat_sheet.sh
+source ~/devenv/shell/common/worldclock.sh
 
 if [ -f ~/.privbashrc ]; then
     source ~/.privbashrc

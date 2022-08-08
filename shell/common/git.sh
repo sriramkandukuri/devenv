@@ -172,6 +172,12 @@ gichkpush()
     gilol ${b}..origin/${b}
 }
 
+##BH |gicht|git checkout a branch from tag with branch_tag name|
+gicht()
+{
+    git checkout -b branch_$1 $1
+}
+
 
 ##BH |gil|git log|
 alias gil="git log"

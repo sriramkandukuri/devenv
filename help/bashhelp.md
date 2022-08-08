@@ -176,6 +176,7 @@ Please find below shortcuts provided by bashrc.
 |gifa|git fetch all|
 |gipure|git rebase and pull|
 |gickhpush|git check current branch is pushed or not|
+|gicht|git checkout a branch from tag with branch_tag name|
 |gil|git log|
 |gilo|git log in oneline format|
 |gilol | awesome git log replacement|
@@ -289,4 +290,13 @@ Please find below shortcuts provided by bashrc.
 |---|---|
 |gh_rel|Get latest github release file from a repo `Usage gh_rel <repo name> <file regex pattern>`|
 |ghkey|copy github key to clipboard one should add their github key to ~/.ghkey file|
+
+### Worldclock
+
+|Shortcut|Description|
+|---|---|
+|worldclock|live search zones and get time of any time zone|
+|worldclockshow|show times at different zones|
+|swc|show times at different zones|
+|fwc|live search zones and get time of any time zone|
 
