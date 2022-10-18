@@ -114,10 +114,9 @@ local custom_attach = function(client, bufnr)
     end
 end
 
-local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
+local updated_capabilities = require("cmp_nvim_lsp").default_capabilities()
 updated_capabilities = vim.tbl_deep_extend("keep", updated_capabilities, nvim_status.capabilities)
 updated_capabilities.textDocument.codeLens = { dynamicRegistration = false }
-updated_capabilities = require("cmp_nvim_lsp").update_capabilities(updated_capabilities)
 local lcutil = require("lspconfig.util")
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
